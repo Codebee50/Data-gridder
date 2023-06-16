@@ -1,0 +1,30 @@
+@media screen and (max-width:700px){
+    .container{
+        display: flex;
+        flex-direction: column;
+
+        .left-content{
+            width: 90%;
+            margin: 2rem 0.2rem;
+        }
+        
+        .right-content{
+            width: 90%;
+
+            .table-container{
+                table{
+                    width: 100%;
+                }
+                #empty-header{
+                    width: 1.5rem;
+                }
+            }
+
+            .get-name{
+                input[type=submit]{
+                    padding: 0.7rem;
+                }
+            }
+        }
+    }
+}

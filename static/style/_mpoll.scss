@@ -1,0 +1,103 @@
+@media screen and (max-width :950px){
+    .container{
+        .leftparent{
+           position: absolute;
+           top: -100vh;
+           left: 2vw;
+           
+        }
+
+        .leftparent.active{
+            position: absolute;
+            padding: 15px 0;
+            border-radius: 7px;
+            top: 10vh;
+            height: 40vh;
+            background-color: #fafbfc;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+            width: 250px;
+
+            .user-details{
+                width: 100%;
+                border-bottom-left-radius: 7px;
+                border-bottom-right-radius: 7px;
+                margin-bottom: 0;
+               
+            }
+
+            #user-round{
+                font-size: 1.6rem;
+                margin-bottom: auto;
+                padding: 10px 10px;
+            }
+        }
+
+
+        .rightparent{
+            border: none;
+            .top-content{
+               .left-con{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                #mobile{
+                    display: flex !important;
+                    
+                }
+                #icon-display{
+                    display: none;
+                }
+               }
+            }
+            
+            .bottom-content{
+                .bottom-left{
+                    .field-container{
+                        .field{
+                            width: 85%;
+                        }
+                       
+                    }
+
+                    .create-container{
+                        padding: 5px;
+                        button{
+                            p{
+                                font-size: 0.7rem;
+                            }
+                        }
+                    }
+                }
+                .bottom-right{
+                    input[type=text]{
+                        outline: 0;
+                        width: 90%;
+                    }
+                }
+              
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 530px){
+  .container{
+    #contact-us{
+        .bottom-content{
+            
+            flex-direction: column;
+            
+            .bottom-left{
+                width: 100%;
+            }
+
+            .bottom-right{
+                align-self: center;
+                width: 90%;
+            }
+        }
+    }
+  }
+}

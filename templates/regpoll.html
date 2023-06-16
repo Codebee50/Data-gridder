@@ -1,0 +1,193 @@
+{% load static %}
+{% load sass_tags%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reg- {{pollcode}}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+    <link rel="stylesheet" href="{% sass_src 'style/reg.scss' %}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <form action="">
+       
+        <input type="hidden" name="pollcode" value="{{pollcode}}" id="in-poll-code">
+        <input type="hidden" name="value_id" value="{{value_id}}" id="value_id">
+    </form>
+   <section class="hero-section">
+    <div class="hero-image-container">
+        
+        <div class="overlay"></div>
+        <img src="{% static 'img/background.jpg' %}" alt="Image" class="hero-image">
+    </div>
+
+    <div class="content-container">
+        <div class="content-header">
+            <img src="{% static 'img/or_icon.svg' %}" alt="icon image">
+            <h1 class="content-title">Data Gridder</h1>
+        </div>
+
+        <div class="content-center">
+            <h1> {{pollname}}</h1>
+
+            <div class="center-details">
+                <div class="det">
+                    <i class="fa-solid fa-key"></i>
+                    <p>{{pollcode}}</p>
+                </div>
+
+                <div class="det">
+                    <i class="fa-regular fa-user"></i>
+                    <p>{{pollauthor}}</p>
+                </div>
+
+                <div class="det">
+                    <i class="fa-solid fa-users"></i>
+                    <p>{{itemcount}}</p>
+                </div>
+            </div>
+        </div>
+
+      
+    </div>
+   </section>
+
+   <section class="content-section">
+        <p id="prompt">Please fill the fields below</p>
+        <form action="" class="input-form" method="POST" id="submit-form">
+           {%csrf_token%} 
+            <div class="input-container">
+    
+            </div>
+
+            <input type="submit" value="Submit" id="submit">
+        </form>
+   </section>
+
+
+   <footer>
+
+    <div class="head">
+        <div class="f-one">
+            <div class="content">
+                <div class="gridder">
+                    <img src="{% static 'img/or_icon.svg' %}" alt="Gridder image">
+                    <h3 class="name-text">Data Gridder</h3>
+                </div>
+
+                <!-- <div class="codebee">
+                    <p>Powered by</p>
+                    <img src="{% static 'img/codebee.svg' %}" alt="">
+                </div> -->
+            </div>
+            
+        </div>
+        <div class="f-two a-list">
+            <div class="content">
+                <p class="title">Discover</p>
+            
+                <a href="/" class="active">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact us</a>
+                <a href="#get-input">Find poll</a>
+                <a href="#">Docs</a></li>
+                <a href="/dashboard">Dashboard</a>
+            </div>
+        </div>
+
+        <div class="f-three a-list">
+            <div class="content">
+                <p class="title">Activity</p>
+            
+                <a href="/" class="active">My polls</a>
+                <a href="#">Registered polls</a>
+                <a href="#">New poll</a>
+                <a href="#get-input">Contact us</a>
+                
+            </div>
+        </div>
+
+        <div class="f-four">
+            <div class="content">
+                <div class="follow-us">
+                    <p class="title">Folow us </p>
+                    <div class="icon-list">
+                        <i class="fa-brands fa-linkedin"></i>
+                        <i class="fa-brands fa-twitter end"></i>
+                    </div>
+                </div>
+                <div class="images-by">
+                   <p>Images by</p>
+                   <img src="{%static 'img/free-icon.svg' %}" alt="">
+                   <a href="https://www.freepik.com/" target="_blank">www.freepick.com</a>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    
+    <div class="bottom">
+        <div class="content">
+            <p>Copyright @2023 </p>
+            <img src="{% static 'img/codebee.svg'%}" alt="codebeeimg" class="side">
+            <p class="side">All right reserved</p>
+        </div>
+    </div>
+</footer>
+
+  
+
+   <div class="modal-container">
+    <div class="modal-box">
+        <div class="left-content">
+            <div class="oops">
+                <i class="fa-solid fa-cat"></i>
+                <p>Oops...</p>
+            </div>
+           
+            <p class="page-not">Page not found</p>
+            <p class="explanation">
+                We couldn't find the poll located at that link. This might be due to an incorrect link or a deleted poll, please check your link or contact
+                your poll creator for assistance
+            </p>
+            <a href="/">
+                <button>Back to home</button>
+            </a>
+        </div>
+
+        <div class="right-content">
+
+        </div>
+       
+       </div>
+    </div>
+
+    <div class="message-modal">
+        <div class="message-modal-box">
+           <div class="content">
+            <div class="icons">
+                <i class="fa-solid fa-circle-check" id="check-mark"></i>
+                <i class="fa-solid fa-circle-exclamation" id="error-mark"></i>
+            </div>
+            <div class="message-div">
+                <p id="txt-message"></p>
+                <button id="remove-message-modal">Done</button>
+            </div>
+           </div>
+            
+          
+        </div>
+    </div>
+
+
+</div>
+
+ <script src="{% static 'js/reg.js' %}"></script>  
+</body>
+</html>

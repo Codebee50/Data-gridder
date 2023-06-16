@@ -1,0 +1,50 @@
+{% load static %}
+{% load sass_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+<title> Login- Data gridder </title>
+<link rel="stylesheet" href="{% static 'style/sign.css' %}" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" type="image/x-icon" href="img/or_icon.svg">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+</head>
+<body>
+  
+    <section class="login">
+       <div class="container">
+        <div class="header">
+            <div class="content">
+                <div class="top">
+                    <img src="{% static 'img/or_icon.svg' %}" alt="icon image">
+                    <p>Data Gridder</p>
+                </div>
+                <p class="by">Powered by codebee</p>
+            </div>
+            
+        </div>
+
+        <div class="bottom">
+            <div class="welcome">
+                <p>Login to your account</p>
+            </div>
+            <div class="form-con">
+                <form action="/login" method="POST">
+                    {% csrf_token %}
+                    <input type="email" name="email"  placeholder="Email" class="enter-input" required>
+                    <input type="password" name="password" placeholder="password" class="enter-input" required> 
+                    <input type="submit" name="login" value="Login">
+                    {% for message in messages %}
+                    <p class="warning">{{message}}</p>
+                    {% endfor %}
+                    <p class="txt-already">Dont have an account? <span><a href="/register">Sign up</a></span></p>
+                </form>
+            </div>
+        </div>
+
+
+       </div>
+    </section>
+ 
+</body>
+</html>

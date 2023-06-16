@@ -1,0 +1,353 @@
+{% load static %}
+{% load sass_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+
+    <link rel="stylesheet" href="{% sass_src 'style/poll.scss' %}" type="text/css">
+    <!-- <link rel="stylesheet" href=" {% static 'style/poll.css' %}" > -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+    <title>Dashboard</title>
+</head>
+<body class="main-content">
+    <div class="container">
+
+        <!-- left parent, this section remains thesame throughout -->
+        <div class="leftparent" >
+            
+            <div class="navigations"> 
+                <div class="navigation" data-id="my-polls" id="con-my-polls">
+                    <i class="fa-solid fa-crown" data-id="my-polls"></i>
+                    <p data-id="my-polls">My polls</p>
+                </div>
+                 
+                <div class="navigation" data-id="rpolls" id="con-rpolls">
+                    <i class="fa-regular fa-star" data-id="rpolls"></i>
+                   <p data-id="rpolls">Registered polls</p>
+                </div>
+                 
+                <div class="navigation" data-id="new-poll" id="con-new-poll">
+                    <i class="fa-solid fa-plus" data-id="new-poll"></i>
+                    <p data-id="new-poll">New poll</p>
+                </div>
+                 
+                 <div class="contact-btn navigation" data-id="contact-us" id="con-contact-us">
+                    <i class="fa-regular fa-message" data-id="contact-us"></i>
+                    <p data-id="contact-us">Contact us</p>
+                </div>
+
+                <div class="log-out-btn navigation" data-id="log-out" id="con-log-out">
+                    <i class="fa-solid fa-right-from-bracket" data-id="log-out"></i>
+                    <p data-id="log-out">Log out</p>
+                </div>
+            </div>
+
+            <div class="user-details">
+                <div class="details">
+                    <a href="#"><a href="#"><i class="fa-regular fa-user"></i></a>
+                    <p>{{user_profile.user.email}}</p>
+                </div>
+               
+            </div>
+        </div>
+
+        <!-- new poll section -->
+        <div class="rightparent" id="new-poll">
+            <div class="top-content">
+                <div class="top-container">
+                    <div class="top-left">
+                        <div class="left-con">
+                            <div id="mobile">
+                                <i id="bar" class="fa-solid fa-bars bar"></i>
+                            </div>
+                            <img src="{% static 'img/icon.svg' %}" alt="iconimage" id="icon-display">
+                            <div class="left-right">
+                                <h2>New poll</h2>
+    
+                                <!-- <ul>
+                                    <li>File</li
+                                    <li><div class="drop-down">
+                                        <p>Design </p>
+                                        <i class="fa-solid fa-caret-down"></i>
+                                    </div></li>
+                                </ul> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top-right">
+                        <div id="publish-btn"><a href="/publish">Publish</a></div>
+                        <!-- <input type="submit" value="Publish" id="publish-btn"> -->
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-content">
+                <div class="bottom-left">
+                    <div class="field-container">
+                        <!-- <div class="field">
+                            <p>Blank</p>
+                        </div> -->
+
+                    </div>
+                    <div class="create-container">
+                        <button class="btn-new-field" id="btn-new-field">
+                            <p>New Field</p>
+                        </button>
+                        <button id="btn-add-below">
+                            <p>
+                                Add below
+                            </p>
+                        </button>
+                    </div>
+                   
+                </div>
+                <div class="bottom-right">
+                    <h4 class="poll-header">Poll field </h4>
+                    <hr>
+
+                    <div class="f-prop">
+                        <div class="feildname">
+                            <p>Name</p>
+                            <input type="text" name="field-name" id="field-name">
+                        </div>
+                        
+                        
+                        <input type="checkbox" name="required" id="required" value="Required">
+                        <label for="required">Required</label>
+                        <div>
+                            <h3>Data type </h3>
+                            <input type="radio" name="datatype" id="text" value="text">
+                            <label for="text">Text</label>
+                            <br>
+                            <input type="radio" name="datatype" id="number" value="number">
+                            <label for="number">Number</label>
+                            <br>
+
+                            <!-- <input type="radio" name="datatype" id="boolean" value="boolean">
+                            <label for="boolean">Boolean</label>
+                            <br> -->
+                            <input type="radio" name="datatype" id="empty" value="empty">
+                            <label for="empty">Empty</label>
+
+                        </div>
+
+                        
+                        <div class="ops">
+                            <i class="fa-regular fa-trash-can" id="delete-btn"></i>
+                            <input type="submit" value="Save" class="save-btn">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My polls-->
+        <div class="rightparent" id="my-polls">
+            <div class="top-content">
+                <div class="top-container">
+                    <div class="top-left">
+                        <div class="left-con">
+                            <div id="mobile">
+                                <i id="bar" class="fa-solid fa-bars bar"></i>
+                            </div>
+                            <img src="{% static 'img/icon.svg' %}" alt="iconimage" id="icon-display">
+                            <div class="left-right">
+                                <h2>My polls</h2>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="top-right">
+                        <input type="submit" value="Publish">
+                    </div> -->
+                </div>
+            </div>
+            <div class="bottom-content">
+                {% if polls|length >= 1 %}
+                <div class="all-polls">
+                    {% for poll in polls %}
+                    <div class="poll" id="{{poll.poll_code}}">
+                        <div class="poll-wrapper">
+                            <h3 class="poll-name">{{poll.poll_name}}</h3>
+                            <p class="poll-code"> {{poll.poll_code}}</p>
+                        </div>
+
+                        <div class="right">
+                            <i class="fa-solid fa-up-right-from-square redirect" id="{{poll.poll_code}}"></i>
+                            <i class="fa-regular fa-trash-can delete-poll" id="{{poll.poll_code}}"></i>
+                        </div>
+                       
+                    </div>
+                    {% endfor %}
+                                
+                </div>
+                {% else %}
+                <div class="emptiness">
+                    <div class="emp-content">
+                        <i class="fa-solid fa-cat"></i>
+                        <h4>Ooh such emptiness, try creating some polls</h4>
+                    </div>
+                    
+                </div>
+                {% endif %}
+               
+
+               
+               
+            </div>
+        </div>
+
+        <!-- Registered polls  -->
+        <div class="rightparent" id="rpolls">
+            <div class="top-content">
+                <div class="top-container">
+                    <div class="top-left">
+                        <div class="left-con">
+                            <div id="mobile">
+                                <i id="bar" class="fa-solid fa-bars bar"></i>
+                            </div>
+                            <img src="{% static 'img/icon.svg' %}" alt="iconimage" id="icon-display">
+                            <div class="left-right">
+                                <h2>Registered polls</h2>
+                                 <p>Polls you have registered in </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="top-right">
+                        <input type="submit" value="Publish">
+                    </div> -->
+                </div>
+            </div>
+            <div class="bottom-content">
+                <div class="all-polls">
+                    {% for poll_value in registered_polls %}
+                    <div class="reg-poll" id="{{poll.poll_code}}">
+                        <header>
+                            <div class="poll-wrapper">
+                                <h3 class="poll-name">{{poll_value.poll_name}}</h3>
+                                <p class="poll-code">{{poll_value.poll_code}}</p>
+                            </div>
+    
+                            <div class="right">
+                                <!-- <a href="/regpoll/{{poll_value.poll_code}}/{{poll_value.id}}/">
+                                    <button>Edit entry</button>
+                                </a> -->
+                           
+                                <i class="fa-solid fa-plus indicator" id="{{poll_value.poll_code}}"></i>
+                            </div>
+                        </header>
+                        <div class="accordion-body" id="{{poll_value.id}}">
+                            
+                            <div class="field_values_content">
+                                <!-- <div class="field">
+                                    <p class="value_name">Name:</p>
+                                    <p class="value_value">Udochukwu</p>
+                                </div> -->
+                                
+
+                            </div>
+
+                            <div class="actions">
+                                 <a href="/regpoll/{{poll_value.poll_code}}/{{poll_value.id}}/">
+                                    <!-- <button class="edit-entry">Edit entry</button> -->
+                                    <i class="fa-solid fa-pen-to-square edit-entry"></i>
+                                </a>
+                                <i class="fa-solid fa-trash-can delete-entry" id="{{poll_value.id}}"></i>
+                                <!-- <button class="delete-entry">Delete entry</button> -->
+                            </div>
+                        </div>
+                       
+                    </div>
+                    {% endfor %}
+                    
+            </div>
+        </div>
+
+        
+    </div>
+
+    <!-- contact us -->
+   
+
+    <div class="modal-container">
+        <div class="modal-box">
+           <div class="content">
+            <p id="cus-alert-message">This is the message</p>
+            <div class="button-container">
+                <button id="ok-btn">Ok</button>
+                <button id="cancel-btn">Cancel</button>
+            </div>
+           
+           </div>
+        </div>
+
+    </div>
+
+
+    <div class="delete-modal">
+        <div class="delete-box">
+           <div class="delete-content">
+            <p id="delete-alert-message">Sure to delete?</p>
+            <div class="button-container">
+                <button id="ok-del">Delete</button>
+                <button id="cancel-del">Cancel</button>
+            </div>
+           
+           </div>
+
+           <div class="prog-check">
+                <div class="show-status">
+                    <img src="{% static 'img/loading.gif' %}" alt="" width="30px" height="30px" id="spinner">
+                    <i class="fa-solid fa-circle-check" id="check"></i>
+                </div>
+                <p class="status-text">Deleting poll..</p>
+                <button id="finish-btn">Ok</button>
+           </div>
+        </div>
+    </div>
+
+    
+    <div class="delete-entry-modal">
+        <div class="delete-entry-box">
+           <div class="delete-entry-content">
+            <p id="delete-entry-message">Delete your entry for this poll?</p>
+            <div class="button-container">
+                <button id="ok-del-entry">Delete</button>
+                <button id="cancel-del-entry">Cancel</button>
+            </div>
+           
+           </div>
+
+           <div class="prog-check-entry">
+                <div class="show-status-entry">
+                    <img src="{% static 'img/loading.gif' %}" alt="" width="30px" height="30px" id="entry-spinner">
+                    <i class="fa-solid fa-circle-check" id="check-entry"></i>
+                </div>
+                <p class="status-text-entry">Deleting your entry</p>
+                <button id="finish-btn-entry">Ok</button>
+           </div>
+        </div>
+    </div>
+
+    <div class="log-out-modal">
+        <div class="modal-box">
+            <p>Logout of your account?</p>
+            <div class="actions">
+                <p id="t-cancel-log-out">CANCEL</p>
+                <a href="/logout"><p id="t-log-out">LOG OUT</p></a>
+                
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src="{% static 'js/poll.js' %}"></script>
+</body>
+</html>

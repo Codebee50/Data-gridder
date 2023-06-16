@@ -1,0 +1,103 @@
+{% load static %}
+<!-- {% load compress %} -->
+{% load sass_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up- Data Gridder</title>
+    
+    <link rel="stylesheet" href="{% static 'style/sign.css' %}" >
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+
+</head>
+<body>
+    
+    <section class="signup">
+        {% if mode == 'activate_mail' %}
+        <div class="verify-email-div">
+            <div class="header">
+              <div class="header-content">
+                <img src="{% static 'img/email-verf.svg' %}" alt="">
+                <h3>Verify your email</h3>
+               
+              </div>
+            </div>
+
+            <div class="verify-body">
+              <p class="conf-msg">An email has been sent to {{email}}, click the link in the email to proceed</p>
+              <hr>
+
+              <p class="edit-p">Wrong email?.. <span><a href="/editmail/{{username}}/{{email}}">edit details</a></span></p>
+              <button id="resend-btn"><p>Resend email</p> <p id="time-counter">00.00</p></button>
+            </div>
+
+            
+        </div>
+        {% elif mode == 'signup' %}
+        <div class="container">
+            <div class="header">
+                <div class="content">
+                    <div class="top">
+                        <img src="{% static 'img/or_icon.svg' %}" alt="icon image">
+                        <p>Data Gridder</p>
+                    </div>
+                    <p class="by">Powered by codebee</p>
+                </div>
+            </div>
+            <div class="bottom">
+            
+
+                <div class="form-con">
+                    <form action="/register" method="POST">
+                        <div class="make-details visible">
+                            <div class="welcome">
+                                <p>Sign up</p>
+                            </div>
+                            {% csrf_token %}
+                            <input type="text" name="username" placeholder="username" class="enter-input" required value="{{name}}">
+                            {% for message in messages %}
+                            {% if message.extra_tags == 'usernameinfo' %}
+                            <p class="warning">{{message}}</p>
+                            {% endif %}
+                            {% endfor %}
+                            <input type="email" name="email"  placeholder="email" class="enter-input" required>
+                            {% for message in messages %}
+                            {% if message.extra_tags == 'emailinfo' %}
+                            <p class="warning">{{message}}</p>
+                            {% endif %}
+                            {% endfor %}
+                            <input type="password" name="password" placeholder="password" class="enter-input password-input" required id="password-one">
+                            
+                            <input type="password" name="password2" placeholder="Confirm password" class="enter-input password-input" required id="password-two">
+                            <p class="warning" id="front-warning">passwords does not match</p>
+                            {% for message in messages %}
+                                {% if message.extra_tags == 'passwordinfo' %}
+                                <p class="warning">{{message}}</p>
+                                {% endif %}
+                            {% endfor %}
+
+                            <button>Create account</button>
+                        </div>
+                          
+                        <p class="txt-already">Already have an account? <span><a href="/login">Login</a></span></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+       
+        {% endif %}
+   
+        
+    </section>
+
+
+    <script src="{% static 'js/signup.js' %}"></script>
+</body>
+</html>

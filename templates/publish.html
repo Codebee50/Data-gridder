@@ -1,0 +1,156 @@
+{% load static %}
+{% load sass_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% sass_src 'style/pub.scss' %}" type="text/css">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+    <title>Gridder -Publish</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <section class="container">
+        <div class="left-content">
+            <h4 id="txt-append">Append document</h4>
+            <p id="txt-optional">(optional)</p>
+            
+            <div class="drop-file" id="drop-zone" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <p class="drop-prompt">Drag & drop files or <a href="#" id="browse-file">Browse</a></p>
+                <input type="file" name="document" placeholder="Browse" style="display: none;" id="file" accept=".doc, .docx">
+                <p class="txt-supported">Supported formats: .doc, .docx</p>
+            </div>
+
+            <div class="file-detail">
+                <p id="file-name">No file chosen</p>
+                <i class="fa-solid fa-circle-xmark" id="cancel-file"></i>
+            </div>
+
+            <p class="educative">
+                When you provide a file, it serves as a template for retrieving your data. To specify where the data should be inserted, ensure that you have a DG table at the desired position in your document a DG table is a single row and single column table which has the text DG inside it. This table will act as a reference to where data gridder will append your generated data.
+            </p>
+         
+            <p id="example-dg-text">An example dg table</p>
+                
+          
+        </div>
+        <div class="right-content">
+            <h4 class="txt-preview">Table Preview</h4>
+            <div class="table-container">
+                <!-- this will hold the table, it will be populated from publish.js  -->
+            </div>
+            <!-- <div class="details">
+                <div class="detail">
+                    <i class="fa-regular fa-user"></i>
+                    <p>George william</p>
+                </div>
+            </div> -->
+            <form action="/publish" id="publish-form" enctype="multipart/form-data">
+                {% csrf_token %}
+            <div class="get-name" >
+                <p class="p-label">Enter a name for your poll</p>
+                
+                <input type="text" placeholder="Poll name" name="poll-name" id="poll-name" required>
+               
+                <input type="submit" value="Publish poll" id="publish-poll">
+                   
+            </div>
+
+            
+        </form>
+        </div>
+       
+    </section>
+    
+    <div class="modal-container" id="modal-container">
+        <div class="modal-box">
+            <div class="progress-bar-con" id="progress-container">
+                <img src="{% static 'img/loading.gif' %}" alt="" width="30px" height="30px">
+
+                <div class="progress-details">
+                    <p>creating poll...</p>
+                </div>
+            </div>
+
+            <div class="display-result" id="result-container">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3 class="txt-created">Poll Created</h3>
+                <div class="details">
+                   <div class="detail">
+                        <div class="left">
+                            <p>Poll code: </p>
+                            <h5 class="value" id="txt-poll-code"></h5>
+                        </div>
+                        <div class="tooltip">
+                        <i class="fa-solid fa-copy" id="copy-poll-code"></i>
+                        <span class="tooltiptext" id="copy-poll-tooltip-text">Copy poll code</span>
+                        </div>
+                   </div>
+
+                   <div class="detail">
+                    <div class="left">
+                        <p>Link: </p>
+                        <h5 class="value poll-link" id="txt-poll-link"></h5>
+                    </div>
+                    <div class="tooltip">
+                    <i class="fa-solid fa-copy" id="copy-poll-link"></i>
+                    <span class="tooltiptext" id="copy-link-tooltip-text">Copy poll link</span>
+                    </div>
+               </div>
+
+
+                   <div class="detail">
+                    <div class="left">
+                        <p>Poll name:</p>
+                        <h5 class="value" id="txt-poll-name"> </h5>
+                    </div>
+                        
+                    </div>
+
+                    <div class="detail">
+                        <div class="left">
+                            <p>Owner: </p>
+                            <h5 class="value" id="txt-poll-owner">-</h5>
+                        </div>
+                        
+                    </div>
+                            
+                    
+                </div>
+        
+                <div class="bottom">
+                    <p>share this poll code with your target audience</p>
+                    <button class="done" id="btn-done">Done</button>
+                </div>
+               
+            </div>
+            
+            <div class="warning" id="warning-div">
+                <p id="warning-messsage">warning</p>
+                <button class="done" id="warn-done">Done</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="ex-dg-modal" id="ex-dg-modal">
+        <!-- <i class="fa-regular fa-circle-xmark"></i> -->
+        <i class="fa-solid fa-xmark" id="remove-ex-dg"></i>
+        <div class="m-box">
+            <img src="{% static 'img/sample-dg.png' %}" alt="" >
+        </div>
+    </div>
+    
+    <script src="{% static 'js/publish.js' %}"></script>
+    
+    
+</body>
+</html>

@@ -1,0 +1,13 @@
+@media screen and (max-width: 400px){
+  .holder{
+    .header-section{
+        .top-content{
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            row-gap: 0.6rem;
+            padding-top: 0.9rem;
+        }
+    }
+  }
+}

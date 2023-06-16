@@ -1,0 +1,270 @@
+{% load static %}
+{% load sass_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Gridder </title>
+    <link rel="stylesheet" href="{% sass_src 'style/style.scss' %}" type="text/css">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+   
+    <section class="landing">
+        <div id="mobile">
+            <i id="bar" class="fa-solid fa-bars"></i>
+        </div>
+        <div class="header" id="header">
+            <div class="gridder">
+                <h3 class="name-text">Data Gridder</h3>
+                <div class="right-stroke"></div>
+            </div>
+
+          
+                <div class="nav-bar">
+                    <i class="fa-solid fa-xmark" id="close-nav"></i>
+                    <ul>
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="#about-section">About</a></li>
+                    <li><a href="#contact-us-section">Contact us</a></li>
+                    <li><a href="#get-input">Find poll</a></li>
+                    <li><a href="#">Docs</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    </ul>
+                    <a href="/dashboard" class="dash-link">
+                        <div class="user">
+                            <i class="fa-regular fa-user"></i>
+                            <p>{{user_profile.user.username}}</p>
+                        </div>
+                        </a>
+                </div>   
+        </div>
+        <div class="bottom">
+            <div class="left-content">
+                <img src="{% static 'img/raw-people.svg' %}" alt="Hero image">
+            </div>
+            <div class="right-content">
+                <div class="content">
+                    <p>Go from</p>
+                    <h1>Form to document</h1>
+                    <div class="line">
+
+                    </div>
+                    <p class="remark">Data gridder allows you to design forms, collect data and retrieve your data as a table placed in any document of your choice</p>
+                    <button class="btn-new-poll">Create a poll</button>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+
+   <section class="input-poll-code">
+    
+    <div class="left-content" id="get-input">
+        <div class="content">
+            <h1>Find a poll</h1>
+            <div class="line"></div>
+            <p class="remark">Want to register for a poll?, enter the poll code and we'll load it right up for you</p>
+            <div class="form-div">
+                <form id="find-poll-form">
+                    {% csrf_token %}
+                    <input type="text" name="poll-code" id="poll-code" class="poll-code-input" placeholder="Enter a poll code">
+
+                    <button type="submit" name="" id="submit-btn" class="poll-submit"><i class="fa-solid fa-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+      
+    </div>
+
+    <div class="right-content">
+        
+        <img src="{% static 'img/reg-hands.svg' %}" alt="Hero image">
+    </div>
+    
+   </section>
+
+    <!-- <section class="get-input" id="get-input">
+        <div class="get-con">
+            <p>Find a poll</p>
+            <div class="form-div">
+                <form id="find-poll-form">
+                    {% csrf_token %}
+                    <input type="text" name="poll-code" id="poll-code" class="poll-code-input" placeholder="Enter a poll code">
+                    <input type="submit" name="" id="" class="poll-submit" value="Submit">
+                </form>
+
+                
+            </div>
+            
+        </div>
+    </section> -->
+
+   
+
+    <section class="about" id="about-section">
+        <div class="container">
+            <div class="content">
+                <h4>1</h4>
+                <h3>Create a new poll</h3>
+                <p>A poll is a design of the data you would want to collect from your audience, select the new poll option in your dashboard to create a new poll. </p>
+            </div>
+
+            <div class="content">
+                <h4>2</h4>
+                <h3>Collect data</h3>
+                <p>After creating your poll, distribute the poll code or poll link to your audience. The poll code is used in the "Find a Poll" section of this page, while the poll link allows direct access to the poll by pasting it into any preferred browser.
+                </p>
+            </div>
+
+            <div class="content">
+                <h4>3</h4>
+                <h3>View data</h3>
+                <p>Once users have registered for your poll, you can view the data in your poll through the "My Polls" option on your dashboard. Please note that this is only a preview of your data and does not reflect the actual appearance of your document.</p>
+            </div>
+
+            <div class="content">
+                <h4>4</h4>
+                <h3>Retrieve data</h3>
+                <p>To retrieve your poll in document format, simply click the download button. You have the option to choose a custom name for the downloaded document. Once you click download, the file will begin downloading automatically.</p>
+            </div>
+        </div>
+        
+    </section>
+
+    <section class="contact-us-section" id="contact-us-section">
+        <div class="contact-content">
+            <div class="left-content">
+                <div class="image-container">
+                    <img src="{% static 'img/cus-sup.png' %}" alt="">
+                    <div class="overlay">
+                        <div class="get-in-touch">
+                            <h3>Get in touch</h3>
+                            <p>We are open to receiving any suggestions that could contribute to enhancing our website for your better experience. Your feedback is valuable to us</p>
+                            <div class="contact-detail">
+                                <i class="fa-solid fa-envelope"></i>
+                                <p>codebee345@outlook.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-content">
+                <div class="content">
+                    <form class="content" action="/sendemail" method="POST">
+                        {% csrf_token %}
+                        <p>Send us a message</p>
+                        <!-- <input type="text" name="name" id="" placeholder="Name" class="text-input">
+                        <input type="email" name="email" id="" placeholder="Your email" class="text-input">
+                        <input type="text" name="subject" id="" placeholder="Subject" class="text-input">
+                        <textarea name="message" id="" cols="30" rows="10" class="text-input" placeholder="Message"></textarea> -->
+                     
+                        {{ contact_form }}
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-container" id="modal-container">
+        <div class="modal-box">
+         
+          
+        </div>
+    </div>
+
+
+    <footer>
+
+        <div class="head">
+            <div class="f-one">
+                <div class="content">
+                    <div class="gridder">
+                        <img src="{% static 'img/or_icon.svg' %}" alt="Gridder image">
+                        <h3 class="name-text">Data Gridder</h3>
+                    </div>
+    
+                    <!-- <div class="codebee">
+                        <p>Powered by</p>
+                        <img src="{% static 'img/codebee.svg' %}" alt="">
+                    </div> -->
+                </div>
+                
+            </div>
+            <div class="f-two a-list">
+                <div class="content">
+                    <p class="title">Discover</p>
+                
+                    <a href="/" class="active">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Contact us</a>
+                    <a href="#get-input">Find poll</a>
+                    <a href="#">Docs</a></li>
+                    <a href="/dashboard">Dashboard</a>
+                </div>
+            </div>
+
+            <div class="f-three a-list">
+                <div class="content">
+                    <p class="title">Activity</p>
+                
+                    <a href="/" class="active">My polls</a>
+                    <a href="#">Registered polls</a>
+                    <a href="#">New poll</a>
+                    <a href="#get-input">Contact us</a>
+                    
+                </div>
+            </div>
+
+            <div class="f-four">
+                <div class="content">
+                    <div class="follow-us">
+                        <p class="title">Folow us </p>
+                        <div class="icon-list">
+                            <i class="fa-brands fa-linkedin"></i>
+                            <i class="fa-brands fa-twitter end"></i>
+                        </div>
+                    </div>
+                    <div class="images-by">
+                       <p>Images by</p>
+                       <img src="{%static 'img/free-icon.svg' %}" alt="">
+                       <a href="https://www.freepik.com/" target="_blank">www.freepick.com</a>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom">
+            <div class="content">
+                <p>Copyright @2023 </p>
+                <img src="{% static 'img/codebee.svg'%}" alt="codebeeimg" class="side">
+                <p class="side">All right reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/app.js' %}"></script>
+
+    
+    </body>
+
+   
+
+
+   
