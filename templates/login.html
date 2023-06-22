@@ -26,7 +26,7 @@
 
         <div class="bottom">
             <div class="welcome">
-                <p>Login to your account</p>
+                <p>Welcome back!.. <span>Login</span></p>
             </div>
             <div class="form-con">
                 <form action="/login" method="POST">
@@ -37,6 +37,7 @@
                     {% for message in messages %}
                     <p class="warning">{{message}}</p>
                     {% endfor %}
+                    <p class="txt-forgot">Forgot password? <span><a href="#">Reset</a></span></p>
                     <p class="txt-already">Dont have an account? <span><a href="/register">Sign up</a></span></p>
                 </form>
             </div>

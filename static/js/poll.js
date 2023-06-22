@@ -73,7 +73,7 @@ $('document').ready(function(e){
         'url': '/getuservalues',
         'type': 'GET',
         success: (response) =>{
-       
+            
             orgarnizeAccordions(response.user_values)
         },
         error: (response) =>{

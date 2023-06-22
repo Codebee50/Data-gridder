@@ -110,9 +110,9 @@ $min-head-footer-height: 35vh;
 
     .input-poll-code{
         flex-direction: column;
-    
+        padding: 0;
         .left-content{
-           
+           padding: 4rem;
             width: 100%;
             .content{
                 align-items: center;
@@ -130,7 +130,8 @@ $min-head-footer-height: 35vh;
             }
         }
         .right-content{
-            display: none;
+           margin-top: 0.9rem;
+            width: 100%;
         }
     }
 
@@ -195,8 +196,11 @@ $min-head-footer-height: 35vh;
             }
 
             .right-content{
+                
                 width: 100%;
-                height: 70vh;
+                height: max-content;
+                padding: 1.2rem 0;
+                // min-height: max-content;
                 .content{
                     width: 90%;
                 }
@@ -205,4 +209,22 @@ $min-head-footer-height: 35vh;
     }
 }
 
+@media screen and(max-width: 950px){
+    .input-poll-code{
+        .right-content{
+            .des{
+                width: 80%;
+            }
+        }
+    }
+}
 
+@media screen and (max-width: 750px){
+    .input-poll-code{
+        .right-content{
+            .des{
+                width: 90%;
+            }
+        }
+    }
+}

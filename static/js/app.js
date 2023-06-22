@@ -4,6 +4,8 @@ const header = document.querySelector('.header')
 const bar = document.getElementById('bar')
 let modalContainer = document.getElementById('modal-container')
 const btnNewPoll = document.querySelector('.btn-new-poll')
+let submitBtn = document.getElementById('submit-btn')
+let loadingPoll = document.querySelector('.loading-poll-div')
 
 // Check if the browser supports smooth scrolling
 if ('scrollBehavior' in document.documentElement.style) {
@@ -32,7 +34,8 @@ mobile.addEventListener('click', ()=>{
 
 $(document).on('submit', '#find-poll-form', function(e){
     e.preventDefault()
-
+    submitBtn.disabled = true
+    loadingPoll.classList.add('visible')
     $.ajax({
         type: 'POST',
         url: '/findpoll',
@@ -41,6 +44,8 @@ $(document).on('submit', '#find-poll-form', function(e){
             'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()
         },
         success: function(data){
+            submitBtn.disabled= false
+            loadingPoll.classList.remove('visible')
             if(data.status== 'success'){
                     modalContainer.classList.add('visible')
                     let content = `<div class="result-container">
@@ -88,7 +93,7 @@ $(document).on('submit', '#find-poll-form', function(e){
             else{
                 modalContainer.classList.add('visible')
                 const content = `   <div class="warning-div">
-                <p id="warning-message">Invalid poll code</p>
+                <p id="warning-message">Poll does not exist, check your poll code and try again</p>
                 <button id="btn-ok">Ok</button>
             </div>`
 
@@ -103,6 +108,8 @@ $(document).on('submit', '#find-poll-form', function(e){
            
         },
         error: function(data){
+            loadingPoll.classList.remove('visible')
+            submitBtn.disabled = false
             alert(data)
         }
     })

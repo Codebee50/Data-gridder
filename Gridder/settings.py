@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-p^k^e4%%@68*o3d(l*)nvg334b9yz5v^6-ea7_og0*-tpy94(6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.0.100']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.0.101']
+# ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -157,12 +157,12 @@ AUTHENTICATION_BACKENDS = [
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'codebee309@zohomail.com'
-EMAIL_HOST_PASSWORD = 'labalaba'
-EMAIL_FROM_USER = 'codebee309@zohomail.com'
+EMAIL_HOST_USER = 'codebee286@gmail.com'
+EMAIL_HOST_PASSWORD = 'sssvsyicmhkyzskg'
+EMAIL_FROM_USER = 'codebee286@gmail.com'
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 

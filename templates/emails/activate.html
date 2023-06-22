@@ -10,7 +10,7 @@
 <body>
     <h1 style="font-family: sans-serif;">Hi {{user.user.username}}, verify your email address</h1>
 <p style="font-family: sans-serif;">Welcome!, to start using Data gridder, verify your email below:</p>
-<a href="http:://{{domain}}{% url 'activate' uidb64=uid token=token%}" style="text-align: center; background-color: #0DC58A; padding: 10px; color: white; font-weight: 600; font-family: sans-serif; text-decoration: none; ">Verify email</a>
+<a href="http:{{domain}}{% url 'activate' uidb64=uid token=token%}" style="text-align: center; background-color: #0DC58A; padding: 10px; color: white; font-weight: 600; font-family: sans-serif; text-decoration: none; ">Verify email</a>
 </body>
 </html>
 

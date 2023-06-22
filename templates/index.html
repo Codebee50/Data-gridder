@@ -86,36 +86,41 @@
                     <button type="submit" name="" id="submit-btn" class="poll-submit"><i class="fa-solid fa-arrow-right"></i></button>
                 </form>
             </div>
+            <div class="loading-poll-div">
+                <img src="{% static 'img/loading.gif' %}" alt="Hero image" width="15px" height="15px">
+                <p>fetching poll..</p>
+            </div>
         </div>
       
     </div>
 
     <div class="right-content">
-        
-        <img src="{% static 'img/reg-hands.svg' %}" alt="Hero image">
+    
+        <div class="des">
+            <h2 class="question">What are polls?</h2>
+            <p>Polls are a representation of the data your administrator would like you to provide, after retrieving a poll using its poll code, fill the form to complete your registration. Please note that the data you provide will be completely visible to the poll author  </p>
+            <div class="img-con">
+                <img src="{% static 'img/clip-board.png' %}" alt="Hero image">
+            </div>
+            
+        </div>
+
+
+        <!-- <div class="image-container">
+            <img src="{% static 'img/man-writing.jpg' %}" alt="Hero image">
+            <div class="overlay">
+
+            </div>
+        </div> -->
     </div>
     
    </section>
 
-    <!-- <section class="get-input" id="get-input">
-        <div class="get-con">
-            <p>Find a poll</p>
-            <div class="form-div">
-                <form id="find-poll-form">
-                    {% csrf_token %}
-                    <input type="text" name="poll-code" id="poll-code" class="poll-code-input" placeholder="Enter a poll code">
-                    <input type="submit" name="" id="" class="poll-submit" value="Submit">
-                </form>
-
-                
-            </div>
-            
-        </div>
-    </section> -->
-
+    
    
 
     <section class="about" id="about-section">
+        <!-- <p class="prompt">Create a poll</p> -->
         <div class="container">
             <div class="content">
                 <h4>1</h4>
@@ -237,7 +242,8 @@
                         <p class="title">Folow us </p>
                         <div class="icon-list">
                             <i class="fa-brands fa-linkedin"></i>
-                            <i class="fa-brands fa-twitter end"></i>
+                            <a href="https://twitter.com/CodeBee50" target="_blank"> <i class="fa-brands fa-twitter end"></i></a>
+                           
                         </div>
                     </div>
                     <div class="images-by">

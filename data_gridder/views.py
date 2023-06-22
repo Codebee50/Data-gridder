@@ -92,7 +92,7 @@ def send_activation_email(user,request):
         'token': generate_token.make_token(user)
     })
 
-    email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee309@zohomail.com>',
+    email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
                  to=[user.user.email])
     email.content_subtype = 'html'
     email.send()
@@ -126,8 +126,17 @@ def login(request):
         user = auth.authenticate(request, username= email, password=password)
         
         if user is not None:
-            auth.login(request, user)
-            return redirect('/')
+            user_profile= Profile.objects.get(user = user)
+            if user_profile is not None:
+                if user_profile.is_email_verified:
+                    print('user is verified and good to go')
+                    auth.login(request, user)
+                    return redirect('/')
+                else:
+                    messages.info(request, 'Email is not verified, please verify your email')
+            else:
+                messages.info(request, 'An error occured')
+
         else: 
             messages.info(request, 'Invalid credentials')
             return redirect('login')
@@ -317,6 +326,7 @@ def publish(request):
                     
                     if dgTable == True:
                         old_file_name = document.name
+
                         # unique_id = str(uuid.uuid4())
 
                         _, ext = os.path.splitext(old_file_name)
@@ -693,7 +703,7 @@ def sendEmail(request):
                  'subject':subject,
                  'message': message
             })
-            send_mail(subject, message, 'Data gridder <codebee309@zohomail.com>', ['codebee345@outlook.com'],html_message=html,fail_silently=False)
+            send_mail(subject, message, 'Data gridder <codebee286@gmail.com>', ['codebee345@outlook.com'],html_message=html,fail_silently=False)
             print(contact.name)
         else:
             print('form is not valid')

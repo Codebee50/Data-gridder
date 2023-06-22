@@ -1,8 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 body {
-  background-color: #8BB6CC;
+  background-color: white;
   font-family: 'lato', sans-serif;
+}
+
+html::-webkit-scrollbar {
+  width: .5rem;
+  background-color: #f7f2f2;
+}
+
+html::-webkit-scrollbar-thumb {
+  border-radius: 2rem;
+  background: #393B4A;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
 * {
@@ -14,7 +31,7 @@ body {
 
 .signup {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -42,6 +59,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   height: 50px;
+  margin-bottom: 6rem;
 }
 
 .signup .container .header .content {
@@ -79,6 +97,7 @@ body {
   font-weight: 550;
   font-family: 'Inter', sans-serif;
   font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .signup .container .header .content .by {
@@ -96,7 +115,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  margin-top: 1.2rem;
+  margin-bottom: 0.9rem;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -108,8 +127,14 @@ body {
 }
 
 .signup .container .bottom .welcome p {
-  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
   text-align: center;
+  font-weight: 700;
+}
+
+.signup .container .bottom .welcome p span {
+  color: #E07243;
 }
 
 .signup .container .bottom .form-con form {
@@ -140,8 +165,7 @@ body {
 .signup .container .bottom .form-con form .make-details.visible .enter-input {
   padding: 0.7rem 0.5rem;
   margin: 0.4rem 2.5rem;
-  background-color: #f7f2f2;
-  border: none;
+  border: 1px solid #dbd6d6;
   outline: none;
   border-radius: 4px;
 }
@@ -438,7 +462,7 @@ body {
 
 .login {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -466,6 +490,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   height: 50px;
+  margin-bottom: 6rem;
 }
 
 .login .container .header .content {
@@ -502,6 +527,8 @@ body {
 .login .container .header .content .top p {
   font-weight: 550;
   font-size: 1.4rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
 }
 
 .login .container .header .content .by {
@@ -531,8 +558,14 @@ body {
 }
 
 .login .container .bottom .welcome p {
-  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
   text-align: center;
+  font-weight: 700;
+}
+
+.login .container .bottom .welcome p span {
+  color: #E07243;
 }
 
 .login .container .bottom .form-con form {
@@ -549,8 +582,7 @@ body {
 .login .container .bottom .form-con form .enter-input {
   padding: 0.7rem 0.5rem;
   margin: 0.4rem 2.5rem;
-  background-color: #f7f2f2;
-  border: none;
+  border: 1px solid #dbd6d6;
   outline: none;
   border-radius: 4px;
 }
@@ -568,7 +600,13 @@ body {
 
 .login .container .bottom .form-con form .txt-already {
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  margin-top: 0.9rem;
+}
+
+.login .container .bottom .form-con form .txt-forgot {
+  font-size: 1rem;
+  text-align: center;
 }
 
 .login .container .bottom .form-con form .warning {
