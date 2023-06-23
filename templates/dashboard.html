@@ -20,8 +20,7 @@
     <div class="container">
 
         <!-- left parent, this section remains thesame throughout -->
-        <div class="leftparent" >
-            
+        <div class="leftparent">
             <div class="navigations"> 
                 <div class="navigation" data-id="my-polls" id="con-my-polls">
                     <i class="fa-solid fa-crown" data-id="my-polls"></i>
@@ -191,7 +190,7 @@
                 <div class="emptiness">
                     <div class="emp-content">
                         <i class="fa-solid fa-cat"></i>
-                        <h4>Ooh such emptiness, try creating some polls</h4>
+                        <p class="txt-ooh">Ooh such emptiness, try creating some polls</p>
                     </div>
                     
                 </div>
@@ -225,6 +224,7 @@
                 </div>
             </div>
             <div class="bottom-content">
+                {% if registered_polls|length >= 1 %}
                 <div class="all-polls">
                     {% for poll_value in registered_polls %}
                     <div class="reg-poll" id="{{poll.poll_code}}">
@@ -266,7 +266,17 @@
                     </div>
                     {% endfor %}
                     
-            </div>
+                </div>
+                {% else %}
+                <div class="emptiness">
+                    <div class="emp-content">
+                        <i class="fa-solid fa-cat"></i>
+                 
+                        <p class="txt-ooh">Polls you have registered in will appear here</p>
+                    </div>
+                    
+                </div>
+                {% endif %}
         </div>
 
         

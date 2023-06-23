@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 body {
   font-family: 'lato', sans-serif; }
 
@@ -6,6 +7,25 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box; }
+
+.emptiness {
+  height: 70vh;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  margin: auto 0.9rem; }
+  .emptiness .emp-content {
+    display: flex;
+    flex-direction: column;
+    margin: auto; }
+    .emptiness .emp-content i {
+      font-size: 2.5rem;
+      color: #031536e6; }
+    .emptiness .emp-content .txt-ooh {
+      font-family: 'Inter', sans-serif;
+      margin-top: 0.5rem; }
 
 html::-webkit-scrollbar {
   width: .5rem;
@@ -106,6 +126,8 @@ html::-webkit-scrollbar {
             .container .rightparent .top-content .top-container .top-left .left-con .left-right {
               align-self: center;
               padding: 0 10px; }
+              .container .rightparent .top-content .top-container .top-left .left-con .left-right h2 {
+                color: #393B4A; }
         .container .rightparent .top-content .top-container .top-right {
           width: 30%;
           display: flex;
@@ -142,11 +164,18 @@ html::-webkit-scrollbar {
       flex-direction: column;
       align-content: center;
       justify-content: center; }
+      .container #new-poll .bottom-content .bottom-left .field-container::-webkit-scrollbar {
+        width: .5rem;
+        background-color: #fafbfc; }
+      .container #new-poll .bottom-content .bottom-left .field-container::-webkit-scrollbar-thumb {
+        border-radius: 2rem;
+        background: #393B4A; }
       .container #new-poll .bottom-content .bottom-left .field-container {
         position: relative;
         overflow-y: scroll;
         margin: auto;
-        width: 100%; }
+        width: 100%;
+        scrollbar-color: white; }
         .container #new-poll .bottom-content .bottom-left .field-container .field {
           width: 90%;
           max-width: 170px;
@@ -229,8 +258,7 @@ html::-webkit-scrollbar {
             margin-left: 10px;
             cursor: pointer; }
   .container #my-polls .bottom-content {
-    overflow-y: scroll;
-    background-color: #fafbfc; }
+    overflow-y: scroll; }
     .container #my-polls .bottom-content .all-polls {
       display: flex;
       flex-direction: column;
@@ -271,23 +299,6 @@ html::-webkit-scrollbar {
             display: flex;
             margin: 0 10px;
             cursor: pointer; }
-    .container #my-polls .bottom-content .emptiness {
-      width: 100%;
-      height: 100vh;
-      overflow-y: auto;
-      position: fixed;
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-      justify-content: center;
-      margin: 0 0.9rem; }
-      .container #my-polls .bottom-content .emptiness .emp-content {
-        display: flex;
-        flex-direction: column;
-        margin: auto; }
-        .container #my-polls .bottom-content .emptiness .emp-content i {
-          font-size: 3rem;
-          color: #031536e6; }
   .container #contact-us .bottom-content {
     background-color: white;
     width: 100%;

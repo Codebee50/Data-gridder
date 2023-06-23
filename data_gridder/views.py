@@ -393,7 +393,7 @@ def viewPoll(request, pollcode):
 @login_required(login_url= 'login')
 def getPollAndValues(request, pollcode):
         if request.method == 'GET': 
-            poll = Poll.objects.get(poll_code= pollcode)
+            poll = Poll.objects.get(poll_code=pollcode)
             
             pollValues = PollValue.objects.filter(poll_code=pollcode)
             serialized_poll = serialize('json', [poll])
