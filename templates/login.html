@@ -6,7 +6,7 @@
 <title> Login- Data gridder </title>
 <link rel="stylesheet" href="{% static 'style/sign.css' %}" >
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" type="image/x-icon" href="img/or_icon.svg">
+<!-- <link rel="shortcut icon" type="image/x-icon" href="img/or_icon.svg"> -->
 <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
 </head>
 <body>
@@ -26,7 +26,7 @@
 
         <div class="bottom">
             <div class="welcome">
-                <p>Welcome back!.. <span>Login</span></p>
+                <p class="welcome-message">Welcome back!.. <span>Login</span></p>
             </div>
             <div class="form-con">
                 <form action="/login" method="POST">
@@ -35,9 +35,14 @@
                     <input type="password" name="password" placeholder="password" class="enter-input" required> 
                     <input type="submit" name="login" value="Login">
                     {% for message in messages %}
+                    {% if message.extra_tags == 'userverified' %}
+                    <p class="warning" style="color: green;">{{message}}</p>
+                    {% else %}
                     <p class="warning">{{message}}</p>
+                    {% endif %}
+                    
                     {% endfor %}
-                    <p class="txt-forgot">Forgot password? <span><a href="#">Reset</a></span></p>
+                    <p class="txt-forgot">Forgot password? <span><a href="{% url 'request-reset-email' %}">Reset</a></span></p>
                     <p class="txt-already">Dont have an account? <span><a href="/register">Sign up</a></span></p>
                 </form>
             </div>

@@ -184,7 +184,7 @@ $min-head-footer-height: 35vh;
     }
 }
 
-@media screen and(max-width:500px){
+@media screen and (max-width: 500px){
     .contact-us-section{
         padding: 1.2rem 0.5rem;
         .contact-content{
@@ -209,7 +209,7 @@ $min-head-footer-height: 35vh;
     }
 }
 
-@media screen and(max-width: 950px){
+@media screen and (max-width: 950px){
     .input-poll-code{
         .right-content{
             .des{
@@ -228,3 +228,83 @@ $min-head-footer-height: 35vh;
         }
     }
 }
+
+
+/** About section queries**/
+
+@media screen and (max-width: 735px){
+    .about{
+       .top-container{
+        width: 100%;
+        .text-container{
+            width: 100%;
+
+            .left{
+
+            }
+
+            .right{
+                height: 50vh;
+            }
+        }
+       } 
+    }
+}
+
+@media screen and (max-width: 590px){
+    .about{
+        
+        .top-container{
+         width: 100%;
+         .text-container{
+            width: 100%;
+            flex-direction: column-reverse;
+
+ 
+            .left{
+                width: 70%;
+                margin-top: 0.9rem;
+
+                p{
+                    text-align: center;
+                }
+            }
+ 
+            .right{
+                width: 70%;
+                height: 50vh;
+            }
+         }
+        } 
+     }
+}
+
+@media screen and (max-width: 550px){
+    .about{
+        .top-container{
+         width: 100%;
+         .text-container{
+            width: 100%;
+            flex-direction: column-reverse;
+
+ 
+            .left{
+                width: 90%;
+                max-width: 90%;
+                margin-top: 0.9rem;
+
+                p{
+                    text-align: start;
+                }
+            }
+ 
+            .right{
+                width: 90%;
+                max-width: 90%;
+                height: 50vh;
+            }
+         }
+        } 
+     }
+}
+

@@ -15,6 +15,8 @@ const showSample = document.getElementById('example-dg-text')
 const showSampleModal = document.getElementById('ex-dg-modal')
 const removeSample = document.getElementById('remove-ex-dg')
 const copyPollToolText = document.getElementById('copy-poll-tooltip-text')
+const domainInput = document.getElementById('domain')
+
 
 showSample.addEventListener('click', function(e){
     showSampleModal.classList.add('visible')
@@ -111,8 +113,7 @@ $(document).on('submit', '#publish-form', function(e){
     modalContainer.classList.add('visible')
     progressContainer.classList.add('visible')
     let pollcode = genereatePollCode()
-    let serverLink = 'http://127.0.0.1:8000/regpoll/'
-    let polLink = serverLink + pollcode+ '/'
+   
 
     //preparing the data to be sent  
     let mData = new FormData()
@@ -139,6 +140,7 @@ $(document).on('submit', '#publish-form', function(e){
            const btnDone = document.getElementById('btn-done')
            btnDone.addEventListener('click', function(){
             modalContainer.classList.remove('visible')
+            window.location.href= '/dashboard'
            })
 
 
@@ -175,6 +177,10 @@ $(document).on('submit', '#publish-form', function(e){
            const txtPollName = document.getElementById('txt-poll-name')
            const txtPollAuthor = document.getElementById('txt-poll-owner')
 
+
+           let serverLink = `http:${data.domain}/regpoll/`
+           let polLink = serverLink + data.pollcode+ '/nb'
+           
            txtPollCode.textContent = data.pollcode
            txtPollName.textContent = data.pollname
            txtPollAuthor.textContent = data.pollauthor

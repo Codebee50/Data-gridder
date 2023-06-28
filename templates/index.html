@@ -8,7 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Gridder </title>
-    <link rel="stylesheet" href="{% sass_src 'style/style.scss' %}" type="text/css">
+   <!--<link rel="stylesheet" href="{% sass_src 'style/style.scss' %}" type="text/css">-->
+   <link rel="stylesheet" href=" {% static 'style/style.css' %}" >
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,8 +42,8 @@
                     <li><a href="#about-section">About</a></li>
                     <li><a href="#contact-us-section">Contact us</a></li>
                     <li><a href="#get-input">Find poll</a></li>
-                    <li><a href="#">Docs</a></li>
-                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/documentation" target="_blank">Learn</a></li>
+                    <li><a href="/dashboard" >Dashboard</a></li>
                     </ul>
                     <a href="/dashboard" class="dash-link">
                         <div class="user">
@@ -52,6 +53,8 @@
                         </a>
                 </div>   
         </div>
+
+        
         <div class="bottom">
             <div class="left-content">
                 <img src="{% static 'img/raw-people.svg' %}" alt="Hero image">
@@ -121,6 +124,38 @@
 
     <section class="about" id="about-section">
         <!-- <p class="prompt">Create a poll</p> -->
+        <div class="top-container">
+            <!-- <h3 class="topic-text">About</h3>
+            <div class="topic-underline">
+
+            </div> -->
+
+            <div class="text-container">
+                <div class="left">
+                    <p>
+                        Need to compile a list or a table from the data of an audience? We've got you covered!
+                        Introducing Data Gridder, a powerful tool that allows you to collect data from your audience in the form of structured polls. With Data Gridder, you can define the names and datatypes of the data you want to collect, making the process seamless and efficient.
+                        But that's not all! Data Gridder also provides the option to incorporate your own document with pre-designed headers and texts. This allows you to maintain a consistent format and branding throughout the data collection process.
+                        To learn more about how to create and manage polls using Data Gridder, click <span><a href="/documentation" target="_blank">here</a></span>.
+                        Take the hassle out of collecting and organizing audience data. Try Data Gridder today!
+                    </p>
+                </div>
+
+                <div class="right">
+                    <div class="image-container">
+                        <img src="{% static 'img/black-girl-laptop.jpg' %}" alt="">
+                        <div class="overlay">
+                            <div class="get-in-touch">
+                                <h3>Data gridder</h3>
+                                <p>Why go through all that stress of typing and orgarnising audience data when there is an efficient tool built to do it for you</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             
+            </div>
+        </div>
         <div class="container">
             <div class="content">
                 <h4>1</h4>
@@ -159,10 +194,7 @@
                         <div class="get-in-touch">
                             <h3>Get in touch</h3>
                             <p>We are open to receiving any suggestions that could contribute to enhancing our website for your better experience. Your feedback is valuable to us</p>
-                            <div class="contact-detail">
-                                <i class="fa-solid fa-envelope"></i>
-                                <p>codebee345@outlook.com</p>
-                            </div>
+                         
                         </div>
                     </div>
                 </div>
@@ -189,7 +221,26 @@
     <div class="modal-container" id="modal-container">
         <div class="modal-box">
          
-          
+            <!-- <div class="result-container">
+                <div class="left-content">
+                    <div class="det">
+                        <p class="p-name" id="p-name" title="This is the very fucking long poll">This is a very fukcing long poll name</p>
+                    </div>
+                    <div class="det">
+                        <i class="fa-regular fa-user"></i>
+                        <p class="p-author" id="p-author">Udochukwu</p>
+                    </div>
+                    <div class="det">
+                        <i class="fa-solid fa-key"></i>
+                        <p class="p-code" id="p-code">DG-UI89756</p>
+                    </div>
+                </div>
+    
+                <div class="right-content">
+                    <button id="btn-go">Go</button>
+                    <button id="btn-cancel">Cancel</button>
+                </div>
+            </div> -->
         </div>
     </div>
 

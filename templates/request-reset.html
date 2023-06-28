@@ -1,0 +1,67 @@
+{% load static %}
+{% load sass_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style/sign.css' %}" >
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset password</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+</head>
+<body>
+    <section class="login">
+        <div class="container">
+         <div class="header">
+             <div class="content">
+                 <div class="top">
+                     <img src="{% static 'img/or_icon.svg' %}" alt="icon image">
+                     <p>Data Gridder</p>
+                 </div>
+                 <p class="by">Powered by codebee</p>
+             </div>
+             
+         </div>
+ 
+         <div class="bottom">
+            {% for message in messages %}
+            {% if message.extra_tags == 'emailsent' %}
+            <div class="email-sent-div">
+                <p>{{message}}</p>
+            </div>
+            {% endif %}  
+            {% endfor %}
+
+             <div class="welcome">
+                 <p class="welcome-message">Reset password</p>
+                 <p class="reset-message">
+                    Enter the email associated with your account so we can send you a link to reset your password
+                 </p>
+             </div>
+             <div class="form-con">
+                 <form action="{% url 'request-reset-email' %}" method="POST">
+                     {% csrf_token %}
+                     <input type="email" name="email"  placeholder="Email" class="enter-input" required>
+                    
+                     <input type="submit" name="reset-password-btn" value="Get reset link">
+                     <!-- {% for message in messages %}
+                     {% if message.extra_tags == 'emailsent' %}
+                     <p class="warning" style="color: green;">{{message}}</p>
+                     {% else %}
+                     <p class="warning">{{message}}</p>
+                     {% endif %}
+                     
+                     {% endfor %}
+                     -->
+                     <p class="txt-already">Dont have an account? <span><a href="/register">Sign up</a></span></p>
+                 </form>
+             </div>
+         </div>
+ 
+ 
+        </div>
+     </section>
+</body>
+</html>

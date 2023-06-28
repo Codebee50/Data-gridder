@@ -635,6 +635,16 @@ html::-webkit-scrollbar{
                 }
             }
         }
+
+        .buttom-content::-webkit-scrollbar{
+            width: .5rem;
+            background-color: #fafbfc;
+        }
+
+        .bottom-content::-webkit-scrollbar-thumb{
+            border-radius: 2rem;
+            background: $complement_color;
+        }
         .bottom-content{
            
             overflow-y: scroll;
@@ -651,7 +661,7 @@ html::-webkit-scrollbar{
                     margin: 10px 0;
                     background-color: #ffffff;
                     // box-shadow: -1px 1px #efece8;
-                    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+                    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
                     border-radius: 8px;
                     display: flex;
                     flex-direction: column;
@@ -659,7 +669,7 @@ html::-webkit-scrollbar{
                     
                 
                    header{
-                    padding: 5px 20px;
+                    padding: 7px 20px;
                     width: 100%;
                     display: flex;
                     flex-direction: row;
@@ -676,6 +686,7 @@ html::-webkit-scrollbar{
     
                         .poll-code{
                             font-size: 0.8rem;
+                            margin-top: 0.1rem;
                             color: #595857;
     
                         }

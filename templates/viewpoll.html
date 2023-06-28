@@ -19,7 +19,7 @@
     <form action="" method="POST" id="edit-form">
         {% csrf_token %}
     <input type="hidden" name="pollcode" id="hd-code" value="{{poll.poll_code}}">
-
+    <input type="hidden" name="domain" id="domain" value="{{domain}}">
    
         
     <div class="more" id="see-details">

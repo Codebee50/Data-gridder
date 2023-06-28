@@ -1,0 +1,113 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate account</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+</head>
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        .container{
+            background-color: white;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* -------------------------------------- */
+        i{
+            color: red;
+            font-size: 2rem;
+        }
+
+        .container .act-failed{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container .went-wrong{
+            font-weight: 550; 
+            margin-top: 0.9rem;  
+            text-align: center;
+            width: 90%;
+            max-width: 300px; 
+        }
+
+        .container .message{
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            opacity: 0.7;
+        }
+       
+    
+        .container a{
+            margin-top: 0.9rem;
+            color: rgb(49, 97, 230);
+            /* text-decoration: none; */
+        }
+
+        /* ---------------------------------------- */
+       .container .verified{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+       }
+
+       .container .verified .message{
+         font-size: 0.9rem;
+         width: 90%;
+         max-width: 350px;
+         color: #4C5B66;
+       }
+       .container .verified .message span{
+        font-size: 1rem;
+       }
+    </style>
+
+
+    <div class="container">
+        {% if user.is_email_verified == True %}
+
+        <div class="verified">
+            <h1 class="header-info">Account verified!</h1>
+            <p class="message">Hello {{user.user.username}}, welcome to datagridder. Your account has been verified, you can now <span title="Login to your account"><a href="/login">login</a></span> to your account, we are glad to have you here</p>
+        </div>
+        {% else %}
+        <div class="act-failed">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <p class="went-wrong">Invalid link</p>
+            <p class="message">The link you're trying to access is either expired or does not exist. This might occur as a result of a previously used link</p>
+            
+            <!-- <a href="#"><button id="resend-btn">Get a new link</button></a> -->
+            <a href="/resend-activation-email/{{user.user.id}}">Resend activation email</a>
+            </div>
+        {% endif %}
+      
+    </div>
+
+
+</body>
+</html>
+

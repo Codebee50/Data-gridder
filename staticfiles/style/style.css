@@ -379,7 +379,75 @@ body {
           color: white; }
 
 .about {
-  margin-top: 3rem; }
+  margin-top: 3rem;
+  background-color: #e5e7ee; }
+  .about .top-container {
+    margin-top: 0.9rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh; }
+    .about .top-container .topic-underline {
+      max-width: 50px;
+      width: 20%;
+      height: 1.5px;
+      margin-top: 0.7rem;
+      background-color: #E07243; }
+    .about .top-container .topic-text {
+      color: #393B4A; }
+    .about .top-container .text-container {
+      width: 90%;
+      margin-top: 4rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly; }
+      .about .top-container .text-container .left {
+        width: 50%;
+        max-width: 400px; }
+        .about .top-container .text-container .left p {
+          font-size: 0.8rem;
+          text-align: start;
+          line-height: 1.5;
+          opacity: 0.7;
+          font-family: 'Inter', sans-serif; }
+      .about .top-container .text-container .right {
+        width: 40%;
+        background-color: red;
+        height: 40vh; }
+        .about .top-container .text-container .right .image-container {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          display: inline-block; }
+          .about .top-container .text-container .right .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center; }
+          .about .top-container .text-container .right .image-container .overlay {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end; }
+            .about .top-container .text-container .right .image-container .overlay .get-in-touch {
+              margin: 1.2rem;
+              padding: 1.2rem; }
+              .about .top-container .text-container .right .image-container .overlay .get-in-touch h3 {
+                color: white;
+                font-family: 'Inter', sans-serif;
+                margin-bottom: 1rem; }
+              .about .top-container .text-container .right .image-container .overlay .get-in-touch p {
+                color: #e6e2e2;
+                font-size: 0.9rem;
+                line-height: 1.5; }
   .about .prompt {
     align-self: center;
     font-weight: 600;
@@ -391,7 +459,7 @@ body {
     .about .container .content {
       padding: 3rem; }
       .about .container .content h4 {
-        background-color: #E07243;
+        background-color: #142F40;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -401,13 +469,14 @@ body {
         height: 2rem; }
       .about .container .content h3 {
         font-family: 'Lato', sans-serif;
-        margin-top: 1.05rem; }
+        margin-top: 1.05rem;
+        color: #393B4A; }
       .about .container .content p {
-        font-family: 'Lato', sans-serif;
+        font-family: 'Inter', sans-serif;
         line-height: 1.5;
         margin-top: 0.3rem;
         opacity: 0.7;
-        font-size: 0.9rem; }
+        font-size: 0.8rem; }
 
 .modal-container {
   background-color: rgba(0, 0, 0, 0.3);
@@ -421,8 +490,8 @@ body {
   .modal-container .modal-box {
     background-color: white;
     width: 90%;
-    max-width: 300px;
-    padding: 30px 50px;
+    max-width: 350px;
+    padding: 30px 20px;
     border-radius: 5px; }
     .modal-container .modal-box p {
       opacity: 0.7; }
@@ -454,12 +523,20 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     padding: 0.5rem; }
     .modal-container.visible .result-container .left-content .det {
       display: flex;
       flex-direction: row;
       align-items: center;
-      margin: 0.2rem; }
+      margin: 0.2rem;
+      max-width: 130px; }
+      .modal-container.visible .result-container .left-content .det .p-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        color: black;
+        white-space: nowrap; }
       .modal-container.visible .result-container .left-content .det i {
         font-size: 0.7rem;
         margin-right: 0.2rem;
@@ -469,7 +546,7 @@ body {
         opacity: 0.6;
         margin: 0.2rem 0; }
       .modal-container.visible .result-container .left-content .det .p-code {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         opacity: 0.6;
         margin: 0.2rem 0; }
     .modal-container.visible .result-container .right-content #btn-go {
@@ -479,7 +556,7 @@ body {
       padding: 0.7rem 1.2rem;
       color: white;
       border-radius: 5px;
-      margin: 0 0.4rem;
+      margin: 0 0.1rem;
       cursor: pointer; }
     .modal-container.visible .result-container .right-content #btn-cancel {
       outline: none;
@@ -488,7 +565,7 @@ body {
       padding: 0.65rem 0.5rem;
       color: black;
       border-radius: 5px;
-      margin: 0 0.4rem;
+      margin: 0 0.1rem;
       cursor: pointer; }
 
 footer {
@@ -734,5 +811,46 @@ footer {
 @media screen and (max-width: 750px) {
   .input-poll-code .right-content .des {
     width: 90%; } }
+
+/** About section queries**/
+@media screen and (max-width: 735px) {
+  .about .top-container {
+    width: 100%; }
+    .about .top-container .text-container {
+      width: 100%; }
+      .about .top-container .text-container .right {
+        height: 50vh; } }
+
+@media screen and (max-width: 590px) {
+  .about .top-container {
+    width: 100%; }
+    .about .top-container .text-container {
+      width: 100%;
+      flex-direction: column-reverse; }
+      .about .top-container .text-container .left {
+        width: 70%;
+        margin-top: 0.9rem; }
+        .about .top-container .text-container .left p {
+          text-align: center; }
+      .about .top-container .text-container .right {
+        width: 70%;
+        height: 50vh; } }
+
+@media screen and (max-width: 550px) {
+  .about .top-container {
+    width: 100%; }
+    .about .top-container .text-container {
+      width: 100%;
+      flex-direction: column-reverse; }
+      .about .top-container .text-container .left {
+        width: 90%;
+        max-width: 90%;
+        margin-top: 0.9rem; }
+        .about .top-container .text-container .left p {
+          text-align: start; }
+      .about .top-container .text-container .right {
+        width: 90%;
+        max-width: 90%;
+        height: 50vh; } }
 
 /*# sourceMappingURL=style.css.map */

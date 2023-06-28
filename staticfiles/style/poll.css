@@ -388,6 +388,12 @@ html::-webkit-scrollbar {
   .container #rpolls .top-content .left-right p {
     font-size: 0.7rem;
     margin-top: 0.2rem; }
+  .container #rpolls .buttom-content::-webkit-scrollbar {
+    width: .5rem;
+    background-color: #fafbfc; }
+  .container #rpolls .bottom-content::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    background: #393B4A; }
   .container #rpolls .bottom-content {
     overflow-y: scroll;
     background-color: white; }
@@ -401,13 +407,13 @@ html::-webkit-scrollbar {
         width: 70%;
         margin: 10px 0;
         background-color: #ffffff;
-        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
         border-radius: 8px;
         display: flex;
         flex-direction: column;
         overflow: hidden; }
         .container #rpolls .bottom-content .all-polls .reg-poll header {
-          padding: 5px 20px;
+          padding: 7px 20px;
           width: 100%;
           display: flex;
           flex-direction: row;
@@ -422,6 +428,7 @@ html::-webkit-scrollbar {
               font-size: 0.95rem; }
             .container #rpolls .bottom-content .all-polls .reg-poll header .poll-wrapper .poll-code {
               font-size: 0.8rem;
+              margin-top: 0.1rem;
               color: #595857; }
           .container #rpolls .bottom-content .all-polls .reg-poll header .right {
             display: flex;

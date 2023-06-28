@@ -1,0 +1,155 @@
+{% load static %}
+{% load sass_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Datagridder</title>
+    <link rel="stylesheet" href=" {% static 'style/docs.css' %}" >
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+</head>
+<body>
+
+    <section class="nav-section">
+        <div class="header" id="header">
+            <div class="gridder">
+                <h3 class="name-text">Data Gridder</h3>
+                <div class="right-stroke"></div>
+            </div>
+
+          
+                <div class="nav-bar">
+                    <ul>
+                    <li><a href="#author-guides" class="active" title="Learn as an author">Author</a></li>
+                    <li><a href="#registrant-guides" title="Learn as a registrant">Registrant</a></li>
+                    
+                    </ul>
+                    <a href="/dashboard" class="dash-link">
+                        <div class="user">
+                            <i class="fa-regular fa-user"></i>
+                            <p>{{user_profile.user.username}}</p>
+                        </div>
+                        </a>
+                </div>   
+        </div>
+    </section>
+
+    <section class="author-section" id="author-guides">
+        <div class="header-introduction">
+            <h1>Author guides</h1>
+            <p>Lets get you stared as a Data gridder author</p>
+        </div>
+
+        <div class="body">
+            <p class="long-text">To effectively utilize Data Gridder for gathering data from an audience, 
+                the first step is to create a new poll. This action can be accomplished within the "New Poll"
+                 section located within your <a href="/dashboard" target="_blank">dashboard</a>. A poll comprises
+                  fields that serve as its constituent elements, possessing attributes such as Name, Datatype, and Required.
+            </p>
+
+            <ul>
+                <li>Name</li>
+                <p class="explanation">The name is an attribute of a field which serves as an alias for the data you require e.g if you want users to provide their age
+                    , a suitable name for your field can be Age,
+                </p>
+
+                <li>Datatype</li>
+                <p class="explanation">The datatype is an attribute of a field which represents the type of data that is expected from your audience, e.g a <b>Text</b> datatype indicates
+                    that the audience is expected to provide a text, a <b>Number</b> datatype indicates that your audience is expected to provide a number, but an <b>Empty</b> datatype indicates
+                    that users are not supposed to provide any data in that field, fields with the empty datatype will not even be displayed for your audience to provide data in, they will be left as blank 
+                    spaces in the tables of your documents. A practical use case of the empty datatype will be a space for signatures or other data you will require users to provide by hand writing when you have printed your document
+                </p>
+
+                <li>Required</li>
+                <p class="explanation">
+                    The required attribute of a field indicates if users will be obligated to provide the data intended to be in that field or not. Users will not be able to complete their
+                    registeration for your poll without providing inputs to all the fields you tag as required
+                </p>
+            </ul>
+
+            <p class="long-text secondary">Field names are initially set as <b>Blank</b> by default. 
+                It is imperative to click the <b>Save</b> button after making any changes to a field.
+                 To generate new fields, please click on the <b>New field</b> button, which will create a fresh field positioned below all existing fields. 
+                Alternatively, you can utilize the <b>Add below</b> button to generate a new field below the presently selected field.
+            </p>
+
+            <p class="long-text secondary">
+                When you are done designing the structure of your poll, click on the <b>Publish</b> button to set your poll rolling for use <br>
+                On the left hand side of the publish page you have an option to provide a document which data gridder will use to generate your data, your document can contain pre-designed headers 
+                and texts. To direct data gridder on where to append the data generated from your poll, you need to provide a DG table in your document. A DG table is a single row
+                and single column table which contains the text DG inside. Below is a screenshot of a sample document which contains a DG table
+            </p>
+
+            <div class="dg-table-image-container">
+                <img src="{% static 'img/sample-dg.png' %}" alt="">
+            </div>
+
+            <p class="long-text secondary">
+                The document above indicates to data gridder to append the table generated from the associated poll below the text "A SAMPLE DG TABLE" <br>
+                Providing a document is optional, if none is provided, data from your poll will put in a fresh document for you when it is time for download.
+                <br>
+                Give your poll a name and click on the <b>Publish poll</b> button to complete the procedure. Your poll will be put online and a unique poll code and poll link will be displayed 
+                these poll code and poll link serve as portals to your poll, the poll code is utilized in the <a href="/#get-input">Find poll</a> section of the data gridder homepage while the poll link 
+                will give direct access to the poll when users paste in in any preferred browsers, please note that your audience will be required to have a data gridder account and be logged into their data gridder account
+                before they can have access to your poll.
+            </p>
+
+            <p class="long-text secondary">
+                After your poll has been put online, you can view your poll through the <b>My polls</b> section of your <a href="/dashboard" target="_blank">doshboard</a>
+                This gives you a preview of what your table will look like when generated, please note that this is only a preview of your table and does not represent the actual 
+                appearance of your document <br>
+                You have the option of making some modifications to your poll such as changing the name of your poll, changing the document you have appended earlier, this can be acheived by clicking the <b>Settings</b> button
+            </p>
+
+            <p class="long-text secondary">
+                When you are satisfied with the data in your poll, you can retrieve your poll in document format by clicking the <b>Download</b> button, you have the option of setting a desired 
+                file name for your document, You can also indicate that the data from your poll should be numbered by checking the <b>Number my list</b> checkbox. click download and your document should start downloading automatially
+            </p>
+
+            <div class="video-container">
+                <h3 class="video-prompt">Need a more demonstrative approach? watch our video on youtube</h3>
+                <iframe width="560px" height="315px" src="https://www.youtube.com/embed/vphxDEuHmyY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+            </div>
+        
+    </section>
+
+
+    <section class="registrant-section" id="registrant-guides">
+        <div class="header-introduction">
+            <h1>Registrant guides</h1>
+            <p>Lets get you stared using Data gridder as a registrant</p>
+
+        </div>
+
+        <div class="body">
+            <p class="long-text">
+                As a registrant, your task is really easy, all you need is a poll code or a poll link form your administrator or poll author, in order to register for
+                a poll.
+            </p>
+
+            <ul>
+                <li>Poll code</li>
+                <p class="explanation">The poll code can be used to access a poll through the <a href="/#get-input">Find poll</a> section.
+                     If you encounter a message stating 'Poll does not exist, please check your poll code and try again,' 
+                     it indicates that the poll associated with the provided poll code does not exist. There is no need to be alarmed, as this could simply be due to an incorrect poll code or the deletion of the corresponding poll by the author. You may wish to verify the accuracy of your poll code or seek further clarification from the poll author for additional information.
+                </p>
+
+                <li>Poll link</li>
+                <p class="explanation">
+                    To access the poll using a poll link, kindly insert the poll link into the search bar of your preferred web browser. This action will initiate the loading of the poll and grant you the opportunity to register. It is important to note that prior to registering for a poll, you must possess a valid data gridder account. In the event that you encounter a 'Page not found' 
+                    error while using a poll link, it could be attributed to either a deleted poll or an incorrect poll link. To seek assistance, please contact your administrator or the poll author.
+                </p>
+            </ul>
+
+            <p class="long-text secondary">
+                To access a comprehensive list of the polls for which you have successfully registered, please navigate to the <b>Registered polls</b> section within your <a href="/dashboard">dashboard</a>. Within this section, you have the capability to edit your responses or remove your answers entirely for a given poll.
+            </p>
+        </div>
+    </section>
+</body>
+</html>

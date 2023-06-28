@@ -50,12 +50,18 @@ window.addEventListener('DOMContentLoaded', (event)=>{
     if(resendBtn !== null){
         startCounter()
         resendBtn.addEventListener('click', startCounter)
+        resendBtn.addEventListener('click', function(){
+            let linkTag = document.getElementById('download-link-tag')
+            linkTag.click()
+        })
     }
   
 })
 
 function startCounter(){
+    
     resendBtn.disabled = true
+   
     let seconds = 30
     let minutes = 1
 
@@ -76,6 +82,7 @@ function startCounter(){
 
         setTimeout(updateTimer, 1000)
     }
+
 
     updateTimer()
 }

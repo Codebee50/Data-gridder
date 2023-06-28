@@ -17,9 +17,11 @@ import random
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str as force_text, DjangoUnicodeDecodeError
-
+from django.views.generic import View
+from validate_email import validate_email
 from .utils import generate_token
 from django.urls import reverse
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 
 # Create your views here.
@@ -61,14 +63,17 @@ def register(request):
                 # auth.login(request, user_login)
 
                 user_model = User.objects.get(username=username)
-                new_profile = Profile.objects.create(user = user_model, id_user = user_model.id)
+                new_profile = Profile.objects.create(user = user, id_user = user.id)
+                print('profile id ', str(new_profile.id_user))
+                print('user_id', str(user.id))
                 new_profile.save()
                 send_activation_email(user=new_profile, request=request)
                 #put signup.html in activate email mode 
                 return render(request, 'signup.html', {
                      'mode': 'activate_mail',
                      'email': email,
-                     'username': username
+                     'username': username,
+                     'userid': user.id
                 })
             
         else:
@@ -82,7 +87,7 @@ def register(request):
         })
 
 
-def send_activation_email(user,request):
+def send_activation_email(user, request):
     current_site = get_current_site(request)
     email_subject = 'Activate your account'
     email_body = render_to_string('emails/activate.html', {
@@ -96,6 +101,41 @@ def send_activation_email(user,request):
                  to=[user.user.email])
     email.content_subtype = 'html'
     email.send()
+
+def resend_activation_email(request, userId):
+    print('resending activation mail..')
+    user = User.objects.get(id=userId)
+    if user is not None:
+        user_profile = Profile.objects.get(id_user = user.id)
+        if user_profile.is_email_verified:
+            #messages.add_message(request, messages.SUCCESS, 'Your account is already verified, You can login with your newly created account')
+
+            return render(request, 'emails/activate-account.html', {
+            'user':user
+            })
+            
+        else:
+            current_site = get_current_site(request)
+            email_subject = 'Activate your account'
+            email_body = render_to_string('emails/activate.html', {
+                'user': user_profile,
+                'domain': current_site,
+                'uid': urlsafe_base64_encode(force_bytes(user_profile.user.id)),
+                'token': generate_token.make_token(user_profile)
+            })
+
+            email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
+                        to=[user_profile.user.email])
+            email.content_subtype = 'html'
+            email.send()
+            
+            return render(request, 'signup.html', {
+                     'mode': 'activate_mail',
+                     'email': user_profile.user.email,
+                     'username': user_profile.user.username
+                })
+    else:
+        messages.add_message(request, messages.ERROR, 'An error occured -Invalid user', 'invaliduser')
 
 
 def activate_user(request, uidb64, token):
@@ -111,10 +151,13 @@ def activate_user(request, uidb64, token):
         user.is_email_verified = True
         user.save()
 
-        messages.add_message(request, messages.SUCCESS, 'Email verified, you can now login')
-        return redirect(reverse('login'))
+        #messages.add_message(request, messages.SUCCESS, 'Email verified, you can now login', 'userverified')
+        # return redirect(reverse('login'))
+        return render(request, 'emails/activate-account.html', {
+            'user':user
+        })
     
-    return render(request, 'emails/activate-failed.html', {
+    return render(request, 'emails/activate-account.html', {
         'user': user
     })
     
@@ -143,6 +186,115 @@ def login(request):
     else:
         return render(request, 'login.html')
     
+
+class RequestResetEmail(View):
+    def post(self, request):
+        email = request.POST['email']
+        if not validate_email(email):
+            messages.error(request, 'Please enter a valid email')
+            return render(request, 'request-reset.html')
+        
+
+        user = User.objects.filter(email = email)
+       
+        if user.exists():
+            user_profile = Profile.objects.get(id_user = user[0].id)
+            print('got here')
+            current_site = get_current_site(request)
+            email_subject = '[Datagridder] Reset your password'
+            email_body = render_to_string('emails/reset-user-password.html', {
+                'user': user_profile,
+                'domain': current_site,
+                'uid': urlsafe_base64_encode(force_bytes(user_profile.user.id)),
+                'token': PasswordResetTokenGenerator().make_token(user[0])
+            })
+
+            email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
+                        to=[user_profile.user.email])
+            email.content_subtype = 'html'
+            email.send()
+            messages.success(request, 'We have sent you an email with instructions on how to reset your password', 'emailsent')
+            return render(request, 'request-reset.html')
+        else:
+            messages.success(request, 'We have sent you an email with instructions on how to reset your password', 'emailsent')
+            return render(request, 'request-reset.html')
+    def get(self, request):
+        return render(request, 'request-reset.html')
+
+
+class SetNewPassword(View):
+    def get(self, request, uidb64, token):
+        context = {
+             'uidb64': uidb64,
+             'token': token
+        }
+        try:
+            user_id = force_text(urlsafe_base64_decode(uidb64))
+            if User.objects.filter(id = user_id).exists():
+                user = User.objects.get(id=user_id)
+                if not PasswordResetTokenGenerator().check_token(user, token):
+                    #this means the password reset link is invalid
+                    messages.info(request, 'Password reset link is expired')
+                    context = {
+                        'mode': 'invalidresetlink',
+                        'message': "The link you're trying to access is either expired or does not exist. This might occur as a result of a previously used link"
+                    }
+                    return render(request, 'set-new-password.html', context)
+            else: 
+                messages.error(request, 'Something went wrong-- invalid user id')
+                return render(request, 'set-new-password.html', context)
+            
+        except DjangoUnicodeDecodeError as identifier:
+            messages.info(request, 'An unknown error occured')
+            context={
+                'mode': 'invalidresetlink',
+                'message': 'An unknown error occured'
+
+            }
+            return render(request, 'set-new-password.html', context)
+
+
+        return render(request, 'set-new-password.html', context)
+    
+
+    def post(self, request, uidb64, token):
+        context = {
+            'uidb64': uidb64,
+            'token': token,
+            'mode': 'reset-password'
+        }
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        
+        if password != password2:
+            messages.info(request, 'Password does not match', 'passwordinfo')
+            return render(request, 'set-new-password.html', context)
+        else:
+            #there are no errors, proceed
+
+            try:
+                #decode this and give us the user id
+                #its returns a byte so we have to turn it to string using force text
+                user_id = force_text(urlsafe_base64_decode(uidb64))
+                if User.objects.filter(id = user_id).exists():
+                    user = User.objects.get(id=user_id)
+                    user.set_password(password)
+                    user.save()
+                    context= {
+                        'mode': 'confirmreset'
+                    }
+                    #messages.success(request, 'Password reset success, you can now login with your new password')
+                    #return redirect('login')
+
+                    return render(request, 'set-new-password.html', context)
+                else: 
+                    messages.error(request, 'Something went wrong-- invalid user id')
+                    return render(request, 'set-new-password.html', context)
+            except DjangoUnicodeDecodeError as identifier:
+                messages.error(request, 'Something went wrong')
+                return render(request, 'set-new-password.html', context)
+
+#This is used to pass in the nessesary requirements for displaying the dashboard screen        
 @login_required(login_url='login')
 def dashboard(request):
     user_object = User.objects.get(username= request.user.username)
@@ -299,6 +451,8 @@ def saveValue(request):
 
 @login_required(login_url= 'login')
 def publish(request):
+    current_site = get_current_site(request)
+
     if request.method == 'POST':
         pollname = request.POST.get('poll-name')
         document = request.FILES.get('document')
@@ -317,7 +471,7 @@ def publish(request):
             if Poll.objects.filter(poll_code = pollcode).exists():
                 context = {
                     'status': 'failed',
-                    'message': 'An error occured please try again'
+                    'message': 'Oops an error occurred, please try again'
                 }
             else:
                 if document is not None:
@@ -358,16 +512,21 @@ def publish(request):
                         'status' : 'success',
                         'pollname': pollname,
                         'pollcode': pollcode,
-                        'pollauthor': pollauthor
+                        'pollauthor': pollauthor,
+                        'domain': current_site.domain
                     }
             
                 return JsonResponse(context)
     else:
-        return render(request, 'publish.html')
+        context = {
+            'domain': current_site
+        }
+        return render(request, 'publish.html', context)
     
 #navigates to the viewpoll.html file 
 @login_required(login_url='login')
 def viewPoll(request, pollcode):
+    current_site = get_current_site(request)
     if request.method == 'POST':
         poll = Poll.objects.get(poll_code= pollcode)
         pollValues = PollValue.objects.filter(poll_code=pollcode)
@@ -375,6 +534,7 @@ def viewPoll(request, pollcode):
         context = {
             'poll': poll,
             'pollvalues': list(pollValues.values())
+             
         }
 
         return JsonResponse(context)
@@ -386,7 +546,8 @@ def viewPoll(request, pollcode):
         context = {
             'poll': poll,
             'pollvalues': list(pollValues.values()),
-            'peoplecount': peopleCount
+            'peoplecount': peopleCount,
+            'domain': current_site
         }
         return render(request, 'viewpoll.html', context)
     
@@ -745,7 +906,12 @@ def deleteEntry(request, entry_id):
             'message': 'Entry does not exist'
         }
         return JsonResponse(context)
-    pass
 
-
+def documentation(request):
+    user_object = User.objects.get(username= request.user.username)
+    user_profile = Profile.objects.get(user=user_object)
+    context= {
+        'user_profile' : user_profile
+    }
+    return render(request, 'documentation.html', context)
 

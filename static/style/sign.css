@@ -353,23 +353,38 @@ input:-webkit-autofill:active {
   align-self: flex-end;
   opacity: 0.8;
 }
+.login .container .bottom .email-sent-div {
+  width: 100%;
+  height: -moz-max-content;
+  height: max-content;
+  background-color: #0DC58A;
+  padding: 0.9rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
 .login .container .bottom .welcome {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-top: 1.2rem;
   align-items: center;
   justify-content: center;
   -moz-column-gap: 0.3rem;
        column-gap: 0.3rem;
 }
-.login .container .bottom .welcome p {
+.login .container .bottom .welcome .welcome-message {
   font-family: "Inter", sans-serif;
   font-size: 1.3rem;
   text-align: center;
   font-weight: 700;
 }
-.login .container .bottom .welcome p span {
+.login .container .bottom .welcome .welcome-message span {
   color: #E07243;
+}
+.login .container .bottom .welcome .reset-message {
+  font-family: "Inter", sans-serif;
+  font-size: 0.7rem;
+  text-align: center;
+  margin-top: 0.3rem;
 }
 .login .container .bottom .form-con form {
   display: flex;
@@ -382,6 +397,9 @@ input:-webkit-autofill:active {
   border: 1px solid rgb(219, 214, 214);
   outline: none;
   border-radius: 4px;
+}
+.login .container .bottom .form-con form .password-input.wrong-password {
+  border: 1px solid red;
 }
 .login .container .bottom .form-con form input[type=submit] {
   padding: 0.8rem 0.5rem;
@@ -406,4 +424,72 @@ input:-webkit-autofill:active {
   color: red;
   text-align: center;
   font-size: 0.8rem;
+}
+.login .container .bottom .form-con form #front-warning {
+  display: none;
+}
+.login .confirm-reset-container {
+  background-color: white;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.login .confirm-reset-container .confirm-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.login .confirm-reset-container .confirm-content .message {
+  font-size: 0.9rem;
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+  color: #4C5B66;
+  margin-top: 0.5rem;
+}
+.login .confirm-reset-container .confirm-content .message span {
+  font-size: 1rem;
+}
+.failed-container {
+  background-color: white;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.failed-container i {
+  color: red;
+  font-size: 2rem;
+}
+.failed-container .act-failed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.failed-container .went-wrong {
+  font-weight: 550;
+  margin-top: 0.9rem;
+  text-align: center;
+  width: 90%;
+  max-width: 300px;
+}
+.failed-container .message {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
+  opacity: 0.7;
+}
+.failed-container a {
+  margin-top: 0.9rem;
+  color: rgb(49, 97, 230);
+  /* text-decoration: none; */
 }/*# sourceMappingURL=sign.css.map */
