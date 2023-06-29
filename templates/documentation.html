@@ -25,8 +25,8 @@
           
                 <div class="nav-bar">
                     <ul>
-                    <li><a href="#author-guides" class="active" title="Learn as an author">Author</a></li>
-                    <li><a href="#registrant-guides" title="Learn as a registrant">Registrant</a></li>
+                    <li><a href="#author-guides" class="active nav-item" title="Learn as an author">Author</a></li>
+                    <li><a href="#registrant-guides" title="Learn as a registrant" class="nav-item">Registrant</a></li>
                     
                     </ul>
                     <a href="/dashboard" class="dash-link">
@@ -151,5 +151,44 @@
             </p>
         </div>
     </section>
+
+
+    <script>
+        const navItems = document.querySelectorAll('.nav-item')
+        window.addEventListener('scroll', ()=>{
+            console.log('scroll')
+            const currentSection = getCurrentSectionInView()
+
+            navItems.forEach(item =>{
+                item.classList.remove('active')
+            })
+
+            const navItem = document.querySelector(`a[href="#${currentSection}"]`)
+            if(navItem){
+                navItem.classList.add('active')
+            }
+        })
+
+        function getCurrentSectionInView(){
+            const sections = document.querySelectorAll('section')
+            let currentSection = ''
+
+            sections.forEach(section =>{
+                //reurns a DOMrect which provides information such as top, right, width, height e.t.c
+                //by using getBoundingClientRect() we can get the coordinates of the elements bounding box
+                const rect = section.getBoundingClientRect()
+
+                /** if the top of the section is less than the window height and the 
+                 * bottom of the section is less than the window height, this means that the 
+                 * section is currently beigng viewed**/
+                if(rect.top <= window.innerHeight/2 && rect.bottom >= window.innerHeight/2){
+                    currentSection = section.getAttribute('id')
+                }
+
+            })
+
+            return currentSection
+        }
+    </script>
 </body>
 </html>

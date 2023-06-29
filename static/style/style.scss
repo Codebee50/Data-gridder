@@ -18,6 +18,8 @@ $big_text_size: 3rem;
 $footer-height: 60vh;
 $footer-head-height: 50vh;
 
+$border-bottom: 50%;
+$border-tops: 5px;
 $abt-height: 90vh;
 
 *{
@@ -565,7 +567,7 @@ body{
     background-color: #e5e7ee;
 
     .top-container{
-        margin-top: 0.9rem;
+ //       margin-top: 0.9rem;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -596,6 +598,7 @@ body{
             .left{
                 width: 50%;
                 max-width: 400px;
+                padding: 0.9rem;
                 p{
                     font-size: 0.8rem;
                     text-align: start;
@@ -607,18 +610,29 @@ body{
 
             .right{
                 width: 40%;
-                background-color: red;
-                height: 40vh;
+                height: 50vh;
+                border-radius: $border-tops $border-bottom $border-tops $border-bottom;   
+     
+
                 .image-container{
                   width: 100%;
                   height: 100%;
                   position: relative;
                   display: inline-block;
+                  border-radius: $border-tops $border-bottom $border-tops $border-bottom;   
+
+    
+                        
+
                   img{
                      width: 100%;
                      height: 100%;
                      object-fit: cover;
                      object-position: center;
+                     border-radius: $border-tops $border-bottom $border-tops $border-bottom;   
+
+       
+
                   }
      
                   .overlay{
@@ -630,12 +644,17 @@ body{
                      top: 0;
                      display: flex;
                      flex-direction: column;
-                     align-items: flex-start;
+                     align-items: flex-end;
                      justify-content: flex-end;
+                     
+                     border-radius: $border-tops $border-bottom $border-tops $border-bottom;   
+
                      .get-in-touch{
                         margin: 1.2rem;
                         padding: 1.2rem;
-     
+                        display: flex;
+                        flex-direction: column;
+                        align-items: end;
                         h3{
                          color: white;
                          font-family: 'Inter', sans-serif;
@@ -645,6 +664,8 @@ body{
                         p{
                          color: rgb(230, 226, 226);
                          font-size: 0.9rem;
+                         text-align: end;
+                         max-width: 90%;
                          line-height: 1.5;
                         }
      
