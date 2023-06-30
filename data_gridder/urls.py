@@ -26,5 +26,5 @@ urlpatterns =[
     path('resend-activation-email/<str:userId>/', views.resend_activation_email, name='resendactivation'),
     path('request-reset-email', views.RequestResetEmail.as_view(), name='request-reset-email'),
     path('set-new-password/<uidb64>/<token>', views.SetNewPassword.as_view(), name='set-new-password'),
-
+    path('show-current-site', views.showCurrentSite, name='showcurrentsite')
 ]

@@ -490,13 +490,53 @@ body {
   width: 50%;
   max-width: 400px;
   padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.about .top-container .text-container .left p {
+.about .top-container .text-container .left .icon-con {
+  width: 35px;
+  height: 35px;
+  background-color: #142F40;
+  display: flex;
+  border-radius: 50%;
+}
+.about .top-container .text-container .left .icon-con i {
+  color: white;
+  margin: auto;
+}
+.about .top-container .text-container .left .comment-text {
+  margin-top: 0.9rem;
   font-size: 0.8rem;
   text-align: start;
   line-height: 1.5;
+  text-align: center;
   opacity: 0.7;
   font-family: "Inter", sans-serif;
+}
+.about .top-container .text-container .left .comment {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: -moz-max-content;
+  height: max-content;
+  margin-top: 0.9rem;
+}
+.about .top-container .text-container .left .comment .comentator {
+  font-style: italic;
+  font-size: 0.8rem;
+  text-align: start;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0.7;
+  font-family: "Inter", sans-serif;
+}
+.about .top-container .text-container .left .comment .line {
+  width: 20px;
+  height: 1px;
+  background-color: #393B4A;
+  margin-top: 0;
 }
 .about .top-container .text-container .right {
   width: 40%;

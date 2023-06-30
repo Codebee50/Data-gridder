@@ -565,6 +565,7 @@ body{
     // display: flex;
     // flex-direction: column;
     background-color: #e5e7ee;
+    //background-color: white;
 
     .top-container{
  //       margin-top: 0.9rem;
@@ -599,13 +600,68 @@ body{
                 width: 50%;
                 max-width: 400px;
                 padding: 0.9rem;
-                p{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .icon-con{
+                    width: 35px;
+                    height: 35px;
+                    background-color: #142F40;
+                    display: flex;
+                    border-radius: 50%;
+
+
+                    
+                i{
+                    color: white;
+                    margin: auto;
+                }
+
+                
+                    
+                }
+             
+                .comment-text{
+                    margin-top: 0.9rem;
                     font-size: 0.8rem;
                     text-align: start;
                     line-height: 1.5;
+                    text-align: center;
                     opacity: 0.7;
                     font-family: 'Inter', sans-serif;
                 }
+                .comment{
+                    display: flex;
+                    flex-direction: row;
+                     align-items: center;
+                    justify-content: center;
+                    height: max-content;
+                    margin-top: 0.9rem;
+                    
+                    .comentator{
+                        font-style: italic;        
+                        font-size: 0.8rem;
+                    text-align: start;
+                    line-height: 1.5;
+                    text-align: center;
+                    opacity: 0.7;
+                    font-family: 'Inter', sans-serif;    
+                    }
+
+                    .line{
+                        width: 20px;
+                        height: 1px;
+                        background-color: $complement_color;
+                        margin-top: 0;
+                    }
+
+                }
+
+               
+
+                
+              
             }
 
             .right{

@@ -177,9 +177,10 @@ def login(request):
                     return redirect('/')
                 else:
                     messages.info(request, 'Email is not verified, please verify your email')
+                    return redirect('login')
             else:
                 messages.info(request, 'An error occured')
-
+                return redirect('login')
         else: 
             messages.info(request, 'Invalid credentials')
             return redirect('login')
@@ -915,3 +916,7 @@ def documentation(request):
     }
     return render(request, 'documentation.html', context)
 
+def showCurrentSite(request):
+    current_site = get_current_site(request)
+    print('the current site is ', current_site)
+    return redirect('/')
