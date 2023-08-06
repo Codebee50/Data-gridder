@@ -8,6 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- <link rel="shortcut icon" type="image/x-icon" href="img/or_icon.svg"> -->
 <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
   
@@ -37,6 +39,22 @@
                     {% for message in messages %}
                     {% if message.extra_tags == 'userverified' %}
                     <p class="warning" style="color: green;">{{message}}</p>
+                    {% elif message.extra_tags == 'vrffailed'%}
+                    <!-- this means users email has not been verified -->
+                    <div class="modal-container visible">
+                        <div class="modal-box">
+                            <div class="content visible">
+                                <div class="left">
+                                    <i class="fa-regular fa-face-frown-open"></i>                    
+                                </div>
+                                <div class="right">
+                                    <i class="fa-solid fa-xmark" id="remove-modal"></i>
+                                    <p>The account associated with that email address is not verified, please Verify your emaii. We cant wait to have you onboard with us </p>
+                                    <a href="/resend-activation-email/{{userid}}" class="vrf-a-button">Send verification mail</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% else %}
                     <p class="warning">{{message}}</p>
                     {% endif %}
@@ -47,10 +65,23 @@
                 </form>
             </div>
         </div>
-
-
        </div>
+
+       <a href="/contact-datagridder" class="contact-data-gridder" title="contact us"> <i class="fa-regular fa-circle-question"></i>
+       </a>
     </section>
+
+   
  
+    <script>
+        const removeModal = document.getElementById('remove-modal')
+        const modal = document.querySelector('.modal-container')
+        if(removeModal !== null){
+            removeModal.addEventListener('click', ()=>{
+            modal.classList.remove('visible')
+        })
+        }
+        
+    </script>
 </body>
 </html>

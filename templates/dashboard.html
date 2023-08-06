@@ -95,12 +95,12 @@
 
                     </div>
                     <div class="create-container">
-                        <button class="btn-new-field" id="btn-new-field">
-                            <p>New Field</p>
+                        <button class="btn-new-field" id="btn-new-field" title="Create a new field">
+                            <p>New field</p>
                         </button>
-                        <button id="btn-add-below">
+                        <button id="btn-clear" title="Delete all fields">
                             <p>
-                                Add below
+                               Clear
                             </p>
                         </button>
                     </div>
@@ -138,8 +138,18 @@
 
                         
                         <div class="ops">
-                            <i class="fa-regular fa-trash-can" id="delete-btn"></i>
-                            <input type="submit" value="Save" class="save-btn">
+                            
+                            <button id="btn-add-below" title="Add a new field below currently selected field">
+                                <i class="fa-solid fa-plus-minus"></i>
+                                    Append
+                            </button>
+
+                            <button id="delete-btn" class="delete-btn" title="Delete currently selected field">
+                                <i class="fa-regular fa-trash-can"></i>
+                                Delete</button>
+
+
+                            <input type="submit" value="Save" class="save-btn" style="display: none;">
                         </div>
                     </div>
                 </div>
@@ -179,7 +189,7 @@
 
                         <div class="right">
                             <i class="fa-solid fa-up-right-from-square redirect" id="{{poll.poll_code}}"></i>
-                            <i class="fa-regular fa-trash-can delete-poll" id="{{poll.poll_code}}"></i>
+                            <i class="fa-regular fa-trash-can delete-poll" id="{{poll.poll_code}}" title="Delete poll"></i>
                         </div>
                        
                     </div>

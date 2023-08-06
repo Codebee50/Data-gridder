@@ -9,7 +9,7 @@ import json
 from django.core.serializers import serialize
 from docx import Document
 import shutil
-from django.core.mail import send_mail, EmailMessage 
+from django.core.mail import send_mail, EmailMessage, EmailMultiAlternatives
 from django.conf import settings
 from . import forms
 from django.template.loader import render_to_string
@@ -22,6 +22,8 @@ from validate_email import validate_email
 from .utils import generate_token
 from django.urls import reverse
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from functools import partial
+from django.utils.html import strip_tags
 
 
 # Create your views here.
@@ -64,10 +66,9 @@ def register(request):
 
                 user_model = User.objects.get(username=username)
                 new_profile = Profile.objects.create(user = user, id_user = user.id)
-                print('profile id ', str(new_profile.id_user))
-                print('user_id', str(user.id))
                 new_profile.save()
                 send_activation_email(user=new_profile, request=request)
+                print('putting signup.html in activation mode')
                 #put signup.html in activate email mode 
                 return render(request, 'signup.html', {
                      'mode': 'activate_mail',
@@ -96,10 +97,19 @@ def send_activation_email(user, request):
         'uid': urlsafe_base64_encode(force_bytes(user.user.id)),
         'token': generate_token.make_token(user)
     })
-
-    email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
-                 to=[user.user.email])
-    email.content_subtype = 'html'
+    text_content = strip_tags(email_body)
+    # email =EmailMessage(subject=email_subject, body=text_content, from_email= settings.EMAIL_HOST_USER,
+    #              to=[user.user.email])
+    
+    sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
+    email= EmailMultiAlternatives(
+        email_subject,
+        text_content,
+        sender,
+        [user.user.email]
+    )
+    #email.content_subtype = 'html'
+    email.attach_alternative(email_body, 'text/html')
     email.send()
 
 def resend_activation_email(request, userId):
@@ -124,19 +134,31 @@ def resend_activation_email(request, userId):
                 'token': generate_token.make_token(user_profile)
             })
 
-            email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
-                        to=[user_profile.user.email])
+            text_content = strip_tags(email_body)
+            # email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
+            #             to=[user_profile.user.email])
+            
+            sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
+            email = EmailMultiAlternatives(
+                email_subject,
+                text_content,
+                sender,
+            )
+            email.attach_alternative(email_body, 'text/html')
             email.content_subtype = 'html'
             email.send()
             
             return render(request, 'signup.html', {
                      'mode': 'activate_mail',
                      'email': user_profile.user.email,
-                     'username': user_profile.user.username
+                     'username': user_profile.user.username,
+                     'userid': user_profile.id_user
                 })
     else:
         messages.add_message(request, messages.ERROR, 'An error occured -Invalid user', 'invaliduser')
 
+
+    pass
 
 def activate_user(request, uidb64, token):
     #when we try to decode the uidb64 token, we might get an error
@@ -176,8 +198,10 @@ def login(request):
                     auth.login(request, user)
                     return redirect('/')
                 else:
-                    messages.info(request, 'Email is not verified, please verify your email')
-                    return redirect('login')
+                    
+                    messages.info(request, 'Email is not verified, please verify your email', 'vrffailed')
+                    #return redirect('login')
+                    return render(request, 'login.html', {'userid': user_profile.id_user})
             else:
                 messages.info(request, 'An error occured')
                 return redirect('login')
@@ -210,8 +234,18 @@ class RequestResetEmail(View):
                 'token': PasswordResetTokenGenerator().make_token(user[0])
             })
 
-            email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
-                        to=[user_profile.user.email])
+            # email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
+            #             to=[user_profile.user.email])
+            text_content = strip_tags(email_body)
+            sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
+
+            email = EmailMultiAlternatives(
+                email_subject,
+                text_content,
+                sender,
+                [user_profile.user.email] 
+            )
+            email.attach_alternative(email_body, 'text/html')
             email.content_subtype = 'html'
             email.send()
             messages.success(request, 'We have sent you an email with instructions on how to reset your password', 'emailsent')
@@ -221,7 +255,6 @@ class RequestResetEmail(View):
             return render(request, 'request-reset.html')
     def get(self, request):
         return render(request, 'request-reset.html')
-
 
 class SetNewPassword(View):
     def get(self, request, uidb64, token):
@@ -650,15 +683,10 @@ def checkForDgTable(document):
 
 #deletes temporary files 
 def deleteTemp(request, pollcode):
-    print('delete temp was called')
+    print('**deleting temporary files..')
     if Poll.objects.filter(poll_code= pollcode).exists():
         poll = Poll.objects.get(poll_code =pollcode)
-        original_name = poll.appended_document.name.replace('documents/', "")
-
-        # if poll.appended_document.name == 'sampledocx.docx':
-        #     file_name = 'temp-' + poll.poll_code
-        # else:
-        #     file_name = 'temp-' + original_name
+        
 
         file_name = 'temp-doc-' + poll.poll_code + '.docx'
         if os.path.exists(file_name):
@@ -685,7 +713,9 @@ def deleteTemp(request, pollcode):
     
 #delets poll with provided poll code 
 def deletePoll(request, pollcode):
-    print('deltepoll was called')
+    print('**deleting' , pollcode)
+
+    temp_dir = 'media/temps/'
     if Poll.objects.filter(poll_code = pollcode).exists():
         poll = Poll.objects.get(poll_code = pollcode)
 
@@ -694,7 +724,16 @@ def deletePoll(request, pollcode):
         if len(pollvalues) > 0:
             for value in pollvalues:
                 value.delete()
-                print('deleted a value')
+
+        temp_doc = temp_dir + 'temp-doc-' + poll.poll_code + '.docx'
+        if os.path.exists(temp_doc):
+            os.remove(temp_doc)
+            print('**deleted poll temporary document..')
+
+        document_path = 'media/documents/doc-' + poll.poll_code + '.docx'
+        if os.path.exists(document_path):
+            os.remove(document_path)
+            print('**deleted poll document')
 
         poll.delete()
         context = {
@@ -710,17 +749,25 @@ def deletePoll(request, pollcode):
         return JsonResponse(context)
     
 #generates a temporary document and downloads it 
-def generateDoc(request, pollcode, docname, numbered):
+
+def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
+   temp_dir = 'media/temps/'
    if request.method == 'GET': 
         #checking if poll exists 
         if Poll.objects.filter(poll_code=pollcode).exists:
             poll = Poll.objects.get(poll_code= pollcode)
             pollValues = PollValue.objects.filter(poll_code=pollcode)
-            is_numbered = {'true': True, 'false': False}.get(numbered.lower())   
             
+            is_numbered = {'true': True, 'false': False}.get(numbered.lower())   
+            is_alphabetical_ordered = {'true': True, 'false': False}.get(alph.lower())
+            
+
+        
             #----------GENERATING A TEMPORARY DOCUMENT---------------
             
-            temp_doc = 'temp-doc-' + poll.poll_code + '.docx'
+            temp_doc = temp_dir + 'temp-doc-' + poll.poll_code + '.docx'
+
+        
             
             with open(temp_doc, 'wb+') as destination:
                 with poll.appended_document.open('rb') as source: 
@@ -731,16 +778,11 @@ def generateDoc(request, pollcode, docname, numbered):
             #adding 1 to the length of my poll values for the table to account for the headers
             num_rows = len(list(pollValues.values())) +1
             if is_numbered:
-                #adding one to account for the number colomn
+                #adding 1 column to account for the number colomn if list is supposed to be numbered
                 num_cols =  len(json.loads(poll.fields)) +1
             else:
                 num_cols =  len(json.loads(poll.fields))
-            
-            #getting the values for the headers
-            #remove this if not in use
-            # headers = []
-            # for header in json.loads(poll.fields):
-            #     headers.append(header.get('name'))
+           
             
             doc = Document(temp_doc)
             tables = doc.tables
@@ -755,7 +797,7 @@ def generateDoc(request, pollcode, docname, numbered):
                     else:
                         cellValue = row[0].text
                         if cellValue.lower() == 'dg':
-                            #we found a dg table
+                            #we found a dg table!
                             parent_table = table._element.getparent()
                             new_table = doc.add_table(rows=num_rows, cols=num_cols)
                             new_table.style = 'Table Grid'
@@ -785,13 +827,22 @@ def generateDoc(request, pollcode, docname, numbered):
                     cell.paragraphs[0].runs[0].bold = True
                 hIndex +=1
 
+            poll_value_list = list(pollValues.values())
+            
+            if is_alphabetical_ordered:
+                if transverse == 'asc':
+                    poll_value_list.sort(key= partial(sort_by_field_values, factor=factor), reverse=False)
+                else:
+                    poll_value_list.sort(key= partial(sort_by_field_values, factor=factor), reverse=True)
+
+
             #setting the other rows of the table 
             #iterate starting from row index 1 to row index num_rows, this is done to exclude the headers
-            print('i got here')
             for i in range(1, num_rows):
                 row_cells = new_table.rows[i].cells
                 poll_fields = json.loads(poll.fields)
-                val = list(pollValues.values())[i-1]
+                val = poll_value_list[i-1]
+                print(val)
                 pIndex = 0
                 for index, cell in enumerate(row_cells):
                     if is_numbered:
@@ -823,10 +874,11 @@ def generateDoc(request, pollcode, docname, numbered):
             doc.save(temp_doc)
 
             #-----DOWNLOADING THE GENERATED TEMPORARY DOCUMENT----------
-            file_name = 'temp-doc-' + poll.poll_code + '.docx'
+            file_name = temp_dir+ 'temp-doc-' + poll.poll_code + '.docx'
        
             if os.path.exists(file_name):
                 file = open(file_name, 'rb')
+                
                 response = FileResponse(file)
                 response['Content-disposition'] ='attachment; filename= "' + docname + '"'
                 return response
@@ -845,6 +897,12 @@ def generateDoc(request, pollcode, docname, numbered):
                 'message': 'Poll not found'
             }
             return JsonResponse(context, status= 500)
+        
+
+def sort_by_field_values(item, factor):
+    for item in json.loads(item.get('field_values')):
+        if item.get('name') == factor:
+            return item.get('value')
         
 def sendEmail(request):
     if request.method == 'POST':
@@ -865,8 +923,9 @@ def sendEmail(request):
                  'subject':subject,
                  'message': message
             })
-            send_mail(subject, message, 'Data gridder <codebee286@gmail.com>', ['codebee345@outlook.com'],html_message=html,fail_silently=False)
-            print(contact.name)
+
+            sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
+            send_mail(subject, message, sender, ['codebee345@outlook.com', 'onuhudoudo@gmail.com'],html_message=html,fail_silently=False)
         else:
             print('form is not valid')
 
@@ -920,3 +979,10 @@ def showCurrentSite(request):
     current_site = get_current_site(request)
     print('the current site is ', current_site)
     return redirect('/')
+
+def contactUs(request):
+    contact_form = forms.ContactForm()
+    context = {
+        'contact_form': contact_form
+    }
+    return render(request,'contactus.html', context)

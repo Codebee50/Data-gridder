@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-p^k^e4%%@68*o3d(l*)nvg334b9yz5v^6-ea7_og0*-tpy94(6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.0.101']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.0.101', '192.168.0.100']
 # ALLOWED_HOSTS = []
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'data_gridder',
     'compressor',  
     'sass_processor',
+    'django_cron',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CRON_CLASSES = [
+    "data_gridder.templife.TempCron",
+ 
 ]
 
 ROOT_URLCONF = 'Gridder.urls'
@@ -163,6 +169,14 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'codebee286@gmail.com'
 EMAIL_HOST_PASSWORD = 'sssvsyicmhkyzskg'
 EMAIL_FROM_USER = 'codebee286@gmail.com'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+# EMAIL_HOST = 'smtp.zoho.com'
+# EMAIL_PORT = 465
+# EMAIL_USE_TLS= True
+# EMAIL_HOST_USER = 'contact@datagridder.com'
+# EMAIL_HOST_PASSWORD = 'pWLMZ6tz3BSW'
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 

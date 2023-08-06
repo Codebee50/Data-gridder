@@ -39,16 +39,18 @@
                 <div class="top-right">
                     
                     <div class="generate-btn" id="generate-btn">
-                        <!-- <i class="fa-solid fa-print"></i> -->
+                        <i class="fa-solid fa-download"></i>
                         <p>Download</p>
                     </div>
         
                     <div class="settings-btn" id="edit-poll">
+                        <i class="fa-solid fa-gear"></i>
                         <p>Settings</p>
                     </div>
 
                    
                 </div>
+
             </div>
             <div class="middle-left">
                 <h1>{{poll.poll_name}}</h1>
@@ -56,7 +58,6 @@
                 <div class="poll-details">
                 
                     <div class="population">
-                    
                         <i class="fa-solid fa-users"></i>
                         <p id="people-count">{{peoplecount}} Registered</p>
                     </div>
@@ -86,6 +87,19 @@
     <div class="modal-container">
             <div class="modal-box">
                 <div class="content">
+                    <div class="header">
+                        <div class="left">
+                            <i class="fa-solid fa-gear"></i>
+                            <p>Settings</p>
+                        </div>
+
+                        <div class="right">
+                            <svg id="discard-btn" stroke="currentColor" fill="currentColor" stroke-width="10" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg>
+
+                        </div>
+                       
+
+                    </div>
                   <div class="edt-name">
                       <p>Poll name</p>
                       <input type="text" id="poll-name-input">
@@ -108,7 +122,7 @@
       
                   <div class="m-buttons">
                       <button id="save-btn">Save</button>
-                      <button id="discard-btn">Cancel</button>
+                      <!-- <button id="discard-btn">Cancel</button> -->
                   </div>
       
                   <div class="loading">
@@ -132,13 +146,24 @@
     </div>
 
     <div class="download-modal">
-        <div class="download-modal-box">
+        <div class="download-modal-box ">
             <div class="download-content">
                 <div class="modal-header">
-                    <i class="fa-solid fa-download"></i>
-                    <!-- <i class="fa-sharp fa-solid fa-file-arrow-down"></i> -->
-                    
-                    <p>Download</p>
+                    <div class="left">
+                        <i class="fa-solid fa-download"></i>
+                        <!-- <i class="fa-sharp fa-solid fa-file-arrow-down"></i> -->
+                        
+                        <p>Download</p>
+                    </div>
+
+                    <div class="right">
+                        <!-- <i class="fa-solid fa-xmark"></i> -->
+                        <svg id="cancel-download" stroke="currentColor" fill="currentColor" stroke-width="10" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg>
+
+                    </div>
+
+
+
                  
                 </div>
                 
@@ -164,24 +189,48 @@
                     </div>
                     
                     <div class="number-check">
-                        <input type="checkbox" name="number-document" id="number-document">
-                        <label for="number-document">Number my list</label>
-
+                        <div class="check">
+                            
+                            <input type="checkbox" name="number-document" id="number-document">
+                            <label for="number-document">Number my list</label>
+                        </div>
+                        <div class="check">
+                            <input type="checkbox" name="alph-order" id="alph-order">
+                        <label for="alph-order">Order list by</label>
+                        <select name="order-factor" id="order-factor">
+                            <!-- creating options here  -->
+                        </select>
+                        </div>
+                        
                     </div>
                     <div class="m-buttons">
                         <a id="download-link-tag"></a>
                         <button id="download-btn">Download</button>
                         
-                        <button id="cancel-download">Cancel</button>
+                        <!-- <button id="cancel-download">Cancel</button> -->
                     </div>
                 </div>
             </div>
            
             
             <div class="download-alert">
-                <i class="fa-solid fa-circle-check"></i>
-                <h4 id="mod-message">Your download should start automaticaly</h4>
-                <p>You can now retrieve and customize your document to your better liking</p>
+                <div class="left-content">
+                    <!-- <i class="fa-solid fa-cloud-arrow-down"></i> -->
+                    <!-- <i class="fa-solid fa-face-smile"></i> -->
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <div class="right-content">
+                    <h4 class="remark-message">
+                        Downloading.. 
+                    </h4>
+                    <p class="message">
+                        Your download should start automatically. You can now retrieve and customize your document to better suite your needs.
+                    </p>
+                </div>
+
+                <i class="fa-solid fa-xmark" id="remove-download-modal"></i>
+                <!-- <h4 id="mod-message">Your download should start automaticaly</h4>
+                <p>You can now retrieve and customize your document to your better liking</p> -->
             </div>
             
         </div>

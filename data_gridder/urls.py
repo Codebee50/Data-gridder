@@ -17,7 +17,7 @@ urlpatterns =[
     path('editpoll', views.editPoll, name='editpoll'),
     path('deletetemp/<str:pollcode>/', views.deleteTemp, name='deletetemp'),
     path('deletepoll/<str:pollcode>/', views.deletePoll, name='deletepoll'),
-    path('generatedoc/<str:pollcode>/<str:docname>/<str:numbered>/', views.generateDoc, name='generetedoc'),
+    path('generatedoc/<str:pollcode>/<str:docname>/<str:numbered>/<str:alph>/<str:factor>/<str:transverse>/', views.generateDoc, name='generetedoc'),
     path('sendemail', views.sendEmail, name='sendemail'),
     path('logout', views.logout, name='logout'),
     path('getuservalues', views.getUesrValues, name='getuservalues'),
@@ -26,5 +26,6 @@ urlpatterns =[
     path('resend-activation-email/<str:userId>/', views.resend_activation_email, name='resendactivation'),
     path('request-reset-email', views.RequestResetEmail.as_view(), name='request-reset-email'),
     path('set-new-password/<uidb64>/<token>', views.SetNewPassword.as_view(), name='set-new-password'),
-    path('show-current-site', views.showCurrentSite, name='showcurrentsite')
+    path('show-current-site', views.showCurrentSite, name='showcurrentsite'),
+    path('contact-datagridder', views.contactUs, name='contact-datagridder')
 ]

@@ -28,10 +28,27 @@ input:-webkit-autofill:active {
   box-sizing: border-box;
 }
 
+button:disabled {
+  background-color: #a6a9bf;
+  cursor: not-allowed;
+}
+
 .signup {
   width: 100%;
   min-height: 100vh;
   display: flex;
+}
+.signup .contact-data-gridder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+.signup .contact-data-gridder i {
+  font-size: 1.5rem;
+  color: #393B4A;
 }
 .signup .container {
   display: flex;
@@ -266,6 +283,13 @@ input:-webkit-autofill:active {
   margin-top: 0.7rem;
   margin-bottom: 0.7rem;
 }
+.signup .verify-email-div .verify-body .resend-div {
+  align-self: center;
+}
+.signup .verify-email-div .verify-body .resend-div p {
+  color: rgb(47, 45, 45);
+  font-size: 0.9rem;
+}
 .signup .verify-email-div .verify-body .edit-p {
   text-align: center;
   font-size: 0.8rem;
@@ -309,6 +333,18 @@ input:-webkit-autofill:active {
   width: 100%;
   min-height: 100vh;
   display: flex;
+}
+.login .contact-data-gridder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+.login .contact-data-gridder i {
+  font-size: 1.5rem;
+  color: #393B4A;
 }
 .login .container {
   display: flex;
@@ -492,4 +528,70 @@ input:-webkit-autofill:active {
   margin-top: 0.9rem;
   color: rgb(49, 97, 230);
   /* text-decoration: none; */
+}
+
+.modal-container {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.modal-container .modal-box {
+  background-color: white;
+  width: 90%;
+  max-width: 350px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-container .modal-box .content {
+  display: none;
+  flex-direction: row;
+}
+.modal-container .modal-box .content .left {
+  width: 30%;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #eff3f5;
+}
+.modal-container .modal-box .content .left i {
+  font-size: 3rem;
+  color: #2a3439;
+}
+.modal-container .modal-box .content .right {
+  width: 70%;
+  min-height: 150px;
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+}
+.modal-container .modal-box .content .right #remove-modal {
+  align-self: flex-end;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.modal-container .modal-box .content .right p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  font-family: "Inter", sans-serif;
+  margin-top: 0.3rem;
+}
+.modal-container .modal-box .content .right .vrf-a-button {
+  margin-top: 0.9rem;
+  font-family: "Inter", sans-serif;
+}
+.modal-container .modal-box .content.visible {
+  display: flex;
+}
+
+.modal-container.visible {
+  display: flex;
 }/*# sourceMappingURL=sign.css.map */

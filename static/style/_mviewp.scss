@@ -2,11 +2,50 @@
   .holder{
     .header-section{
         .top-content{
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            row-gap: 0.6rem;
-            padding-top: 0.9rem;
+            .showcase{
+              padding: 0.9rem;
+            }
+           .top-right{
+             
+            .generate-btn{
+              background-color: white;
+              border: 0.9px solid rgb(150, 148, 148);
+              p{
+                display: none;
+
+              }
+
+              i{
+                
+                display: block;
+                color: rgb(77, 76, 76);
+              }
+
+              
+            }
+
+
+            .settings-btn{
+              background-color: white;
+              border: 0.9px solid rgb(150, 148, 148);
+
+
+              p{
+                display: none;
+              }
+
+              i{
+                display: block;
+                color: rgb(77, 76, 76);
+
+              }
+            }
+           }
+
+           #mobile{
+            display: block;
+            padding: 0.9rem;
+           }
         }
     }
   }

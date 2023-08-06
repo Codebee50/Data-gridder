@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 body {
   font-family: "lato", sans-serif;
 }
@@ -63,7 +64,6 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: aqua;
 }
 .holder .header-section {
   background-color: white;
@@ -89,6 +89,8 @@ body {
 .holder .header-section .top-content .showcase h1 {
   font-size: 1rem;
   margin-left: 0.3rem;
+  color: #393B4A;
+  font-family: "Inter", sans-serif;
 }
 .holder .header-section .top-content .top-right {
   display: flex;
@@ -110,14 +112,18 @@ body {
   padding: 0.7rem;
   border-radius: 5px;
   transition: 0.5s ease-in-out;
+  font-size: 0.9rem;
 }
 .holder .header-section .top-content .top-right .generate-btn p {
   color: white;
   font-weight: 1000;
+  font-size: 0.9rem;
   cursor: pointer;
 }
 .holder .header-section .top-content .top-right .generate-btn i {
   color: white;
+  font-size: 0.9rem;
+  display: none;
 }
 .holder .header-section .top-content .top-right .settings-btn {
   display: flex;
@@ -130,10 +136,16 @@ body {
   border-radius: 5px;
   margin-left: 0.3rem;
   border: 0.3px solid rgb(104, 101, 101);
+  font-size: 0.9rem;
   cursor: pointer;
 }
 .holder .header-section .top-content .top-right .settings-btn p {
   font-weight: 1000;
+}
+.holder .header-section .top-content .top-right .settings-btn i {
+  color: black;
+  font-size: 0.9rem;
+  display: none;
 }
 .holder .header-section .middle-left {
   align-self: flex-start;
@@ -156,21 +168,26 @@ body {
 .holder .header-section .middle-left .poll-details .population {
   display: flex;
   flex-direction: row;
-  -moz-column-gap: 0.5rem;
-       column-gap: 0.5rem;
   align-items: center;
+}
+.holder .header-section .middle-left .poll-details .population p {
+  margin-left: 0.5rem;
+}
+.holder .header-section .middle-left .poll-details .population i {
+  opacity: 0.75;
 }
 .holder .container {
   width: 100%;
   height: 100vh;
   background-color: #8bb6cc;
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 .holder .container .preview-holder {
-  width: 95%;
+  width: 100%;
   background-color: white;
   margin: 2rem;
   height: 90%;
@@ -188,6 +205,7 @@ body {
 .holder .container .preview-holder .table-container table {
   padding: 1.7rem;
   border-collapse: collapse;
+  min-width: 300px;
   width: 90%;
   font-size: 0.9rem;
   box-shadow: 0 0 20px rgba(120, 118, 118, 0.15);
@@ -219,7 +237,6 @@ body {
   background-color: white;
   width: 100%;
   max-width: 400px;
-  padding: 0.9rem;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -228,10 +245,37 @@ body {
   display: none;
   flex-direction: column;
 }
+.modal-container .modal-box .content .header {
+  display: flex;
+  padding: 0.9rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.5px solid black;
+}
+.modal-container .modal-box .content .header .left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.modal-container .modal-box .content .header .left i {
+  font-size: 0.9rem;
+  color: rgb(75, 73, 73);
+}
+.modal-container .modal-box .content .header .left p {
+  margin-left: 0.4rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: rgb(75, 73, 73);
+}
+.modal-container .modal-box .content .header .right svg {
+  cursor: pointer;
+}
 .modal-container .modal-box .content .edt-name {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 0.9rem;
 }
 .modal-container .modal-box .content .edt-name p {
   font-size: 0.8rem;
@@ -241,12 +285,10 @@ body {
 }
 .modal-container .modal-box .content .edt-name input[type=text] {
   padding: 0.7rem;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   margin-top: 4px;
-  border-radius: 15px;
+  border-radius: 4px;
   width: 90%;
-  border: none;
-  outline: none;
+  border: 0.8px solid black;
 }
 .modal-container .modal-box .content .document {
   border-radius: 5px;
@@ -297,13 +339,12 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 0.8rem;
 }
 .modal-container .modal-box .content .m-buttons button {
-  width: 40%;
-  background-color: #29abe2;
-  padding: 0.5rem;
-  margin: 0 0.2rem;
+  width: 100%;
+  background-color: #45987e;
+  padding: 0.9rem;
+  margin: 0.9rem 0.7rem;
   border: none;
   color: white;
   border-radius: 5px;
@@ -384,15 +425,24 @@ body {
   padding: 0.9rem;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 0.5px solid black;
 }
-.download-modal .download-modal-box .download-content .modal-header i {
-  font-size: 1.2rem;
+.download-modal .download-modal-box .download-content .modal-header .left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.download-modal .download-modal-box .download-content .modal-header .left i {
+  font-size: 0.9rem;
   color: #077412;
 }
-.download-modal .download-modal-box .download-content .modal-header p {
+.download-modal .download-modal-box .download-content .modal-header .left p {
   margin-left: 0.4rem;
   font-weight: 700;
+}
+.download-modal .download-modal-box .download-content .modal-header .right svg {
+  cursor: pointer;
 }
 .download-modal .download-modal-box .download-content .content {
   padding: 0.9rem;
@@ -414,6 +464,9 @@ body {
 }
 .download-modal .download-modal-box .download-content .content .file-det .details i {
   color: rgb(58, 58, 61);
+}
+.download-modal .download-modal-box .download-content .content .file-det .details #txt-file-name {
+  margin-left: 0.2rem;
 }
 .download-modal .download-modal-box .download-content .content .file-det #edit-name-i {
   cursor: pointer;
@@ -460,16 +513,26 @@ body {
   display: flex;
 }
 .download-modal .download-modal-box .download-content .content .number-check {
+  display: flex;
+  flex-direction: column;
+}
+.download-modal .download-modal-box .download-content .content .number-check .check {
   margin-top: 0.9rem;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   justify-content: flex-start;
 }
-.download-modal .download-modal-box .download-content .content .number-check label {
+.download-modal .download-modal-box .download-content .content .number-check .check label {
   font-size: 0.9rem;
   margin-left: 0.3rem;
+}
+.download-modal .download-modal-box .download-content .content .number-check .check select {
+  border: none;
+  outline: none;
+  background-color: white;
 }
 .download-modal .download-modal-box .download-content .content .m-buttons {
   width: 100%;
@@ -480,9 +543,9 @@ body {
   margin-top: 1.5rem;
 }
 .download-modal .download-modal-box .download-content .content .m-buttons button {
-  width: 40%;
-  background-color: #29abe2;
-  padding: 0.8rem 0.5rem;
+  width: 100%;
+  background-color: #45987e;
+  padding: 0.7rem 0.5rem;
   margin: 0 0.2rem;
   border: none;
   color: white;
@@ -499,28 +562,51 @@ body {
 }
 .download-modal .download-alert {
   display: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.download-modal .download-alert .left-content {
+  background-color: #fdfdfd;
+  width: 30%;
+  min-height: 150px;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.8rem 0.5rem;
 }
-.download-modal .download-alert i {
-  font-size: 3rem;
-  color: rgb(8, 204, 8);
+.download-modal .download-alert .left-content i {
+  font-size: 2rem;
+  color: rgba(3, 17, 43, 0.9019607843);
 }
-.download-modal .download-alert #mod-message {
-  margin-top: 1.2rem;
-  opacity: 0.7;
-  text-align: center;
-}
-.download-modal .download-alert p {
+.download-modal .download-alert .right-content {
   width: 70%;
-  max-width: 350px;
-  margin-top: 0.4rem;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 0.9rem;
+}
+.download-modal .download-alert .right-content .remark-message {
+  font-size: 1.3rem;
+  color: #393B4A;
+  font-family: "Inter", sans-serif;
+}
+.download-modal .download-alert .right-content .message {
+  margin-top: 0.3rem;
   font-size: 0.8rem;
-  text-align: center;
-  color: #625e5e;
-  margin-bottom: 0.5rem;
+  font-family: "Inter", sans-serif;
+  opacity: 0.7;
+}
+.download-modal .download-alert #remove-download-modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.9rem;
+  cursor: pointer;
+  color: #bbb6b6;
 }
 .download-modal .download-alert.visible {
   display: flex;
@@ -619,7 +705,7 @@ body {
 .display-details-moadal .display-result .bottom button {
   outline: none;
   border: none;
-  background-color: #29abe2;
+  background-color: #45987e;
   padding: 0.6rem 1.7rem;
   color: white;
   border-radius: 5px;
@@ -632,11 +718,33 @@ body {
 }
 
 @media screen and (max-width: 400px) {
-  .holder .header-section .top-content {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 0.6rem;
-    padding-top: 0.9rem;
+  .holder .header-section .top-content .showcase {
+    padding: 0.9rem;
+  }
+  .holder .header-section .top-content .top-right .generate-btn {
+    background-color: white;
+    border: 0.9px solid rgb(150, 148, 148);
+  }
+  .holder .header-section .top-content .top-right .generate-btn p {
+    display: none;
+  }
+  .holder .header-section .top-content .top-right .generate-btn i {
+    display: block;
+    color: rgb(77, 76, 76);
+  }
+  .holder .header-section .top-content .top-right .settings-btn {
+    background-color: white;
+    border: 0.9px solid rgb(150, 148, 148);
+  }
+  .holder .header-section .top-content .top-right .settings-btn p {
+    display: none;
+  }
+  .holder .header-section .top-content .top-right .settings-btn i {
+    display: block;
+    color: rgb(77, 76, 76);
+  }
+  .holder .header-section .top-content #mobile {
+    display: block;
+    padding: 0.9rem;
   }
 }/*# sourceMappingURL=viewpoll.css.map */

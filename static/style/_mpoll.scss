@@ -1,4 +1,5 @@
 @media screen and (max-width :950px){
+
     .container{
         .leftparent{
            position: absolute;
@@ -38,6 +39,11 @@
         .rightparent{
             border: none;
             .top-content{
+                height: 10vh;
+               
+                .top-container{
+                    height: 10vh;
+                }
                .left-con{
                 display: flex;
                 flex-direction: row;
@@ -79,10 +85,32 @@
               
             }
         }
+
+        #new-poll{
+            .bottom-content{
+                height: 90vh;
+            }
+        }
     }
 }
 
 @media screen and (max-width: 530px){
+    .rightparent{
+        .top-content{
+
+            .top-container{
+
+                .top-right{
+
+                    #publish-btn{
+                      
+                        margin-right: 0.9rem !important;
+                        
+                    }
+                }
+            }
+        }
+    }
   .container{
     #contact-us{
         .bottom-content{
@@ -100,4 +128,64 @@
         }
     }
   }
+}
+
+@media screen and (max-width: 1260px){
+    .container{
+        #new-poll{
+            .bottom-content{
+                .bottom-left{
+                    width: 75%;
+                }
+                .bottom-right{
+                    width: 25%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px){
+    .container{
+        #new-poll{
+            .bottom-content{
+                .bottom-left{
+                    width: 70%;
+                }
+                .bottom-right{
+                    width: 30%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 450px){
+    .container{
+        #new-poll{
+            .bottom-content{
+                .bottom-left{
+                    width: 65%;
+                }
+                .bottom-right{
+                    width: 35%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 360px){
+    .container{
+        #new-poll{
+            .bottom-content{
+                .bottom-left{
+                    width: 60%;
+                }
+                .bottom-right{
+                    width: 40%;
+                }
+            }
+        }
+    }
 }

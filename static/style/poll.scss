@@ -4,6 +4,7 @@
 $light-blue: #29abe2;
 $complement_color: #393B4A;
 $background_pink:#f7f2f2 ;
+$button_green: #45987e;
 body{
    
     font-family: 'lato', sans-serif;
@@ -106,9 +107,11 @@ html::-webkit-scrollbar{
         .active-btn{
             background-color: #f7f2f2;
         }
-        .navigation:hover{
-            background-color: #f7f2f2;
-        }
+        // .navigation:hover{
+        //     //background-color: #f7f2f2;
+        //     background-color: white;
+
+        // }
 
 
        }
@@ -160,7 +163,7 @@ html::-webkit-scrollbar{
                 flex-direction: row;
                 width: 100%;
                 height: 15vh;
-    
+               
                 .top-left{
                     width: 70%;
             
@@ -227,19 +230,22 @@ html::-webkit-scrollbar{
                     
                     
                     #publish-btn{
-                        padding: 10px 20px;
+                        padding: 7px 16px;
                         border: none;
                         border-radius: 5px;
                         color: white;
                         margin-right: 2rem;
                         background-color: $light-blue;
                         cursor: pointer;
+                        font-size: 0.9rem;
 
                         a{
                             color: white;
                             text-decoration: none;
                         }
                     }
+
+                    
                     input[type=submit]{
                         padding: 10px 20px;
                         border: none;
@@ -260,16 +266,24 @@ html::-webkit-scrollbar{
     //-----------------------------NEW POLL --------------------------
     #new-poll{
         .bottom-content{
-          
             height: 85vh;
             display: flex;
-            flex-direction: co;
+            flex-direction: row;
+            background-color: white;
+           
 
 
             .bottom-left{
-                width: 50%;
+                width: 80%;
                 height: 100%;
                 background-color: #fafbfc;
+                background-color: white;
+                background-image: url(/static/img/grid-image.svg);
+                background-position: center;
+                background-repeat: repeat;
+                 background-size: cover;
+                
+                
                 display: flex;
                 flex-direction: column;
                 align-content: center;
@@ -303,17 +317,18 @@ html::-webkit-scrollbar{
                         //background-color: blue;
                         width: 90%;
                         max-width: 170px;
-
+                        background-color: white;
                         min-height: 40px;
                         border-radius: 5px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        border: 0.5px solid rgb(193, 190, 190);
                         margin: auto;
                         margin-bottom: 10px;
                         p{
                             color: black;
-                            font-weight: 600;
+                            font-family: 'Inter', sans-serif;
                         }
 
 
@@ -321,6 +336,13 @@ html::-webkit-scrollbar{
 
                     .selected{
                         border: 3px solid black;
+
+                        p{
+                            color: black;
+                            font-weight: 600;
+                        }
+
+                       
                     }
                     
                 }
@@ -334,13 +356,14 @@ html::-webkit-scrollbar{
                     flex-direction: row;
                     margin-bottom:20px;
 
-                    #btn-add-below{
+                    #btn-clear{
                         width: 100px;
-                        padding: 10px 7px;
+                        padding: 9px 7px;
                         bottom:  0;
                         margin-left: 10px;
                         border: 1px solid black;
                         background-color: white;
+                        font-size: 0.8rem;
                     }
                     .btn-new-field{
                         position: relative;
@@ -348,12 +371,12 @@ html::-webkit-scrollbar{
                         align-self: center;
                         background-color: black;
                         color: white;
-                        font-size: 0.9rem;
+                        font-size: 0.8rem;
                         
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        padding: 10px 7px;
+                        padding: 9px 7px;
                         width: 100px;
                         cursor: pointer;
                         border: 1px solid black;
@@ -364,12 +387,14 @@ html::-webkit-scrollbar{
                 
             }
             .bottom-right{
-                width: 50%;
+                width: 20%;
                 height: 100%;
-                background-color: #f2f2f2;
+                background-color: #f8f8f8;
+                //background-color: $background_pink;
 
                 .poll-header{
                     padding: 10px 20px;
+                    font-family: 'Inter', sans-serif;
                 }
 
                 .f-prop{
@@ -400,13 +425,53 @@ html::-webkit-scrollbar{
                     .ops{
                         margin-top: 1.5rem;
                         display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        i{
-                            color: red;
-                            font-size: 1.2rem;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        
+
+                        button{
+                            width: 90%;
+                            max-width: 130px;
+                            padding: 7px 15px;
+                            border: none;
+                            outline: none;
+                            border-radius: 3px;
                             cursor: pointer;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: center;
+                            margin-top: 0.5rem;
+
                         }
+
+                        #btn-add-below{
+                            border: 1px solid black;
+                            background-color: white;
+                            color: black;
+
+                            
+                            i{
+                                color: black;
+                                font-size: 0.8rem;
+                                margin-right: 0.5rem;
+                            }
+                        }
+
+                        .delete-btn{
+                            color: white;
+                            background-color: #f55050;
+
+                            
+                            i{
+                                color: white;
+                                margin-right: 0.5rem;
+                                font-size: 0.8rem;
+                            }
+                        }
+
+                   
+
 
                         .save-btn{
                             background-color: $light-blue;
@@ -426,6 +491,16 @@ html::-webkit-scrollbar{
 
     //--------------------MY POLLS ---------------------------
     #my-polls{
+
+        .bottom-content::-webkit-scrollbar{
+            width: .5rem;
+            background-color: #fafbfc;
+        }
+
+        .bottom-content::-webkit-scrollbar-thumb{
+            border-radius: 2rem;
+            background: $complement_color;
+        }
         .bottom-content{
             overflow-y: scroll;
            
@@ -636,7 +711,7 @@ html::-webkit-scrollbar{
             }
         }
 
-        .buttom-content::-webkit-scrollbar{
+        .bottom-content::-webkit-scrollbar{
             width: .5rem;
             background-color: #fafbfc;
         }
@@ -947,7 +1022,7 @@ html::-webkit-scrollbar{
             
         }
         #finish-btn{
-            background-color:#29abe2;
+            background-color: $button_green;
             border: none;
             border-radius: 5px;
             color: white;

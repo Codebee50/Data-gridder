@@ -16,6 +16,7 @@ const controls = document.querySelectorAll('.navigation')
 const sections = document.querySelectorAll('.rightparent')
 const pollsUi = document.querySelectorAll('.redirect')
 const deletePoll = document.querySelectorAll('.delete-poll')
+const btnClear = document.getElementById('btn-clear')
 
 const alertMessage = document.getElementById('cus-alert-message')
 const okBtn = document.getElementById('ok-btn')
@@ -73,7 +74,6 @@ $('document').ready(function(e){
         'url': '/getuservalues',
         'type': 'GET',
         success: (response) =>{
-            
             orgarnizeAccordions(response.user_values)
         },
         error: (response) =>{
@@ -91,8 +91,10 @@ document.getElementById('cancel-del-entry').addEventListener('click', function(e
 
 function orgarnizeAccordions(values){
     //looping through all the accordions
+
     accordions.forEach((accordion)=>{
-       item = values.find(value=> value.id == accordion.id)
+       item = values.find(value => value.id == accordion.id)
+ 
        let valuesContainer = accordion.querySelector('.field_values_content')
        let deleteEntry = accordion.querySelector('.delete-entry')
 
@@ -110,7 +112,7 @@ function orgarnizeAccordions(values){
          fieldValues = JSON.parse(item.field_values)
       
          fieldValues.forEach((fieldValue)=>{
-          
+           
             divEl = `<div class="field">
             <p class="value_name">${fieldValue.name}:</p>
             <p class="value_value">${fieldValue.value}</p>
@@ -420,10 +422,58 @@ function localTransitions(){
 pageTransitions()
 localTransitions()
 
+let isValidJsonArray = /^\[\{.*\}\]$/.test(localStorage.getItem('pollData'));
+
+if(isValidJsonArray){
+    loadLocalDataIntoView()   
+}
+else{
+    createNewField(false)
+}
 
 
-//creating one default field when the page first loads
-createNewField(false)
+
+initListeners()
+function loadLocalDataIntoView(){
+    feildArray = JSON.parse(localStorage.getItem('pollData'))
+    lastId = 0;
+    index = 1;
+    feildArray.forEach(obj => {
+
+        fieldElement = document.createElement("div")
+        lastId = obj.id
+        fieldElement.id = obj.id
+        let pId = 'p' + obj.id
+        let p = '<p id=' + pId + '> ' + obj.name + '</p' 
+        fieldElement.innerHTML = p
+        fieldElement.classList.add('field')
+    
+        fieldElement.addEventListener('click', selectField)
+        fieldContainer.appendChild(fieldElement)
+        if(index == 1){
+            const syntheticEvent = {
+                target: fieldElement,
+            };
+            selectField(syntheticEvent)
+        }
+        index ++ 
+    })
+
+    idValue = lastId
+}
+
+function initListeners(){
+    
+    radioButtons.forEach(radiobutton => {
+        radiobutton.addEventListener('change', validateFields)
+    })
+
+    fieldName.addEventListener('change', validateFields)
+    btnClear.addEventListener('click', clear)
+
+    requiredCheck.addEventListener('change', validateFields)
+}
+
 
 btnNewField.addEventListener('click', createNewField.bind(null, false))
 
@@ -431,45 +481,43 @@ btnNewField.addEventListener('click', createNewField.bind(null, false))
  * if a new div is to be created at the end of the container
  */
 function createNewField(below){
- //creating a new feild element
- fieldElement = document.createElement("div")
- idValue ++
- fieldElement.id = idValue
- let pId = 'p' +idValue
- let p = '<p id=' + pId + '>Blank</p' 
+    //creating a new feild element
+    fieldElement = document.createElement("div")
+    idValue ++
+    fieldElement.id = idValue
+    let pId = 'p' +idValue
+    let p = '<p id=' + pId + '>Blank</p' 
 
- fieldElement.innerHTML = p
- fieldElement.style.background = '#f46c6c'
- fieldElement.classList.add('field')
- 
- fieldElement.addEventListener('click', selectField)
+    fieldElement.innerHTML = p
+    fieldElement.classList.add('field')
+    
+    fieldElement.addEventListener('click', selectField)
 
- 
- //creating a new field object that corresponds to this field element with default values
- feildObject = new Field(idValue, 'Blank', false, 'text')
- 
- if(below){
-    let selected = document.getElementById(fieldObjet.id + '')
+    //creating a new field object that corresponds to this field element with default values
+    feildObject = new Field(idValue, 'Blank', false, 'text')
+    
+    if(below){
+        let selected = document.getElementById(fieldObjet.id + '')
 
-    //getting the index of the currently selected field in the field array so that the new element can be inserted below it
-    //this is done so that the order of the field items in the list can be the same way the user ordered them 
-    let fieldIndex = feildArray.findIndex(field => field.id == fieldObjet.id +'')
-    feildArray.splice(fieldIndex+1,0,  feildObject)
-    fieldContainer.insertBefore(fieldElement, selected.nextSibling)
- }
- else{
-    //in this case just append the new field to the end of the field container and to the end of the list 
-    fieldContainer.appendChild(fieldElement)
-    feildArray.push(feildObject)
- }
+        //getting the index of the currently selected field in the field array so that the new element can be inserted below it
+        //this is done so that the order of the field items in the list can be the same way the user ordered them 
+        let fieldIndex = feildArray.findIndex(field => field.id == fieldObjet.id +'')
+        feildArray.splice(fieldIndex+1,0,  feildObject)
+        fieldContainer.insertBefore(fieldElement, selected.nextSibling)
+    }
+    else{
+        //in this case just append the new field to the end of the field container and to the end of the list 
+        fieldContainer.appendChild(fieldElement)
+        feildArray.push(feildObject)
+    }
 
- if(feildArray.length <2 ){
-    // Create a synthetic event object
-    const syntheticEvent = {
-        target: fieldElement,
-    };
-    selectField(syntheticEvent)
- }
+    if(feildArray.length <2 ){
+        // Create a synthetic event object
+        const syntheticEvent = {
+            target: fieldElement,
+        };
+        selectField(syntheticEvent)
+    }
 
 
 
@@ -515,6 +563,7 @@ function selectField(e){
      
 }
 
+/** ensuring there are no errors in the fields before saving them */
 function validateFields(){
     if(fieldName.value == ''){
         for(let i=0; i< radioButtons.length; i++){
@@ -589,7 +638,6 @@ function deleteFieldobject(){
         fieldObjet = feildArray[pInd]
         
         let newFieldElement = document.getElementById(fieldObjet.id + '')
-        console.log(newFieldElement)
         const syntheticEvent = {
             target: newFieldElement,
         };
@@ -603,6 +651,18 @@ function deleteFieldobject(){
     
 }
 
+
+function clear(){
+    console.log('clearing')
+    feildArray.forEach(fieldElement => {
+        let fieldUi = document.getElementById(fieldElement.id + '')
+        fieldUi.remove()
+    })
+    //splice is used to delete from starting index to ending index in the list
+    feildArray.splice(0, feildArray.length)
+    idValue = 0
+    createNewField(false)
+}
 
 
 

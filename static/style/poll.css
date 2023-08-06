@@ -89,9 +89,6 @@ html::-webkit-scrollbar {
 .container .leftparent .navigations .active-btn {
   background-color: #f7f2f2;
 }
-.container .leftparent .navigations .navigation:hover {
-  background-color: #f7f2f2;
-}
 .container .leftparent .user-details {
   width: 90%;
   margin-bottom: 20px;
@@ -165,13 +162,14 @@ html::-webkit-scrollbar {
   justify-content: end;
 }
 .container .rightparent .top-content .top-container .top-right #publish-btn {
-  padding: 10px 20px;
+  padding: 7px 16px;
   border: none;
   border-radius: 5px;
   color: white;
   margin-right: 2rem;
   background-color: #29abe2;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 .container .rightparent .top-content .top-container .top-right #publish-btn a {
   color: white;
@@ -189,12 +187,18 @@ html::-webkit-scrollbar {
 .container #new-poll .bottom-content {
   height: 85vh;
   display: flex;
-  flex-direction: co;
+  flex-direction: row;
+  background-color: white;
 }
 .container #new-poll .bottom-content .bottom-left {
-  width: 50%;
+  width: 80%;
   height: 100%;
   background-color: #fafbfc;
+  background-color: white;
+  background-image: url(/static/img/grid-image.svg);
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -218,20 +222,26 @@ html::-webkit-scrollbar {
 .container #new-poll .bottom-content .bottom-left .field-container .field {
   width: 90%;
   max-width: 170px;
+  background-color: white;
   min-height: 40px;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 0.5px solid rgb(193, 190, 190);
   margin: auto;
   margin-bottom: 10px;
 }
 .container #new-poll .bottom-content .bottom-left .field-container .field p {
   color: black;
-  font-weight: 600;
+  font-family: "Inter", sans-serif;
 }
 .container #new-poll .bottom-content .bottom-left .field-container .selected {
   border: 3px solid black;
+}
+.container #new-poll .bottom-content .bottom-left .field-container .selected p {
+  color: black;
+  font-weight: 600;
 }
 .container #new-poll .bottom-content .bottom-left .create-container {
   bottom: 0;
@@ -242,13 +252,14 @@ html::-webkit-scrollbar {
   flex-direction: row;
   margin-bottom: 20px;
 }
-.container #new-poll .bottom-content .bottom-left .create-container #btn-add-below {
+.container #new-poll .bottom-content .bottom-left .create-container #btn-clear {
   width: 100px;
-  padding: 10px 7px;
+  padding: 9px 7px;
   bottom: 0;
   margin-left: 10px;
   border: 1px solid black;
   background-color: white;
+  font-size: 0.8rem;
 }
 .container #new-poll .bottom-content .bottom-left .create-container .btn-new-field {
   position: relative;
@@ -256,22 +267,23 @@ html::-webkit-scrollbar {
   align-self: center;
   background-color: black;
   color: white;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 7px;
+  padding: 9px 7px;
   width: 100px;
   cursor: pointer;
   border: 1px solid black;
 }
 .container #new-poll .bottom-content .bottom-right {
-  width: 50%;
+  width: 20%;
   height: 100%;
-  background-color: #f2f2f2;
+  background-color: #f8f8f8;
 }
 .container #new-poll .bottom-content .bottom-right .poll-header {
   padding: 10px 20px;
+  font-family: "Inter", sans-serif;
 }
 .container #new-poll .bottom-content .bottom-right .f-prop {
   padding: 30px 20px;
@@ -295,13 +307,41 @@ html::-webkit-scrollbar {
 .container #new-poll .bottom-content .bottom-right .f-prop .ops {
   margin-top: 1.5rem;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.container #new-poll .bottom-content .bottom-right .f-prop .ops button {
+  width: 90%;
+  max-width: 130px;
+  padding: 7px 15px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
 }
-.container #new-poll .bottom-content .bottom-right .f-prop .ops i {
-  color: red;
-  font-size: 1.2rem;
-  cursor: pointer;
+.container #new-poll .bottom-content .bottom-right .f-prop .ops #btn-add-below {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+}
+.container #new-poll .bottom-content .bottom-right .f-prop .ops #btn-add-below i {
+  color: black;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+}
+.container #new-poll .bottom-content .bottom-right .f-prop .ops .delete-btn {
+  color: white;
+  background-color: #f55050;
+}
+.container #new-poll .bottom-content .bottom-right .f-prop .ops .delete-btn i {
+  color: white;
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
 }
 .container #new-poll .bottom-content .bottom-right .f-prop .ops .save-btn {
   background-color: #29abe2;
@@ -312,6 +352,14 @@ html::-webkit-scrollbar {
   border-radius: 5px;
   margin-left: 10px;
   cursor: pointer;
+}
+.container #my-polls .bottom-content::-webkit-scrollbar {
+  width: 0.5rem;
+  background-color: #fafbfc;
+}
+.container #my-polls .bottom-content::-webkit-scrollbar-thumb {
+  border-radius: 2rem;
+  background: #393B4A;
 }
 .container #my-polls .bottom-content {
   overflow-y: scroll;
@@ -470,7 +518,7 @@ html::-webkit-scrollbar {
   font-size: 0.7rem;
   margin-top: 0.2rem;
 }
-.container #rpolls .buttom-content::-webkit-scrollbar {
+.container #rpolls .bottom-content::-webkit-scrollbar {
   width: 0.5rem;
   background-color: #fafbfc;
 }
@@ -729,7 +777,7 @@ html::-webkit-scrollbar {
   display: none;
 }
 .delete-modal .delete-box .prog-check #finish-btn {
-  background-color: #29abe2;
+  background-color: #45987e;
   border: none;
   border-radius: 5px;
   color: white;
@@ -924,6 +972,12 @@ html::-webkit-scrollbar {
   .container .rightparent {
     border: none;
   }
+  .container .rightparent .top-content {
+    height: 10vh;
+  }
+  .container .rightparent .top-content .top-container {
+    height: 10vh;
+  }
   .container .rightparent .top-content .left-con {
     display: flex;
     flex-direction: row;
@@ -948,8 +1002,14 @@ html::-webkit-scrollbar {
     outline: 0;
     width: 90%;
   }
+  .container #new-poll .bottom-content {
+    height: 90vh;
+  }
 }
 @media screen and (max-width: 530px) {
+  .rightparent .top-content .top-container .top-right #publish-btn {
+    margin-right: 0.9rem !important;
+  }
   .container #contact-us .bottom-content {
     flex-direction: column;
   }
@@ -959,5 +1019,37 @@ html::-webkit-scrollbar {
   .container #contact-us .bottom-content .bottom-right {
     align-self: center;
     width: 90%;
+  }
+}
+@media screen and (max-width: 1260px) {
+  .container #new-poll .bottom-content .bottom-left {
+    width: 75%;
+  }
+  .container #new-poll .bottom-content .bottom-right {
+    width: 25%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .container #new-poll .bottom-content .bottom-left {
+    width: 70%;
+  }
+  .container #new-poll .bottom-content .bottom-right {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .container #new-poll .bottom-content .bottom-left {
+    width: 65%;
+  }
+  .container #new-poll .bottom-content .bottom-right {
+    width: 35%;
+  }
+}
+@media screen and (max-width: 360px) {
+  .container #new-poll .bottom-content .bottom-left {
+    width: 60%;
+  }
+  .container #new-poll .bottom-content .bottom-right {
+    width: 40%;
   }
 }/*# sourceMappingURL=poll.css.map */

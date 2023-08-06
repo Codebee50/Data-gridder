@@ -3,6 +3,7 @@ const resendBtn = document.getElementById('resend-btn')
 
 const passowrdOne = document.getElementById('password-one')
 const passwordTwo = document.getElementById('password-two')
+const createAccountBtn = document.getElementById('create_acct_btn')
 
 if(passowrdOne !== null && passwordTwo !== null){
     const passwordWarning = document.getElementById('front-warning')
@@ -46,7 +47,7 @@ function checkEquality(paramOne, paramTwo){
 
 
 window.addEventListener('DOMContentLoaded', (event)=>{
-    console.log('page loaded')
+    console.log('Welcome to datagridder, what are you doing back here by the way?')
     if(resendBtn !== null){
         startCounter()
         resendBtn.addEventListener('click', startCounter)
@@ -55,6 +56,8 @@ window.addEventListener('DOMContentLoaded', (event)=>{
             linkTag.click()
         })
     }
+
+
   
 })
 

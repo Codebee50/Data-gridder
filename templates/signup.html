@@ -34,11 +34,15 @@
               <p class="conf-msg">An email has been sent to {{email}}, click the link in the email to proceed</p>
               <hr>
 
-              <p class="edit-p">Wrong email?.. <span><a href="/editmail/{{username}}/{{email}}">edit details</a></span></p>
-              <button id="resend-btn"><p>Resend email</p> <p id="time-counter">00.00</p></button>
+              <!-- <p class="edit-p">Wrong email?.. <span><a href="/editmail/{{username}}/{{email}}">edit details</a></span></p> -->
+              <!-- <button id="resend-btn"><p>Resend email</p> <p id="time-counter">00.00</p></button>
                 <a href="/resend-activation-email/{{userid}}" id="download-link-tag" style="display: none;"></a>
-            </div>
+            </div> -->
 
+            <div class="resend-div">
+                <p>Didnt get the mail?  <a href="/resend-activation-email/{{userid}}" id="download-link-tag">Resend</a> </p>
+            </div>
+          
             
         </div>
         {% elif mode == 'signup' %}
@@ -53,7 +57,6 @@
                 </div>
             </div>
             <div class="bottom">
-            
 
                 <div class="form-con">
                     <form action="/register" method="POST">
@@ -95,6 +98,8 @@
        
         {% endif %}
    
+        <a href="/contact-datagridder" class="contact-data-gridder" title="contact us"> <i class="fa-regular fa-circle-question"></i>
+        </a>
         
     </section>
 

@@ -30,7 +30,7 @@ removeSample.addEventListener('click', function(){
 
 let pollData = JSON.parse(localStorage.getItem('pollData'))
 let pollDataStr = localStorage.getItem('pollData')
-console.log(pollData)
+
 
 
 let prevTable = '<table><thead><tr>'
@@ -132,6 +132,8 @@ $(document).on('submit', '#publish-form', function(e){
             
         success: function(data){
            if(data.status == 'success'){
+            console.log('setting local storage')
+            localStorage.setItem('pollData', 'none')
             warningContainer.classList.remove('visible')
             progressContainer.classList.remove('visible')
            resultContainer.classList.add('visible')

@@ -40,10 +40,44 @@ input:-webkit-autofill:active{
     box-sizing: border-box;
 }
 
+button:disabled{
+    background-color: #a6a9bf;
+    cursor: not-allowed;
+}
+
+// .contact-data-gridder{
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+//     margin: 0.9rem;
+//     cursor: pointer;
+//     text-decoration: none;
+
+//     i{
+//         font-size: 1.5rem;
+//         color: $complement_color;
+//     }
+// }
+
 .signup{
     width: 100%;
     min-height: 100vh;
     display: flex;
+
+ 
+    .contact-data-gridder{
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0.9rem;
+        cursor: pointer;
+        text-decoration: none;
+    
+        i{
+            font-size: 1.5rem;
+            color: $complement_color;
+        }
+    }
   
     
     .container{
@@ -55,7 +89,6 @@ input:-webkit-autofill:active{
         margin: auto;
         padding-bottom: 3rem;
         background-color:white;
-        // display: none;
         
         .header{
             width: 100%;
@@ -146,6 +179,7 @@ input:-webkit-autofill:active{
                         padding: 0.8rem 0.5rem;
                         margin: 1.4rem 2.5rem;
                         background-color: #031536e6;
+
                         cursor: pointer;
                         color: white;
                         border: none;
@@ -336,9 +370,20 @@ input:-webkit-autofill:active{
                 
             }
 
+
+
             hr{
                 margin-top: 0.7rem;
                 margin-bottom: 0.7rem;
+            }
+
+            .resend-div{
+                align-self: center;
+
+                p{
+                    color: rgb(47, 45, 45);
+                    font-size: 0.9rem;
+                }
             }
 
             .edit-p{
@@ -401,6 +446,19 @@ input:-webkit-autofill:active{
     min-height: 100vh;
     display: flex;
    
+    .contact-data-gridder{
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0.9rem;
+        cursor: pointer;
+        text-decoration: none;
+    
+        i{
+            font-size: 1.5rem;
+            color: $complement_color;
+        }
+    }
 
     .container{
         display: flex;
@@ -638,6 +696,89 @@ input:-webkit-autofill:active{
         color: rgb(49, 97, 230);
         /* text-decoration: none; */
     }
+}
+
+.modal-container{
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    display: none;
+
+    .modal-box{
+        background-color: white;
+        width: 90%;
+        max-width: 350px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+    
+        .content{
+            display: none;
+            flex-direction: row;
+
+            .left{
+                width: 30%;
+                min-height: 150px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: #eff3f5;
+
+                i{
+                    font-size: 3rem;
+                    color: #2a3439;
+                }
+
+               
+            }
+
+            .right{
+                width: 70%;
+                min-height: 150px;
+                padding: 0.9rem;
+                display: flex;
+                flex-direction: column;
+
+                #remove-modal{
+                    align-self: flex-end;
+                    opacity: 0.5;
+                    cursor: pointer;
+                }
+                p{
+                    font-size: 0.85rem;
+                    line-height: 1.5;
+                    font-family: 'Inter', sans-serif;
+                    margin-top: 0.3rem;
+                }
+
+                .vrf-a-button{
+                //    color: $complement_color;
+                   margin-top: 0.9rem;
+                   font-family: 'Inter', sans-serif;
+                }
+
+            }
+        }
+
+        .content.visible{
+            display: flex;
+        }
+
+     
+        
+       }
+
+      
+    }
+
+.modal-container.visible{
+    display: flex;
 }
 
 

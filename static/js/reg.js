@@ -26,7 +26,7 @@ let pollvalues
 //editmode signifies if a user wants to register for a poll or edit the entries they provided for the poll priviously
 let editMode = false
 
-console.log(vlaueId)
+
 
 class Input{
     constructor (name, value){
@@ -40,7 +40,7 @@ if(vlaueId !== 'nb'){
 }
 
 let pollcode = $('#in-poll-code').val()
-console.log(pollcode)
+
 if (pollcode !== 'none'){
     modalContainer.classList.remove('visible')
     let inputArray = []
@@ -52,12 +52,12 @@ $(document).ready(function(){
         url: '/getpoll/' + pollcode + '/' + vlaueId + '/',
         success: function(data){
             let fieldArray = JSON.parse(JSON.parse(data.fields))
-            console.log(fieldArray)
+          
             if(data.values !== 'empty'){
                 //user wants to edit their entries 
                 editMode = true
                 pollvalues = JSON.parse(JSON.parse(data.values)[0].fields.field_values)
-                console.log(pollvalues)
+                
                 fieldArray.forEach(populateUi)
 
                 promptTxt.textContent = 'Modify your entries'
@@ -90,8 +90,8 @@ $(document).on('submit', '#submit-form', function(e){
 
     //stringifying the inputvaluearray
     let inputString = JSON.stringify(inputValueArray)
-    console.log(inputString)
-    
+    console.log(inpuString)
+    t
     $.ajax({
         type: 'POST',
         url: '/savevalue',
@@ -125,9 +125,10 @@ $(document).on('submit', '#submit-form', function(e){
     
 })
 
+/** sets up the ui with input fields  */
 function populateUi(item){
     if(item.datatype != 'empty'){
-        console.log(item.datatype)
+       
         
         inputElement = document.createElement('input')
         inputElement.type = item.datatype
@@ -146,6 +147,7 @@ function populateUi(item){
         }
 
         inputContainer.appendChild(inputElement)
+
 
         inputArray.push(inputElement)
         

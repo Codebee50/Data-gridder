@@ -1,0 +1,48 @@
+{% load static %}
+{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact -Datagridder</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href=" {% static 'style/style.css' %}" >
+
+</head>
+<body>
+    
+    <section class="contact-us-section" id="contact-us-section">
+        <div class="contact-content">
+            <div class="left-content">
+                <div class="image-container">
+                    <img src="{% static 'img/cus-sup.png' %}" alt="">
+                    <div class="overlay">
+                        <div class="get-in-touch">
+                            <h3>Get in touch</h3>
+                            <p>Your satisfaction is our top priority. If you have any questions, concerns,
+                                 or need assistance with any aspect of our website, please don't hesitate to reach out to our dedicated customer support team. 
+                                We are here to help and provide you with the best experience possible.</p>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-content">
+                <div class="content">
+                    <form class="content" action="/sendemail" method="POST">
+                        {% csrf_token %}
+                        <p>Send us a message</p>
+                      
+                    
+                        {{ contact_form }}
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
