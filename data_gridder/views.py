@@ -715,7 +715,7 @@ def deleteTemp(request, pollcode):
 def deletePoll(request, pollcode):
     print('**deleting' , pollcode)
 
-    temp_dir = 'media/temps/'
+  
     if Poll.objects.filter(poll_code = pollcode).exists():
         poll = Poll.objects.get(poll_code = pollcode)
 
@@ -725,12 +725,12 @@ def deletePoll(request, pollcode):
             for value in pollvalues:
                 value.delete()
 
-        temp_doc = temp_dir + 'temp-doc-' + poll.poll_code + '.docx'
+        temp_doc = settings.TEMP_DIR + 'temp-doc-' + poll.poll_code + '.docx'
         if os.path.exists(temp_doc):
             os.remove(temp_doc)
             print('**deleted poll temporary document..')
 
-        document_path = 'media/documents/doc-' + poll.poll_code + '.docx'
+        document_path = settings.MEDIA_ROOT +'/documents/doc-' + poll.poll_code + '.docx'
         if os.path.exists(document_path):
             os.remove(document_path)
             print('**deleted poll document')
@@ -751,7 +751,7 @@ def deletePoll(request, pollcode):
 #generates a temporary document and downloads it 
 
 def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
-   temp_dir = 'media/temps/'
+   temp_dir = settings.TEMP_DIR
    if request.method == 'GET': 
         #checking if poll exists 
         if Poll.objects.filter(poll_code=pollcode).exists:
