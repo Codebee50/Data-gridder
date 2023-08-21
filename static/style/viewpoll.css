@@ -235,7 +235,7 @@ body {
 }
 .modal-container .modal-box {
   background-color: white;
-  width: 100%;
+  width: 90%;
   max-width: 400px;
   border-radius: 5px;
   display: flex;

@@ -53,7 +53,12 @@
                     <a href="/dashboard" class="dash-link">
                         <div class="user">
                             <i class="fa-regular fa-user"></i>
+                            {% if user_exists == 'true' %}
                             <p>{{user_profile.user.username}}</p>
+                            {% else %}
+                            <p>Sign in</p>
+                            {% endif %}
+
                         </div>
                         </a>
                 </div>   
@@ -78,7 +83,6 @@
             </div>
         </div>
     </section>
-
 
    <section class="input-poll-code">
     <div class="left-content" id="get-input">
@@ -123,9 +127,6 @@
     </div>
     
    </section>
-
-    
-   
 
     <section class="about" id="about-section">
         <!-- <p class="prompt">Create a poll</p> -->
@@ -232,7 +233,6 @@
 
     <div class="modal-container" id="modal-container">
         <div class="modal-box">
-         
             <!-- <div class="result-container">
                 <div class="left-content">
                     <div class="det">
@@ -256,9 +256,37 @@
         </div>
     </div>
 
+    <div class="not-found-modal">
+        <div class="not-found-modal-box"> 
+            <div class="not-found-alert">
+                <div class="left-content">
+                    <!-- <i class="fa-solid fa-cloud-arrow-down"></i> -->
+                    <!-- <i class="fa-solid fa-face-smile"></i> -->
+                    <img src="{% static 'img/not-found.svg' %}" alt="">
+                </div>
+                <div class="right-content">
+                    <h4 class="remark-message">
+                        Login required.. 
+                    </h4>
+                    <p class="message">
+                        Dear user, For a better user experience and community security, we require that you login or sign up before accessing a poll
+                    </p>
+
+                    <div class="actions">
+                        <a href="/login" class="login-link">Login</a>
+                        <a href="/register" class="reg-link">Signup</a>
+                    </div>
+                </div>
+
+                <i class="fa-solid fa-xmark" id="remove-not-found-modal"></i>
+                <!-- <h4 id="mod-message">Your download should start automaticaly</h4>
+                <p>You can now retrieve and customize your document to your better liking</p> -->
+            </div>
+            
+        </div>
+    </div>
 
     <footer>
-
         <div class="head">
             <div class="f-one">
                 <div class="content">

@@ -214,6 +214,7 @@ function makeTable(data) {
 
 
 generateBtn.addEventListener("click", function () {
+
   downloadAlert.classList.remove("visible");
   downloadContent.classList.add("visible");
   downloadModel.classList.add("visible");
@@ -248,7 +249,6 @@ generateBtn.addEventListener("click", function () {
       inputVal = newNameInput.value.trim();
 
       newName = inputVal + ".docx";
-      console.log(newName);
       txtFileName.textContent = newName;
       editContainer.classList.remove("visible");
     }
@@ -259,8 +259,10 @@ generateBtn.addEventListener("click", function () {
     isNumbered = isNumberedCheck.checked.toString();
     isAlphabeticalOrdered = alphabeticalOrderCheck.checked.toString()
     //linkTag.href = '/downloaddoc/' + pollcode + '/' + newName + '/'
+    let genDocumentName = newName.replace(/ /g, '_')
+    console.log('downloading ' + genDocumentName)
     linkTag.href =
-      "/generatedoc/" + pollcode + "/" + newName + "/" + isNumbered + "/" + isAlphabeticalOrdered + "/" + factor + "/" + transverse;
+      "/generatedoc/" + pollcode + "/" + genDocumentName + "/" + isNumbered + "/" + isAlphabeticalOrdered + "/" + factor + "/" + transverse;
     linkTag.click();
     downloadAlert.classList.add("visible");
     downloadContent.classList.remove("visible");

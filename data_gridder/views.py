@@ -27,21 +27,30 @@ from django.utils.html import strip_tags
 
 
 # Create your views here.
-@login_required(login_url='register')
+# @login_required(login_url='register')
 def home(request):
-    user_object = User.objects.get(username= request.user.username)
-    user_profile = Profile.objects.get(user=user_object)
+    if request.user.is_authenticated:
+                #this means that the user is logged in 
+        user_object = User.objects.get(username= request.user.username)
+        user_profile = Profile.objects.get(user=user_object)
 
-    current_user = request.user.username
-    
-    polls = Poll.objects.filter(poll_author = current_user)
-    contact_form = forms.ContactForm()
-    context= {
-        'user_profile' : user_profile,
-        'polls': list(polls.values()),
-        'contact_form': contact_form
-    }
-    return render(request, 'index.html', context)
+        current_user = request.user.username
+        
+        contact_form = forms.ContactForm()
+        context= {
+            'user_exists': 'true',
+            'user_profile' : user_profile,
+            'contact_form': contact_form
+        }
+        return render(request, 'index.html', context)
+    else:
+        #this means that the user is not logged in 
+        contact_form = forms.ContactForm()
+        context = {
+            'user_exists': 'false',
+            'contact_form': contact_form
+        }
+        return render(request, 'index.html', context)
 
 def register(request):
     if request.method == 'POST':
@@ -86,7 +95,6 @@ def register(request):
         return render(request, 'signup.html', {
             'mode': 'signup'
         })
-
 
 def send_activation_email(user, request):
     current_site = get_current_site(request)
@@ -349,26 +357,33 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
+"""this function checks if the poll exists and if the current user is authenticated 
+    and returns json responses with messages matching the corresponding cases"""
 def findpoll(request):
     if request.method == 'POST':
         pollcode = request.POST['pollcode']
-        print(pollcode)
-
         if Poll.objects.filter(poll_code=pollcode).exists():
-            poll = Poll.objects.get(poll_code=pollcode)
-            context = {
-                'status': 'success',
-                'message': 'Poll exists',
-                'pollname': poll.poll_name,
-                'pollauthor': poll.poll_author,
-                'pollcode': poll.poll_code
+            if request.user.is_authenticated:      
+                poll = Poll.objects.get(poll_code=pollcode)
+                context = {
+                    'status': 'success',
+                    'message': 'Poll exists',
+                    'pollname': poll.poll_name,
+                    'pollauthor': poll.poll_author,
+                    'pollcode': poll.poll_code
 
-            }
-            return JsonResponse(context)
+                }
+                return JsonResponse(context)
+            else:
+                context = {
+                    'status': 'error',
+                    'message': 'un_auth'
+                }
+                return JsonResponse(context)
         else:
             context = {
                 'status': 'error',
-                'message': 'Poll not found'
+                'message': 'n_f'
             }
             return JsonResponse(context)
 
@@ -411,6 +426,7 @@ def getpoll(request, pollcode, pk):
     else: 
         pass
     
+@login_required(login_url='login')
 def registerPoll(request, pollcode, pk):
     #checking if poll exists
     if Poll.objects.filter(poll_code= pollcode).exists():
@@ -529,7 +545,8 @@ def publish(request):
                             'status' : 'success',
                             'pollname': pollname,
                             'pollcode': pollcode,
-                            'pollauthor': pollauthor
+                            'pollauthor': pollauthor,
+                            'domain': current_site.domain
                         }
                         return JsonResponse(context)
                     else:
@@ -968,13 +985,20 @@ def deleteEntry(request, entry_id):
         return JsonResponse(context)
 
 def documentation(request):
-    user_object = User.objects.get(username= request.user.username)
-    user_profile = Profile.objects.get(user=user_object)
-    context= {
-        'user_profile' : user_profile
-    }
-    return render(request, 'documentation.html', context)
-
+    if request.user.is_authenticated:
+        user_object = User.objects.get(username= request.user.username)
+        user_profile = Profile.objects.get(user=user_object)
+        context= {
+            'user_exists': 'true',
+            'user_profile' : user_profile
+        }
+        return render(request, 'documentation.html', context)
+    else:
+        context = {
+            'user_exists': 'false'
+        }
+        return render(request, 'documentation.html', context)
+        
 def showCurrentSite(request):
     current_site = get_current_site(request)
     print('the current site is ', current_site)

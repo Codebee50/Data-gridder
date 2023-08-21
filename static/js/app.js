@@ -6,6 +6,9 @@ let modalContainer = document.getElementById('modal-container')
 const btnNewPoll = document.querySelector('.btn-new-poll')
 let submitBtn = document.getElementById('submit-btn')
 let loadingPoll = document.querySelector('.loading-poll-div')
+const notFoundModal = document.querySelector('.not-found-modal')
+const removeNotFoundModal = document.getElementById('remove-not-found-modal')
+
 
 // Check if the browser supports smooth scrolling
 if ('scrollBehavior' in document.documentElement.style) {
@@ -20,16 +23,20 @@ btnNewPoll.addEventListener('click', function(e){
 })
 mobile.addEventListener('click', ()=>{
    header.classList.toggle('open')
-   console.log('cllick')
+  
    if(header.classList.contains('open')){
     nav.style.height = `${nav.scrollHeight}px`
     bar.classList.replace('fa-bars', 'fa-xmark')
-    console.log(mobile)
+    
    }
    else{
     nav.style.height = '0px'
     bar.classList.replace('fa-xmark', 'fa-bars')
    }
+})
+
+removeNotFoundModal.addEventListener('click', ()=>{
+    notFoundModal.classList.remove('visible')
 })
 
 $(document).on('submit', '#find-poll-form', function(e){
@@ -91,19 +98,26 @@ $(document).on('submit', '#find-poll-form', function(e){
                 })
             }
             else{
-                modalContainer.classList.add('visible')
-                const content = `   <div class="warning-div">
-                <p id="warning-message">Poll does not exist, check your poll code and try again</p>
-                <button id="btn-ok">Ok</button>
-            </div>`
-
-            let modalBox = document.querySelector('.modal-box')
-            modalBox.innerHTML = content
-
-            const btnOk = document.getElementById('btn-ok')
-            btnOk.addEventListener('click', ()=>{
-                modalContainer.classList.remove('visible')
-            })
+                if(data.message == 'n_f'){
+                    //this means that the poll is not found
+                    modalContainer.classList.add('visible')
+                    const content = `   <div class="warning-div">
+                    <p id="warning-message">Poll does not exist, check your poll code and try again</p>
+                    <button id="btn-ok">Ok</button>
+                </div>`
+    
+                    let modalBox = document.querySelector('.modal-box')
+                    modalBox.innerHTML = content
+        
+                    const btnOk = document.getElementById('btn-ok')
+                    btnOk.addEventListener('click', ()=>{
+                        modalContainer.classList.remove('visible')
+                    })
+                }
+                else if(data.message = 'un_auth'){
+                    //this means that the user is not authenticated
+                    notFoundModal.classList.add('visible')
+                }
             }
            
         },

@@ -31,8 +31,13 @@
                     </ul>
                     <a href="/dashboard" class="dash-link">
                         <div class="user">
+                            {% if user_exists == 'true' %}
                             <i class="fa-regular fa-user"></i>
                             <p>{{user_profile.user.username}}</p>
+                            {% else %}
+                            <i class="fa-regular fa-user"></i>
+                            <p>Sign in</p>
+                            {% endif %}
                         </div>
                         </a>
                 </div>   
@@ -113,8 +118,8 @@
 
             <div class="video-container">
                 <h3 class="video-prompt">Need a more demonstrative approach? watch our video on youtube</h3>
-                <iframe width="560px" height="315px" src="https://www.youtube.com/embed/vphxDEuHmyY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
-            </div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/_dWU12_BNKg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>       
+                 </div>
         
     </section>
 

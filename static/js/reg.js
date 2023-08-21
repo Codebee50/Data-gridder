@@ -14,6 +14,7 @@ const errorMark = document.getElementById('error-mark')
 const removeMessgeModel = document.getElementById('remove-message-modal')
 const txtMessage = document.getElementById('txt-message')
 
+const progressBar = document.getElementById('progress-bar')
 
 removeMessgeModel.addEventListener('click', function(){
     messageModal.classList.remove('visible')
@@ -79,6 +80,8 @@ $(document).ready(function(){
 })
 
 $(document).on('submit', '#submit-form', function(e){
+    progressBar.classList.add('visible')
+    submit.disabled = true
     e.preventDefault()
     inputArray.forEach(function(item){
         //creating a new input object and addding it to the input value array
@@ -90,8 +93,7 @@ $(document).on('submit', '#submit-form', function(e){
 
     //stringifying the inputvaluearray
     let inputString = JSON.stringify(inputValueArray)
-    console.log(inpuString)
-    t
+    
     $.ajax({
         type: 'POST',
         url: '/savevalue',
@@ -104,12 +106,14 @@ $(document).on('submit', '#submit-form', function(e){
         },
         success : function(response){
             if(response.status == 'success'){
+                progressBar.classList.remove('visible')
                 errorMark.style.display = 'none'
                 checkMark.style.display= 'block'
-
                 messageModal.classList.add('visible')
             }
             else{
+
+                progressBar.classList.remove('visible')
                 errorMark.style.display = 'block'
                 checkMark.style.display= 'none'
                 messageModal.classList.add('visible')
