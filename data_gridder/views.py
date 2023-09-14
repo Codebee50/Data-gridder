@@ -9,11 +9,10 @@ import json
 from django.core.serializers import serialize
 from docx import Document
 import shutil
-from django.core.mail import send_mail, EmailMessage, EmailMultiAlternatives
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from . import forms
 from django.template.loader import render_to_string
-import random
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str as force_text, DjangoUnicodeDecodeError
@@ -182,7 +181,6 @@ def activate_user(request, uidb64, token):
         user.save()
 
         #messages.add_message(request, messages.SUCCESS, 'Email verified, you can now login', 'userverified')
-        # return redirect(reverse('login'))
         return render(request, 'emails/activate-account.html', {
             'user':user
         })
@@ -219,7 +217,6 @@ def login(request):
     else:
         return render(request, 'login.html')
     
-
 class RequestResetEmail(View):
     def post(self, request):
         email = request.POST['email']
@@ -232,7 +229,6 @@ class RequestResetEmail(View):
        
         if user.exists():
             user_profile = Profile.objects.get(id_user = user[0].id)
-            print('got here')
             current_site = get_current_site(request)
             email_subject = '[Datagridder] Reset your password'
             email_body = render_to_string('emails/reset-user-password.html', {
@@ -946,7 +942,7 @@ def sendEmail(request):
         else:
             print('form is not valid')
 
-        
+        #redirecting the user to the previous page they were in 
         return redirect(request.META['HTTP_REFERER'])
 
 @login_required(login_url='login')

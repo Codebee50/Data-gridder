@@ -30,38 +30,52 @@
    
     <section class="landing">
        
-        <div id="mobile">
-            <i id="bar" class="fa-solid fa-bars"></i>
-        </div>
+        
         <div class="header" id="header">
-            <div class="gridder">
-                <h3 class="name-text">Data Gridder</h3>
-                <div class="right-stroke"></div>
+            <div class="top-holder">
+                <div class="gridder">
+                    <h3 class="name-text">Data Gridder</h3>
+                    <div class="right-stroke"></div>
+                </div>
+
+                <a href="/dashboard" class="dash-link">
+                    <div class="user">
+                        <i class="fa-regular fa-user"></i>
+                        {% if user_exists == 'true' %}
+                        <p>{{user_profile.user.username}}</p>
+                        {% else %}
+                        <p>Sign in</p>
+                        {% endif %}
+                    </div>
+                    </a>
+
+                <div id="mobile">
+                    <i id="bar" class="fa-solid fa-bars"></i>
+                </div>
             </div>
-
           
-                <div class="nav-bar">
-                    <i class="fa-solid fa-xmark" id="close-nav"></i>
-                    <ul>
-                    <li><a href="/" class="active">Home</a></li>
-                    <li><a href="#about-section">About</a></li>
-                    <li><a href="#contact-us-section">Contact us</a></li>
-                    <li><a href="#get-input">Find poll</a></li>
-                    <li><a href="/documentation" target="_blank">Learn</a></li>
-                    <li><a href="/dashboard" >Dashboard</a></li>
-                    </ul>
-                    <a href="/dashboard" class="dash-link">
-                        <div class="user">
-                            <i class="fa-regular fa-user"></i>
-                            {% if user_exists == 'true' %}
-                            <p>{{user_profile.user.username}}</p>
-                            {% else %}
-                            <p>Sign in</p>
-                            {% endif %}
 
-                        </div>
-                        </a>
-                </div>   
+            <div class="nav-bar">
+                <i class="fa-solid fa-xmark" id="close-nav"></i>
+                <ul>
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="#about-section">About</a></li>
+                <li><a href="#contact-us-section">Contact us</a></li>
+                <li><a href="#get-input">Find poll</a></li>
+                <li><a href="/documentation" target="_blank">Learn</a></li>
+                <li><a href="/dashboard" >Dashboard</a></li>
+                </ul>
+                <a href="/dashboard" class="dash-link">
+                    <div class="user">
+                        <i class="fa-regular fa-user"></i>
+                        {% if user_exists == 'true' %}
+                        <p>{{user_profile.user.username}}</p>
+                        {% else %}
+                        <p>Sign in</p>
+                        {% endif %}
+                    </div>
+                    </a>
+            </div>   
         </div>
 
         

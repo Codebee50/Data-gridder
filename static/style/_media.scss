@@ -13,26 +13,38 @@ $min-head-footer-height: 35vh;
 
 @media screen and (max-width: 790px){
    .landing{
-    #mobile{
-        display: flex;
-        top: 0;
-        right: 0;
-        padding: 1rem;
-        position: absolute;
-    }
     .header{
         display: flex;
         flex-direction: column;
         align-items: start;
         padding: 1rem;
-        .gridder{
-            padding: 0;
+        .top-holder{
+            width: 100%;
             justify-content: space-between;
-
-            .right-stroke{
-                display: none;
+            .gridder{
+                width: max-content;
+                padding: 0;
+                justify-content: space-between;
+    
+                .right-stroke{
+                    display: none;
+                }
             }
+
+            #mobile{
+                display: block;
+            }
+
+            .dash-link{
+                margin-left: 0.5rem;
+
+                .user{
+                    display: flex;
+                }
+            }
+           
         }
+      
         
         .nav-bar{
             margin-top: 0.8rem;
