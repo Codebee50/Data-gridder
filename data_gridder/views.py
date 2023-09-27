@@ -28,6 +28,7 @@ from django.utils.html import strip_tags
 # Create your views here.
 # @login_required(login_url='register')
 def home(request):
+    print('home')
     if request.user.is_authenticated:
                 #this means that the user is logged in 
         user_object = User.objects.get(username= request.user.username)
@@ -190,6 +191,7 @@ def activate_user(request, uidb64, token):
     })
     
 def login(request):
+    print('loggin in')
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -200,8 +202,11 @@ def login(request):
             user_profile= Profile.objects.get(user = user)
             if user_profile is not None:
                 if user_profile.is_email_verified:
-                    print('user is verified and good to go')
                     auth.login(request, user)
+                    next_page = request.GET.get('next')
+                    print('next page is ',next_page)
+                    if next_page:
+                        return redirect(next_page)
                     return redirect('/')
                 else:
                     
@@ -422,7 +427,7 @@ def getpoll(request, pollcode, pk):
     else: 
         pass
     
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def registerPoll(request, pollcode, pk):
     #checking if poll exists
     if Poll.objects.filter(poll_code= pollcode).exists():
@@ -438,7 +443,8 @@ def registerPoll(request, pollcode, pk):
             'pollname': pollname,
             'pollauthor': pollauthor,
             'itemcount': itemcount,
-            'value_id': pk
+            'value_id': pk,
+            'is_authenticated': request.user.is_authenticated
         }
         return render(request, 'regpoll.html', context)
     else:
@@ -448,7 +454,9 @@ def registerPoll(request, pollcode, pk):
             'pollcode': 'none',
             'pollauthor': 'none',
             'pollname': 'none',
-            'itemcount': 0
+            'itemcount': 0,
+            'is_authenticated': request.user.is_authenticated
+
         }
         return render(request, 'regpoll.html', context)
 
@@ -506,6 +514,14 @@ def publish(request):
         polldata = request.POST.get('poll_data')
         pollauthor = request.user.username
         
+        _, fileextension =os.path.splitext(document.name)
+        allowed_extensions = ['.doc', '.docx']
+        if fileextension not in allowed_extensions:
+            context = {
+                'status': 'failed',
+                'message': f'A {fileextension} file format is not allowed'
+            }
+            return JsonResponse(context)
         #checking if the poll name already exits
         if Poll.objects.filter(poll_name=pollname).exists():
             context = {
@@ -565,11 +581,17 @@ def publish(request):
             
                 return JsonResponse(context)
     else:
+        user = User.objects.get(id = request.user.id)
+        username = user.username
+        user_initials = ''.join(word[0] for word in username.split()[:2]).upper()
         context = {
-            'domain': current_site
+            'domain': current_site,
+            'user': user,
+            'user_initials': user_initials
+            
         }
         return render(request, 'publish.html', context)
-    
+
 #navigates to the viewpoll.html file 
 @login_required(login_url='login')
 def viewPoll(request, pollcode):
@@ -679,7 +701,7 @@ def checkForDgTable(document):
     dgTable = False
     tables = doc.tables
     for table in tables:
-        rowcount = len(table.rows)
+        rowcount = len(table.rows)#getting how many rows are in the table
         if rowcount> 1:
             pass
         else:
@@ -911,7 +933,6 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
             }
             return JsonResponse(context, status= 500)
         
-
 def sort_by_field_values(item, factor):
     for item in json.loads(item.get('field_values')):
         if item.get('name') == factor:

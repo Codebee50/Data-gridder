@@ -1,48 +1,23 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap');
-
-
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
-
-//f6fffc
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-
-$background_green: #F4FFFC;
-$complement_color: #393B4A;
-$background_pink:#f7f2f2 ;
-$cus_orange: #E07243;
-$light_black: #4C5B66;
-$light_grey: #E6E6E6;
-
-$big_text_size: 3rem;
-$footer-height: 60vh;
-$footer-head-height: 50vh;
 
 $border-bottom: 50%;
 $border-tops: 5px;
 $abt-height: 90vh;
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-   
-}
+@import 'base';
 
-// html{
-//     scroll-behavior: smooth !important;
-// }
 
 
 //custom scroll bar
 html::-webkit-scrollbar{
     width: .5rem;
-    background-color: $background_pink;
+    background-color: var(--background_pink);
 }
 
 html::-webkit-scrollbar-thumb{
     border-radius: 2rem;
-    background: $complement_color;
+    background: var(--complement_color);
 }
 
 body{
@@ -56,7 +31,7 @@ body{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #f7f2f2;
+    background-color: var(--background_pink);
 
  
 
@@ -89,7 +64,7 @@ body{
                 .right-stroke{
                     width: 1.5px;
                     height: 25px;
-                    background-color: $cus_orange;
+                    background-color: var(--cus_orange);
                     
                 }
             }
@@ -99,7 +74,7 @@ body{
             }
 
             #mobile{
-                color: $complement_color;
+                color: var(--complement_color);
                 display: none;
                 font-size: 1.4rem;
             }
@@ -157,7 +132,7 @@ body{
     .user{
         display: flex;
         flex-direction: row;
-        background-color: #0DC58A;
+        background-color: var(--major-green);
         padding: 0.6rem;
         align-items: center;
         border-radius: 25px;
@@ -215,14 +190,14 @@ body{
                 justify-content: start;
                 p{
                     text-align: start;
-                    color: $cus_orange;
+                    color: var(--cus_orange);
                 }
     
                 h1{
                
                     width: 60%;
-                    font-size: $big_text_size;
-                    color: $complement_color;
+                    font-size: var(--big_text_size);
+                    color: var(--complement_color);
                     transition: all 0.2 ease-in-out;
                 }
 
@@ -230,7 +205,7 @@ body{
                     width: 40%;
                     height: 1px;
                     margin-top: 0.7rem;
-                    background-color: $cus_orange;
+                    background-color: var(--cus_orange);
                 }
 
                 .remark{
@@ -245,7 +220,7 @@ body{
                     margin-top: 0.8rem;
                     border: none;
                     padding: 0.5rem 1.5rem;
-                    background-color: #0DC58A;
+                    background-color: var(--major-green);
                     color: white;
                     font-weight: 520;
                     border-radius: 5px;
@@ -355,15 +330,15 @@ body{
         .content{
             h1{
                 width: 60%;
-                font-size: $big_text_size;
-                color: $complement_color;
+                font-size: var(--big_text_size);
+                color: var(--complement_color);
             }
 
             .line{
                 width: 150px;
                 height: 1px;
                 margin-top: 0.7rem;
-                background-color: $cus_orange;
+                background-color: var(--cus_orange);
             }
 
             .remark{
@@ -392,7 +367,7 @@ body{
                     border-radius: 30px;
                     height: 50px;
                     outline: none;
-                    border: 0.7px solid $complement_color;
+                    border: 0.7px solid var(--complement_color);
                   }
                    #submit-btn{
                     position: absolute;
@@ -405,7 +380,7 @@ body{
                     cursor: pointer;
                     outline: none;
                     border: none;
-                    background-color: #0DC58A;
+                    background-color: var(--major-green);
                     flex-direction: column;
                     display: flex;
                     align-items: center;
@@ -451,7 +426,7 @@ body{
     width: 100%;
     // height: 100vh;
     min-height: 100vh;
-    background-color: $background_pink;
+    background-color: var(--background_pink);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -550,7 +525,7 @@ body{
                     display: none;
                 }
                 .text-input{
-                    background-color: #f7f2f2;
+                    background-color: var(--background_pink);
                     border: none;
                     border-radius: 15px;
                     outline: none;
@@ -598,11 +573,11 @@ body{
             width: 20%;
             height: 1.5px;
             margin-top: 0.7rem;
-            background-color: $cus_orange;
+            background-color: var(--cus_orange);
         }
 
         .topic-text{
-            color: $complement_color;
+            color: var(--complement_color);
         }
 
         .text-container{
@@ -670,7 +645,7 @@ body{
                     .line{
                         width: 20px;
                         height: 1px;
-                        background-color: $complement_color;
+                        background-color: var(--complement_color);
                         margin-top: 0;
                     }
 
@@ -756,7 +731,7 @@ body{
     .prompt{
         align-self: center;
         font-weight: 600;
-        color: $cus_orange;
+        color: var(--cus_orange);
     }
     .container{
         display: grid;
@@ -766,7 +741,6 @@ body{
             padding: 3rem;
 
             h4{
-                //background-color: $cus_orange;
                 background-color: #142F40;
                 border-radius: 50%;
                 display: flex;
@@ -780,7 +754,7 @@ body{
             h3{
                 font-family: 'Lato', sans-serif;
                 margin-top: 1.05rem;
-                color: $complement_color;
+                color: var(--complement_color);
             }
 
             p{
@@ -839,7 +813,7 @@ body{
         #btn-ok{
             outline: none;
             border: none;
-            background-color: #0DC58A;
+            background-color: var(--major-green);
             padding: 0.7rem 1.2rem;
             color: white;
             border-radius: 5px;
@@ -898,7 +872,7 @@ body{
             #btn-go{
                 outline: none;
                 border: none;
-                background-color: #0DC58A;
+                background-color: var(--major-green);
                 padding: 0.7rem 1.2rem;
                 color: white;
                 border-radius: 5px;
@@ -983,7 +957,7 @@ body{
 
             .remark-message{
                 font-size: 1.3rem;
-                color: $complement_color;
+                color: var(--complement_color);
                 font-family: 'Inter', sans-serif;
             }
 
@@ -1005,7 +979,7 @@ body{
                 a{
                     margin-right: 0.9rem;
                     text-decoration: none;
-                    color: $complement_color;
+                    color: var(--complement_color);
                     background-color: white;
                     border: 0.5px solid black;
 
@@ -1033,10 +1007,12 @@ body{
     display: flex;
 }
 
+
+
 footer{
     width: 100%;
-    min-height: $footer-height;
-    background-color: $complement_color;
+    min-height: var(--footer-height);
+    background-color: var(--complement_color);
     display: flex;
     flex-direction: column;
    
@@ -1058,7 +1034,7 @@ footer{
              flex-direction: column;
              align-items: center;
              justify-content: space-evenly;
-             height: $footer-head-height;
+             height: var(--footer_head_height);
              .gridder{
                 
                  display: flex;
@@ -1092,7 +1068,7 @@ footer{
          .a-list{
             display: flex;
             flex-direction: column;
-            height: $footer-head-height;
+            height: var(--footer_head_height);
             align-items: center;
             justify-content: center;
          
@@ -1118,7 +1094,7 @@ footer{
          .f-four{
             display: flex;
             flex-direction: column;
-            height: $footer-head-height;
+            height: var(--footer_head_height);
             align-items: center;
             justify-content: center;
 

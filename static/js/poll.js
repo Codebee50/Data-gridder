@@ -45,6 +45,11 @@ const deleteEntryContent = document.querySelector('.delete-entry-content')
 const finishDelEntry = document.getElementById('finish-btn-entry')
 const deleteEntryProgress= document.querySelector('.prog-check-entry')
 
+const chooseFileBtn = document.getElementById('choose-file-btn')
+const sortFile = document.getElementById('sort-file')
+const docTitle = document.querySelector('.doc-title')
+
+
 class Field{
     constructor(id, name, required, datatype){
         this.id = id
@@ -68,8 +73,18 @@ saveBtn.addEventListener('click', validateFields)
 deleteBtn.addEventListener('click', deleteFieldobject)
 btnAddBelow.addEventListener('click', createNewField.bind(null, true))
 
+chooseFileBtn.addEventListener('click', function(e){
+    sortFile.click()
+})
+
+
+
+sortFile.addEventListener('change', function(){
+    let filename = this.files[0].name
+    docTitle.textContent = filename
+})
+
 $('document').ready(function(e){
-    console.log("page stat")
     $.ajax({
         'url': '/getuservalues',
         'type': 'GET',
@@ -87,7 +102,85 @@ document.getElementById('cancel-del-entry').addEventListener('click', function(e
     deleteEntryModal.classList.remove('visible')
 })
 
+const newPollDmark = document.getElementById('scratch-poll')
+const fromDocDmark = document.getElementById('from-document')
 
+let pollFromScratch = true
+selectPollCreateOption(pollFromScratch)
+newPollDmark.addEventListener('click', function(){//this means user wants to crate a poll from scratch
+    pollFromScratch = true
+    selectPollCreateOption(pollFromScratch)
+})
+
+fromDocDmark.addEventListener('click', function(){//this means user wants to create a poll from a document
+    pollFromScratch = false
+    selectPollCreateOption(pollFromScratch)
+
+})
+
+const btnCreatePoll = document.getElementById('btn-create-poll')
+const chooseExistingFlleInput = document.getElementById('choose-ex-file')
+
+btnCreatePoll.addEventListener('click', function(){
+    if(pollFromScratch){
+        const conNewPoll = document.getElementById('con-new-poll')
+        conNewPoll.click()
+        transitionModal('none')
+    }
+    else{
+        chooseExistingFlleInput.click()
+    }
+})
+
+chooseExistingFlleInput.addEventListener('change', function(){
+    const loadingMessage = document.querySelector('.loading-text')
+    loadingMessage.textContent = 'Scanning document for dg column'
+
+    if (chooseExistingFlleInput.files[0] !== null){
+        transitionModal('v2-loading-modal')
+
+        let formData = new FormData()
+        formData.append('document', chooseExistingFlleInput.files[0])
+        formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val())
+    
+        
+        fetch('/manager/validate-existing-document/', {
+            'method': 'POST',
+            'body': formData
+        }).then(response => {
+            if(!response.ok){
+                console.log('something went wrong with the response')
+            }
+            return response.json()
+        })
+        .then(data => {
+            message = data.message
+           
+            if(data.statusCode == 200){
+                setUpAlertModalOneAction('v2-alert-modal-1a', 'res',message, ()=>{
+                    transitionModal('none')
+                } , 'Proceed' )
+            }
+            else{
+                setUpAlertModalOneAction('v2-alert-modal-1a', 'res',message, ()=>{
+                    transitionModal('none')
+                } , 'Ok' )
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error', error)
+        })
+    }
+    
+})
+
+function selectPollCreateOption(pollFromScratch){
+    dmark = document.querySelectorAll('.dmark-content')
+    dmark.forEach(function(dmarkContent){
+        dmarkContent.classList.remove('selected')
+    })
+    pollFromScratch? newPollDmark.classList.add('selected'): fromDocDmark.classList.add('selected')
+}
 
 function orgarnizeAccordions(values){
     //looping through all the accordions
@@ -335,13 +428,22 @@ function removePoll(pollcode){
 function pageTransitions(){
     for(let i =0; i<controls.length; i++){
         controls[i].addEventListener('click', function(){
-            console.log(this.id)
             if(this.id != 'con-log-out'){
                 //remove the class name of active-btn from all the navigations and add it to the clicked one
                 let currentBtn = document.querySelectorAll('.active-btn')
                 currentBtn[0].className = currentBtn[0].className.replace('active-btn', '')
+
+                //----v2 properties----
+                // if(this.id == 'con-new-poll'){
+                //     const newPoll = document.getElementById('con-scratch-poll')
+                //     newPoll.className += ' active-btn'
+                // }
+                // else{
+                //     this.className += ' active-btn'
+                // }
+
                 this.className += ' active-btn'
-                
+
             }
             
         })
@@ -357,6 +459,9 @@ function pageTransitions(){
             else if(id == 'contact-us'){
                 window.location.href = '/#contact-us-section'
             }
+            else if(id == 'scratch-poll'){
+                transitionModal('choose-create-option-modal')
+            }
             else{
                sections.forEach((section)=>{
                 section.classList.remove('active-screen')
@@ -365,7 +470,6 @@ function pageTransitions(){
             const element = document.getElementById(id)
             element.classList.add('active-screen')
       
-            
             }
 
             
@@ -398,7 +502,6 @@ function localTransitions(){
     }
     else{
         screen = 'new-poll'
-        
     }
 
     let id = 'con-' + screen

@@ -28,6 +28,8 @@ DEBUG = False
 
 if DEBUG:
     ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.0.105', '192.168.0.100', '*']
+    # ALLOWED_HOSTS = ['*']
+
 else:
     ALLOWED_HOSTS = ['datagridder.com', 'www.datagridder.com']
 
@@ -42,8 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'data_gridder',
+    'filemanager',
     'compressor',  
-    'sass_processor',
+    # 'sass_processor',
     # 'django_cron',
 ]
 

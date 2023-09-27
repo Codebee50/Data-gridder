@@ -28,3 +28,60 @@
         }
     }
 }
+
+@media screen and (max-width:800px){
+    .section{
+        padding: 30px;
+    }
+}
+
+@media screen and (max-width: 650px){
+    .section{
+        padding: 20px;
+    }
+    .main-section{
+        display: flex;
+        flex-direction: column;
+
+        .left-container{
+            width: 100%;
+            min-height: max-content;
+            align-items: flex-start;
+            text-align: start;
+            .table-preview-container{
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+        .right-container{
+            width: 100%;
+            min-height: max-content;
+            align-items: flex-start;
+            margin-top: 30px;
+
+            .user-attribute{
+                align-self: flex-start;
+            }
+
+            input[type=text]{
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px){
+    .explanation-section{
+        .top-explanation{
+            display: flex;
+            flex-direction: column;
+            .top-left{
+                
+                width: 100%;
+            }
+            .top-right{
+                width: 100%;
+            }
+        }
+    }
+}

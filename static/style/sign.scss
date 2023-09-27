@@ -7,14 +7,8 @@ $fine_green: #0DC58A;
 $background_pink:#f7f2f2 ;
 $complement_color: #393B4A;
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import 'base';
 
-body{
-    background-color: white;
-    font-family: 'lato', sans-serif;
-   
-}
 
 //custom scroll bar
 html::-webkit-scrollbar{
@@ -34,11 +28,6 @@ input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 button:disabled{
     background-color: #a6a9bf;

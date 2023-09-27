@@ -1,13 +1,102 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+:root {
+  --complement_color: #393B4A;
+  --background_pink:#f7f2f2 ;
+  --cus_orange: #E07243;
+  --big_text_size: 3rem;
+  --footer_height: 60vh;
+  --footer_head_height: 50vh;
+  --button_green: #45987e;
+  --major-green: #0DC58A;
+  --generic-grey: #f4f4f3;
+  --default-modal-padding: 20px;
+}
+
 body {
-  font-family: "lato", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.button-one {
+  background-color: green;
+  padding: 0.5rem 0.9rem;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.text-input-101 {
+  padding: 0.7rem 0.5rem;
+  border: 1px solid rgb(219, 214, 214);
+  outline: none;
+  border-radius: 4px;
+}
+
+.uncan-modal-con {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.uncan-modal-con img {
+  width: 40px;
+  height: 40px;
+}
+.uncan-modal-con p {
+  margin-top: 0.9rem;
+  text-align: center;
+}
+
+.v2-alert-modal-1a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.v2-alert-modal-1a p {
+  text-align: center;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+.v2-alert-modal-1a button {
+  margin-top: 0.9rem;
+}
+
+.modal-section {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.modal-section .modal-content {
+  background-color: white;
+  width: 90%;
+  max-width: 400px;
+  padding: var(--default-modal-padding);
+  border-radius: 5px;
+}
+.modal-section .modal-content p {
+  opacity: 0.7;
+}
+
+.modal-section.visible {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .emptiness {
@@ -153,7 +242,7 @@ html::-webkit-scrollbar {
   padding: 0 10px;
 }
 .container .rightparent .top-content .top-container .top-left .left-con .left-right h2 {
-  color: #393B4A;
+  color: var(--complement_color);
 }
 .container .rightparent .top-content .top-container .top-right {
   width: 30%;
@@ -162,27 +251,18 @@ html::-webkit-scrollbar {
   justify-content: end;
 }
 .container .rightparent .top-content .top-container .top-right #publish-btn {
-  padding: 7px 16px;
+  padding: 8px 16px;
   border: none;
   border-radius: 5px;
   color: white;
   margin-right: 2rem;
-  background-color: #29abe2;
+  background-color: var(--major-green);
   cursor: pointer;
   font-size: 0.9rem;
 }
 .container .rightparent .top-content .top-container .top-right #publish-btn a {
   color: white;
   text-decoration: none;
-}
-.container .rightparent .top-content .top-container .top-right input[type=submit] {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  margin-right: 2rem;
-  background-color: #29abe2;
-  cursor: pointer;
 }
 .container #new-poll .bottom-content {
   height: 85vh;
@@ -210,7 +290,7 @@ html::-webkit-scrollbar {
 }
 .container #new-poll .bottom-content .bottom-left .field-container::-webkit-scrollbar-thumb {
   border-radius: 2rem;
-  background: #393B4A;
+  background: var(--complement_color);
 }
 .container #new-poll .bottom-content .bottom-left .field-container {
   position: relative;
@@ -343,23 +423,13 @@ html::-webkit-scrollbar {
   margin-right: 0.5rem;
   font-size: 0.8rem;
 }
-.container #new-poll .bottom-content .bottom-right .f-prop .ops .save-btn {
-  background-color: #29abe2;
-  color: white;
-  font-size: 0.9rem;
-  padding: 5px 15px;
-  border: none;
-  border-radius: 5px;
-  margin-left: 10px;
-  cursor: pointer;
-}
 .container #my-polls .bottom-content::-webkit-scrollbar {
   width: 0.5rem;
   background-color: #fafbfc;
 }
 .container #my-polls .bottom-content::-webkit-scrollbar-thumb {
   border-radius: 2rem;
-  background: #393B4A;
+  background: var(--complement_color);
 }
 .container #my-polls .bottom-content {
   overflow-y: scroll;
@@ -524,7 +594,7 @@ html::-webkit-scrollbar {
 }
 .container #rpolls .bottom-content::-webkit-scrollbar-thumb {
   border-radius: 2rem;
-  background: #393B4A;
+  background: var(--complement_color);
 }
 .container #rpolls .bottom-content {
   overflow-y: scroll;
@@ -634,8 +704,135 @@ html::-webkit-scrollbar {
   color: red;
   margin-left: 1.1rem;
 }
+.container #sort-doc .bottom-content {
+  height: 85vh;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+}
+.container #sort-doc .bottom-content .bottom-left {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container #sort-doc .bottom-content .bottom-left .file-show-case-container {
+  width: 90%;
+  max-width: 250px;
+  height: 300px;
+}
+.container #sort-doc .bottom-content .bottom-left .file-show-case-container .top-file-show-case {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  background-color: rgb(244, 244, 244);
+}
+.container #sort-doc .bottom-content .bottom-left .file-show-case-container .top-file-show-case .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.container #sort-doc .bottom-content .bottom-left .file-show-case-container .top-file-show-case .content i {
+  font-size: 2rem;
+  color: var(--complement_color);
+}
+.container #sort-doc .bottom-content .bottom-left .file-show-case-container .bottom-file-show-case {
+  padding: 0.3rem;
+}
+.container #sort-doc .bottom-content .bottom-left .file-show-case-container .bottom-file-show-case .doc-title {
+  color: var(--complement_color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.container #sort-doc .bottom-content .bottom-left .file-show-case-container .bottom-file-show-case button {
+  margin-top: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  background-color: var(--complement_color);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.container #sort-doc .bottom-content .bottom-right {
+  width: 50%;
+}
 .container .active-screen {
   display: flex;
+}
+
+.choose-create-option-content {
+  display: flex;
+  flex-direction: column;
+}
+.choose-create-option-content .showcase-modal {
+  padding: 0.5rem 0;
+  border-bottom: 0.5px solid var(--complement_color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.choose-create-option-content .showcase-modal .modal-title-txt {
+  color: var(--complement_color);
+  font-family: "inter", sans-serif;
+}
+.choose-create-option-content .showcase-modal i {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.choose-create-option-content .actions {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.9rem;
+}
+.choose-create-option-content .actions .generic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+.choose-create-option-content .actions .generic svg {
+  fill: #535353;
+  width: 30px;
+  height: 30px;
+}
+.choose-create-option-content .actions .explanation-container .explanation-header {
+  font-size: 1.2rem;
+  margin-top: 0.9rem;
+}
+.choose-create-option-content .actions .explanation-container .explanation {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+.choose-create-option-content .actions .dmark-content {
+  width: 50%;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin: 0.3rem;
+}
+.choose-create-option-content .actions .dmark-content.selected {
+  border: 1px solid var(--complement_color);
+}
+.choose-create-option-content .actions .dmark-content.selected .generic {
+  background-color: var(--generic-grey);
+}
+.choose-create-option-content .actions .left-content {
+  width: 50%;
+}
+.choose-create-option-content .action-btns {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.choose-create-option-content .action-btns button {
+  margin-top: 0.9rem;
 }
 
 .modal-container {
@@ -777,7 +974,7 @@ html::-webkit-scrollbar {
   display: none;
 }
 .delete-modal .delete-box .prog-check #finish-btn {
-  background-color: #45987e;
+  background-color: var(--major-green);
   border: none;
   border-radius: 5px;
   color: white;
@@ -1052,4 +1249,4 @@ html::-webkit-scrollbar {
   .container #new-poll .bottom-content .bottom-right {
     width: 40%;
   }
-}/*# sourceMappingURL=poll.css.map */
+}/*# sourceMappingURL=dash.css.map */

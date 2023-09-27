@@ -1,5 +1,4 @@
 {% load static %}
-{% load sass_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,9 +6,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% sass_src 'style/pub.scss' %}" type="text/css">
+
+    <!-- My custom stylesheets -->
+    <link rel="stylesheet" href="{% static 'compile/pub.css' %}" type="text/css">
+
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
-    <title>Gridder -Publish</title>
+    <title>Publish poll | datagridder</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
@@ -19,58 +21,82 @@
 
     <input type="hidden" name="domain" id="domain" value="{{domain}}">
 
-    <section class="container">
-        <div class="left-content">
-            <h4 id="txt-append">Append document</h4>
-            <p id="txt-optional">(optional)</p>
-            
-            <div class="drop-file" id="drop-zone" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
-                <p class="drop-prompt">Drag & drop files or <a href="#" id="browse-file">Browse</a></p>
-                <input type="file" name="document" placeholder="Browse" style="display: none;" id="file" accept=".doc, .docx">
-                <p class="txt-supported">Supported formats: .doc, .docx</p>
-            </div>
+    <section class="main-section section">
+       <div class="left-container">
 
-            <div class="file-detail">
-                <p id="file-name">No file chosen</p>
-                <i class="fa-solid fa-circle-xmark" id="cancel-file"></i>
-            </div>
+        <div class="content-holder">
+           <h3>Table preview</h3>
+           <p class="publish-message">From your design, this is what the headers for your table would look like</p>
 
-            <p class="educative">
-                When you provide a file, it serves as a template for retrieving your data. To specify where the data should be inserted, ensure that you have a DG table at the desired position in your document a DG table is a single row and single column table which has the text DG inside it. This table will act as a reference to where data gridder will append your generated data.
-            </p>
-         
-            <p id="example-dg-text">An example dg table</p>
-                
-          
-        </div>
-        <div class="right-content">
-            <h4 class="txt-preview">Table Preview</h4>
-            <div class="table-container">
+           <div class="table-preview-container">
+            <div class="table-preview">
                 <!-- this will hold the table, it will be populated from publish.js  -->
             </div>
-            <!-- <div class="details">
-                <div class="detail">
-                    <i class="fa-regular fa-user"></i>
-                    <p>George william</p>
-                </div>
-            </div> -->
+           </div>
+
+        </div>
+       </div> 
+
+       <div class="right-container">
+        <div class="user-attribute">
+            <p>Publishing as: <b>{{user.username}}</b></p>
+        </div>
+
+        <div class="form-holder">
+
             <form action="/publish" id="publish-form" enctype="multipart/form-data">
                 {% csrf_token %}
-            <div class="get-name" >
-                <p class="p-label">Enter a name for your poll</p>
-                
-                <input type="text" placeholder="Poll name" name="poll-name" id="poll-name" required>
-               
-                <input type="submit" value="Publish poll" id="publish-poll">
-                   
+                <input type="text" name="poll-name" id="poll-name" placeholder="Poll name" required class="text-input-101">
+                <p class="append-suggest">Append a document (optional)</p>
+                <input type="file" name="document" id="file" accept=".doc, .docx">
+                <button type="submit" class="button-one">Publish</button>
+            </form>
+        </div>
+       </div>
+    </section>
+
+    <section class="explanation-section section">
+        <h1 class="header-text">When and how should you append a document?</h1>
+
+        <div class="top-explanation">
+            <div class="top-left">
+                <img src="{% static 'img/happy-man.svg' %}" alt="happy using datagridder" >
+
             </div>
 
-            
-        </form>
+            <div class="top-right">
+                <p>
+
+                    <span class="breaker">Integrate Your Custom Designs:</span> <br>
+
+                    Easily incorporate headers, titles, and more into your documents. Craft your designs in any preferred document editor, then simply upload the file. Datagridder seamlessly integrates your poll data as a table precisely where you specify. <br>
+                    
+                    <span class="breaker">Designating the Insertion Point: </span><br>
+                    
+                    To guide Datagridder, insert a 'dg' table—a one-row, one-column table with 'dg' as its content. This defines the position where your poll data will be appended. A sample dg table is shown below <br>
+                    
+                    <span class="breaker">No Document Provided? No Problem:</span> <br>
+                    
+                    If no document is uploaded, your poll data will be seamlessly integrated into a newly generated document.
+                </p>
+               
+            </div>
         </div>
-       
     </section>
+
+    <section class="sample-items-section section">
+        <h2>A sample dg table</h2>
+        <p>This is called a dg table, it tells datagridder where to append your poll data</p>
+        <img src="{% static 'img/sample-dg.png' %}" alt="">
+
+
+        <div class="video-container">
+            <h3 class="video-prompt">Learn to use datagridder on youtube</h3>
+            <iframe style="max-width: 560px;" width="90%" height="315px" src="https://www.youtube.com/embed/_dWU12_BNKg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>       
+             </div>    
+            </section>
+
+
     
     <div class="modal-container" id="modal-container">
         <div class="modal-box">
@@ -93,7 +119,6 @@
                         </div>
                         <div class="tooltip">
                         <i class="fa-solid fa-copy" id="copy-poll-code"></i>
-                        <span class="tooltiptext" id="copy-poll-tooltip-text">Copy poll code</span>
                         </div>
                    </div>
 
@@ -104,7 +129,6 @@
                     </div>
                     <div class="tooltip">
                     <i class="fa-solid fa-copy" id="copy-poll-link"></i>
-                    <span class="tooltiptext" id="copy-link-tooltip-text">Copy poll link</span>
                     </div>
                </div>
 

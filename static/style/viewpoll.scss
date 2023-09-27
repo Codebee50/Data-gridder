@@ -5,16 +5,8 @@ $light-blue: #29abe2;
 $complement_color: #393B4A;
 $button_green: #45987e;
 
-body{
-    font-family: 'lato', sans-serif;
- 
-}
+@import 'base';
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;   
-}
 .tooltip {
     position: relative;
     display: inline-block;

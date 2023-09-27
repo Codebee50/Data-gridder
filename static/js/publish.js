@@ -5,26 +5,26 @@ const cancelFile = document.getElementById('cancel-file')
 const fileInput = document.getElementById('file')
 const publishPoll = document.getElementById('publish-poll')
 
-const tableContainer = document.querySelector('.table-container')
+// const tableContainer = document.querySelector('.table-container')
 const modalContainer = document.getElementById('modal-container')
 const progressContainer = document.getElementById('progress-container')
 const resultContainer = document.getElementById('result-container')
 const warningContainer = document.getElementById('warning-div')
 
 const showSample = document.getElementById('example-dg-text')
-const showSampleModal = document.getElementById('ex-dg-modal')
-const removeSample = document.getElementById('remove-ex-dg')
+// const showSampleModal = document.getElementById('ex-dg-modal')
+// const removeSample = document.getElementById('remove-ex-dg')
 const copyPollToolText = document.getElementById('copy-poll-tooltip-text')
 const domainInput = document.getElementById('domain')
 
 
-showSample.addEventListener('click', function(e){
-    showSampleModal.classList.add('visible')
-})
+// showSample.addEventListener('click', function(e){
+//     showSampleModal.classList.add('visible')
+// })
 
-removeSample.addEventListener('click', function(){
-    showSampleModal.classList.remove('visible')
-})
+// removeSample.addEventListener('click', function(){
+//     showSampleModal.classList.remove('visible')
+// })
 
 // modalContainer.classList.remove('visible')
 
@@ -54,12 +54,12 @@ for(let i=0; i<pollData.length; i++){
 }
 
 prevTable += '</table>'
-tableContainer.innerHTML = prevTable
+
+const tablepreview = document.querySelector('.table-preview')
+tablepreview.innerHTML = prevTable
 
 
-function handleDragOver(event){
-    event.preventDefault()
-}
+
 function handleDrop(event){
     event.preventDefault()
     let files = event.dataTransfer.files
@@ -90,21 +90,6 @@ function getFileExtension(filename){
     }
 }
 
-function openFileChooser(){
-    fileInput.click()
-}
-
-document.getElementById('file').addEventListener('change', function(){
-    let filename = this.files[0].name
-    fileName.textContent = filename
-})
-
-cancelFile.addEventListener('click', function(){
-    fileInput.value = null
-    fileName.textContent = 'No file Chosen'
-})
-
-browseFile.addEventListener('click', openFileChooser)
 
 
 $(document).on('submit', '#publish-form', function(e){
@@ -122,6 +107,7 @@ $(document).on('submit', '#publish-form', function(e){
     mData.append('poll_code', pollcode)
     mData.append('document', fileInput.files[0])
     mData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val())
+    warningContainer.classList.remove('visible')
     
     $.ajax({
         type: 'POST',

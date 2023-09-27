@@ -125,3 +125,23 @@ $min-head-footer-height: 35vh;
     }
    
 }
+
+@media screen and (max-width: 650px){
+    .not-authenticated{
+        width: 100%;
+        flex-direction: column;
+
+        .left-content{
+            width: 100%;
+        }
+        .right-content{
+            width: 100%;
+            align-items: center;
+            text-align: center;
+            margin-top: 2rem;
+
+        }
+
+
+    }
+}

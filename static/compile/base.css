@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+:root {
+  --complement_color: #393B4A;
+  --background_pink:#f7f2f2 ;
+  --cus_orange: #E07243;
+  --big_text_size: 3rem;
+  --footer_height: 60vh;
+  --footer_head_height: 50vh;
+  --button_green: #45987e;
+  --major-green: #0DC58A;
+}
+
+body {
+  font-family: "lato", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}/*# sourceMappingURL=base.css.map */

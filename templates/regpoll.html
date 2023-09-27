@@ -1,5 +1,4 @@
 {% load static %}
-{% load sass_tags%}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,17 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reg- {{pollcode}}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
-    <link rel="stylesheet" href="{% sass_src 'style/reg.scss' %}" type="text/css">
+
+    <link rel="stylesheet" href="{% static 'compile/reg.css' %}" type="text/css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 
 </head>
 <body>
+
     <form action="">
-       
         <input type="hidden" name="pollcode" value="{{pollcode}}" id="in-poll-code">
         <input type="hidden" name="value_id" value="{{value_id}}" id="value_id">
     </form>
+
+    {% if is_authenticated %}
    <section class="hero-section">
     <div class="hero-image-container">
         
@@ -75,9 +78,73 @@
         </form>
    </section>
 
+   <div class="modal-container">
+    <div class="modal-box">
+        <div class="left-content">
+            <div class="oops">
+                <i class="fa-solid fa-cat"></i>
+                <p>Oops...</p>
+            </div>
+           
+            <p class="page-not">Page not found</p>
+            <p class="explanation">
+                We couldn't find the poll located at that link. This might be due to an incorrect link or a deleted poll, please check your link or contact
+                your poll creator for assistance
+            </p>
+            <a href="/">
+                <button class="button-one">Back to home</button>
+            </a>
+        </div>
 
-   <footer>
+        <div class="right-content">
 
+        </div>
+       
+       </div>
+    </div>
+
+    <div class="message-modal">
+        <div class="message-modal-box">
+           <div class="content">
+            <div class="icons">
+                <i class="fa-solid fa-circle-check" id="check-mark"></i>
+                <i class="fa-solid fa-circle-exclamation" id="error-mark"></i>
+            </div>
+            <div class="message-div">
+                <p id="txt-message"></p>
+                <button id="remove-message-modal">Done</button>
+            </div>
+           </div>
+            
+          
+        </div>
+    </div>
+
+
+</div>
+
+    {% else %}
+    <section class="not-authenticated">
+        <div class="left-content">
+            <img src="{% static 'img/happy-man.svg' %}" alt="">
+        </div>
+
+        <div class="right-content">
+            <h1>Good to have you here!</h1>
+            <p>You have successfully accessed datagridder and we are glad to have you here. Meanwhile, For a better user experience and community security, we require that you login or sign up before accessing a poll, please <a href="/login" target="_blank">Login</a> or <a href="/register" target="_blank">signup</a> for an account then try accessing the poll again</p>
+
+            <div class="actions">
+                <a href="/login" target="_blank" class="button-one">Login</a>
+
+                <a href="/register" target="_blank" class="reg-a button-one" >Register</a>
+            </div>
+        </div>
+
+
+    </section>
+    {% endif %}
+
+<footer>
     <div class="head">
         <div class="f-one">
             <div class="content">
@@ -145,53 +212,6 @@
         </div>
     </div>
 </footer>
-
-  
-
-   <div class="modal-container">
-    <div class="modal-box">
-        <div class="left-content">
-            <div class="oops">
-                <i class="fa-solid fa-cat"></i>
-                <p>Oops...</p>
-            </div>
-           
-            <p class="page-not">Page not found</p>
-            <p class="explanation">
-                We couldn't find the poll located at that link. This might be due to an incorrect link or a deleted poll, please check your link or contact
-                your poll creator for assistance
-            </p>
-            <a href="/">
-                <button>Back to home</button>
-            </a>
-        </div>
-
-        <div class="right-content">
-
-        </div>
-       
-       </div>
-    </div>
-
-    <div class="message-modal">
-        <div class="message-modal-box">
-           <div class="content">
-            <div class="icons">
-                <i class="fa-solid fa-circle-check" id="check-mark"></i>
-                <i class="fa-solid fa-circle-exclamation" id="error-mark"></i>
-            </div>
-            <div class="message-div">
-                <p id="txt-message"></p>
-                <button id="remove-message-modal">Done</button>
-            </div>
-           </div>
-            
-          
-        </div>
-    </div>
-
-
-</div>
 
  <script src="{% static 'js/reg.js' %}"></script>  
 </body>

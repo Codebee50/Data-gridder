@@ -1,0 +1,116 @@
+// this file contains the default styling and configurations for all pages
+// using this file will involve adding a link to it in your html page using a link tag
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+:root{
+    --complement_color: #393B4A;
+    --background_pink:#f7f2f2 ;
+    --cus_orange: #E07243;
+    --big_text_size: 3rem;
+    --footer_height: 60vh;
+    --footer_head_height: 50vh;
+    --button_green: #45987e;
+    --major-green: #0DC58A;
+    --generic-grey: #f4f4f3;
+    --default-modal-padding: 20px;
+
+}
+
+body{
+    font-family: 'Inter', sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   
+}
+
+.button-one{
+    background-color: green;
+    padding: 0.5rem 0.9rem;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.text-input-101{
+    padding: 0.7rem 0.5rem;
+    border: 1px solid rgb(219, 214, 214);
+    outline: none;
+    border-radius: 4px;
+}
+
+.uncan-modal-con{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img{
+        width: 40px;
+        height: 40px;
+    }
+
+    p{
+        margin-top: 0.9rem;
+        text-align: center;
+    }
+    
+}
+
+.v2-alert-modal-1a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    p{
+        text-align: center;
+        line-height: 1.5;
+        font-size: 0.9rem;
+    }
+
+    button{
+        margin-top: 0.9rem;
+    }
+}
+
+.modal-section{
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    display: none;
+
+    .modal-content{
+        background-color: white;
+        width: 90%;
+        max-width: 400px;
+        padding: var(--default-modal-padding);
+        // padding: 30px 50px;
+        border-radius: 5px;
+
+        p{
+            opacity: 0.7;
+        }
+    }
+
+}
+
+.modal-section.visible{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}

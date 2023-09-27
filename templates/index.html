@@ -1,5 +1,4 @@
 {% load static %}
-{% load sass_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,21 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Gridder </title>
-   <!--<link rel="stylesheet" href="{% sass_src 'style/style.scss' %}" type="text/css">-->
-   <link rel="stylesheet" href=" {% static 'style/style.css' %}" >
+
+
+    <!-- My custom stylesheets -->
+    <!-- <link rel="stylesheet" href="{% static 'compile/base.css' %}"> -->
+   <link rel="stylesheet" href=" {% static 'compile/style.css' %}" >
+
+
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -81,7 +80,7 @@
         
         <div class="bottom">
             <div class="left-content">
-                <img src="{% static 'img/raw-people.svg' %}" alt="Hero image">
+                <img src="{% static 'img/raw-people.svg' %}" alt="Hero image" loading="lazy">
             </div>
             <div class="right-content">
                 <div class="content">
@@ -126,18 +125,11 @@
             <h2 class="question">What are polls?</h2>
             <p>Polls are a representation of the data your administrator would like you to provide, after retrieving a poll using its poll code, fill the form to complete your registration. Please note that the data you provide will be completely visible to the poll author  </p>
             <div class="img-con">
-                <img src="{% static 'img/clip-board.png' %}" alt="Hero image">
+                <img src="{% static 'img/clip-board.png' %}" alt="Hero image" loading="lazy">
             </div>
             
         </div>
 
-
-        <!-- <div class="image-container">
-            <img src="{% static 'img/man-writing.jpg' %}" alt="Hero image">
-            <div class="overlay">
-
-            </div>
-        </div> -->
     </div>
     
    </section>
@@ -170,7 +162,7 @@
 
                 <div class="right">
                     <div class="image-container">
-                        <img src="{% static 'img/black-girl-laptop.webp' %}" alt="">
+                        <img src="{% static 'img/black-girl-laptop.webp' %}" alt="using-datagridder" loading="lazy">
                         <div class="overlay">
                             <div class="get-in-touch">
                                 <h3>Data gridder</h3>
@@ -216,7 +208,7 @@
         <div class="contact-content">
             <div class="left-content">
                 <div class="image-container">
-                    <img src="{% static 'img/cus-sup.png' %}" alt="">
+                    <img src="{% static 'img/cus-sup.png' %}" alt="data-gridder-customer-support" loading="lazy" >
                     <div class="overlay">
                         <div class="get-in-touch">
                             <h3>Get in touch</h3>
@@ -274,8 +266,6 @@
         <div class="not-found-modal-box"> 
             <div class="not-found-alert">
                 <div class="left-content">
-                    <!-- <i class="fa-solid fa-cloud-arrow-down"></i> -->
-                    <!-- <i class="fa-solid fa-face-smile"></i> -->
                     <img src="{% static 'img/not-found.svg' %}" alt="">
                 </div>
                 <div class="right-content">
@@ -308,11 +298,6 @@
                         <img src="{% static 'img/or_icon.svg' %}" alt="Gridder image">
                         <h3 class="name-text">Data Gridder</h3>
                     </div>
-    
-                    <!-- <div class="codebee">
-                        <p>Powered by</p>
-                        <img src="{% static 'img/codebee.svg' %}" alt="">
-                    </div> -->
                 </div>
                 
             </div>

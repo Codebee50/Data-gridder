@@ -1,5 +1,4 @@
 {% load static %}
-{% load sass_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,12 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
 
-    <link rel="stylesheet" href="{% sass_src 'style/poll.scss' %}" type="text/css">
-    <!-- <link rel="stylesheet" href=" {% static 'style/poll.css' %}" > -->
+    <!-- My custom stylesheets -->
+    <link rel="stylesheet" href="{% static 'compile/dash.css' %}" type="text/css">
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 
-    <title>Dashboard</title>
+    <title>Dashboard | datagridder</title>
 </head>
 <body class="main-content">
     <div class="container">
@@ -32,11 +33,21 @@
                    <p data-id="rpolls">Registered polls</p>
                 </div>
                  
+                <!-- <div class="navigation" data-id="scratch-poll" id="con-scratch-poll">
+                    <i class="fa-solid fa-plus" data-id="scratch-poll"></i>
+                    <p data-id="scratch-poll">New poll</p>
+                </div> -->
+
                 <div class="navigation" data-id="new-poll" id="con-new-poll">
                     <i class="fa-solid fa-plus" data-id="new-poll"></i>
                     <p data-id="new-poll">New poll</p>
                 </div>
                  
+                <!-- <div class="navigation" data-id="sort-doc" id="con-sort-doc">
+                    <i class="fa-solid fa-arrow-up-z-a" data-id="sort-doc"></i>
+                    <p data-id="sort-doc">Sort document</p>
+                </div> -->
+
                  <div class="contact-btn navigation" data-id="contact-us" id="con-contact-us">
                     <i class="fa-regular fa-message" data-id="contact-us"></i>
                     <p data-id="contact-us">Contact us</p>
@@ -224,13 +235,10 @@
                             <img src="{% static 'img/icon.svg' %}" alt="iconimage" id="icon-display">
                             <div class="left-right">
                                 <h2>Registered polls</h2>
-                                 <!-- <p>Polls you have registered in </p> -->
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="top-right">
-                        <input type="submit" value="Publish">
-                    </div> -->
+                    
                 </div>
             </div>
             <div class="bottom-content">
@@ -292,8 +300,128 @@
         
     </div>
 
-    <!-- contact us -->
-   
+
+     <!-- Sort document -->
+     <div class="rightparent" id="sort-doc">
+        <div class="top-content">
+            <div class="top-container">
+                <div class="top-left">
+                    <div class="left-con">
+                        <div id="mobile">
+                            <i id="bar" class="fa-solid fa-bars bar"></i>
+                        </div>
+                        <img src="{% static 'img/icon.svg' %}" alt="iconimage" id="icon-display">
+                        <div class="left-right">
+                            <h2>Sort a document</h2>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="top-right">
+                    <input type="submit" value="Publish">
+                </div> -->
+            </div>
+        </div>
+        <div class="bottom-content">
+           <div class="bottom-left">
+                <div class="file-show-case-container">
+                    <div class="top-file-show-case">
+                        <div class="content">
+                            <!-- <i class="fa-regular fa-file"></i> -->
+                            <i class="fa-solid fa-file"></i>
+                            <p>.docx</p>
+                        </div>
+                    </div>
+
+                    <div class="bottom-file-show-case">
+                        <input type="file" name="document" placeholder="Browse" style="display: none;" id="sort-file" accept=".doc, .docx">
+                        <h4 class="doc-title">No file chosen</h4>
+                        <button id="choose-file-btn">Choose file</button>
+                    </div>
+                </div>
+           </div>
+
+           <div class="bottom-right">
+
+           </div>
+           
+           
+        </div>
+    </div>
+
+    <!-- Modal section v2 components-->
+    <div class="modal-section" id="choose-create-option-modal">
+        <form action="">
+            {% csrf_token %}
+            <input type="file" id="choose-ex-file" style="display: none;">
+        </form>
+        <div class="modal-content choose-create-option-content">
+            <div class="showcase-modal">
+                <h3 class="modal-title-txt">Create a new poll</h3>
+
+                <i class="fa-solid fa-xmark" onclick="transitionModal('none')"></i>
+            </div>
+
+            <div class="actions">
+                <div class="left-content dmark-content" id="scratch-poll">
+                    <div class="generic">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs></defs><title>Asset 23gridder-icon-white</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><rect class="cls-1" x="8.79" y="14.65" width="13.72" height="2.63" transform="translate(-6.69 16.64) rotate(-47.29)"/><rect class="cls-1" x="9.58" width="13.02" height="2.67"/><rect class="cls-1" x="9.58" y="29.33" width="13.02" height="2.67"/><rect class="cls-1" x="-5.25" y="14.63" width="31.89" height="2.63" transform="translate(-5.25 26.64) rotate(-90)"/><rect class="cls-1" x="5.36" y="14.74" width="31.89" height="2.63" transform="translate(5.25 37.36) rotate(-90)"/><rect class="cls-1" x="0.11" y="9.38" width="31.89" height="2.63"/><rect class="cls-1" y="19.99" width="31.89" height="2.63"/></g></g></svg>
+    
+                    </div>
+
+                    <div class="explanation-container">
+                        <h2 class="explanation-header">
+                            New datagridder poll
+                        </h2>
+
+                        <p class="explanation">
+                            Create a poll from scratch using datagridder
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="right-content dmark-content" id="from-document">
+                    <div class="generic">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M320 464c8.8 0 16-7.2 16-16V160H256c-17.7 0-32-14.3-32-32V48H64c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16H320zM0 64C0 28.7 28.7 0 64 0H229.5c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64z"/></svg>
+
+                    </div>
+
+                    <div class="explanation-container">
+                        <h2 class="explanation-header">
+                            From existing document
+                        </h2>
+
+                        <p class="explanation">
+                            Create a poll from a document containing a populated table
+                        </p>
+                    </div>
+
+
+
+                   
+                </div>
+            </div>
+
+            <div class="action-btns">
+                <button class="button-one" id="btn-create-poll">Create poll</button>
+            </div>
+           
+        </div>
+    </div>
+
+    <div class="modal-section" id="v2-loading-modal">
+        <div class="modal-content v1-loading-modal-content uncan-modal-con">
+            <img src="{% static 'img/loading.gif' %}" alt="loading-image">
+            <p class="loading-text">Loading, please wait..</p>
+        </div>
+    </div>
+
+    <div class="modal-section" id="v2-alert-modal-1a">
+        <div class="modal-content v2-alert-modal-1a" >
+            <p class="alert-message-1a" id="res-alert-modal-1a-p">[ empty ]</p>
+            <button class="button-one" id="res-alert-modal-1a-button">Ok</button>
+        </div>
+    </div>
 
     <div class="modal-container">
         <div class="modal-box">
@@ -364,10 +492,9 @@
                 
             </div>
         </div>
-    </div>
+    </div>    
 
-    
-
+    <script src="{% static 'js/components.js' %}"></script>
     <script src="{% static 'js/poll.js' %}"></script>
 </body>
 </html>
