@@ -513,15 +513,17 @@ def publish(request):
         pollcode = request.POST.get('poll_code')
         polldata = request.POST.get('poll_data')
         pollauthor = request.user.username
-        
-        _, fileextension =os.path.splitext(document.name)
-        allowed_extensions = ['.doc', '.docx']
-        if fileextension not in allowed_extensions:
-            context = {
-                'status': 'failed',
-                'message': f'A {fileextension} file format is not allowed'
-            }
-            return JsonResponse(context)
+
+        if document is not None:#checking for the correct fie format
+            _, fileextension =os.path.splitext(document.name)
+            allowed_extensions = ['.doc', '.docx']
+            if fileextension not in allowed_extensions:
+                context = {
+                    'status': 'failed',
+                    'message': f'A {fileextension} file format is not allowed'
+                }
+                return JsonResponse(context)
+            
         #checking if the poll name already exits
         if Poll.objects.filter(poll_name=pollname).exists():
             context = {
