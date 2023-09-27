@@ -541,6 +541,7 @@ function loadLocalDataIntoView(){
     feildArray = JSON.parse(localStorage.getItem('pollData'))
     lastId = 0;
     index = 1;
+  
     feildArray.forEach(obj => {
         fieldElement = document.createElement("div")
         lastId = obj.id

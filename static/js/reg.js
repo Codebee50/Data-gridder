@@ -136,25 +136,18 @@ $(document).on('submit', '#submit-form', function(e){
 function populateUi(fieldArray){
     incr = document.getElementById('incr')
     index = 0
-    // fieldArray = Array.from(fieldArray)
+    fieldArray = Array.from(fieldArray)
 
-    subfield = Array.from(fieldArray)
-    console.log(fieldArray)
-    console.log(subfield)
-    console.log(typeof subfield)
-    fieldArray.forEach(item => {
+    for(let i=0; i< fieldArray.length; i++){
+        let item = fieldArray[i]
         if(item.datatype !== 'empty'){
-            
-            console.log(item)
             let inputElement = document.createElement("input")
             inputElement.type = item.datatype
             inputElement.placeholder = item.name
             inputElement.required = item.required
             inputElement.name = item.name
             inputElement.id = item.name
-            
-            console.log(inputElement)
-           
+                       
             if(editMode){
                 pollvalues.forEach((value)=>{
                     if(item.name == value.name){
@@ -170,7 +163,8 @@ function populateUi(fieldArray){
             
             
        }
-    })
+    }
+    
     
 }
 
