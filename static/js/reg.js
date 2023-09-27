@@ -135,8 +135,13 @@ $(document).on('submit', '#submit-form', function(e){
 /** sets up the ui with input fields  */
 function populateUi(fieldArray){
     incr = document.getElementById('incr')
-
     index = 0
+    // fieldArray = Array.from(fieldArray)
+
+    subfield = Array.from(fieldArray)
+    console.log(fieldArray)
+    console.log(subfield)
+    console.log(typeof subfield)
     fieldArray.forEach(item => {
         if(item.datatype !== 'empty'){
             
