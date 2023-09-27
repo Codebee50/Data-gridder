@@ -16,10 +16,13 @@ const txtMessage = document.getElementById('txt-message')
 
 const progressBar = document.getElementById('progress-bar')
 
-removeMessgeModel.addEventListener('click', function(){
-    messageModal.classList.remove('visible')
-    location.reload()
-})
+if (removeMessgeModel !== null){
+    removeMessgeModel.addEventListener('click', function(){
+        messageModal.classList.remove('visible')
+        location.reload()
+    })
+}
+
 
 let vlaueId = valueIdInput.value
 let pollvalues
@@ -131,9 +134,7 @@ $(document).on('submit', '#submit-form', function(e){
 
 /** sets up the ui with input fields  */
 function populateUi(item){
-    if(item.datatype != 'empty'){
-       
-        
+    if(item.datatype !== 'empty'){
         inputElement = document.createElement('input')
         inputElement.type = item.datatype
         inputElement.placeholder = item.name
