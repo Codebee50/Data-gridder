@@ -62,8 +62,8 @@ $(document).ready(function(){
                 editMode = true
                 pollvalues = JSON.parse(JSON.parse(data.values)[0].fields.field_values)
                 
-                fieldArray.forEach(populateUi)
-
+                //fieldArray.forEach(populateUi)
+                populateUi(fieldArray)
                 promptTxt.textContent = 'Modify your entries'
                 btnSubmit.value = 'Save'
 
@@ -71,7 +71,7 @@ $(document).ready(function(){
             else{
                 //a user just wants to register for a poll 
                 editMode = false
-                fieldArray.forEach(populateUi)
+                populateUi(fieldArray)
                 pollvalues = 'empty'
             }
            
@@ -133,30 +133,35 @@ $(document).on('submit', '#submit-form', function(e){
 })
 
 /** sets up the ui with input fields  */
-function populateUi(item){
-    if(item.datatype !== 'empty'){
-        inputElement = document.createElement('input')
-        inputElement.type = item.datatype
-        inputElement.placeholder = item.name
-        inputElement.required = item.required
-        inputElement.name = item.name
-        inputElement.id = item.name
-        
-       
-        if(editMode){
-            pollvalues.forEach((value)=>{
-                if(item.name == value.name){
-                    inputElement.value = value.value
-                }
-            })
-        }
-
-        inputContainer.appendChild(inputElement)
-
-
-        inputArray.push(inputElement)
-        
-   }
+function populateUi(fieldArray){
+    
+    fieldArray.forEach(function(item){
+        console.log(item)
+        if(item.datatype !== 'empty'){
+            inputElement = document.createElement('input')
+            inputElement.type = item.datatype
+            inputElement.placeholder = item.name
+            inputElement.required = item.required
+            inputElement.name = item.name
+            inputElement.id = item.name
+            
+           
+            if(editMode){
+                pollvalues.forEach((value)=>{
+                    if(item.name == value.name){
+                        inputElement.value = value.value
+                    }
+                })
+            }
+    
+            inputContainer.appendChild(inputElement)
+    
+    
+            inputArray.push(inputElement)
+            
+       }
+    })
+    
 }
 
 }
