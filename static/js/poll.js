@@ -542,7 +542,6 @@ function loadLocalDataIntoView(){
     lastId = 0;
     index = 1;
     feildArray.forEach(obj => {
-
         fieldElement = document.createElement("div")
         lastId = obj.id
         fieldElement.id = obj.id

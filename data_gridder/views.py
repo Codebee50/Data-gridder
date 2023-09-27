@@ -961,7 +961,7 @@ def sendEmail(request):
             })
 
             sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
-            send_mail(subject, message, sender, ['codebee345@outlook.com', 'onuhudoudo@gmail.com'],html_message=html,fail_silently=False)
+            send_mail(subject, message, sender, ['support@datagridder.com', 'onuhudoudo@gmail.com'],html_message=html,fail_silently=False)
         else:
             print('form is not valid')
 
