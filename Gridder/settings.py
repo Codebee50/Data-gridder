@@ -25,7 +25,6 @@ SECRET_KEY = 'django-insecure-p^k^e4%%@68*o3d(l*)nvg334b9yz5v^6-ea7_og0*-tpy94(6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-
 if DEBUG:
     ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.0.105', '192.168.0.100', '*']
     # ALLOWED_HOSTS = ['*']
@@ -45,9 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'data_gridder',
     'filemanager',
-    'compressor',  
-    # 'sass_processor',
-    # 'django_cron',
+    'compressor'
 ]
 
 MIDDLEWARE = [
@@ -168,10 +165,10 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
-    'sass_processor.finders.CssFinder',
+    # 'sass_processor.finders.CssFinder',
 )
     
-SASS_PROCESSOR_ENABLED = True
+# SASS_PROCESSOR_ENABLED = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

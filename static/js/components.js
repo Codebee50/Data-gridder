@@ -47,3 +47,17 @@ function setUpAlertModalOneAction(modalId, prefix, message, onCancel, buttonText
 
     transitionModal(modalId)
 }
+
+/** Used to display an opaque message modal
+ * @param modalId modal to be displayed
+ * @param messageTxtId the id of the message text in the modal
+ * @param message The message to be displayed
+ */
+function setupOpaqueModal(modalId, messageTxtId, message){
+    modalElement = document.getElementById(modalId)
+    messageElement = document.getElementById(messageTxtId)
+
+    messageElement.textContent = message
+
+    transitionModal(modalId)
+}

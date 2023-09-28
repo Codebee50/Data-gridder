@@ -1,185 +1,132 @@
-const mInput = document.getElementById('in-poll-code')
-let inputContainer = document.querySelector('.input-container')
-let submit = document.getElementById('submit')
-const modalContainer = document.querySelector('.modal-container')
-let valueIdInput = document.getElementById('value_id')
+setupOpaqueModal('op-one', 'op-message-one', 'Fetching poll..')
 
-const promptTxt = document.getElementById('prompt')
-const btnSubmit = document.getElementById('submit')
+document.addEventListener('DOMContentLoaded', function () {
+    const mInput = document.getElementById('in-poll-code');
+    const inputContainer = document.querySelector('.input-container');
+    const submitBtn = document.getElementById('submit');
+    const valueIdInput = document.getElementById('value_id');
+    const promptTxt = document.getElementById('prompt');
+    const messageModal = document.querySelector('.message-modal');
+    const checkMark = document.getElementById('check-mark');
+    const errorMark = document.getElementById('error-mark');
+    const removeMessageModal = document.getElementById('remove-message-modal');
+    const txtMessage = document.getElementById('txt-message');
+    const progressBar = document.getElementById('progress-bar');
+    let valueId = valueIdInput.value;
+    let pollvalues;
 
-
-const messageModal = document.querySelector('.message-modal')
-const checkMark= document.getElementById('check-mark')
-const errorMark = document.getElementById('error-mark')
-const removeMessgeModel = document.getElementById('remove-message-modal')
-const txtMessage = document.getElementById('txt-message')
-
-const progressBar = document.getElementById('progress-bar')
-
-if (removeMessgeModel !== null){
-    removeMessgeModel.addEventListener('click', function(){
-        messageModal.classList.remove('visible')
-        location.reload()
-    })
-}
+    let editMode = false;
 
 
-let vlaueId = valueIdInput.value
-let pollvalues
-
-//editmode signifies if a user wants to register for a poll or edit the entries they provided for the poll priviously
-let editMode = false
-
-
-
-class Input{
-    constructor (name, value){
-        this.name = name
-        this.value = value
-    }
-}
-
-if(vlaueId !== 'nb'){
-    //this means user is trying to edit a field 
-}
-
-let pollcode = $('#in-poll-code').val()
-
-if (pollcode !== 'none'){
-    modalContainer.classList.remove('visible')
-    let inputArray = []
-    let inputValueArray = []
-
-$(document).ready(function(){
-    $.ajax({
-        type: 'GET',
-        url: '/getpoll/' + pollcode + '/' + vlaueId + '/',
-        success: function(data){
-            let fieldArray = JSON.parse(JSON.parse(data.fields))
-          
-            if(data.values !== 'empty'){
-                //user wants to edit their entries 
-                editMode = true
-                pollvalues = JSON.parse(JSON.parse(data.values)[0].fields.field_values)
-                
-                //fieldArray.forEach(populateUi)
-                populateUi(fieldArray)
-                promptTxt.textContent = 'Modify your entries'
-                btnSubmit.value = 'Save'
-
-            }
-            else{
-                //a user just wants to register for a poll 
-                editMode = false
-                populateUi(fieldArray)
-                pollvalues = 'empty'
-            }
-           
-        },
-        error: function(data){
-            console.log(data)
+    class Input {
+        constructor(name, value) {
+            this.name = name;
+            this.value = value;
         }
-    })
-})
+    }
 
-$(document).on('submit', '#submit-form', function(e){
-    progressBar.classList.add('visible')
-    submit.disabled = true
-    e.preventDefault()
-    inputArray.forEach(function(item){
-        //creating a new input object and addding it to the input value array
-        //this array would be stringified and stored in the database as the field_values of a PollValue
-        let inputMap = new Input(item.name, item.value)
-        inputValueArray.push(inputMap)
-        
-    })
+    if (removeMessageModal !== null) {
+        removeMessageModal.addEventListener('click', function () {
+            messageModal.classList.remove('visible');
+            location.reload();
+        });
+    }
 
-    //stringifying the inputvaluearray
-    let inputString = JSON.stringify(inputValueArray)
-    
-    $.ajax({
-        type: 'POST',
-        url: '/savevalue',
-        data:{
+
+    let pollcode = mInput.value;
+    let inputArray = [];
+
+    fetch('/getpoll/' + pollcode + '/' + valueId + '/')
+        .then(response => response.json())
+        .then(data => {
+            console.log('fetch has returned')
+            transitionModal('none')
+            let fieldArray = JSON.parse(JSON.parse(data.fields));
+
+            if (data.values !== 'empty') {
+                editMode = true;
+                pollvalues = JSON.parse(data.values[0].fields.field_values);
+                populateUi(fieldArray);
+                promptTxt.textContent = 'Modify your entries';
+                submitBtn.value = 'Save';
+            } else {
+                editMode = false;
+                populateUi(fieldArray);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+
+    document.querySelector('#submit-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        progressBar.classList.add('visible');
+        submitBtn.disabled = true;
+
+        let inputValueArray = inputArray.map(item => new Input(item.name, item.value));
+        let inputString = JSON.stringify(inputValueArray);
+        var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+        let formData = new FormData()
+        formData.append('pollcode', pollcode)
+        formData.append('values', inputString)
+        formData.append('editmode', editMode.toString())
+        formData.append('valueid', valueId)
+
+        let jsonData = JSON.stringify({
             'pollcode': pollcode,
             'values': inputString,
             'editmode': editMode.toString(),
-            'valueid': vlaueId,
-            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-        },
-        success : function(response){
-            if(response.status == 'success'){
-                progressBar.classList.remove('visible')
-                errorMark.style.display = 'none'
-                checkMark.style.display= 'block'
-                messageModal.classList.add('visible')
+            'valueid': valueId,
+        })
+    
+        fetch('/savevalue', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken 
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                progressBar.classList.remove('visible');
+                errorMark.style.display = 'none';
+                checkMark.style.display = 'block';
+                messageModal.classList.add('visible');
+            } else {
+                progressBar.classList.remove('visible');
+                errorMark.style.display = 'block';
+                checkMark.style.display = 'none';
+                messageModal.classList.add('visible');
             }
-            else{
 
-                progressBar.classList.remove('visible')
-                errorMark.style.display = 'block'
-                checkMark.style.display= 'none'
-                messageModal.classList.add('visible')
-            }
-            
-            txtMessage.textContent = response.message
-        },
-        error : function(response){
-            console.log(response)
-        }
-    })
+            txtMessage.textContent = data.message;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
 
     
-})
+    function populateUi(fieldArray) {
+        fieldArray.forEach(item => {
+            if (item.datatype !== 'empty') {
+                let inputElement = document.createElement("input");
+                inputElement.type = item.datatype;
+                inputElement.placeholder = item.name;
+                inputElement.required = item.required;
+                inputElement.name = item.name;
+                inputElement.id = item.name;
 
-/** sets up the ui with input fields  */
-function populateUi(fieldArray){
-    incr = document.getElementById('incr')
-    index = 0
-    fieldArray = Array.from(fieldArray)
-
-    for(let i=0; i< fieldArray.length; i++){
-        let item = fieldArray[i]
-        if(item.datatype !== 'empty'){
-            let inputElement = document.createElement("input")
-            inputElement.type = item.datatype
-            inputElement.placeholder = item.name
-            inputElement.required = item.required
-            inputElement.name = item.name
-            inputElement.id = item.name
-                       
-            if(editMode){
-                pollvalues.forEach((value)=>{
-                    if(item.name == value.name){
-                        inputElement.value = value.value
+                if (editMode) {
+                    let matchingValue = pollvalues.find(value => value.name === item.name);
+                    if (matchingValue) {
+                        inputElement.value = matchingValue.value;
                     }
-                })
+                }
+
+                inputContainer.appendChild(inputElement);
+                inputArray.push(inputElement);
             }
-            index +=1
-            incr.textContent = index
-            inputContainer.appendChild(inputElement)
-    
-            inputArray.push(inputElement)
-            
-            
-       }
+        });
     }
     
-    
-}
-
-}
-else{
-    //user has provided the link of a poll which doesnt exist
-    modalContainer.classList.add('visible')
-}
-
-
-
-
-
-
-
-
-
-
+});

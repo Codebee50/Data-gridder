@@ -439,6 +439,7 @@ def registerPoll(request, pollcode, pk):
         
         context = {
             'stautus' : 'success',
+            'statusCode': 200,
             'pollcode': pollcode,
             'pollname': pollname,
             'pollauthor': pollauthor,
@@ -450,6 +451,7 @@ def registerPoll(request, pollcode, pk):
     else:
         context = {
             'status': 'failed',
+            'statusCode': 401,
             'message': 'Poll ' + pollcode + ' does not exist',
             'pollcode': 'none',
             'pollauthor': 'none',
@@ -464,10 +466,13 @@ def registerPoll(request, pollcode, pk):
     also used to save the new values of a pollvalue when user edits the poll values""" 
 def saveValue(request):
     if request.method == 'POST':
-        pollcode = request.POST['pollcode']
-        values = request.POST['values']
+        
+        pollcode = request.POST.get('pollcode')
+        values = request.POST.get('values')
         user = request.user.username
-        edit_mode = request.POST['editmode']
+        edit_mode = request.POST.get('editmode')
+
+        print(values)
 
         if edit_mode== 'true':
             value_id = request.POST['valueid']
