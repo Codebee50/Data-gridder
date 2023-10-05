@@ -204,6 +204,8 @@
         
     </section>
 
+
+
     <section class="contact-us-section" id="contact-us-section">
         <div class="contact-content">
             <div class="left-content">
@@ -221,7 +223,7 @@
 
             <div class="right-content">
                 <div class="content">
-                    <form class="content" action="/sendemail" method="POST">
+                    <form class="content" action="" method="POST" id="contact-form">
                         {% csrf_token %}
                         <p>Send us a message</p>
                         <!-- <input type="text" name="name" id="" placeholder="Name" class="text-input">
@@ -261,6 +263,36 @@
             </div> -->
         </div>
     </div>
+
+
+    <div class="contact-confirmation modal-section" id="contact-confirmation-modal">
+        <div class="modal-content contact-confirmation-modal-content">
+            <img src="{% static 'img/vector-support.svg' %}" alt="email sent">
+            <h1>Thanks for reaching out!</h1>
+            {% if user_exists == 'true' %}
+            <p>Hello {{user_profile.user.username}}, Thank you for contacting Datagridder. Your message has been received and will be addressed promptly. We appreciate your patience.</p>
+            {% else %}
+            <p>Hello, Thank you for contacting Datagridder. Your message has been received and will be addressed promptly. We appreciate your patience.</p>
+            {% endif %}
+            <button class="button-two"  onclick="transitionModal('none')">Done</button>
+        </div>
+    </div>
+
+
+    <div class="modal-section" id="v2-loading-modal">
+        <div class="modal-content v1-loading-modal-content uncan-modal-con">
+            <img src="{% static 'img/loading.gif' %}" alt="loading-image">
+            <p class="loading-text" id="loading-text">Loading, please wait..</p>
+        </div>
+    </div>
+
+    <div class="modal-section" id="v2-alert-modal-1a">
+        <div class="modal-content v2-alert-modal-1a" >
+            <p class="alert-message-1a" id="res-alert-modal-1a-p">[ empty ]</p>
+            <button class="button-one" id="res-alert-modal-1a-button">Ok</button>
+        </div>
+    </div>
+
 
     <div class="not-found-modal">
         <div class="not-found-modal-box"> 
@@ -355,6 +387,7 @@
         </div>
     </footer>
 
+    <script src="{% static 'js/components.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
 
     

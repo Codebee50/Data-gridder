@@ -339,6 +339,7 @@ main{
     min-height: 100vh;
     display: flex;
     flex-direction: row;
+    padding: 1rem;
 
     .left-content{
         width: 50%;
@@ -367,22 +368,28 @@ main{
             max-width: 500px;
             margin-top: 0.9rem;
             line-height: 1.7;
+            font-size: 0.9rem;
+            opacity: 0.6;
         }
 
         .actions{
             margin-top: 2rem;
             display: flex;
             flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 50%;
             a{
                 text-decoration: none;
-                width: 100px;
                 text-align: center;
                 display: flex;
                 align-items: center;
+                justify-content: center;
+                padding: 0.9rem;
+                width: 100%;
+                margin: 0.45rem;
             }
-            .reg-a{
-                margin-left: 0.9rem;
-            }
+           
         }
     }
 

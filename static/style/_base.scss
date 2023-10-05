@@ -31,13 +31,18 @@ body{
 
 .button-one{
     background-color: green;
-    padding: 0.5rem 0.9rem;
+    padding: 0.7rem 0.9rem;
     border-radius: 5px;
     border: none;
     outline: none;
     color: white;
     cursor: pointer;
     font-size: 0.9rem;
+}
+
+.button-two{
+    @extend .button-one;
+    width: 100%;
 }
 
 .text-input-101{
@@ -94,11 +99,13 @@ body{
     justify-content: center;
     display: none;
 
+
     .modal-content{
         background-color: white;
         width: 90%;
         max-width: 400px;
         padding: var(--default-modal-padding);
+
         // padding: 30px 50px;
         border-radius: 5px;
 
@@ -139,8 +146,8 @@ body{
 footer{
     margin-top: 3rem;
     width: 100%;
-    min-height: $footer-height;
-    background-color: $complement_color;
+    min-height: var(--footer_height);
+    background-color: var(--complement_color);
     display: flex;
     flex-direction: column;
    
@@ -162,7 +169,7 @@ footer{
              flex-direction: column;
              align-items: center;
              justify-content: space-evenly;
-             height: $footer-head-height;
+             height: var(--footer_head_height);
              .gridder{
                 
                  display: flex;
@@ -196,7 +203,7 @@ footer{
          .a-list{
             display: flex;
             flex-direction: column;
-            height: $footer-head-height;
+            height: var(--footer_head_height);
             align-items: center;
             justify-content: center;
          
@@ -222,7 +229,7 @@ footer{
          .f-four{
             display: flex;
             flex-direction: column;
-            height: $footer-head-height;
+            height: var(--footer_head_height);
             align-items: center;
             justify-content: center;
 

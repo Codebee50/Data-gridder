@@ -506,18 +506,25 @@ function localTransitions(){
 
     let id = 'con-' + screen
     let currentControl = document.getElementById(id)
-    controls.forEach(function(control){
-        control.classList.remove('active-btn')
-    })
-    currentControl.classList.add('active-btn')
+    if(currentControl !== null){
+        controls.forEach(function(control){
+            control.classList.remove('active-btn')
+        })
+        currentControl.classList.add('active-btn')
+    }
+
 
 
     let currentScreen = document.getElementById(screen)
-    sections.forEach(function(section){
-        section.classList.remove('active-screen')
-    })
-    
-    currentScreen.classList.add('active-screen')
+
+    if(currentScreen !== null){
+        sections.forEach(function(section){
+            section.classList.remove('active-screen')
+        })
+        
+        currentScreen.classList.add('active-screen')
+    }
+  
 
 }
 

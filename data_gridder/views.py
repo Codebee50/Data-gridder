@@ -23,24 +23,27 @@ from django.urls import reverse
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from functools import partial
 from django.utils.html import strip_tags
+from django.urls import resolve, Resolver404
+
+
 
 
 # Create your views here.
 # @login_required(login_url='register')
 def home(request):
-    print('home')
+    
     if request.user.is_authenticated:
-                #this means that the user is logged in 
+        #this means that the user is logged in 
         user_object = User.objects.get(username= request.user.username)
         user_profile = Profile.objects.get(user=user_object)
 
-        current_user = request.user.username
+        # current_user = request.user.username
         
         contact_form = forms.ContactForm()
         context= {
             'user_exists': 'true',
             'user_profile' : user_profile,
-            'contact_form': contact_form
+            'contact_form': contact_form,
         }
         return render(request, 'index.html', context)
     else:
@@ -48,7 +51,7 @@ def home(request):
         contact_form = forms.ContactForm()
         context = {
             'user_exists': 'false',
-            'contact_form': contact_form
+            'contact_form': contact_form,
         }
         return render(request, 'index.html', context)
 
@@ -70,9 +73,7 @@ def register(request):
                 user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()
 
-                # user_login = auth.authenticate(request, username=email, password=password)
-                # auth.login(request, user_login)
-
+                
                 user_model = User.objects.get(username=username)
                 new_profile = Profile.objects.create(user = user, id_user = user.id)
                 new_profile.save()
@@ -181,7 +182,6 @@ def activate_user(request, uidb64, token):
         user.is_email_verified = True
         user.save()
 
-        #messages.add_message(request, messages.SUCCESS, 'Email verified, you can now login', 'userverified')
         return render(request, 'emails/activate-account.html', {
             'user':user
         })
@@ -190,8 +190,15 @@ def activate_user(request, uidb64, token):
         'user': user
     })
     
+def is_project_url(url):
+    try:
+        resolve(url)
+        return True
+    except Resolver404:
+        return False
+
 def login(request):
-    print('loggin in')
+    load_next = request.GET.get('load_next', None)
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -203,15 +210,13 @@ def login(request):
             if user_profile is not None:
                 if user_profile.is_email_verified:
                     auth.login(request, user)
-                    next_page = request.GET.get('next')
-                    print('next page is ',next_page)
-                    if next_page:
-                        return redirect(next_page)
+     
+                    if is_project_url(load_next):
+                        return redirect(load_next)
+                    
                     return redirect('/')
                 else:
-                    
                     messages.info(request, 'Email is not verified, please verify your email', 'vrffailed')
-                    #return redirect('login')
                     return render(request, 'login.html', {'userid': user_profile.id_user})
             else:
                 messages.info(request, 'An error occured')
@@ -220,7 +225,10 @@ def login(request):
             messages.info(request, 'Invalid credentials')
             return redirect('login')
     else:
-        return render(request, 'login.html')
+        context = {
+            'load_next': load_next
+        }
+        return render(request, 'login.html', context)
     
 class RequestResetEmail(View):
     def post(self, request):
@@ -791,7 +799,6 @@ def deletePoll(request, pollcode):
         return JsonResponse(context)
     
 #generates a temporary document and downloads it 
-
 def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
    temp_dir = settings.TEMP_DIR
    if request.method == 'GET': 
@@ -967,11 +974,21 @@ def sendEmail(request):
 
             sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
             send_mail(subject, message, sender, ['support@datagridder.com', 'onuhudoudo@gmail.com'],html_message=html,fail_silently=False)
+            context = {
+                'status': 'success',
+                'statusCode': 200,
+            }
+            return JsonResponse(context, status=200)
         else:
             print('form is not valid')
+            context = {
+                'status': 'failed',
+                'statusCode': 400,
+            }
+            return JsonResponse(context, status=400)
 
         #redirecting the user to the previous page they were in 
-        return redirect(request.META['HTTP_REFERER'])
+        # return redirect(request.META['HTTP_REFERER']+ '?modal=sent_mail')
 
 @login_required(login_url='login')
 def logout(request):

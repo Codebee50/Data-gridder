@@ -283,7 +283,7 @@ function viewDet() {
   let pollcode = poll[0].fields.poll_code;
   let domain = domainInput.value;
   //let serverLink = 'http://127.0.0.1:8000/regpoll/'
-  let serverLink = `http:${domain}/regpoll/`;
+  let serverLink = `https:${domain}/regpoll/`;
   let polLink = serverLink + pollcode + "/nb";
   const txtPollLink = document.getElementById("txt-poll-link");
 

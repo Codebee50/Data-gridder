@@ -61,3 +61,17 @@ function setupOpaqueModal(modalId, messageTxtId, message){
 
     transitionModal(modalId)
 }
+
+/** Used to display an loading message modal
+ * @param modalId modal to be displayed
+ * @param messageTxtId the id of the message text in the modal
+ * @param message The message to be displayed
+ */
+function setupLoadingModal(modalId, messageTxtId, message){
+    modalElement = document.getElementById(modalId)
+    messageElement = document.getElementById(messageTxtId)
+
+    messageElement.textContent = message
+
+    transitionModal(modalId)
+}

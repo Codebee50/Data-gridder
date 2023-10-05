@@ -30,7 +30,7 @@
                 <p class="welcome-message">Welcome back!.. <span>Login</span></p>
             </div>
             <div class="form-con">
-                <form action="/login" method="POST">
+                <form action="/login?load_next={{load_next}}" method="POST">
                     {% csrf_token %}
                     <input type="email" name="email"  placeholder="Email" class="enter-input" required>
                     <input type="password" name="password" placeholder="password" class="enter-input" required> 

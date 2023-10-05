@@ -24,15 +24,19 @@ body {
   box-sizing: border-box;
 }
 
-.button-one {
+.button-one, .button-two {
   background-color: green;
-  padding: 0.5rem 0.9rem;
+  padding: 0.7rem 0.9rem;
   border-radius: 5px;
   border: none;
   outline: none;
   color: white;
   cursor: pointer;
   font-size: 0.9rem;
+}
+
+.button-two {
+  width: 100%;
 }
 
 .text-input-101 {
@@ -116,8 +120,8 @@ body {
 footer {
   margin-top: 3rem;
   width: 100%;
-  min-height: 60vh;
-  background-color: #393B4A;
+  min-height: var(--footer_height);
+  background-color: var(--complement_color);
   display: flex;
   flex-direction: column;
 }
@@ -138,7 +142,7 @@ footer .head .f-one .content {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  height: 50vh;
+  height: var(--footer_head_height);
 }
 footer .head .f-one .content .gridder {
   display: flex;
@@ -163,7 +167,7 @@ footer .head .f-one .content .codebee {
 footer .head .a-list {
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  height: var(--footer_head_height);
   align-items: center;
   justify-content: center;
 }
@@ -185,7 +189,7 @@ footer .head .a-list .content a {
 footer .head .f-four {
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  height: var(--footer_head_height);
   align-items: center;
   justify-content: center;
 }
@@ -526,6 +530,7 @@ main .bottom-content {
   min-height: 100vh;
   display: flex;
   flex-direction: row;
+  padding: 1rem;
 }
 .not-authenticated .left-content {
   width: 50%;
@@ -552,21 +557,26 @@ main .bottom-content {
   max-width: 500px;
   margin-top: 0.9rem;
   line-height: 1.7;
+  font-size: 0.9rem;
+  opacity: 0.6;
 }
 .not-authenticated .right-content .actions {
   margin-top: 2rem;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
 }
 .not-authenticated .right-content .actions a {
   text-decoration: none;
-  width: 100px;
   text-align: center;
   display: flex;
   align-items: center;
-}
-.not-authenticated .right-content .actions .reg-a {
-  margin-left: 0.9rem;
+  justify-content: center;
+  padding: 0.9rem;
+  width: 100%;
+  margin: 0.45rem;
 }
 
 .modal-container {
@@ -796,5 +806,12 @@ main .bottom-content {
     align-items: center;
     text-align: center;
     margin-top: 2rem;
+  }
+  .not-authenticated .right-content .actions {
+    flex-direction: column;
+    width: 90%;
+  }
+  .not-authenticated .right-content .actions a {
+    padding: 0.9rem;
   }
 }/*# sourceMappingURL=reg.css.map */

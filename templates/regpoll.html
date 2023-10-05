@@ -70,8 +70,8 @@
             <div class="input-container">
             </div>
 
-            <!-- <input type="submit" value="Submit" id="submit"> -->
             <button type="submit" value="Submit" id="submit">Submit</button>
+
             <div class="progress-bar" id="progress-bar">
                 <img src="{% static 'img/loading.gif' %}" alt="Hero image" width="15px" height="15px">
                 <p>parsing values..</p>
@@ -97,10 +97,7 @@
 
 </div>
 
-    <div class="modal-section opaque-modal-section" id="op-one">
-        <img src="{% static 'img/loading.gif' %}" alt="loading-datagridder-poll" >
-        <p class="message-txt" id="op-message-one">Loading..</p>
-    </div>
+    
 
     {% else %}
     <section class="not-authenticated">
@@ -113,7 +110,7 @@
             <p>You have successfully accessed datagridder and we are glad to have you here. Meanwhile, For a better user experience and community security, we require that you login or sign up before accessing a poll, please <a href="/login" target="_blank">Login</a> or <a href="/register" target="_blank">signup</a> for an account then try accessing the poll again</p>
 
             <div class="actions">
-                <a href="/login" target="_blank" class="button-one">Login</a>
+                <a href="/login?load_next=/regpoll/{{pollcode}}/nb/" target="_blank" class="button-one">Login</a>
 
                 <a href="/register" target="_blank" class="reg-a button-one" >Register</a>
             </div>
@@ -150,6 +147,11 @@
            </div>
         </div>
     {% endif %}
+
+    <div class="modal-section opaque-modal-section" id="op-one">
+        <img src="{% static 'img/loading.gif' %}" alt="loading-datagridder-poll" >
+        <p class="message-txt" id="op-message-one">Loading..</p>
+    </div>
 <footer>
     <div class="head">
         <div class="f-one">

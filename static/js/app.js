@@ -10,6 +10,41 @@ const notFoundModal = document.querySelector('.not-found-modal')
 const removeNotFoundModal = document.getElementById('remove-not-found-modal')
 
 
+document.addEventListener('DOMContentLoaded', function(){
+
+const contactForm = document.getElementById('contact-form')
+contactForm.addEventListener('submit', function(e){
+    e.preventDefault()
+    setupLoadingModal('v2-loading-modal','loading-text', 'Sending mail..')
+
+    let formData = new FormData(this)
+    var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+
+    fetch('/sendemail', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken 
+        },
+        body: formData
+
+    }).then(response => {
+        if(!response.ok){
+            console.log('response wasnt ok')
+
+            let message = 'Something went wrong while sending the mail'
+            setUpAlertModalOneAction('v2-alert-modal-1a', 'res',message, ()=>{
+                transitionModal('none')
+            } , 'Ok' )
+        }
+        else{
+            transitionModal('contact-confirmation-modal')
+        }
+        return response.json()
+    })
+    
+})
+
 // Check if the browser supports smooth scrolling
 if ('scrollBehavior' in document.documentElement.style) {
     // Smooth scrolling is supported, enable it
@@ -37,6 +72,8 @@ mobile.addEventListener('click', ()=>{
 
 removeNotFoundModal.addEventListener('click', ()=>{
     notFoundModal.classList.remove('visible')
+})
+
 })
 
 $(document).on('submit', '#find-poll-form', function(e){
@@ -128,6 +165,9 @@ $(document).on('submit', '#find-poll-form', function(e){
         }
     })
 })
+
+
+
 
 
 
