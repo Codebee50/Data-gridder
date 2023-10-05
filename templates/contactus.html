@@ -50,11 +50,7 @@
         <div class="modal-content contact-confirmation-modal-content">
             <img src="{% static 'img/vector-support.svg' %}" alt="email sent">
             <h1>Thanks for reaching out!</h1>
-            {% if user_exists == 'true' %}
-            <p>Hello {{user_profile.user.username}}, Thank you for contacting Datagridder. Your message has been received and will be addressed promptly. We appreciate your patience.</p>
-            {% else %}
             <p>Hello, Thank you for contacting Datagridder. Your message has been received and will be addressed promptly. We appreciate your patience.</p>
-            {% endif %}
             <button class="button-two"  onclick="transitionModal('none')">Done</button>
         </div>
     </div>

@@ -15,15 +15,18 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p^k^e4%%@68*o3d(l*)nvg334b9yz5v^6-ea7_og0*-tpy94(6'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.0.105', '192.168.0.100', '*']
@@ -194,17 +197,17 @@ if DEBUG:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = 'codebee286@gmail.com'
-    EMAIL_HOST_PASSWORD = 'sssvsyicmhkyzskg'
-    EMAIL_FROM_USER = 'codebee286@gmail.com'
-    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER_DEBUG')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD_DEBUG')
+    EMAIL_FROM_USER = os.environ.get('EMAIL_HOST_USER_DEBUG')
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER_DEBUG')
 else:
     EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
     EMAIL_HOST = 'smtp.zoho.com'
     EMAIL_PORT = 465
     EMAIL_USE_TLS= True
-    EMAIL_HOST_USER = 'contact@datagridder.com'
-    EMAIL_HOST_PASSWORD = 'pWLMZ6tz3BSW'
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
