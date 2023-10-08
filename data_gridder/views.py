@@ -237,7 +237,6 @@ class RequestResetEmail(View):
             messages.error(request, 'Please enter a valid email')
             return render(request, 'request-reset.html')
         
-
         user = User.objects.filter(email = email)
        
         if user.exists():
@@ -251,11 +250,8 @@ class RequestResetEmail(View):
                 'token': PasswordResetTokenGenerator().make_token(user[0])
             })
 
-            # email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
-            #             to=[user_profile.user.email])
             text_content = strip_tags(email_body)
             sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
-
             email = EmailMultiAlternatives(
                 email_subject,
                 text_content,

@@ -61,7 +61,24 @@
                     {% endfor %}
                     <p class="txt-forgot">Forgot password? <span><a href="{% url 'request-reset-email' %}">Reset</a></span></p>
                     <p class="txt-already">Dont have an account? <span><a href="/register">Sign up</a></span></p>
+
+                    
                 </form>
+            </div>
+
+            <div class="auth-options">
+                <div class="header-container">
+                    <span class="line"></span>
+                    <p class="txt-or">OR</p>
+                    <span class="line"></span>
+                </div>
+
+                <div class="options-container">
+                    <button class="option">
+                        <img src="{% static 'img/google.png' %}" alt="google icon logo">
+                        <p class="option-prompt">Continue with Google</p>
+                    </button>
+                </div>
             </div>
         </div>
        </div>
