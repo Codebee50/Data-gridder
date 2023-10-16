@@ -78,7 +78,6 @@ def register(request):
                 new_profile = Profile.objects.create(user = user, id_user = user.id)
                 new_profile.save()
                 send_activation_email(user=new_profile, request=request)
-                print('putting signup.html in activation mode')
                 #put signup.html in activate email mode 
                 return render(request, 'signup.html', {
                      'mode': 'activate_mail',
@@ -122,7 +121,6 @@ def send_activation_email(user, request):
     email.send()
 
 def resend_activation_email(request, userId):
-    print('resending activation mail..')
     user = User.objects.get(id=userId)
     if user is not None:
         user_profile = Profile.objects.get(id_user = user.id)
@@ -237,7 +235,6 @@ class RequestResetEmail(View):
             messages.error(request, 'Please enter a valid email')
             return render(request, 'request-reset.html')
         
-
         user = User.objects.filter(email = email)
        
         if user.exists():
@@ -251,11 +248,8 @@ class RequestResetEmail(View):
                 'token': PasswordResetTokenGenerator().make_token(user[0])
             })
 
-            # email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
-            #             to=[user_profile.user.email])
             text_content = strip_tags(email_body)
             sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
-
             email = EmailMultiAlternatives(
                 email_subject,
                 text_content,
@@ -348,16 +342,18 @@ class SetNewPassword(View):
 #This is used to pass in the nessesary requirements for displaying the dashboard screen        
 @login_required(login_url='login')
 def dashboard(request):
+    print('fetching the dashboard')
     user_object = User.objects.get(username= request.user.username)
     user_profile = Profile.objects.get(user=user_object)
-
+    print('fetched user data succesfully')
     current_user = request.user.username
 
     polls = Poll.objects.filter(poll_author = current_user)
     registered_polls = PollValue.objects.filter(user_name = current_user)
-
+    print('loading contact form')
     contact_form = forms.ContactForm()
    
+    print('contact form loaded succesfully')
     context= {
         'user_profile' : user_profile,
         'polls': list(polls.values()),
@@ -480,7 +476,6 @@ def saveValue(request):
         user = request.user.username
         edit_mode = request.POST.get('editmode')
 
-        print(values)
 
         if edit_mode== 'true':
             value_id = request.POST['valueid']
@@ -733,7 +728,6 @@ def checkForDgTable(document):
 
 #deletes temporary files 
 def deleteTemp(request, pollcode):
-    print('**deleting temporary files..')
     if Poll.objects.filter(poll_code= pollcode).exists():
         poll = Poll.objects.get(poll_code =pollcode)
         
@@ -741,7 +735,6 @@ def deleteTemp(request, pollcode):
         file_name = 'temp-doc-' + poll.poll_code + '.docx'
         if os.path.exists(file_name):
             os.remove(file_name)
-            print('temp doc deleted')
             context = {
                 'status' : 'success',
                 'message': 'file deleted successfully'
@@ -763,9 +756,7 @@ def deleteTemp(request, pollcode):
     
 #delets poll with provided poll code 
 def deletePoll(request, pollcode):
-    print('**deleting' , pollcode)
 
-  
     if Poll.objects.filter(poll_code = pollcode).exists():
         poll = Poll.objects.get(poll_code = pollcode)
 
@@ -778,12 +769,10 @@ def deletePoll(request, pollcode):
         temp_doc = settings.TEMP_DIR + 'temp-doc-' + poll.poll_code + '.docx'
         if os.path.exists(temp_doc):
             os.remove(temp_doc)
-            print('**deleted poll temporary document..')
 
         document_path = settings.MEDIA_ROOT +'/documents/doc-' + poll.poll_code + '.docx'
         if os.path.exists(document_path):
             os.remove(document_path)
-            print('**deleted poll document')
 
         poll.delete()
         context = {
@@ -891,7 +880,6 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
                 row_cells = new_table.rows[i].cells
                 poll_fields = json.loads(poll.fields)
                 val = poll_value_list[i-1]
-                print(val)
                 pIndex = 0
                 for index, cell in enumerate(row_cells):
                     if is_numbered:
@@ -933,14 +921,12 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
                 return response
                 #TODO: remember to shedule a task which deletes the temp file 20 mins after
             else:
-                print('document does not exist' + pollcode)
                 context = {
                     'status': 'failed',
                     'message': 'Document does not exist'
                 }
                 return JsonResponse(context, status=500)
         else:
-            print('poll not found')
             context = {
                 'status': 'failed',
                 'message': 'Poll not found'
@@ -980,7 +966,6 @@ def sendEmail(request):
             }
             return JsonResponse(context, status=200)
         else:
-            print('form is not valid')
             context = {
                 'status': 'failed',
                 'statusCode': 400,
@@ -1042,7 +1027,6 @@ def documentation(request):
         
 def showCurrentSite(request):
     current_site = get_current_site(request)
-    print('the current site is ', current_site)
     return redirect('/')
 
 def contactUs(request):

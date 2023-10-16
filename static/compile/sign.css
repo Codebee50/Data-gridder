@@ -252,12 +252,12 @@ footer .bottom .content .side {
 
 html::-webkit-scrollbar {
   width: 0.5rem;
-  background-color: #f7f2f2;
+  background-color: var(--background_pink);
 }
 
 html::-webkit-scrollbar-thumb {
   border-radius: 2rem;
-  background: #393B4A;
+  background: var(--complement_color);
 }
 
 input:-webkit-autofill,
@@ -287,7 +287,7 @@ button:disabled {
 }
 .signup .contact-data-gridder i {
   font-size: 1.5rem;
-  color: #393B4A;
+  color: var(--complement_color);
 }
 .signup .container {
   display: flex;
@@ -348,7 +348,7 @@ button:disabled {
   font-weight: 700;
 }
 .signup .container .bottom .welcome p span {
-  color: #E07243;
+  color: var(--cus_orange);
 }
 .signup .container .bottom .form-con form {
   display: flex;
@@ -498,7 +498,7 @@ button:disabled {
 .signup .verify-email-div .header .header-content h3 {
   font-family: "Inter", sans-serif;
   margin-top: 0.3rem;
-  color: #393B4A;
+  color: var(--complement_color);
 }
 .signup .verify-email-div .header .header-content p {
   text-align: center;
@@ -534,7 +534,7 @@ button:disabled {
   font-size: 0.8rem;
 }
 .signup .verify-email-div .verify-body .edit-p span a {
-  color: #E07243;
+  color: var(--cus_orange);
 }
 .signup .verify-email-div .verify-body button {
   border-radius: 5px;
@@ -544,7 +544,7 @@ button:disabled {
   border: none;
   outline: none;
   margin-top: 0.7rem;
-  background-color: #0DC58A;
+  background-color: var(--major_green);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -583,7 +583,7 @@ button:disabled {
 }
 .login .contact-data-gridder i {
   font-size: 1.5rem;
-  color: #393B4A;
+  color: var(--complement_color);
 }
 .login .container {
   display: flex;
@@ -653,7 +653,7 @@ button:disabled {
   font-weight: 700;
 }
 .login .container .bottom .welcome .welcome-message span {
-  color: #E07243;
+  color: var(--cus_orange);
 }
 .login .container .bottom .welcome .reset-message {
   font-family: "Inter", sans-serif;
@@ -731,6 +731,60 @@ button:disabled {
 .login .confirm-reset-container .confirm-content .message span {
   font-size: 1rem;
 }
+
+.auth-options {
+  align-self: center;
+  margin: 20px 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.auth-options .header-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.auth-options .header-container .line {
+  width: 70px;
+  height: 0.1rem;
+  background-color: var(--generic-grey);
+}
+.auth-options .header-container .txt-or {
+  font-size: 0.9rem;
+  opacity: 0.5;
+  margin: 0 0.5rem;
+}
+.auth-options .options-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.auth-options .options-container .option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 0.9rem;
+  padding: 0.6rem;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+.auth-options .options-container .option img {
+  width: 20px;
+  height: 20px;
+}
+.auth-options .options-container .option .option-prompt {
+  text-align: center;
+  width: 100%;
+  margin-left: 0.9rem;
+  font-size: 0.9rem;
+  color: var(--complement_color);
+}
+
 .failed-container {
   background-color: white;
   width: 100%;
