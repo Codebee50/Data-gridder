@@ -359,12 +359,16 @@ def dashboard(request):
     print('loading contact form')
     contact_form = forms.ContactForm()
    
-    print('contact form loaded succesfully')
     print('user is ', user_object)
+
+    poll_values_list = list(polls.values())
+    registered_poll_list = list(registered_polls.values())
+    print(poll_values_list)
+    print(registered_poll_list)
     context= {
         'user_profile' : user_profile,
-        'polls': list(polls.values()),
-        'registered_polls': list(registered_polls.values()),
+        'polls': poll_values_list,
+        'registered_polls': registered_poll_list,
         'contact_form': contact_form
     }
     print('context built successfully')
