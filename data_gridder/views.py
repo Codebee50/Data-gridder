@@ -361,10 +361,17 @@ def dashboard(request):
    
     print('user is ', user_object)
 
-    poll_values_list = list(polls.values())
-    registered_poll_list = list(registered_polls.values())
+    try:
+        poll_values_list = list(polls.values())
+        registered_poll_list = list(registered_polls.values())
+    except Exception as e:
+        print(e)
+        poll_values_list = None
+        registered_poll_list = None
+
     print(poll_values_list)
     print(registered_poll_list)
+
     context= {
         'user_profile' : user_profile,
         'polls': poll_values_list,
