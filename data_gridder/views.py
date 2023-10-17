@@ -366,6 +366,7 @@ def dashboard(request):
         'registered_polls': list(registered_polls.values()),
         'contact_form': contact_form
     }
+    print('context built successfully')
     return render(request, 'dashboard.html', context)
 
 """this function checks if the poll exists and if the current user is authenticated 
