@@ -360,6 +360,7 @@ def dashboard(request):
     contact_form = forms.ContactForm()
    
     print('contact form loaded succesfully')
+    print('user is ', user_object)
     context= {
         'user_profile' : user_profile,
         'polls': list(polls.values()),
