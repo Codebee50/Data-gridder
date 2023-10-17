@@ -24,6 +24,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from functools import partial
 from django.utils.html import strip_tags
 from django.urls import resolve, Resolver404
+from django.core.exceptions import ObjectDoesNotExist
 
 
 
@@ -343,8 +344,13 @@ class SetNewPassword(View):
 @login_required(login_url='login')
 def dashboard(request):
     print('fetching the dashboard')
-    user_object = User.objects.get(username= request.user.username)
-    user_profile = Profile.objects.get(user=user_object)
+    try:
+        user_object = User.objects.get(username= request.user.username)
+        user_profile = Profile.objects.get(user=user_object)
+    except ObjectDoesNotExist:
+        user_object = None
+        user_profile = None
+    
     print('fetched user data succesfully')
     current_user = request.user.username
 
