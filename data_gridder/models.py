@@ -21,7 +21,7 @@ class Poll(models.Model):
     poll_author = models.TextField(blank=False, default='appended_document')
     appended_document = models.FileField(upload_to='documents', default='sampledoc.docx')
     original_doc_name = models.TextField(blank=True, default='document_name')
-    #created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     fields = models.JSONField()
     
     def __str__(self):
