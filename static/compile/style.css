@@ -263,7 +263,7 @@ html::-webkit-scrollbar-thumb {
 
 .landing {
   width: 100%;
-  min-height: 100vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   background-color: var(--background_pink);

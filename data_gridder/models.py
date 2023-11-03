@@ -6,10 +6,19 @@ from django.contrib.auth import get_user_model
 
 cur_user = get_user_model()
 class Profile(models.Model):
+    SIGNUP_CHOICES = [
+        ('google', 'Google'),
+        ('twitter', 'Twitter'),
+        ('instagram', 'Instagram'),
+        ('facebook', 'facebook'),
+        ('github', 'github'),
+        ('email', 'Email')
+    ]#defining the valid options for status field
     user = models.ForeignKey(cur_user, on_delete=models.CASCADE)
     id_user = models.IntegerField()
     profileImg = models.ImageField(upload_to= 'profile_images', default='def-user-img.png')
     is_email_verified = models.BooleanField(default=False)
+    signup_method = models.CharField(default='email', choices=SIGNUP_CHOICES)
 
     def __str__(self):
         return self.user.username

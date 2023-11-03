@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
 from .models import Profile, Poll, PollValue,Contact
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, FileResponse
 import os
@@ -9,37 +8,24 @@ import json
 from django.core.serializers import serialize
 from docx import Document
 import shutil
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import send_mail
 from django.conf import settings
 from . import forms
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.utils.encoding import force_bytes, force_str as force_text, DjangoUnicodeDecodeError
-from django.views.generic import View
-from validate_email import validate_email
-from .utils import generate_token
-from django.urls import reverse
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from functools import partial
-from django.utils.html import strip_tags
-from django.urls import resolve, Resolver404
 from django.core.exceptions import ObjectDoesNotExist
-
-
 
 
 # Create your views here.
 # @login_required(login_url='register')
 def home(request):
-    
     if request.user.is_authenticated:
         #this means that the user is logged in 
         user_object = User.objects.get(username= request.user.username)
         user_profile = Profile.objects.get(user=user_object)
 
         # current_user = request.user.username
-        
         contact_form = forms.ContactForm()
         context= {
             'user_exists': 'true',
@@ -56,294 +42,11 @@ def home(request):
         }
         return render(request, 'index.html', context)
 
-def register(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-        password2 = request.POST['password2']
-        
-        if password == password2:
-            if User.objects.filter(username= username).exists():
-                messages.info(request, 'Username is already in use', 'usernameinfo')
-                return redirect('register')
-            elif User.objects.filter(email = email).exists():
-                messages.info(request, 'Email is already in use', 'emailinfo')
-                return redirect('register')
-            else:
-                user = User.objects.create_user(username=username, email=email, password=password)
-                user.save()
 
-                
-                user_model = User.objects.get(username=username)
-                new_profile = Profile.objects.create(user = user, id_user = user.id)
-                new_profile.save()
-                send_activation_email(user=new_profile, request=request)
-                #put signup.html in activate email mode 
-                return render(request, 'signup.html', {
-                     'mode': 'activate_mail',
-                     'email': email,
-                     'username': username,
-                     'userid': user.id
-                })
-            
-        else:
-            messages.info(request, 'Password does not match', 'passwordinfo')
-            return redirect('register')
-            
-    else:
-        #put signup.html in signup mode 
-        return render(request, 'signup.html', {
-            'mode': 'signup'
-        })
-
-def send_activation_email(user, request):
-    current_site = get_current_site(request)
-    email_subject = 'Activate your account'
-    email_body = render_to_string('emails/activate.html', {
-        'user': user,
-        'domain': current_site,
-        'uid': urlsafe_base64_encode(force_bytes(user.user.id)),
-        'token': generate_token.make_token(user)
-    })
-    text_content = strip_tags(email_body)
-    # email =EmailMessage(subject=email_subject, body=text_content, from_email= settings.EMAIL_HOST_USER,
-    #              to=[user.user.email])
-    
-    sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
-    email= EmailMultiAlternatives(
-        email_subject,
-        text_content,
-        sender,
-        [user.user.email]
-    )
-    #email.content_subtype = 'html'
-    email.attach_alternative(email_body, 'text/html')
-    email.send()
-
-def resend_activation_email(request, userId):
-    user = User.objects.get(id=userId)
-    if user is not None:
-        user_profile = Profile.objects.get(id_user = user.id)
-        if user_profile.is_email_verified:
-            #messages.add_message(request, messages.SUCCESS, 'Your account is already verified, You can login with your newly created account')
-
-            return render(request, 'emails/activate-account.html', {
-            'user':user
-            })
-            
-        else:
-            current_site = get_current_site(request)
-            email_subject = 'Activate your account'
-            email_body = render_to_string('emails/activate.html', {
-                'user': user_profile,
-                'domain': current_site,
-                'uid': urlsafe_base64_encode(force_bytes(user_profile.user.id)),
-                'token': generate_token.make_token(user_profile)
-            })
-
-            text_content = strip_tags(email_body)
-            # email =EmailMessage(subject=email_subject, body=email_body, from_email= 'Data gridder <codebee286@gmail.com>',
-            #             to=[user_profile.user.email])
-            
-            sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
-            email = EmailMultiAlternatives(
-                email_subject,
-                text_content,
-                sender,
-            )
-            email.attach_alternative(email_body, 'text/html')
-            email.content_subtype = 'html'
-            email.send()
-            
-            return render(request, 'signup.html', {
-                     'mode': 'activate_mail',
-                     'email': user_profile.user.email,
-                     'username': user_profile.user.username,
-                     'userid': user_profile.id_user
-                })
-    else:
-        messages.add_message(request, messages.ERROR, 'An error occured -Invalid user', 'invaliduser')
-
-
-    pass
-
-def activate_user(request, uidb64, token):
-    #when we try to decode the uidb64 token, we might get an error
-    try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = Profile.objects.get(id_user = uid)
-       
-    except Exception as e:
-        user = None
-    
-    if user and generate_token.check_token(user, token):
-        user.is_email_verified = True
-        user.save()
-
-        return render(request, 'emails/activate-account.html', {
-            'user':user
-        })
-    
-    return render(request, 'emails/activate-account.html', {
-        'user': user
-    })
-    
-def is_project_url(url):
-    try:
-        resolve(url)
-        return True
-    except Resolver404:
-        return False
-
-def login(request):
-    load_next = request.GET.get('load_next', None)
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-
-        user = auth.authenticate(request, username= email, password=password)
-        
-        if user is not None:
-            user_profile= Profile.objects.get(user = user)
-            if user_profile is not None:
-                if user_profile.is_email_verified:
-                    auth.login(request, user)
-     
-                    if is_project_url(load_next):
-                        return redirect(load_next)
-                    
-                    return redirect('/')
-                else:
-                    messages.info(request, 'Email is not verified, please verify your email', 'vrffailed')
-                    return render(request, 'login.html', {'userid': user_profile.id_user})
-            else:
-                messages.info(request, 'An error occured')
-                return redirect('login')
-        else: 
-            messages.info(request, 'Invalid credentials')
-            return redirect('login')
-    else:
-        context = {
-            'load_next': load_next
-        }
-        return render(request, 'login.html', context)
-    
-class RequestResetEmail(View):
-    def post(self, request):
-        email = request.POST['email']
-        if not validate_email(email):
-            messages.error(request, 'Please enter a valid email')
-            return render(request, 'request-reset.html')
-        
-        user = User.objects.filter(email = email)
-       
-        if user.exists():
-            user_profile = Profile.objects.get(id_user = user[0].id)
-            current_site = get_current_site(request)
-            email_subject = '[Datagridder] Reset your password'
-            email_body = render_to_string('emails/reset-user-password.html', {
-                'user': user_profile,
-                'domain': current_site,
-                'uid': urlsafe_base64_encode(force_bytes(user_profile.user.id)),
-                'token': PasswordResetTokenGenerator().make_token(user[0])
-            })
-
-            text_content = strip_tags(email_body)
-            sender = 'Data gridder <' + str(settings.EMAIL_HOST_USER) + '>' 
-            email = EmailMultiAlternatives(
-                email_subject,
-                text_content,
-                sender,
-                [user_profile.user.email] 
-            )
-            email.attach_alternative(email_body, 'text/html')
-            email.content_subtype = 'html'
-            email.send()
-            messages.success(request, 'We have sent you an email with instructions on how to reset your password', 'emailsent')
-            return render(request, 'request-reset.html')
-        else:
-            messages.success(request, 'We have sent you an email with instructions on how to reset your password', 'emailsent')
-            return render(request, 'request-reset.html')
-    def get(self, request):
-        return render(request, 'request-reset.html')
-
-class SetNewPassword(View):
-    def get(self, request, uidb64, token):
-        context = {
-             'uidb64': uidb64,
-             'token': token
-        }
-        try:
-            user_id = force_text(urlsafe_base64_decode(uidb64))
-            if User.objects.filter(id = user_id).exists():
-                user = User.objects.get(id=user_id)
-                if not PasswordResetTokenGenerator().check_token(user, token):
-                    #this means the password reset link is invalid
-                    messages.info(request, 'Password reset link is expired')
-                    context = {
-                        'mode': 'invalidresetlink',
-                        'message': "The link you're trying to access is either expired or does not exist. This might occur as a result of a previously used link"
-                    }
-                    return render(request, 'set-new-password.html', context)
-            else: 
-                messages.error(request, 'Something went wrong-- invalid user id')
-                return render(request, 'set-new-password.html', context)
-            
-        except DjangoUnicodeDecodeError as identifier:
-            messages.info(request, 'An unknown error occured')
-            context={
-                'mode': 'invalidresetlink',
-                'message': 'An unknown error occured'
-
-            }
-            return render(request, 'set-new-password.html', context)
-
-
-        return render(request, 'set-new-password.html', context)
-    
-
-    def post(self, request, uidb64, token):
-        context = {
-            'uidb64': uidb64,
-            'token': token,
-            'mode': 'reset-password'
-        }
-        password = request.POST['password']
-        password2 = request.POST['password2']
-        
-        if password != password2:
-            messages.info(request, 'Password does not match', 'passwordinfo')
-            return render(request, 'set-new-password.html', context)
-        else:
-            #there are no errors, proceed
-
-            try:
-                #decode this and give us the user id
-                #its returns a byte so we have to turn it to string using force text
-                user_id = force_text(urlsafe_base64_decode(uidb64))
-                if User.objects.filter(id = user_id).exists():
-                    user = User.objects.get(id=user_id)
-                    user.set_password(password)
-                    user.save()
-                    context= {
-                        'mode': 'confirmreset'
-                    }
-                    #messages.success(request, 'Password reset success, you can now login with your new password')
-                    #return redirect('login')
-
-                    return render(request, 'set-new-password.html', context)
-                else: 
-                    messages.error(request, 'Something went wrong-- invalid user id')
-                    return render(request, 'set-new-password.html', context)
-            except DjangoUnicodeDecodeError as identifier:
-                messages.error(request, 'Something went wrong')
-                return render(request, 'set-new-password.html', context)
 
 #This is used to pass in the nessesary requirements for displaying the dashboard screen        
 @login_required(login_url='login')
 def dashboard(request):
-    print('fetching the dashboard')
     try:
         user_object = User.objects.get(username= request.user.username)
         user_profile = Profile.objects.get(user=user_object)
@@ -351,16 +54,11 @@ def dashboard(request):
         user_object = None
         user_profile = None
     
-    print('fetched user data succesfully')
     current_user = request.user.username
 
     polls = Poll.objects.filter(poll_author = current_user)
     registered_polls = PollValue.objects.filter(user_name = current_user)
-    print('loading contact form')
     contact_form = forms.ContactForm()
-   
-    print('user is ', user_object)
-
     try:
         poll_values_list = list(polls.values())
         registered_poll_list = list(registered_polls.values())
@@ -380,6 +78,8 @@ def dashboard(request):
     }
     print('context built successfully')
     return render(request, 'dashboard.html', context)
+
+
 
 """this function checks if the poll exists and if the current user is authenticated 
     and returns json responses with messages matching the corresponding cases"""
@@ -413,6 +113,7 @@ def findpoll(request):
 
     else:
         return render(request, '/')
+
 
 """ gets the fields of the poll with the provided poll code
      also gets the poll value withe the provided variable pk if user wants to edit his entry
@@ -489,12 +190,10 @@ def registerPoll(request, pollcode, pk):
     also used to save the new values of a pollvalue when user edits the poll values""" 
 def saveValue(request):
     if request.method == 'POST':
-        
         pollcode = request.POST.get('pollcode')
         values = request.POST.get('values')
         user = request.user.username
         edit_mode = request.POST.get('editmode')
-
 
         if edit_mode== 'true':
             value_id = request.POST['valueid']
@@ -818,19 +517,13 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
             is_numbered = {'true': True, 'false': False}.get(numbered.lower())   
             is_alphabetical_ordered = {'true': True, 'false': False}.get(alph.lower())
             
-
-        
             #----------GENERATING A TEMPORARY DOCUMENT---------------
-            
             temp_doc = temp_dir + 'temp-doc-' + poll.poll_code + '.docx'
 
-        
-            
             with open(temp_doc, 'wb+') as destination:
                 with poll.appended_document.open('rb') as source: 
                     shutil.copyfileobj(source, destination)
                 
-
             #getting the number of rows and number of columns required to make a table out of the poll values
             #adding 1 to the length of my poll values for the table to account for the headers
             num_rows = len(list(pollValues.values())) +1
@@ -840,7 +533,6 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
             else:
                 num_cols =  len(json.loads(poll.fields))
            
-            
             doc = Document(temp_doc)
             tables = doc.tables
             for table in tables:
@@ -994,23 +686,7 @@ def sendEmail(request):
         #redirecting the user to the previous page they were in 
         # return redirect(request.META['HTTP_REFERER']+ '?modal=sent_mail')
 
-@login_required(login_url='login')
-def logout(request):
-    auth.logout(request)
-    return render(request, 'login.html')
 
-@login_required(login_url='login')
-def getUesrValues(request):
-    username = request.user.username
-    values = PollValue.objects.filter(user_name= username)
-    
-    context = {
-        'status': 'success',
-        'user_values': list(values.values())
-    }
-
-    return JsonResponse(context)
-        
 """this deletes a poll value with the id provided in the url"""
 def deleteEntry(request, entry_id):
     entry_id = int(entry_id)

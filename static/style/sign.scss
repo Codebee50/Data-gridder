@@ -644,8 +644,15 @@ button:disabled{
         display: flex;
         flex-direction: column;
         width: 100%;
+        text-align: center;
+
+        .option-wrapper{
+            width: 100%;
+            text-decoration: none;
+        }
 
         .option{
+            width: 100%;
             display: flex;
             flex-direction: row;
             align-items: center;

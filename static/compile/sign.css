@@ -759,8 +759,14 @@ button:disabled {
   display: flex;
   flex-direction: column;
   width: 100%;
+  text-align: center;
+}
+.auth-options .options-container .option-wrapper {
+  width: 100%;
+  text-decoration: none;
 }
 .auth-options .options-container .option {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -20,5 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('data_gridder.urls')),
-    path('manager/', include('filemanager.urls'))
+    path('', include('usermanager.urls')),
+    path('manager/', include('filemanager.urls')),
+    path('accounts/', include('allauth.urls')),
 ]

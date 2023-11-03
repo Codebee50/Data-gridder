@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,8 @@
 
 </head>
 <body>
-  
+    {% load socialaccount %}
+
     <section class="login">
        <div class="container">
         <div class="header">
@@ -73,11 +75,15 @@
                     <span class="line"></span>
                 </div>
 
+
                 <div class="options-container">
-                    <button class="option">
-                        <img src="{% static 'img/google.png' %}" alt="google icon logo">
-                        <p class="option-prompt">Continue with Google</p>
-                    </button>
+                    <a href="{% provider_login_url 'google' %}?next=/google-login/" class="option-wrapper">
+                        <button class="option">
+                            <img src="{% static 'img/google.png' %}" alt="google icon logo">
+                            <p class="option-prompt">Continue with Google</p>
+                        </button>
+                    </a>
+                    
                 </div>
             </div>
         </div>
