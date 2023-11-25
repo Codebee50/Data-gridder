@@ -42,8 +42,6 @@ def home(request):
         }
         return render(request, 'index.html', context)
 
-
-
 #This is used to pass in the nessesary requirements for displaying the dashboard screen        
 @login_required(login_url='login')
 def dashboard(request):
@@ -630,7 +628,6 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
                 response = FileResponse(file)
                 response['Content-disposition'] ='attachment; filename= "' + docname + '"'
                 return response
-                #TODO: remember to shedule a task which deletes the temp file 20 mins after
             else:
                 context = {
                     'status': 'failed',

@@ -17,7 +17,10 @@ from django.utils.html import strip_tags
 from django.urls import resolve, Resolver404
 from django.http import JsonResponse
 
-
+# I CANT WAIT TO COME BACK TO THIS AFTER MY EXAMS 
+# written on november 11th 2023 02:22 AM
+# I am currnetly on my desk revising the course cos331 which is operating systems
+# I already have two nescafe black coffee in my system to ensure i do not sleep 
 
 def register(request):
     if request.method == 'POST':
@@ -58,6 +61,7 @@ def register(request):
         })
 
 def googleLogIn(request):
+    print('Accessed the google login function')
     username = request.user.username
     user= User.objects.filter(username=username)
     if user.exists:

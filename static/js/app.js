@@ -9,7 +9,7 @@ let loadingPoll = document.querySelector('.loading-poll-div')
 const notFoundModal = document.querySelector('.not-found-modal')
 const removeNotFoundModal = document.getElementById('remove-not-found-modal')
 
-
+ 
 document.addEventListener('DOMContentLoaded', function(){
 
 const contactForm = document.getElementById('contact-form')

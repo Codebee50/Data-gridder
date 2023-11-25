@@ -18,7 +18,7 @@ class Profile(models.Model):
     id_user = models.IntegerField()
     profileImg = models.ImageField(upload_to= 'profile_images', default='def-user-img.png')
     is_email_verified = models.BooleanField(default=False)
-    signup_method = models.CharField(default='email', choices=SIGNUP_CHOICES)
+    signup_method = models.CharField(default='email', choices=SIGNUP_CHOICES, max_length=20)
 
     def __str__(self):
         return self.user.username
