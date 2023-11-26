@@ -22,5 +22,5 @@ urlpatterns = [
     path('', include('data_gridder.urls')),
     path('', include('usermanager.urls')),
     path('manager/', include('filemanager.urls')),
-    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include('allauth.urls')),
 ]
