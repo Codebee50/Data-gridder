@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'filemanager',
     'usermanager',
     'compressor',
-    'django.contrib.sites'
+    # 'django.contrib.sites'
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',

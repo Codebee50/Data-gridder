@@ -65,8 +65,7 @@ def dashboard(request):
         poll_values_list = None
         registered_poll_list = None
 
-    print(poll_values_list)
-    print(registered_poll_list)
+    
 
     context= {
         'user_profile' : user_profile,
@@ -228,9 +227,7 @@ def saveValue(request):
 
 @login_required(login_url= 'login')
 def publish(request):
-    print("Entered into the publish function")
     current_site = get_current_site(request)
-    print("Current site fetched success")
     if request.method == 'POST':
         pollname = request.POST.get('poll-name')
         document = request.FILES.get('document')
@@ -307,18 +304,15 @@ def publish(request):
             
                 return JsonResponse(context)
     else:
-        print("Executiing publish function..")
         user = User.objects.get(id = request.user.id)
         username = user.username
         user_initials = ''.join(word[0] for word in username.split()[:2]).upper()
-        print("User initials fetched succesfully")
         context = {
             'domain': current_site,
             'user': user,
             'user_initials': user_initials
             
         }
-        print("Publish context built succesfully")
         return render(request, 'publish.html', context)
 
 #navigates to the viewpoll.html file 
