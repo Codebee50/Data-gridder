@@ -10,7 +10,7 @@ class Profile(models.Model):
         ('google', 'Google'),
         ('twitter', 'Twitter'),
         ('instagram', 'Instagram'),
-        ('facebook', 'facebook'),
+        ('facebook', 'Facebook'),
         ('github', 'github'),
         ('email', 'Email')
     ]#defining the valid options for status field

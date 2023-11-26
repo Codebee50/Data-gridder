@@ -74,7 +74,6 @@ def dashboard(request):
         'registered_polls': registered_poll_list,
         'contact_form': contact_form
     }
-    print('context built successfully')
     return render(request, 'dashboard.html', context)
 
 
@@ -307,15 +306,18 @@ def publish(request):
             
                 return JsonResponse(context)
     else:
+        print("Executiing publish function..")
         user = User.objects.get(id = request.user.id)
         username = user.username
         user_initials = ''.join(word[0] for word in username.split()[:2]).upper()
+        print("User initials fetched succesfully")
         context = {
             'domain': current_site,
             'user': user,
             'user_initials': user_initials
             
         }
+        print("Publish context built succesfully")
         return render(request, 'publish.html', context)
 
 #navigates to the viewpoll.html file 

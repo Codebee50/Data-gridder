@@ -217,8 +217,8 @@ AUTHENTICATION_BACKENDS = [
     # 'allauth.account.auth_backends.AuthenticationBackend'
     ]
 
-LOGIN_REDIRECT_URL = '/google-login/'
-LOGOUT_REDIRECT_URL = '/google-login/'
+# LOGIN_REDIRECT_URL = '/google-login/'
+# LOGOUT_REDIRECT_URL = '/google-login/'
 
 
 if DEBUG:
