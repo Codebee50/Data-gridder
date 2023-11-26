@@ -228,8 +228,9 @@ def saveValue(request):
 
 @login_required(login_url= 'login')
 def publish(request):
+    print("Entered into the publish function")
     current_site = get_current_site(request)
-
+    print("Current site fetched success")
     if request.method == 'POST':
         pollname = request.POST.get('poll-name')
         document = request.FILES.get('document')
