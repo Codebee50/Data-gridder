@@ -11,5 +11,4 @@ urlpatterns = [
     path('set-new-password/<uidb64>/<token>', views.SetNewPassword.as_view(), name='set-new-password'),
     path('getuservalues', views.getUesrValues, name='getuservalues'),
     path('google-login/', views.googleLogIn, name='googlelogin')
-
 ]

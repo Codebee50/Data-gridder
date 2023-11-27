@@ -622,6 +622,10 @@ button:disabled{
     align-items: center;
     justify-content: center;
 
+    .g-signin2{
+        margin-top: 20px;
+    }
+
     .header-container{
         display: flex;
         flex-direction: row;

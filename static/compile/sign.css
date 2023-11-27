@@ -740,6 +740,9 @@ button:disabled {
   align-items: center;
   justify-content: center;
 }
+.auth-options .g-signin2 {
+  margin-top: 20px;
+}
 .auth-options .header-container {
   display: flex;
   flex-direction: row;
