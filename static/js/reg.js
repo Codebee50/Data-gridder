@@ -75,13 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
             formData.append('editmode', editMode.toString())
             formData.append('valueid', valueId)
     
-            let jsonData = JSON.stringify({
-                'pollcode': pollcode,
-                'values': inputString,
-                'editmode': editMode.toString(),
-                'valueid': valueId,
-            })
-        
+            
             fetch('/savevalue', {
                 method: 'POST',
                 headers: {

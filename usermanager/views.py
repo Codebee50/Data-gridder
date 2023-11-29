@@ -16,6 +16,8 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.html import strip_tags
 from django.urls import resolve, Resolver404
 from django.http import JsonResponse
+from google.oauth2 import id_token
+from google.auth.transport import requests
 
 
 
@@ -58,18 +60,32 @@ def register(request):
         })
 
 def googleLogIn(request):
-    print('Accessed the google login function')
-    username = request.user.username
-    user= User.objects.filter(username=username)
-    if user.exists:
-        return redirect('/')
-    else:
-        user = User.objects.create_user(username=username, email=request.user.email, password='google')
-        user.save()
-        new_profile = Profile.objects.create(user = user, id_user = user.id, signup_method='google')
-        new_profile.save()
-        return redirect('/')
+    token = request.POST.get('id_token')
+    g_email = request.POST.get('email')
+    g_username = request.POST.get('username')
 
+
+    try:
+        id_token.verify_oauth2_token(token, requests.Request(), '76109231996-c1oos79r4jntkkjkaeq0fsh8jpj2plck.apps.googleusercontent.com')
+        context = {
+            "message": "Token verified", 
+            "status": 200
+        }
+        user = User.objects.filter(email=g_email)
+        if(user.exists()):
+            print('this user exists ')
+        else:
+            print('user does not exist')
+
+        return JsonResponse(context, status=200)
+    except ValueError:
+        context = {
+            "message": "Token not verified",
+            "status": 400
+        }
+        return JsonResponse(context, status=400)
+    
+    
 def send_activation_email(user, request):
     current_site = get_current_site(request)
     email_subject = 'Activate your account'

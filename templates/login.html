@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="{% static 'compile/sign.css' %}" >
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-signin-client_id" content="76109231996-c1oos79r4jntkkjkaeq0fsh8jpj2plck.apps.googleusercontent.com">
+<!-- <meta name="google-signin-client_id" content="76109231996-c1oos79r4jntkkjkaeq0fsh8jpj2plck.apps.googleusercontent.com"> -->
 
 <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -78,8 +78,26 @@
                     <span class="line"></span>
                 </div>
 
-                <div class="g-signin2" data-onsuccess="onSignIn" data-width="300" data-longtitle="true"></div>
 
+                <script src="https://accounts.google.com/gsi/client" async defer></script>
+                
+                <div id="g_id_onload"
+                        data-client_id="76109231996-c1oos79r4jntkkjkaeq0fsh8jpj2plck.apps.googleusercontent.com"
+                        data-context="signin"
+                        data-ux_mode="popup"
+                        data-callback="handleCredentialResponse"
+                        data-auto_prompt="false">
+                </div>
+
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="pill"
+                    data-theme="outline"
+                    data-text="continue_with"
+                    data-size="large"
+                    data-logo_alignment="left"
+                    data-width="300">
+                </div>
 
                 <div class="options-container">
                     <!-- <a href="" class="option-wrapper">
@@ -88,8 +106,6 @@
                             <p class="option-prompt">Continue with Google</p>
                         </button>
                     </a> -->
-
-                    
                 </div>
 
             </div>
@@ -100,19 +116,10 @@
        </a>
     </section>
 
-   
- 
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-    <script>
-        const removeModal = document.getElementById('remove-modal')
-        const modal = document.querySelector('.modal-container')
-        if(removeModal !== null){
-            removeModal.addEventListener('click', ()=>{
-            modal.classList.remove('visible')
-        })
-        }
-        
-    </script>
+    <script src="{% static 'js/components.js' %}"></script>
+    <script src="{% static 'js/login.js'%}"></script>
+
+   
 </body>
 </html>

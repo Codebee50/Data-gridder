@@ -84,6 +84,7 @@ MIDDLEWARE = [
     # "allauth.account.middleware.AccountMiddleware",
 ]
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 # CRON_CLASSES = [
 #     "data_gridder.templife.TempCron",
 # ]

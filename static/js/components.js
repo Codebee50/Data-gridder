@@ -75,3 +75,25 @@ function setupLoadingModal(modalId, messageTxtId, message){
 
     transitionModal(modalId)
 }
+
+
+function showDynamicLoadingModal(message){
+    const loadingDiv = document.createElement('div')
+    const loadingElement = ` <div class="modal-section visible dynamic-modal-section" id="dynamic-loading-001" >
+    <div class="modal-content v1-loading-modal-content uncan-modal-con visible">
+        <img src="/static/img/loading.gif" alt="loading-image">
+        <p class="loading-text" id="loading-text">${message}</p>
+    </div>
+    </div>`   
+    loadingDiv.innerHTML = loadingElement
+
+    document.body.appendChild(loadingDiv)
+}
+
+
+function removeDynamicLoadingModal(){
+    const dynamicLoadingModal = document.getElementById('dynamic-loading-001')
+    if(dynamicLoadingModal){
+        document.removeChild(dynamicLoadingModal)
+    }
+}

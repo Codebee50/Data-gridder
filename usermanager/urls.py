@@ -10,5 +10,5 @@ urlpatterns = [
     path('request-reset-email', views.RequestResetEmail.as_view(), name='request-reset-email'),
     path('set-new-password/<uidb64>/<token>', views.SetNewPassword.as_view(), name='set-new-password'),
     path('getuservalues', views.getUesrValues, name='getuservalues'),
-    path('google-login/', views.googleLogIn, name='googlelogin')
+    path('google-login/', views.googleLogIn, name='googlelogin'),
 ]
