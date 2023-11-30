@@ -19,8 +19,6 @@ from django.urls import resolve, Resolver404
 from django.http import JsonResponse
 from google.oauth2 import id_token
 from google.auth.transport import requests
-from data_gridder.mauth import EmailBackend
-
 
 
 def register(request):
@@ -337,6 +335,12 @@ def login(request):
         password = request.POST['password']
 
         user = auth.authenticate(request, username= email, password=password)
+
+        login_context = {
+            'load_next': load_next,
+            'g_client_id': settings.GOOGLE_CLIENT_ID,
+            'userid': user_profile.id_user
+        }
         
         if user is not None:
             user_profile= Profile.objects.get(user = user)
@@ -350,7 +354,7 @@ def login(request):
                     return redirect('/')
                 else:
                     messages.info(request, 'Email is not verified, please verify your email', 'vrffailed')
-                    return render(request, 'login.html', {'userid': user_profile.id_user})
+                    return render(request, 'login.html', login_context)
             else:
                 messages.info(request, 'An error occured')
                 return redirect('login')
@@ -358,10 +362,8 @@ def login(request):
             messages.info(request, 'Invalid credentials')
             return redirect('login')
     else:
-        context = {
-            'load_next': load_next
-        }
-        return render(request, 'login.html', context)
+        
+        return render(request, 'login.html', login_context)
     
 @login_required(login_url='login')
 def getUesrValues(request):

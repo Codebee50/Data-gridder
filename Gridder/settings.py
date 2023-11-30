@@ -24,17 +24,21 @@ load_dotenv()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-GOOGLE_CLIENT_ID = '76109231996-c1oos79r4jntkkjkaeq0fsh8jpj2plck.apps.googleusercontent.com'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.0.105', '192.168.0.100', '*']
-    # ALLOWED_HOSTS = ['*']
-
 else:
     ALLOWED_HOSTS = ['datagridder.com', 'www.datagridder.com']
+
+
+if DEBUG:
+    GOOGLE_CLIENT_ID = '76109231996-c1oos79r4jntkkjkaeq0fsh8jpj2plck.apps.googleusercontent.com'
+else:
+    GOOGLE_CLIENT_ID = '327068754613-saea63a5t75nmdu5kmtdv0e7qeuv0jic.apps.googleusercontent.com'
 
 
 # Application definition

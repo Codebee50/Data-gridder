@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title> Login- Data gridder </title>
+<title> Login | Data gridder </title>
 
 <link rel="stylesheet" href="{% static 'compile/sign.css' %}" >
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,7 +82,7 @@
                 <script src="https://accounts.google.com/gsi/client" async defer></script>
                 
                 <div id="g_id_onload"
-                        data-client_id="76109231996-c1oos79r4jntkkjkaeq0fsh8jpj2plck.apps.googleusercontent.com"
+                        data-client_id="{{g_client_id}}"
                         data-context="signin"
                         data-ux_mode="popup"
                         data-callback="handleCredentialResponse"
