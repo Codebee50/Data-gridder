@@ -79,6 +79,7 @@ function setupLoadingModal(modalId, messageTxtId, message){
 
 function showDynamicLoadingModal(message){
     const loadingDiv = document.createElement('div')
+    loadingDiv.classList.add('dynamic-d-div')
     const loadingElement = ` <div class="modal-section visible dynamic-modal-section" id="dynamic-loading-001" >
     <div class="modal-content v1-loading-modal-content uncan-modal-con visible">
         <img src="/static/img/loading.gif" alt="loading-image">
@@ -86,9 +87,38 @@ function showDynamicLoadingModal(message){
     </div>
     </div>`   
     loadingDiv.innerHTML = loadingElement
-
     document.body.appendChild(loadingDiv)
+    return loadingDiv;
 }
+
+function showAlertModalOneAction(message, onCancelEvent){
+    const alertDiv = document.createElement('div')
+    alertDiv.classList.add('dynamic-d-div')
+    const alertElement = ` <div class="modal-section visible dynamic-modal-section" id="v2-alert-modal-1a">
+    <div class="modal-content v2-alert-modal-1a visible" >
+        <p class="alert-message-1a" id="res-alert-modal-1a-p">${message}</p>
+        <button class="button-one" id="res-alert-modal-1a-button">Ok</button>
+    </div>`
+
+    alertDiv.innerHTML= alertElement
+    const actionBtn = alertDiv.querySelector('#res-alert-modal-1a-button')
+    if(actionBtn !== null){
+        actionBtn.onclick = onCancelEvent
+    }
+    document.body.appendChild(alertDiv)
+    return alertDiv;
+}
+
+function clearAllDynamicModals(){
+    let dynamicModals = document.querySelectorAll('.dynamic-d-div')
+    dynamicModals.forEach((dynamicModal) =>{
+       dynamicModal.remove()
+    })
+}
+
+// console.log('founc a modeal')
+// let modal = document.getElementById(dynamicModal.id)
+// document.body.removeChild(modal)
 
 
 function removeDynamicLoadingModal(){

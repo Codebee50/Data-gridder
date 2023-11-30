@@ -15,7 +15,7 @@ const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').va
 
 function handleCredentialResponse(response){
      const responsePayload = decodeJwtResponse(response.credential);
-     showDynamicLoadingModal(`Loggin you in as ${responsePayload.name}`);
+     loadingDiv = showDynamicLoadingModal(`Loggin you in as ${responsePayload.name}`);
 
     const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
     let formData = new FormData()
@@ -31,9 +31,25 @@ function handleCredentialResponse(response){
             'X-CSRFToken': csrfToken
         },
         body: formData
-     }).then(response => response.json())
+     }).then(response => {
+        if(response.ok){
+          window.location.href = '/';//this means user is logged in 
+        }
+        return response.json()
+     })
      .then(data => {
-        console.log(data)
+       if(data.status !== 200){//this means the token was not verified 
+        const onCancel = function (){
+            clearAllDynamicModals()
+        }
+
+        showAlertModalOneAction(data.message, onCancel)
+
+       }
+       else{
+        loadingDiv.remove()
+       }
+       
      })
 
     //  console.log("ID: " + responsePayload.sub);

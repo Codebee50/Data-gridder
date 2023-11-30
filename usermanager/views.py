@@ -3,6 +3,7 @@ from django.contrib import messages
 from data_gridder.models import Profile, PollValue
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login as auth_login
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -18,6 +19,7 @@ from django.urls import resolve, Resolver404
 from django.http import JsonResponse
 from google.oauth2 import id_token
 from google.auth.transport import requests
+from data_gridder.mauth import EmailBackend
 
 
 
@@ -63,28 +65,75 @@ def googleLogIn(request):
     token = request.POST.get('id_token')
     g_email = request.POST.get('email')
     g_username = request.POST.get('username')
-
-
     try:
-        id_token.verify_oauth2_token(token, requests.Request(), '76109231996-c1oos79r4jntkkjkaeq0fsh8jpj2plck.apps.googleusercontent.com')
+        id_token.verify_oauth2_token(token, requests.Request(), settings.GOOGLE_CLIENT_ID)
         context = {
             "message": "Token verified", 
             "status": 200
         }
-        user = User.objects.filter(email=g_email)
-        if(user.exists()):
-            print('this user exists ')
+        
+        user_queryset = User.objects.filter(email=g_email)
+        if(user_queryset.exists()):# email already exists in our database we attempt to log the user in 
+            user_object = user_queryset.first()
+            try:
+                user_profile = Profile.objects.get(id_user =user_object.id)
+            except Profile.DoesNotExist:
+                return JsonResponse({'message': "Fatal: An error occured, please contact your site administrator code-ERR7000",
+                                     'status': 500}, status=500)
+            
+            if user_profile.signup_method == 'google' or user_profile.signup_method == 'email':
+                auth_login(request, user_object, backend='django.contrib.auth.backends.ModelBackend')
+                
+                return JsonResponse({
+                    "message": "User logged in succesfully",
+                    "status": 200
+                }, status=200)
+            else:
+                context = {
+                    'message': f'Seems you chose the {user_profile.signup_method} when you created your account. Please choose {user_profile.signup_method} below to sign in.',
+                    'status': 400
+                }
+                return JsonResponse(context, status=400)
         else:
-            print('user does not exist')
-
-        return JsonResponse(context, status=200)
-    except ValueError:
+            #create an account for the user and log them in
+            user_created = createUserAccount(request, g_username, g_email, 'google')
+            if user_created:
+                return JsonResponse({
+                    "message": "User logged in succesfully",
+                    "status": 200
+                }, status=200)
+            else:
+                return JsonResponse({
+                    'message': "Login failed, please try again", 
+                    'status': 500
+                }, status=500)
+    except ValueError as e:#this means token could not be verified hence an invalid login attempt
+        print(e)
         context = {
-            "message": "Token not verified",
+            "message": "Error signing in with google please try again.",
             "status": 400
         }
         return JsonResponse(context, status=400)
     
+def createUserAccount(request, username, email, signup_method):
+    #creating a new user 
+    user = User.objects.create_user(username=username, email=email)
+    generated_password = User.objects.make_random_password()#generating a password for the user 
+    print('The generated password is ', generated_password)
+    user.set_password(generated_password)
+    user.save()
+
+    print('user has been saved')
+    new_profile = Profile.objects.create(user=user, id_user=user.id)
+    new_profile.signup_method = signup_method
+    new_profile.is_email_verified = True
+    new_profile.save()
+    print('profile created and saved')
+    #Login in the user just created
+    auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+
+    return True
+
     
 def send_activation_email(user, request):
     current_site = get_current_site(request)
@@ -334,8 +383,6 @@ def is_project_url(url):
     except Resolver404:
         return False
     
-
-
 @login_required(login_url='login')
 def logout(request):
     auth.logout(request)
