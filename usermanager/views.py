@@ -335,13 +335,6 @@ def login(request):
         password = request.POST['password']
 
         user = auth.authenticate(request, username= email, password=password)
-
-        login_context = {
-            'load_next': load_next,
-            'g_client_id': settings.GOOGLE_CLIENT_ID,
-            'userid': user_profile.id_user
-        }
-        
         if user is not None:
             user_profile= Profile.objects.get(user = user)
             if user_profile is not None:
@@ -354,6 +347,11 @@ def login(request):
                     return redirect('/')
                 else:
                     messages.info(request, 'Email is not verified, please verify your email', 'vrffailed')
+                    login_context = {
+                        'load_next': load_next,
+                        'g_client_id': settings.GOOGLE_CLIENT_ID,
+                        'userid': user_profile.id_user
+                      }
                     return render(request, 'login.html', login_context)
             else:
                 messages.info(request, 'An error occured')
@@ -362,7 +360,10 @@ def login(request):
             messages.info(request, 'Invalid credentials')
             return redirect('login')
     else:
-        
+        login_context = {
+            'load_next': load_next,
+            'g_client_id': settings.GOOGLE_CLIENT_ID,
+        }
         return render(request, 'login.html', login_context)
     
 @login_required(login_url='login')
