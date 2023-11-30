@@ -1164,7 +1164,7 @@ html::-webkit-scrollbar-thumb {
     display: none;
   }
 }
-@media screen and (max-width: 605px) {
+@media screen and (max-width: 790px) {
   .landing .bottom {
     flex-direction: column;
   }

@@ -79,6 +79,7 @@ def googleLogIn(request):
                 return JsonResponse({'message': "Fatal: An error occured, please contact your site administrator code-ERR7000",
                                      'status': 500}, status=500)
             
+            #if user previously signed up using email then they can also use google to prove they own the email they used to sign up
             if user_profile.signup_method == 'google' or user_profile.signup_method == 'email':
                 auth_login(request, user_object, backend='django.contrib.auth.backends.ModelBackend')
                 
