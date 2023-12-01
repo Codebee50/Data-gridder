@@ -24,7 +24,7 @@
 
     {% if statusCode == 200 %}
 
-    {% if is_authenticated %}
+    {% if is_authenticated or guest %}
    <section class="hero-section">
     <div class="hero-image-container">
         
@@ -49,7 +49,7 @@
 
                 <div class="det">
                     <i class="fa-regular fa-user"></i>
-                    <p>{{pollauthor}}</p>
+                    <p id="poll-author-text">{{pollauthor}}</p>
                 </div>
 
                 <div class="det">
@@ -70,7 +70,7 @@
             <div class="input-container">
             </div>
 
-            <button type="submit" value="Submit" id="submit">Submit</button>
+            <button type="submit" value="Submit" id="submit" class="button-one">Continue</button>
 
             <div class="progress-bar" id="progress-bar">
                 <img src="{% static 'img/loading.gif' %}" alt="Hero image" width="15px" height="15px">
@@ -107,12 +107,13 @@
 
         <div class="right-content">
             <h1>Good to have you here!</h1>
-            <p>You have successfully accessed datagridder and we are glad to have you here. Meanwhile, For a better user experience and community security, we require that you login or sign up before accessing a poll, please <a href="/login" target="_blank">Login</a> or <a href="/register" target="_blank">signup</a> for an account then try accessing the poll again</p>
+            <!-- <p>You have successfully accessed datagridder and we are glad to have you here. Meanwhile, For a better user experience and community security, we strongly advice that you login or sign up before accessing a poll. please <a href="/login" target="_blank">Login</a> or <a href="/register" target="_blank">signup</a> for an account then try accessing the poll again</p> -->
+            <p>You have successfully accessed datagridder and we are glad to have you here. Meanwhile, For a better user experience and community security, we strongly advice that you login or sign up before accessing a poll.</p>
 
             <div class="actions">
-                <a href="/login?load_next=/regpoll/{{pollcode}}/nb/" target="_blank" class="button-one">Login</a>
+                <a href="/login?load_next=/regpoll/{{pollcode}}/nb/" target="_blank" class="button-one">Login/Register</a>
 
-                <a href="/register" target="_blank" class="reg-a button-one" >Register</a>
+                <a href="/regpoll/{{pollcode}}/nb?guest=true" class="reg-a button-one" >Continue anyway</a>
             </div>
         </div>
 
@@ -152,6 +153,53 @@
         <img src="{% static 'img/loading.gif' %}" alt="loading-datagridder-poll" >
         <p class="message-txt" id="op-message-one">Loading..</p>
     </div>
+
+    <div class="modal-section" id="response-review-modal">
+        <div class="modal-content response-review-modal-content">
+            <i class="fa-solid fa-xmark response-close-btn" id="response-close-btn"></i>
+            <h2>Your responses</h2>
+
+            <div class="responses-container">
+               
+            </div>
+
+            {% if not is_authenticated %}
+            <div class="warning-container">
+                <p><span><b>*</b></span> We've observed that you're currently not logged in. Creating an account offers you the valuable advantage of being able to edit your responses even after you've submitted them.</p>
+            </div>
+            {% endif %}
+
+            <div class="response-actions-container">
+                {% if is_authenticated %}
+                <button class="button-two" id="btn-submit-responses">Submit
+                    <img src="{% static 'img/spinner.gif' %}" alt="loading">
+                </button>
+                {% else %}
+                <button class="button-two" id="btn-submit-responses">Submit anyway
+                    <img src="{% static 'img/spinner.gif' %}" alt="loading">
+                </button>
+                {% endif %}
+
+                {% if not is_authenticated%}
+                <a href="/login" target="_blank">login/register</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="modal-section visible">
+        <div class="modal-content rocket-alert-modal-content">
+            <img src="/static/img/sad-roach.svg" alt="Response recorded successfully">
+            <div class="messages-container">
+                <h3>Something went wrong!</h3>
+                <p>An error occured while trying to submit your response, please try again.</p>
+            </div>
+            <div class="actions-container">
+                <button class="button-two">Done</button>
+            </div>
+        </div>
+    </div> -->
     
 <footer>
     <div class="head">

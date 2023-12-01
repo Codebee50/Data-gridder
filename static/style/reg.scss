@@ -269,14 +269,18 @@ main{
         display: flex;
         flex-direction: column;
         .input-container{
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            // display: grid;
+            // grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             input{
                  margin: 20px;
-                 padding: 10px 20px;
-                 outline: none;
+                 width: 90%;
+                 max-width: 290px;
+                //  padding: 10px 20px;
+                //  outline: none;
 
             }
         }
@@ -297,18 +301,22 @@ main{
         #submit{
             align-self: center;
             justify-self: center;
-            width: 50%;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            background-color: var(--major-green);
+            width: 90%;
+            max-width: 290px;
             margin-top: 20px;
-            cursor: pointer;
+
+            // width: 50%;
+            // padding: 15px 20px;
+            // border: none;
+            // border-radius: 5px;
+            // color: white;
+            // background-color: var(--major-green);
+            // margin-top: 20px;
+            // cursor: pointer;
         }
 
         #submit:disabled{
-            background-color: #cfd9de;
+            background-color: var(--disabled-button-color);
             cursor: not-allowed;
         }
     }
@@ -375,10 +383,10 @@ main{
         .actions{
             margin-top: 2rem;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            width: 50%;
+            width: 280px;
             a{
                 text-decoration: none;
                 text-align: center;
@@ -389,7 +397,10 @@ main{
                 width: 100%;
                 margin: 0.45rem;
             }
-           
+            
+            .reg-a{
+                background-color: red;
+            }
         }
     }
 
@@ -467,6 +478,83 @@ main{
     }
 
 }
+
+.response-review-modal-content{
+    position: relative;
+
+    h2{
+        color: var(--complement_color);
+    }
+    .responses-container{
+        margin-top: 10px;
+    
+        .response{
+            margin-top:5px;
+        }
+    
+        .res-answer{
+            margin-top: 2px;
+        }
+    }
+    
+    .warning-container{
+        margin-top: 20px;
+        span{
+            color: red;
+            font-size: 0.9rem;
+        }
+    }
+    
+    .response-actions-container{
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    
+        a{
+            align-self: flex-end;
+            margin-top: 0.9rem;
+            color: var(--complement_color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+
+        .button-two{
+            position: relative;
+            img{
+                display: none;
+                position: absolute;
+                right: 0;
+                margin-right: 0.9rem;
+                top: 0;
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        .button-two:disabled{
+            background-color: var(--disabled-button-color);
+            img{
+                display: block;
+            }
+        }
+    }
+    
+    .response-close-btn{
+        position: absolute;
+        top: 0;
+        margin: 20px;
+        right: 0;
+        color: var(--complement_color);
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+    
+}
+
+
+
 
 
 .modal-container.visible{

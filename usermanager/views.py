@@ -337,7 +337,15 @@ def login(request):
 
         user = auth.authenticate(request, username= email, password=password)
         if user is not None:
-            user_profile= Profile.objects.get(user = user)
+            try:
+                user_profile= Profile.objects.get(user = user)
+            except Profile.DoesNotExist:
+                user_profile= None
+
+            if user_profile.signup_method != 'email':
+                messages.info(request, f"You previously signed up using {user_profile.signup_method} please select {user_profile.signup_method} from the options below to continue")
+                return redirect('login')
+            
             if user_profile is not None:
                 if user_profile.is_email_verified:
                     auth.login(request, user)

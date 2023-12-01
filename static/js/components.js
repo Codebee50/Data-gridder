@@ -109,6 +109,30 @@ function showAlertModalOneAction(message, onCancelEvent){
     return alertDiv;
 }
 
+function showAlertModalImageAction( mainMessage, subMessage, onActionEvent, imagePath){
+    const modalSection = document.createElement('div')
+    modalSection.classList.add('modal-section')
+    modalSection.classList.add('visible')
+    modalSection.classList.add('dynamic-d-div')
+    const modalContent = ` <div class="modal-content rocket-alert-modal-content">
+    <img src="${imagePath}" alt="Response recorded successfully">
+    <div class="messages-container">
+        <h3>${mainMessage}</h3>
+        <p>${subMessage}</p>
+    </div>
+    <div class="actions-container">
+        <button class="button-two" id="dynamic-button">Done</button>
+    </div>
+    </div>`
+
+    modalSection.innerHTML = modalContent
+    const dynamicButton = modalSection.querySelector('#dynamic-button')
+    dynamicButton.onclick = onActionEvent
+    document.body.appendChild(modalSection)
+    return modalSection
+
+}
+
 function clearAllDynamicModals(){
     let dynamicModals = document.querySelectorAll('.dynamic-d-div')
     dynamicModals.forEach((dynamicModal) =>{

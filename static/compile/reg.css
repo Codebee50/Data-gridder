@@ -12,6 +12,7 @@
   --major-green: #0DC58A;
   --generic-grey: #f4f4f3;
   --default-modal-padding: 50px;
+  --disabled-button-color: #cfd9de;
 }
 
 body {
@@ -24,8 +25,37 @@ body {
   box-sizing: border-box;
 }
 
+.rocket-alert-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.rocket-alert-modal-content img {
+  width: 100px;
+}
+.rocket-alert-modal-content .messages-container {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.rocket-alert-modal-content .messages-container h3 {
+  color: var(--complement_color);
+}
+.rocket-alert-modal-content .messages-container p {
+  margin-top: 0.3rem;
+}
+.rocket-alert-modal-content .actions-container {
+  margin-top: 20px;
+  width: 100%;
+}
+
 .button-one, .button-two {
-  background-color: green;
+  background-color: var(--button_green);
   padding: 0.7rem 0.9rem;
   border-radius: 5px;
   border: none;
@@ -33,6 +63,7 @@ body {
   color: white;
   cursor: pointer;
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .button-two {
@@ -115,6 +146,14 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.enter-input {
+  padding: 0.7rem 0.5rem;
+  margin: 0.4rem 2.5rem;
+  border: 1px solid rgb(219, 214, 214);
+  outline: none;
+  border-radius: 4px;
 }
 
 footer {
@@ -471,15 +510,15 @@ main .bottom-content {
   flex-direction: column;
 }
 .content-section .input-form .input-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 .content-section .input-form .input-container input {
   margin: 20px;
-  padding: 10px 20px;
-  outline: none;
+  width: 90%;
+  max-width: 290px;
 }
 .content-section .input-form input[type=submit] {
   align-self: center;
@@ -496,17 +535,12 @@ main .bottom-content {
 .content-section .input-form #submit {
   align-self: center;
   justify-self: center;
-  width: 50%;
-  padding: 15px 20px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  background-color: var(--major-green);
+  width: 90%;
+  max-width: 290px;
   margin-top: 20px;
-  cursor: pointer;
 }
 .content-section .input-form #submit:disabled {
-  background-color: #cfd9de;
+  background-color: var(--disabled-button-color);
   cursor: not-allowed;
 }
 .content-section .progress-bar {
@@ -563,10 +597,10 @@ main .bottom-content {
 .not-authenticated .right-content .actions {
   margin-top: 2rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 50%;
+  width: 280px;
 }
 .not-authenticated .right-content .actions a {
   text-decoration: none;
@@ -577,6 +611,9 @@ main .bottom-content {
   padding: 0.9rem;
   width: 100%;
   margin: 0.45rem;
+}
+.not-authenticated .right-content .actions .reg-a {
+  background-color: red;
 }
 
 .modal-container {
@@ -634,6 +671,69 @@ main .bottom-content {
   color: white;
   border-radius: 2px;
   cursor: pointer;
+}
+
+.response-review-modal-content {
+  position: relative;
+}
+.response-review-modal-content h2 {
+  color: var(--complement_color);
+}
+.response-review-modal-content .responses-container {
+  margin-top: 10px;
+}
+.response-review-modal-content .responses-container .response {
+  margin-top: 5px;
+}
+.response-review-modal-content .responses-container .res-answer {
+  margin-top: 2px;
+}
+.response-review-modal-content .warning-container {
+  margin-top: 20px;
+}
+.response-review-modal-content .warning-container span {
+  color: red;
+  font-size: 0.9rem;
+}
+.response-review-modal-content .response-actions-container {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.response-review-modal-content .response-actions-container a {
+  align-self: flex-end;
+  margin-top: 0.9rem;
+  color: var(--complement_color);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.response-review-modal-content .response-actions-container .button-two {
+  position: relative;
+}
+.response-review-modal-content .response-actions-container .button-two img {
+  display: none;
+  position: absolute;
+  right: 0;
+  margin-right: 0.9rem;
+  top: 0;
+  width: 30px;
+  height: 30px;
+}
+.response-review-modal-content .response-actions-container .button-two:disabled {
+  background-color: var(--disabled-button-color);
+}
+.response-review-modal-content .response-actions-container .button-two:disabled img {
+  display: block;
+}
+.response-review-modal-content .response-close-btn {
+  position: absolute;
+  top: 0;
+  margin: 20px;
+  right: 0;
+  color: var(--complement_color);
+  cursor: pointer;
+  font-size: 1.2rem;
 }
 
 .modal-container.visible {
@@ -809,7 +909,7 @@ main .bottom-content {
   }
   .not-authenticated .right-content .actions {
     flex-direction: column;
-    width: 90%;
+    width: 85%;
   }
   .not-authenticated .right-content .actions a {
     padding: 0.9rem;

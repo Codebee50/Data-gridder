@@ -150,6 +150,8 @@ def getpoll(request, pollcode, pk):
 # @login_required(login_url='login')
 def registerPoll(request, pollcode, pk):
     #checking if poll exists
+    guest = request.GET.get('guest')
+    print(guest)
     if Poll.objects.filter(poll_code= pollcode).exists():
         poll = Poll.objects.get(poll_code = pollcode)
         pollname = poll.poll_name
@@ -165,7 +167,8 @@ def registerPoll(request, pollcode, pk):
             'pollauthor': pollauthor,
             'itemcount': itemcount,
             'value_id': pk,
-            'is_authenticated': request.user.is_authenticated
+            'is_authenticated': request.user.is_authenticated,
+            'guest': guest
         }
         return render(request, 'regpoll.html', context)
     else:
@@ -177,7 +180,8 @@ def registerPoll(request, pollcode, pk):
             'pollauthor': 'none',
             'pollname': 'none',
             'itemcount': 0,
-            'is_authenticated': request.user.is_authenticated
+            'is_authenticated': request.user.is_authenticated,
+            'guest': guest
 
         }
         return render(request, 'regpoll.html', context)
