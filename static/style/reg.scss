@@ -162,23 +162,23 @@ main{
 }
 
 .hero-section{
-   display: none;
+   
     .hero-image-container{
         width: 100%;
-        height: 20vh;
+        height: 80vh;
         position: relative;
-        overflow-y: auto;
         
 
         .hero-image{
             width: 100%;
+            height: 80vh;
             object-fit: cover;
             object-position: top;
         }
 
         .overlay{
             width: 100%;
-            min-height: 20vh;
+            height: 80vh;
             position: absolute;
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));;
         }
@@ -187,7 +187,7 @@ main{
     .content-container{
   
         width: 100%;
-        height:  20vh;
+        height:  85vh;
         
         display: flex;
         position: absolute;
@@ -225,7 +225,7 @@ main{
 
             h1{
                 color: white;
-                font-size: 100%;
+                font-size: 2.5rem;
                 text-align: center;
             }
 
@@ -258,175 +258,86 @@ main{
 
 }
 
-
-.page-container{
-    width: 100%;
-    background-color: var(--button_green);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-
-    .paper-simulator{
-        width: 90%;
-        max-width: 700px;
-        min-height: 90vh;
-        background-color: white;
-        // border-bottom-right-radius: 100px;
-        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
-
-
-        .paper-header{
-            width: 100%;
-            background-color: rgb(244, 246, 248);
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            img{
-                width: 30px;
-                height: 30px;
-            }
-        }
-
-        .poll-info{
-            margin-left: 20px;
-            margin-top: 20px;
-            .txt-poll-name{
-                font-size: 2rem;
-                color: var(--complement_color);
-            }
-
-            .txt-poll-description{
-                margin-top: 5px;
-                color: var(--complement-color);
-                opacity: 0.5;
-                font-size: 0.8rem;
-                padding-right: 10px;
-            }
-
-            .poll-info-container{
-                margin-top: 10px;
-                b{
-                    color: var(--complement_color);
-                }
-                p{
-                    font-size: 0.9rem;
-                    margin-top: 0.3rem;
-
-                    span{
-                        color: var(--complement_color);
-                        opacity: 0.6;
-                    }
-                }
-            }
-        }
-    }
-}
-
 .content-section{
     width: 100%;
-    min-height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
-    
-    .left-content{
-        width: 40%;
+
+    .input-form{
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        h1{
-            font-size: 2.5rem;
-            color: var(--complement_color);
-        }
-    }
-
-    .right-content{
-        width: 60%;
-        display: flex;
-        flex-direction: column;
-        .input-form{
+        .input-container{
+            // display: grid;
+            // grid-template-columns: repeat(2, 1fr);
             display: flex;
             flex-direction: column;
-            .input-container{
-                // display: grid;
-                // grid-template-columns: repeat(2, 1fr);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                input{
-                     margin: 20px;
-                     width: 90%;
-                     max-width: 290px;
-                    //  padding: 10px 20px;
-                    //  outline: none;
-    
-                }
-            }
-    
-            input[type=submit]{
-                align-self: center;
-                justify-self: center;
-                width: 50%;
-                padding: 15px 20px;
-                border: none;
-                border-radius: 5px;
-                color: white;
-                background-color: $light-blue;
-                margin-top: 20px;
-                cursor: pointer;
-            }
-    
-            #submit{
-                align-self: center;
-                justify-self: center;
-                width: 90%;
-                max-width: 290px;
-                margin-top: 20px;
-    
-                // width: 50%;
-                // padding: 15px 20px;
-                // border: none;
-                // border-radius: 5px;
-                // color: white;
-                // background-color: var(--major-green);
-                // margin-top: 20px;
-                // cursor: pointer;
-            }
-    
-            #submit:disabled{
-                background-color: var(--disabled-button-color);
-                cursor: not-allowed;
-            }
-        }
-    
-        .progress-bar{
-            width: 100%;
-            display: none;
-            flex-direction: row;
             align-items: center;
             justify-content: center;
-            padding-top: 0.9rem;
-    
-            p{
-                margin-left: 0.5rem;
-                opacity: 0.9;
+            input{
+                 margin: 20px;
+                 width: 90%;
+                 max-width: 290px;
+                //  padding: 10px 20px;
+                //  outline: none;
+
             }
         }
-    
-        .progress-bar.visible{
-            display: flex;
+
+        input[type=submit]{
+            align-self: center;
+            justify-self: center;
+            width: 50%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            background-color: $light-blue;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        #submit{
+            align-self: center;
+            justify-self: center;
+            width: 90%;
+            max-width: 290px;
+            margin-top: 20px;
+
+            // width: 50%;
+            // padding: 15px 20px;
+            // border: none;
+            // border-radius: 5px;
+            // color: white;
+            // background-color: var(--major-green);
+            // margin-top: 20px;
+            // cursor: pointer;
+        }
+
+        #submit:disabled{
+            background-color: var(--disabled-button-color);
+            cursor: not-allowed;
         }
     }
 
-   
+    .progress-bar{
+        width: 100%;
+        display: none;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 0.9rem;
+
+        p{
+            margin-left: 0.5rem;
+            opacity: 0.9;
+        }
+    }
+
+    .progress-bar.visible{
+        display: flex;
+    }
 }
 
 
