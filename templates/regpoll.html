@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{pollcode}} | datagridder</title>
+    <title>{{pollname}} | datagridder</title>
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
 
     <link rel="stylesheet" href="{% static 'compile/reg.css' %}" type="text/css">
@@ -25,58 +25,61 @@
     {% if statusCode == 200 %}
 
     {% if is_authenticated or guest %}
-   <section class="hero-section">
-    <div class="hero-image-container">
-        
-        <div class="overlay"></div>
-        <img src="{% static 'img/background.webp' %}" alt="Image" class="hero-image">
-    </div>
 
-    <div class="content-container">
-        <div class="content-header">
-            <img src="{% static 'img/or_icon.svg' %}" alt="icon image">
-            <h1 class="content-title">Data Gridder</h1>
-        </div>
+    <section class="page-container">
+        <div class="paper-simulator">
+            <div class="paper-header">
+                <img src="{% static 'img/paper-pin.svg' %}" alt="">
+            </div>
 
-        <div class="content-center">
-            <h1> {{pollname}}</h1>
+            <div class="poll-info">
+                <h1 class="txt-poll-name">{{pollname}}</h1>
+                <p class="txt-poll-description">This is the description for this poll, im going to change it later</p>
 
-            <div class="center-details">
-                <div class="det">
-                    <i class="fa-solid fa-key"></i>
-                    <p>{{pollcode}}</p>
-                </div>
-
-                <div class="det">
-                    <i class="fa-regular fa-user"></i>
-                    <p id="poll-author-text">{{pollauthor}}</p>
-                </div>
-
-                <div class="det">
-                    <i class="fa-solid fa-users"></i>
-                    <p>{{itemcount}}</p>
+                <div class="poll-info-container">
+                    <p><b>Created by: </b><span>{{pollauthor}}</span></p>
+                    <p><b>Poll code: </b><span>{{pollcode}}</span></p>
+                    <!-- <p><b>{{itemcount}} </b> People registered</p> -->
                 </div>
             </div>
         </div>
-
-      
-    </div>
-   </section>
+    </section>
+   
 
    <section class="content-section">
-        <p id="prompt">Please fill the fields below</p>
-        <form action="" class="input-form" method="POST" id="submit-form">
-           {%csrf_token%} 
-            <div class="input-container">
+        <div class="left-content">
+            <div class="left-container">
+                <h1 class="poll-name-txt">{{pollname}}</h1>
+                <p class="poll-description">
+                    
+                </p>
+                <div class="poll-info-container">
+                    <p><b>Owned by:</b>{{pollauthor}}</p>
+                    <p><b>Poll code:</b>{{pollcode}}</p>
+                    <p><b>{{itemcount}}</b> People registered</p>
+                </div>
             </div>
+           
+        </div>
 
-            <button type="submit" value="Submit" id="submit" class="button-one">Continue</button>
+        <div class="right-content">
+            <!-- <p id="prompt">Please fill the fields below</p> -->
+            <form action="" class="input-form" method="POST" id="submit-form">
+               {%csrf_token%} 
+                <div class="input-container">
+                </div>
+    
+                <button type="submit" value="Submit" id="submit" class="button-one">Continue</button>
+    
+                <div class="progress-bar" id="progress-bar">
+                    <img src="{% static 'img/loading.gif' %}" alt="Hero image" width="15px" height="15px">
+                    <p>parsing values..</p>
+                </div>
+            </form>
+        </div>
 
-            <div class="progress-bar" id="progress-bar">
-                <img src="{% static 'img/loading.gif' %}" alt="Hero image" width="15px" height="15px">
-                <p>parsing values..</p>
-            </div>
-        </form>
+        
+     
    </section>
 
     <div class="message-modal">
@@ -201,7 +204,7 @@
         </div>
     </div> -->
     
-<footer>
+<footer style="display: none;">
     <div class="head">
         <div class="f-one">
             <div class="content">

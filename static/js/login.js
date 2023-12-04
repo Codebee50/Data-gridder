@@ -15,7 +15,7 @@ const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').va
 
 function handleCredentialResponse(response){
      const responsePayload = decodeJwtResponse(response.credential);
-     loadingDiv = showDynamicLoadingModal(`Loggin you in as ${responsePayload.name}`);
+     loadingDiv = showDynamicLoadingModal(`Setting up your account`);
 
     const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
     let formData = new FormData()

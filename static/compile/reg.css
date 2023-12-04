@@ -419,14 +419,17 @@ main .bottom-content {
   margin-left: 0.5rem;
 }
 
+.hero-section {
+  display: none;
+}
 .hero-section .hero-image-container {
   width: 100%;
-  height: 80vh;
+  height: 20vh;
   position: relative;
+  overflow-y: auto;
 }
 .hero-section .hero-image-container .hero-image {
   width: 100%;
-  height: 80vh;
   -o-object-fit: cover;
      object-fit: cover;
   -o-object-position: top;
@@ -434,13 +437,13 @@ main .bottom-content {
 }
 .hero-section .hero-image-container .overlay {
   width: 100%;
-  height: 80vh;
+  min-height: 20vh;
   position: absolute;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
 }
 .hero-section .content-container {
   width: 100%;
-  height: 85vh;
+  height: 20vh;
   display: flex;
   position: absolute;
   top: 0;
@@ -474,7 +477,7 @@ main .bottom-content {
 }
 .hero-section .content-container .content-center h1 {
   color: white;
-  font-size: 2.5rem;
+  font-size: 100%;
   text-align: center;
 }
 .hero-section .content-container .content-center .center-details {
@@ -498,29 +501,103 @@ main .bottom-content {
   margin-left: 0.2rem;
 }
 
+.page-container {
+  width: 100%;
+  background-color: var(--button_green);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page-container .paper-simulator {
+  width: 90%;
+  max-width: 700px;
+  min-height: 90vh;
+  background-color: white;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+.page-container .paper-simulator .paper-header {
+  width: 100%;
+  background-color: rgb(244, 246, 248);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page-container .paper-simulator .paper-header img {
+  width: 30px;
+  height: 30px;
+}
+.page-container .paper-simulator .poll-info {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.page-container .paper-simulator .poll-info .txt-poll-name {
+  font-size: 2rem;
+  color: var(--complement_color);
+}
+.page-container .paper-simulator .poll-info .txt-poll-description {
+  margin-top: 5px;
+  color: var(--complement-color);
+  opacity: 0.5;
+  font-size: 0.8rem;
+  padding-right: 10px;
+}
+.page-container .paper-simulator .poll-info .poll-info-container {
+  margin-top: 10px;
+}
+.page-container .paper-simulator .poll-info .poll-info-container b {
+  color: var(--complement_color);
+}
+.page-container .paper-simulator .poll-info .poll-info-container p {
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+.page-container .paper-simulator .poll-info .poll-info-container p span {
+  color: var(--complement_color);
+  opacity: 0.6;
+}
+
 .content-section {
   width: 100%;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
 }
-.content-section .input-form {
-  display: flex;
-  flex-direction: column;
-}
-.content-section .input-form .input-container {
+.content-section .left-content {
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.content-section .input-form .input-container input {
+.content-section .left-content h1 {
+  font-size: 2.5rem;
+  color: var(--complement_color);
+}
+.content-section .right-content {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+.content-section .right-content .input-form {
+  display: flex;
+  flex-direction: column;
+}
+.content-section .right-content .input-form .input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.content-section .right-content .input-form .input-container input {
   margin: 20px;
   width: 90%;
   max-width: 290px;
 }
-.content-section .input-form input[type=submit] {
+.content-section .right-content .input-form input[type=submit] {
   align-self: center;
   justify-self: center;
   width: 50%;
@@ -532,18 +609,18 @@ main .bottom-content {
   margin-top: 20px;
   cursor: pointer;
 }
-.content-section .input-form #submit {
+.content-section .right-content .input-form #submit {
   align-self: center;
   justify-self: center;
   width: 90%;
   max-width: 290px;
   margin-top: 20px;
 }
-.content-section .input-form #submit:disabled {
+.content-section .right-content .input-form #submit:disabled {
   background-color: var(--disabled-button-color);
   cursor: not-allowed;
 }
-.content-section .progress-bar {
+.content-section .right-content .progress-bar {
   width: 100%;
   display: none;
   flex-direction: row;
@@ -551,11 +628,11 @@ main .bottom-content {
   justify-content: center;
   padding-top: 0.9rem;
 }
-.content-section .progress-bar p {
+.content-section .right-content .progress-bar p {
   margin-left: 0.5rem;
   opacity: 0.9;
 }
-.content-section .progress-bar.visible {
+.content-section .right-content .progress-bar.visible {
   display: flex;
 }
 
