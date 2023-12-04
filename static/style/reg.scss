@@ -89,6 +89,8 @@ main{
     }
 }
 
+
+
 .header-section{
     display: flex;
     flex-direction: row;
@@ -165,29 +167,33 @@ main{
    
     .hero-image-container{
         width: 100%;
-        height: 80vh;
+        min-height: 40vh;
         position: relative;
-        
+        overflow-y: auto;
+        background-image: url(/static/img/soft-background.png);
+        background-repeat: no-repeat;
+        background-size: cover;
 
         .hero-image{
+            display: none;
             width: 100%;
-            height: 80vh;
+            min-height: 40vh;
             object-fit: cover;
             object-position: top;
         }
 
         .overlay{
             width: 100%;
-            height: 80vh;
+            min-height: 40vh;
             position: absolute;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6));;
         }
     }
 
     .content-container{
   
         width: 100%;
-        height:  85vh;
+        height:  40vh;
         
         display: flex;
         position: absolute;
@@ -201,6 +207,7 @@ main{
             width: 100%;
             height: 3vh;
             gap: 15px;
+            display: none;
             img{
                 width: 20px;
                 height: 20px;
