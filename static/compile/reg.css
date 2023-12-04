@@ -360,6 +360,55 @@ main .bottom-content {
   min-height: 50vh;
 }
 
+.banner-section {
+  width: 100%;
+  min-height: 40vh;
+  background-image: url(/static/img/soft-background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.banner-section .banner-content {
+  position: absolute;
+  min-height: 40vh;
+  align-self: center;
+  width: 100%;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.banner-section .banner-content h1 {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+}
+.banner-section .banner-content .center-details {
+  display: flex;
+  flex-direction: row;
+  padding: 0.9rem;
+}
+.banner-section .banner-content .center-details .det {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.banner-section .banner-content .center-details .det i {
+  color: white;
+  font-size: 0.7rem;
+}
+.banner-section .banner-content .center-details .det p {
+  color: white;
+  font-size: 0.8rem;
+  margin-left: 0.2rem;
+}
+
 .header-section {
   display: flex;
   flex-direction: row;
@@ -422,8 +471,8 @@ main .bottom-content {
 .hero-section .hero-image-container {
   width: 100%;
   min-height: 40vh;
+  overflow-y: visible;
   position: relative;
-  overflow-y: auto;
   background-image: url(/static/img/soft-background.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -445,7 +494,7 @@ main .bottom-content {
 }
 .hero-section .content-container {
   width: 100%;
-  height: 40vh;
+  min-height: 40vh;
   display: flex;
   position: absolute;
   top: 0;
@@ -480,7 +529,7 @@ main .bottom-content {
 }
 .hero-section .content-container .content-center h1 {
   color: white;
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-align: center;
 }
 .hero-section .content-container .content-center .center-details {
@@ -510,6 +559,12 @@ main .bottom-content {
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
+}
+.content-section #prompt {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  line-height: 1.3;
+  align-self: center;
 }
 .content-section .input-form {
   display: flex;
@@ -862,7 +917,6 @@ main .bottom-content {
   }
   .hero-section .content-container .content-center .center-details {
     display: flex;
-    flex-direction: column;
   }
   .content-section .input-form .input-container {
     display: flex;

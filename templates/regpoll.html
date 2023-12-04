@@ -39,7 +39,7 @@
         </div>
 
         <div class="content-center">
-            <h1> {{pollname}}</h1>
+            <h1>{{pollname}}</h1>
 
             <div class="center-details">
                 <div class="det">
@@ -63,9 +63,33 @@
     </div>
    </section>
 
+   <section class="banner-section">
+        <div class="banner-content">
+            <h1> {{pollname}}</h1>
+
+            <div class="center-details">
+                <div class="det">
+                    <i class="fa-solid fa-key"></i>
+                    <p>{{pollcode}}</p>
+                </div>
+
+                <div class="det">
+                    <i class="fa-regular fa-user"></i>
+                    <p id="poll-author-text">{{pollauthor}}</p>
+                </div>
+
+                <div class="det">
+                    <i class="fa-solid fa-users"></i>
+                    <p>{{itemcount}}</p>
+                </div>
+            </div>
+        </div>
+   </section>
+
    <section class="content-section">
-        <p id="prompt">Please fill the fields below</p>
+       
         <form action="" class="input-form" method="POST" id="submit-form">
+            <p id="prompt">Please fill the form below</p>
            {%csrf_token%} 
             <div class="input-container">
             </div>
