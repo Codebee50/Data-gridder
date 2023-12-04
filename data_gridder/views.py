@@ -22,7 +22,7 @@ from django.core.exceptions import ObjectDoesNotExist
 def home(request):
     if request.user.is_authenticated:
         #this means that the user is logged in 
-        user_object = User.objects.get(username= request.user.username)
+        user_object = User.objects.get(id= request.user.id)
         user_profile = Profile.objects.get(user=user_object)
 
         # current_user = request.user.username
@@ -46,7 +46,7 @@ def home(request):
 @login_required(login_url='login')
 def dashboard(request):
     try:
-        user_object = User.objects.get(username= request.user.username)
+        user_object = User.objects.get(id= request.user.id)
         user_profile = Profile.objects.get(user=user_object)
     except ObjectDoesNotExist:
         user_object = None
@@ -705,7 +705,7 @@ def deleteEntry(request, entry_id):
 
 def documentation(request):
     if request.user.is_authenticated:
-        user_object = User.objects.get(username= request.user.username)
+        user_object = User.objects.get(id= request.user.id)
         user_profile = Profile.objects.get(user=user_object)
         context= {
             'user_exists': 'true',
