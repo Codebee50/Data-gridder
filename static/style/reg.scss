@@ -268,6 +268,7 @@ main{
     .input-form{
         display: flex;
         flex-direction: column;
+        width: 90%;
         .input-container{
             // display: grid;
             // grid-template-columns: repeat(2, 1fr);
@@ -276,34 +277,27 @@ main{
             align-items: center;
             justify-content: center;
             input{
-                 margin: 20px;
-                 width: 90%;
-                 max-width: 290px;
+                align-self: center;
+                justify-self: center;
+                margin: 20px;
+                width: 90%;
+                max-width: 400px;
+                padding: 18px;
                 //  padding: 10px 20px;
                 //  outline: none;
 
             }
         }
 
-        input[type=submit]{
-            align-self: center;
-            justify-self: center;
-            width: 50%;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            background-color: $light-blue;
-            margin-top: 20px;
-            cursor: pointer;
-        }
+      
 
         #submit{
             align-self: center;
             justify-self: center;
             width: 90%;
-            max-width: 290px;
+            max-width: 400px;
             margin-top: 20px;
+            padding: 20px;
 
             // width: 50%;
             // padding: 15px 20px;
