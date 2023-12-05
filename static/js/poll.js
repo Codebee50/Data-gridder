@@ -362,6 +362,10 @@ bars.forEach((bar)=>{
     })
 })
 
+function closeLeftParent(){
+    leftParent.classList.remove('active')
+}
+
 pollsUi.forEach(function(poll){
     poll.addEventListener('click', function(e){
         let pollcode = e.target.id

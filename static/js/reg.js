@@ -1,7 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-    //TODO: Uncomment this 
-    // setupOpaqueModal('op-one', 'op-message-one', 'Fetching poll..') 
+    setupOpaqueModal('op-one', 'op-message-one', 'Fetching poll..') 
 
     const mInput = document.getElementById('in-poll-code');
     const inputContainer = document.querySelector('.input-container');
@@ -52,13 +51,14 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(data => {
             console.log('fetch has returned')
-            //TODO: uncomment this
-            // transitionModal('none')
+            transitionModal('none')
             let fieldArray = JSON.parse(JSON.parse(data.fields));
 
             if (data.values !== 'empty') {
                 editMode = true;
-                pollvalues = JSON.parse(data.values[0].fields.field_values);
+                // pollvalues = JSON.parse(data.values[0].fields.field_values);
+                pollvalues = JSON.parse(JSON.parse(data.values)[0].fields.field_values)
+
                 populateUi(fieldArray);
                 promptTxt.textContent = 'Modify your entries';
                 submitBtn.value = 'Save';
@@ -173,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     function populateUi(fieldArray) {
+        console.log('populating the ui')
         fieldArray.forEach(item => {
             if (item.datatype !== 'empty') {
                 let inputElement = document.createElement("input");
@@ -191,7 +192,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             inputElement.value = matchingValue.value;
                         }
                     }
-    
+                    
+                    console.log(inputElement)
                     if(inputContainer !== null){
                         inputContainer.appendChild(inputElement);
                         inputArray.push(inputElement);
