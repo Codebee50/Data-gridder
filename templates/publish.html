@@ -42,15 +42,19 @@
                     <h4 class="txt-input-name">Append a document (optional)</h4>
 
                     <div class="file-input-container">
-                        <img src="{% static 'img/doc-doc.svg' %}" alt="document-image">
+                        <div class="file-container">
 
-                        <div class="file-info-container">
-                            <p class="file-name"><b>No file chosen but this is where you are supposed to choose a file from you this </b></p>
-                            <p>Tap to choose file (.docx)</p>
-                            <input type="file" name="document" id="file" accept=".doc, .docx" style="display: none;"> 
+                            <img src="{% static 'img/doc-doc.svg' %}" alt="document-image">
+
+                            <div class="file-info-container">
+                                <p class="file-name"><b>No file chosen but this is where you are supposed to choose a file from you this </b></p>
+                                <p>Tap to choose file (.docx)</p>
+                                <input type="file" name="document" id="file" accept=".doc, .docx" style="display: none;"> 
+                            </div>
                         </div>
+                        
 
-                        <div class="remove-file-container">
+                        <div class="remove-file-container" title="clear selection">
                             <i class="fa-solid fa-xmark"></i>
                         </div>
                     </div>
@@ -79,39 +83,7 @@
          
     </section>
 
-    <section class="main-section section">
-       <div class="left-container">
-
-        <!-- <div class="content-holder">
-           <h3>Table preview</h3>
-           <p class="publish-message">From your design, this is what the headers for your table would look like</p>
-
-           <div class="table-preview-container">
-            <div class="table-preview">
-
-            </div>
-           </div>
-
-        </div> -->
-       </div> 
-
-       <div class="right-container">
-        <div class="user-attribute">
-            <p>Publishing as: <b>{{user.username}}</b></p>
-        </div>
-
-        <div class="form-holder">
-
-            <form action="/publish" id="publish-form" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="text" name="poll-name" id="poll-name" placeholder="Poll name" required class="text-input-101">
-                <p class="append-suggest">Append a document (optional)</p>
-                <input type="file" name="document" id="file" accept=".doc, .docx">
-                <button type="submit" class="button-one">Publish</button>
-            </form>
-        </div>
-       </div>
-    </section>
+   
 
     <section class="explanation-section section">
         <h1 class="header-text">When and how should you append a document?</h1>

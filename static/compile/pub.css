@@ -320,7 +320,7 @@ footer .bottom .content .side {
   flex-direction: column;
 }
 .publish-section .form-holder form .content-holder {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .publish-section .form-holder form .content-holder .publish-message {
   font-size: 0.9rem;
@@ -374,13 +374,23 @@ footer .bottom .content .side {
   border-spacing: 20px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+.publish-section .form-holder form .input-container .file-input-container .file-container {
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: row;
   cursor: pointer;
-  position: relative;
 }
 .publish-section .form-holder form .input-container .file-input-container img {
   width: 20px;
 }
 .publish-section .form-holder form .input-container .file-input-container .file-info-container {
+  overflow: hidden;
   margin-left: 10px;
 }
 .publish-section .form-holder form .input-container .file-input-container .file-info-container p {
@@ -394,12 +404,10 @@ footer .bottom .content .side {
   white-space: nowrap;
 }
 .publish-section .form-holder form .input-container .file-input-container .remove-file-container {
-  background-color: white;
-  position: absolute;
-  top: 0;
-  right: 0;
-  align-self: flex-end;
-  justify-self: flex-end;
+  cursor: pointer;
+}
+.publish-section .form-holder form .input-container .file-input-container .remove-file-container i {
+  color: var(--complement_color);
 }
 .publish-section .form-holder form button {
   margin-top: 20px;
