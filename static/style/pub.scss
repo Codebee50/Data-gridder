@@ -66,7 +66,7 @@ $main-min-height: 80vh;
                         justify-content: flex-start;
                         table{
                             border-collapse: collapse;
-                            width: 95%;
+                            width: 100%;
                             font-size: 0.9rem;
                         }
                         #empty-header{
@@ -74,6 +74,8 @@ $main-min-height: 80vh;
                         }
             
                         th, td {
+                            font-size: 0.7rem;
+                            padding: 0.2rem;
                             border: 0.7px solid black;
                             text-align: center;
                           }
@@ -97,9 +99,21 @@ $main-min-height: 80vh;
                     width: 100%;
                 }
 
+                .counter{
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    p{
+                        font-size: 0.85rem;
+                        color: var(--complement_color);
+
+                    }
+                }
+
                 .file-input-container{
                     padding: 0.9rem;
-                    border:dashed var(--complement_color) 0.5px;
+                    border:dashed rgb(219, 214, 214) 1px;
                     border-spacing: 20px;
                     display: flex;
                     flex-direction: row;
@@ -128,6 +142,7 @@ $main-min-height: 80vh;
                             font-size: 0.8rem;
                         }
                         .file-name{
+                            color: var(--complement_color);
                             width: 90%;
                             max-width: 250px;
                             text-overflow: ellipsis;

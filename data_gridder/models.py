@@ -32,7 +32,8 @@ class Poll(models.Model):
     original_doc_name = models.TextField(blank=True, default='document_name')
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     fields = models.JSONField()
-    
+    description = models.TextField(blank=True, null=True, default=None)
+
     def __str__(self):
         return self.poll_name
     

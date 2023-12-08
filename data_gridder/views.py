@@ -170,7 +170,8 @@ def registerPoll(request, pollcode, pk):
             'itemcount': itemcount,
             'value_id': pk,
             'is_authenticated': request.user.is_authenticated,
-            'guest': guest
+            'guest': guest, 
+            'description': 'Please fill the form below' if poll.description == None else poll.description
         }
         return render(request, 'regpoll.html', context)
     else:
@@ -183,7 +184,9 @@ def registerPoll(request, pollcode, pk):
             'pollname': 'none',
             'itemcount': 0,
             'is_authenticated': request.user.is_authenticated,
-            'guest': guest
+            'guest': guest,
+            'description': 'Please fill the form below' if poll.description == None else poll.description
+
 
         }
         return render(request, 'regpoll.html', context)
@@ -239,6 +242,8 @@ def publish(request):
         document = request.FILES.get('document')
         pollcode = request.POST.get('poll_code')
         polldata = request.POST.get('poll_data')
+        description = request.POST.get('description')
+        description= None if description== '' else description
         pollauthor = request.user.username
 
         if document is not None:#checking for the correct fie format
@@ -278,7 +283,7 @@ def publish(request):
                         # unique_file_name = f"{unique_id}{ext}"
                 
                         document.name = 'doc-' + pollcode + ext
-                        new_poll = Poll.objects.create(poll_name=pollname, poll_code=pollcode, poll_author=pollauthor, appended_document=document, fields=polldata, original_doc_name = old_file_name)
+                        new_poll = Poll.objects.create(poll_name=pollname, poll_code=pollcode, poll_author=pollauthor, appended_document=document, fields=polldata, original_doc_name = old_file_name, description = description)
                         new_poll.save()
                         
                         
@@ -297,7 +302,7 @@ def publish(request):
                         }
                     
                 else: 
-                    new_poll = Poll.objects.create(poll_name=pollname, poll_code=pollcode, poll_author=pollauthor, fields=polldata)
+                    new_poll = Poll.objects.create(poll_name=pollname, poll_code=pollcode, poll_author=pollauthor, fields=polldata, description=description)
                     new_poll.save()
                     
                     context = {
