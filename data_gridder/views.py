@@ -123,6 +123,7 @@ def getpoll(request, pollcode, pk):
                 'fields': json_fields,
                 'values': 'empty'
             }
+            
             return JsonResponse(context)
 
         else:

@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const progressBar = document.getElementById('progress-bar');
     const responseModalCloseBtn = document.getElementById('response-close-btn')
     const btnSubmitResponse = document.getElementById('btn-submit-responses')
+    
 
     let valueId = valueIdInput.value;
     let pollvalues;
@@ -50,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('/getpoll/' + pollcode + '/' + valueId + '/')
         .then(response => response.json())
         .then(data => {
-            console.log('fetch has returned')
             transitionModal('none')
             let fieldArray = JSON.parse(JSON.parse(data.fields));
 
@@ -162,7 +162,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function checkForValue(inputValueArray) {
         for (const inputValue of inputValueArray) {
             if (inputValue.value !== '') {
-                console.log('ran this');
                 return true; //breaking out of the loop when we find at least one input that has a value
             }
         }
@@ -173,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     function populateUi(fieldArray) {
-        console.log('populating the ui')
         fieldArray.forEach(item => {
             if (item.datatype !== 'empty') {
                 let inputElement = document.createElement("input");
@@ -193,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     }
                     
-                    console.log(inputElement)
                     if(inputContainer !== null){
                         inputContainer.appendChild(inputElement);
                         inputArray.push(inputElement);
