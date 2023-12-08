@@ -277,12 +277,14 @@ $main-min-height: 80vh;
     justify-content: center;
     text-align: center;
     width: 100%;
+    margin-top: 50px;
 
     .header-text{
         width: 70%;
         font-size: 2rem;
         max-width: 400px;
-        color: var(--complement-color);
+        font-weight: 900;
+        color: var(--complement_color);
     }
 
     .top-explanation{
@@ -295,6 +297,7 @@ $main-min-height: 80vh;
             padding: 0.9rem;
             img{
                 width: 100%;
+                // max-width: 280px;
             }
         }
 
@@ -351,7 +354,7 @@ $main-min-height: 80vh;
             color: var(--complement-color);
         }
         iframe{
-            margin-top: 10px;
+            margin-top: 20px;
         }
     }
 }

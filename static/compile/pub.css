@@ -515,12 +515,14 @@ footer .bottom .content .side {
   justify-content: center;
   text-align: center;
   width: 100%;
+  margin-top: 50px;
 }
 .explanation-section .header-text {
   width: 70%;
   font-size: 2rem;
   max-width: 400px;
-  color: var(--complement-color);
+  font-weight: 900;
+  color: var(--complement_color);
 }
 .explanation-section .top-explanation {
   width: 100%;
@@ -581,7 +583,7 @@ footer .bottom .content .side {
   color: var(--complement-color);
 }
 .sample-items-section .video-container iframe {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .modal-container {

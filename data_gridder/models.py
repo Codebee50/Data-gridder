@@ -25,7 +25,7 @@ class Profile(models.Model):
 
 
 class Poll(models.Model):
-    poll_name = models.TextField(blank=False, default='poll_name')
+    poll_name = models.TextField(blank=False, default='poll_name', max_length=65)
     poll_code = models.TextField(blank=False, default='poll_code')
     poll_author = models.TextField(blank=False, default='appended_document')
     appended_document = models.FileField(upload_to='documents', default='sampledoc.docx')
