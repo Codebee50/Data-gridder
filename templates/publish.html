@@ -21,20 +21,60 @@
 
     <input type="hidden" name="domain" id="domain" value="{{domain}}">
 
+    <section class="publish-section section">
+        <h1 class="header-message">Publish your poll</h1>
+        <div class="hor-line"></div>
+
+        <div class="form-holder">
+            <form action="/publish" id="publish-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-container">
+                    <h4 class="txt-input-name">Name</h4>
+                    <input type="text" name="poll-name" id="poll-name" placeholder="Enter a name for your poll" required class="text-input-101">
+                </div>
+
+                <div class="input-container">
+                    <h4 class="txt-input-name">Description</h4>
+                    <textarea name="poll-description" id="poll-description" cols="30" rows="5" placeholder="Describe your poll" class="text-input-101"></textarea>
+                </div>
+
+                <div class="content-holder">
+                    <h3>Table preview</h3>
+                    <p class="publish-message">From your design, this is what the headers for your table would look like</p>
+         
+                    <div class="table-preview-container">
+                     <div class="table-preview">
+                         <!-- this will hold the table, it will be populated from publish.js  -->
+                     </div>
+                    </div>
+         
+                 </div>
+                <!-- <p class="append-suggest">Append a document (optional)</p>
+                <input type="file" name="document" id="file" accept=".doc, .docx"> -->
+                <button type="submit" class="button-one">Publish</button>
+
+            </form>
+        </div>
+
+       
+
+         
+    </section>
+
     <section class="main-section section">
        <div class="left-container">
 
-        <div class="content-holder">
+        <!-- <div class="content-holder">
            <h3>Table preview</h3>
            <p class="publish-message">From your design, this is what the headers for your table would look like</p>
 
            <div class="table-preview-container">
             <div class="table-preview">
-                <!-- this will hold the table, it will be populated from publish.js  -->
+
             </div>
            </div>
 
-        </div>
+        </div> -->
        </div> 
 
        <div class="right-container">

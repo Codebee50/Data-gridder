@@ -12,21 +12,11 @@ const resultContainer = document.getElementById('result-container')
 const warningContainer = document.getElementById('warning-div')
 
 const showSample = document.getElementById('example-dg-text')
-// const showSampleModal = document.getElementById('ex-dg-modal')
-// const removeSample = document.getElementById('remove-ex-dg')
 const copyPollToolText = document.getElementById('copy-poll-tooltip-text')
 const domainInput = document.getElementById('domain')
 
 
-// showSample.addEventListener('click', function(e){
-//     showSampleModal.classList.add('visible')
-// })
 
-// removeSample.addEventListener('click', function(){
-//     showSampleModal.classList.remove('visible')
-// })
-
-// modalContainer.classList.remove('visible')
 
 let pollData = JSON.parse(localStorage.getItem('pollData'))
 let pollDataStr = localStorage.getItem('pollData')

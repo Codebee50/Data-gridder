@@ -10,6 +10,102 @@ $main-min-height: 80vh;
     padding: 20px 100px;
 }
 
+.publish-section{
+    display: flex;
+    flex-direction: column;
+    
+    .header-message{
+        color: var(--complement_color);
+        margin-top: 20px;
+        font-size: 2rem;
+    }
+
+    .hor-line{
+        width: 80%;
+        height: 0.05rem;
+        background-color: var(--complement_color);
+        opacity: 0.1;
+        margin-top: 20px;
+    }
+
+    
+
+    .form-holder{
+        margin-top: 30px;
+        width: 90%;
+        max-width: 400px;
+        form{
+            display: flex;
+            flex-direction: column;
+
+            .content-holder{
+                margin-top: 20px;
+        
+                .publish-message{
+                    font-size: 0.9rem;
+                    margin-top: 0.5rem;
+                    width: 80%;
+                    color: var(--complement-color);
+                    opacity: 0.7;
+                }
+        
+                
+                .table-preview-container{
+                    width: 100%;
+                    // max-width: 600px;
+                    // min-height: 100px;
+                    // background-color: var(--generic-grey);
+                    margin-top: 0.9rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    .table-preview{
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        table{
+                            border-collapse: collapse;
+                            width: 95%;
+                            font-size: 0.9rem;
+                        }
+                        #empty-header{
+                            width: 3rem;
+                        }
+            
+                        th, td {
+                            border: 0.7px solid black;
+                            text-align: center;
+                          }
+                    }
+                }
+            }
+
+            .input-container{
+                margin-top: 20px;
+                .txt-input-name{
+                    font-size: 0.85rem;
+                    margin-bottom: 10px;
+                    color: var(--complement_color);
+                }
+
+                input{
+                    width: 100%;   
+                }
+
+                #poll-description{
+                    width: 100%;
+                }
+            }
+
+            button{
+                margin-top: 20px;
+            }
+        }
+        
+
+    }
+}
 
 .main-section{
     width: 100%;
