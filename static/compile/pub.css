@@ -368,6 +368,39 @@ footer .bottom .content .side {
 .publish-section .form-holder form .input-container #poll-description {
   width: 100%;
 }
+.publish-section .form-holder form .input-container .file-input-container {
+  padding: 0.9rem;
+  border: dashed var(--complement_color) 0.5px;
+  border-spacing: 20px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  position: relative;
+}
+.publish-section .form-holder form .input-container .file-input-container img {
+  width: 20px;
+}
+.publish-section .form-holder form .input-container .file-input-container .file-info-container {
+  margin-left: 10px;
+}
+.publish-section .form-holder form .input-container .file-input-container .file-info-container p {
+  font-size: 0.8rem;
+}
+.publish-section .form-holder form .input-container .file-input-container .file-info-container .file-name {
+  width: 90%;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.publish-section .form-holder form .input-container .file-input-container .remove-file-container {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  align-self: flex-end;
+  justify-self: flex-end;
+}
 .publish-section .form-holder form button {
   margin-top: 20px;
 }

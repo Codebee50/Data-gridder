@@ -38,6 +38,24 @@
                     <textarea name="poll-description" id="poll-description" cols="30" rows="5" placeholder="Describe your poll" class="text-input-101"></textarea>
                 </div>
 
+                <div class="input-container">
+                    <h4 class="txt-input-name">Append a document (optional)</h4>
+
+                    <div class="file-input-container">
+                        <img src="{% static 'img/doc-doc.svg' %}" alt="document-image">
+
+                        <div class="file-info-container">
+                            <p class="file-name"><b>No file chosen but this is where you are supposed to choose a file from you this </b></p>
+                            <p>Tap to choose file (.docx)</p>
+                            <input type="file" name="document" id="file" accept=".doc, .docx" style="display: none;"> 
+                        </div>
+
+                        <div class="remove-file-container">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="content-holder">
                     <h3>Table preview</h3>
                     <p class="publish-message">From your design, this is what the headers for your table would look like</p>
