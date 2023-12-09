@@ -23,10 +23,9 @@
     <input type="hidden" name="domain" id="domain" value="{{domain}}">
    
         
-    <div class="more" id="see-details">
+    <!-- <div class="more" id="see-details">
         <i class="fa-solid fa-ellipsis-vertical"></i>
-        <!-- <span class="tooltiptext" id="copy-poll-tooltip-text">View details</span> -->
-    </div>
+    </div> -->
         
     <section class="section content-section">
         <div class="top-content">
@@ -58,6 +57,12 @@
                 {% if poll.description %}
                 <p class="poll-description">{{poll.description}}</p>
                 {% endif %}
+
+                <!-- {% if peoplecount == 1 %}
+                <p id="people-count" class="people-count"><b>{{peoplecount}}</b> person registered</p>
+                {% else %}
+                <p id="people-count" class="people-count"><b>{{peoplecount}}</b> people registered</p>
+                {% endif %}             -->
             </div>
         </div>
 
@@ -74,10 +79,18 @@
             </div>
         </div>
 
-        <div class="table-container">
-            <!-- this will hold the table, it will be populated from publish.js  -->
-
+        <div class="table-ops">
+             {% if peoplecount == 1 %}
+                <p id="people-count" class="people-count"><b>{{peoplecount}}</b> participant</p>
+                {% else %}
+                <p id="people-count" class="people-count"><b>{{peoplecount}}</b> participants</p>
+                {% endif %}            
+            <div class="table-container">
+                <!-- this will hold the table, it will be populated from publish.js  -->
+    
+            </div>
         </div>
+        
     </section>
     
 

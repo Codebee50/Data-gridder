@@ -66,13 +66,28 @@ editPoll.addEventListener("click", function () {
 
 copyButtons.forEach(function(copyBtn){
   copyBtn.addEventListener('click', function(){
+    const oldTextContent = this.textContent
     txtId = `txt-${this.id}`
-    const txtCopy = document.getElementById(txtId)
-    console.log(txtCopy.textContent)
+    const textToCopy = document.getElementById(txtId).textContent//getting the id of the paragraph tag where the text to be copied is in
+
+    navigator.clipboard
+    .writeText(textToCopy)
+    .then(() => {
+      copyBtn.textContent = "Copied";
+      setTimeout(function () {
+        copyBtn.textContent = oldTextContent;
+      }, 1300);
+    })
+    .catch((error) => {
+      alert('An error occured while trying to copy item');
+      console.log("error copying");
+    });
+
+    
   })
 })
 
-viewDetails.addEventListener("click", viewDet);
+// viewDetails.addEventListener("click", viewDet);
 
 
 

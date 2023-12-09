@@ -28,6 +28,10 @@ p {
   color: var(--complement_color);
 }
 
+h1, h2, h3, h4 {
+  color: var(--complement_color);
+}
+
 .rocket-alert-modal-content {
   display: flex;
   flex-direction: column;

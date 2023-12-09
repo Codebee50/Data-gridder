@@ -202,6 +202,7 @@ $button_green: #45987e;
                 margin-top: 15px;
                 max-width: 700px;
             }
+
         }
     }
 
@@ -242,9 +243,17 @@ $button_green: #45987e;
         }
     }
 
-    .table-container{
-        padding: 1.3rem 0;
+
+    .table-ops{
         margin-top: 20px;
+
+        .people-count{
+            opacity: 0.7;
+        }
+    }
+    .table-container{
+        margin-top: 5px;
+        // padding: 1.3rem 0;
         width: 100%;
         overflow-x: auto;  
         position: relative;
@@ -267,9 +276,10 @@ $button_green: #45987e;
         }
     
         th, td {
-            border: 1px solid black;
+            border: 0.5px solid black;
             text-align: center;
             padding: 0.7rem;
+            color: var(--complement_color);
             
           }
     }

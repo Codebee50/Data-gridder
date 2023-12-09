@@ -30,6 +30,10 @@ p {
   color: var(--complement_color);
 }
 
+h1, h2, h3, h4 {
+  color: var(--complement_color);
+}
+
 .rocket-alert-modal-content {
   display: flex;
   flex-direction: column;
@@ -487,9 +491,14 @@ footer .bottom .content .side {
   border: 1px #E4E8EC solid;
   color: var(--complement_color);
 }
-.content-section .table-container {
-  padding: 1.3rem 0;
+.content-section .table-ops {
   margin-top: 20px;
+}
+.content-section .table-ops .people-count {
+  opacity: 0.7;
+}
+.content-section .table-container {
+  margin-top: 5px;
   width: 100%;
   overflow-x: auto;
   position: relative;
@@ -506,9 +515,10 @@ footer .bottom .content .side {
   width: 3rem;
 }
 .content-section .table-container th, .content-section .table-container td {
-  border: 1px solid black;
+  border: 0.5px solid black;
   text-align: center;
   padding: 0.7rem;
+  color: var(--complement_color);
 }
 
 .holder {
