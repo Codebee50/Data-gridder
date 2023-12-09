@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'compile/viewpoll.css' %}" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
-    <title>{{poll.poll_name}}</title>
+    <title>{{poll.poll_name}} | View poll</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 
@@ -28,62 +28,59 @@
         <!-- <span class="tooltiptext" id="copy-poll-tooltip-text">View details</span> -->
     </div>
         
-    
-    <div class="holder">
-        <section class="header-section">
-            <div class="top-content">
-                <div class="showcase">
-                    <img src="{% static 'img/icon.svg' %}" alt="icon image">
-                    <h1 class="content-title">Data Gridder</h1>
-                </div>
-    
-                <div class="top-right">
-                    
-                    <div class="generate-btn" id="generate-btn">
-                        <i class="fa-solid fa-download"></i>
-                        <p>Download</p>
-                    </div>
-        
-                    <div class="settings-btn" id="edit-poll">
-                        <i class="fa-solid fa-gear"></i>
-                        <p>Settings</p>
-                    </div>
-
-                   
-                </div>
-
+    <section class="section content-section">
+        <div class="top-content">
+            <div class="showcase">
+                <img src="{% static 'img/icon.svg' %}" alt="icon image">
+                <h1 class="content-title">Data Gridder</h1>
             </div>
-            <div class="middle-left">
+
+            <div class="top-right">
+                
+                <div class="generate-btn" id="generate-btn" title="Download document">
+                    <i class="fa-solid fa-download"></i>
+                    <!-- <p>Download</p> -->
+                </div>
+    
+                <div class="settings-btn" id="edit-poll" title="Settings">
+                    <i class="fa-solid fa-gear"></i>
+                    <!-- <p>Settings</p> -->
+                </div>
+
+               
+            </div>
+
+        </div>
+
+        <div class="poll-inf-set">
+            <div class="poll-name-desc">
                 <h1>{{poll.poll_name}}</h1>
-                
-                <div class="poll-details">
-                
-                    <div class="population">
-                        <i class="fa-solid fa-users"></i>
-                        <p id="people-count">{{peoplecount}} Registered</p>
-                    </div>
-                </div>
-
-
+                {% if poll.description %}
+                <p class="poll-description">{{poll.description}}</p>
+                {% endif %}
             </div>
-          
-        </section>
-    
-        <section class="container">
-           
-            <div class="preview-holder">
-                <div class="table-container">
-                    <!-- this will hold the table, it will be populated from publish.js  -->
-                    <!-- <iframe src="temp-29094588-69b0-4bad-8769-08f63895e836.docx" frameborder="0"></iframe> -->
-    
-                </div>
+        </div>
+
+        <div class="copyables">
+            <div class="copyable">
+                <p class="copy-item" id="txt-copy-poll-link">http://{{domain}}/regpoll/{{poll.poll_code}}/nb/</p>
+                <button class="btn-copy" id="copy-poll-link">Copy link</button>
             </div>
-            
-        </section>
-        
-    </div>
+
+            <div class="copyable">
+                <p class="copy-item" id="txt-copy-poll-code">{{poll.poll_code}}</p>
+
+                <button class="btn-copy" id="copy-poll-code">Copy code</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <!-- this will hold the table, it will be populated from publish.js  -->
+
+        </div>
+    </section>
     
-    
+
   
     <div class="modal-container">
             <div class="modal-box">

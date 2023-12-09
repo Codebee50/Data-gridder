@@ -2,7 +2,8 @@
 // using this file will involve adding a link to it in your html page using a link tag
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
 
 :root{
     --complement_color: #393B4A;
@@ -19,6 +20,7 @@
 
 }
 
+
 body{
     font-family: 'Inter', sans-serif;
 }
@@ -28,6 +30,10 @@ body{
     padding: 0;
     box-sizing: border-box;
    
+}
+
+p{
+    color: var(--complement_color);
 }
 
 .rocket-alert-modal-content{

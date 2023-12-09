@@ -162,7 +162,7 @@ $(document).on("submit", "#publish-form", function (e) {
             });
         });
 
-       
+        const copyLink = document.getElementById('copy-poll-link')
         copyLink.addEventListener("click", function () {
           navigator.clipboard
             .writeText(polLink)

@@ -28,6 +28,7 @@ const removeDetails = document.getElementById("btn-done");
 const domainInput = document.getElementById("domain");
 const orderFactor = document.getElementById('order-factor')
 const alphabeticalOrderCheck = document.getElementById('alph-order')
+const copyButtons = document.querySelectorAll('.btn-copy')
 
 let factor = 'none'//this is holds if what we want to order the list by 
 let transverse = 'asc' //this indicates if the list should be ascending or descending
@@ -63,7 +64,17 @@ editPoll.addEventListener("click", function () {
   content.classList.add("visible");
 });
 
+copyButtons.forEach(function(copyBtn){
+  copyBtn.addEventListener('click', function(){
+    txtId = `txt-${this.id}`
+    const txtCopy = document.getElementById(txtId)
+    console.log(txtCopy.textContent)
+  })
+})
+
 viewDetails.addEventListener("click", viewDet);
+
+
 
 removeModal.addEventListener("click", function () {
   modal.classList.remove("visible");
@@ -293,6 +304,8 @@ function viewDet() {
   const copyPollLink = document.getElementById("copy-poll-link");
   const copyPollToolTip = document.getElementById("cpc-tool-tip");
   const cplToolTip = document.getElementById("cpl-tool-tip");
+
+
 
   copyPollCode.addEventListener("click", function () {
     //copy the poll code to clipboard

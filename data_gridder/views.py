@@ -336,8 +336,8 @@ def viewPoll(request, pollcode):
 
         context = {
             'poll': poll,
-            'pollvalues': list(pollValues.values())
-             
+            'pollvalues': list(pollValues.values()),
+            'domain': current_site
         }
 
         return JsonResponse(context)
