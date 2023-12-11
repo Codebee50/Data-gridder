@@ -191,13 +191,32 @@
                 </div>
             </div>
             <div class="bottom-content">
+                <div class="poll-entity-container">
+                    <div class="poll-entity">
+                        <div class="top-representation">
+    
+                        </div>
+                        <div class="bottom-representation">
+                            <h3 class="p-n">Poll name that is fine and is very long</h3>
+                            <p class="p-c">DG-UI94382</p>
+                            <p class="c-a">Nov. 30, 2023, 2:37 a.m</p>
+
+                            <div class="action-btns">
+                                <button class="btn-view"> <i class="fa-solid fa-up-right-from-square redirect" id="{{poll.poll_code}}"></i>View</button>
+                                <button class="btn-del"><i class="fa-regular fa-trash-can delete-poll" id="{{poll.poll_code}}" title="Delete poll"></i> Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
                 {% if polls|length >= 1 %}
                 <div class="all-polls">
                     {% for poll in polls %}
                     <div class="poll" id="{{poll.poll_code}}">
                         <div class="poll-wrapper">
+                            
                             <h3 class="poll-name">{{poll.poll_name}}</h3>
-                            <p class="poll-code"> {{poll.poll_code}}</p>
+                            <p class="poll-code"> {{poll.created_at}}</p>
                         </div>
 
                         <div class="right">

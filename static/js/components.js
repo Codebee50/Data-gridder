@@ -30,7 +30,6 @@ function transitionModal(modalId){
  * @param onCancel the function that should be executed on click of the button
  */
 function setUpAlertModalOneAction(modalId, prefix, message, onCancel, buttonText){
-    console.log('setting')
     paragraph_id = `${prefix}-alert-modal-1a-p`
     const modalParagraph = document.getElementById(paragraph_id)
     if(modalParagraph !== null){
@@ -140,7 +139,6 @@ function clearAllDynamicModals(){
     })
 }
 
-// console.log('founc a modeal')
 // let modal = document.getElementById(dynamicModal.id)
 // document.body.removeChild(modal)
 

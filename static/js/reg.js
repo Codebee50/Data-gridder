@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-    setupOpaqueModal('op-one', 'op-message-one', 'Fetching poll..') 
+    // setupOpaqueModal('op-one', 'op-message-one', 'Fetching poll..') 
 
     const mInput = document.getElementById('in-poll-code');
     const inputContainer = document.querySelector('.input-container');
@@ -8,11 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const valueIdInput = document.getElementById('value_id');
     const promptTxt = document.getElementById('prompt');
     const messageModal = document.querySelector('.message-modal');
-    const checkMark = document.getElementById('check-mark');
-    const errorMark = document.getElementById('error-mark');
     const removeMessageModal = document.getElementById('remove-message-modal');
-    const txtMessage = document.getElementById('txt-message');
-    const progressBar = document.getElementById('progress-bar');
     const responseModalCloseBtn = document.getElementById('response-close-btn')
     const btnSubmitResponse = document.getElementById('btn-submit-responses')
     
@@ -56,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (data.values !== 'empty') {
                 editMode = true;
-                // pollvalues = JSON.parse(data.values[0].fields.field_values);
                 pollvalues = JSON.parse(JSON.parse(data.values)[0].fields.field_values)
 
                 populateUi(fieldArray);
@@ -74,10 +69,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (submitForm !== null){
         submitForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            // progressBar.classList.add('visible');
-            // submitBtn.disabled = true;
-            // submitResponse()
-
             let inputValueArray = inputArray.map(item => new Input(item.name, item.value));
             oneFieldPresent = checkForValue(inputValueArray)
             if(oneFieldPresent){

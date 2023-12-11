@@ -46,8 +46,8 @@ function checkEquality(paramOne, paramTwo){
 }
 
 
-window.addEventListener('DOMContentLoaded', (event)=>{
-    console.log('Welcome to datagridder, what are you doing back here by the way?')
+window.addEventListener('DOMContentLoaded', ()=>{
+    console.log('Welcome to datagridder, what are you doing back here by the way?..')
     if(resendBtn !== null){
         startCounter()
         resendBtn.addEventListener('click', startCounter)

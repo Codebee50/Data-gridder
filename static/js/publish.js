@@ -95,7 +95,6 @@ function handleDrop(event) {
 }
 
 function getFileExtension(filename) {
-  console.log(filename);
 
   let dotIndex = filename.lastIndexOf(".");
   if (dotIndex !== -1 && dotIndex !== filename.length - 1) {
@@ -135,7 +134,6 @@ $(document).on("submit", "#publish-form", function (e) {
 
     success: function (data) {
       if (data.status == "success") {
-        console.log("setting local storage");
         localStorage.setItem("pollData", "none");
         warningContainer.classList.remove("visible");
         progressContainer.classList.remove("visible");

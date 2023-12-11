@@ -80,7 +80,7 @@ copyButtons.forEach(function(copyBtn){
     })
     .catch((error) => {
       alert('An error occured while trying to copy item');
-      console.log("error copying");
+      console.error(error)
     });
 
     
@@ -286,7 +286,6 @@ generateBtn.addEventListener("click", function () {
     isAlphabeticalOrdered = alphabeticalOrderCheck.checked.toString()
     //linkTag.href = '/downloaddoc/' + pollcode + '/' + newName + '/'
     let genDocumentName = newName.replace(/ /g, '_')
-    console.log('downloading ' + genDocumentName)
     linkTag.href =
       "/generatedoc/" + pollcode + "/" + genDocumentName + "/" + isNumbered + "/" + isAlphabeticalOrdered + "/" + factor + "/" + transverse;
     linkTag.click();
@@ -329,16 +328,13 @@ function viewDet() {
       .writeText(pollcode)
       .then(() => {
         copyPollToolTip.textContent = "Copied";
-
-        console.log("poll code copied..");
-
         setTimeout(function () {
           copyPollToolTip.textContent = "Copy poll code";
         }, 1300);
       })
       .catch((error) => {
         alert(error);
-        console.log("error copying poll code");
+        console.error(error)
       });
   });
 
@@ -353,7 +349,7 @@ function viewDet() {
         }, 1300);
       })
       .catch((error) => {
-        console.log("error copying poll code");
+        console.error(error)
       });
   });
 }

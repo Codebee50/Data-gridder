@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 :root {
   --complement_color: #393B4A;
   --background_pink:#f7f2f2 ;
@@ -631,6 +631,78 @@ html::-webkit-scrollbar {
 }
 .container #my-polls .bottom-content {
   overflow-y: scroll;
+}
+.container #my-polls .bottom-content .poll-entity-container {
+  padding: 20px;
+  display: grid;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity {
+  width: 80%;
+  max-width: 250px;
+  background-color: #F8FAFB;
+  border-radius: 5px;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation {
+  background-color: #F8FAFB;
+  width: 99%;
+  padding: 0.8rem;
+  height: 170px;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation {
+  background-color: white;
+  width: 99%;
+  padding: 0.8rem;
+  height: -moz-max-content;
+  height: max-content;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .p-n {
+  font-size: 1.2rem;
+  color: var(--complement_color);
+  font-weight: 600;
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .p-c {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-top: 5px;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .c-a {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  margin-top: 5px;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns {
+  margin-top: 10px;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns i {
+  margin-right: 2px;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: var(--complement_color);
+  padding: 0.4rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns .btn-del {
+  background-color: rgba(245, 6, 6, 0.404);
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns .btn-view {
+  background-color: rgba(0, 128, 0, 0.404);
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity:hover {
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
 }
 .container #my-polls .bottom-content .all-polls {
   display: flex;

@@ -9,6 +9,8 @@ let loadingPoll = document.querySelector('.loading-poll-div')
 const notFoundModal = document.querySelector('.not-found-modal')
 const removeNotFoundModal = document.getElementById('remove-not-found-modal')
 
+
+
  
 document.addEventListener('DOMContentLoaded', function(){
 
@@ -30,9 +32,8 @@ contactForm.addEventListener('submit', function(e){
 
     }).then(response => {
         if(!response.ok){
-            console.log('response wasnt ok')
 
-            let message = 'Something went wrong while sending the mail'
+            let message = 'Something went wrong while sending the mail, please check your internet connection and try again'
             setUpAlertModalOneAction('v2-alert-modal-1a', 'res',message, ()=>{
                 transitionModal('none')
             } , 'Ok' )
