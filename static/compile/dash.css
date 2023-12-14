@@ -676,7 +676,7 @@ html::-webkit-scrollbar {
   margin-top: 5px;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .c-a {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   opacity: 0.7;
   margin-top: 5px;
 }
@@ -700,6 +700,24 @@ html::-webkit-scrollbar {
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns .btn-view {
   background-color: rgba(0, 128, 0, 0.404);
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .buttons-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .buttons-container button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .buttons-container button i {
+  font-size: 1.2rem;
+  color: var(--complement_color);
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .buttons-container button i:hover {
+  color: red;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity:hover {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);

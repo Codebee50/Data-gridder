@@ -363,6 +363,7 @@ footer .bottom .content .side {
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
+  padding: 0.9rem;
 }
 .content-section .top-content .showcase {
   display: flex;
@@ -405,7 +406,6 @@ footer .bottom .content .side {
   display: flex;
   flex-direction: row;
   position: relative;
-  padding: 0.9rem;
   align-items: center;
 }
 .content-section .top-content .top-right a {

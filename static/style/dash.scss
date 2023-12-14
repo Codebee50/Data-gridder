@@ -524,7 +524,7 @@ html::-webkit-scrollbar{
                         }
 
                         .c-a{
-                            font-size: 0.7rem;
+                            font-size: 0.8rem;
                             opacity: 0.7;
                             margin-top: 5px;
                         }
@@ -555,6 +555,29 @@ html::-webkit-scrollbar{
                             .btn-view{
                                 background-color: rgba(0, 128, 0, 0.404);
                             }
+                        }
+
+                        .buttons-container{
+                            display: flex;
+                            align-items: flex-end;
+                            justify-content: flex-end;
+                            margin-top: 20px;
+                            button{
+                                cursor: pointer;
+                                outline: none;
+                                border: none;
+
+                                i{
+                                    font-size: 1.2rem;
+                                    color: var(--complement_color);
+                                }
+
+                                i:hover{
+                                    color: red;
+                                }
+                            }
+
+                            
                         }
 
                     }
