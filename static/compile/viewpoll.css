@@ -363,7 +363,7 @@ footer .bottom .content .side {
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0.9rem;
+  padding: 0.9rem 0.2rem;
 }
 .content-section .top-content .showcase {
   display: flex;
@@ -477,7 +477,7 @@ footer .bottom .content .side {
 .content-section .copyables .copyable p {
   color: #8E97A7;
   font-size: 0.9rem;
-  max-width: 250px;
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
