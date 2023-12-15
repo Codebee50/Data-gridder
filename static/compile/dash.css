@@ -650,13 +650,13 @@ html::-webkit-scrollbar {
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation {
   background-color: #F8FAFB;
-  width: 99%;
+  width: 99.8%;
   padding: 0.8rem;
   height: 170px;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation {
   background-color: white;
-  width: 99%;
+  width: 99.8%;
   padding: 0.8rem;
   height: -moz-max-content;
   height: max-content;
