@@ -65,9 +65,6 @@ def dashboard(request):
         print(e)
         poll_values_list = None
         registered_poll_list = None
-
-    
-
     context= {
         'user_profile' : user_profile,
         'polls': poll_values_list,
@@ -75,6 +72,12 @@ def dashboard(request):
         'contact_form': contact_form
     }
     return render(request, 'dashboard.html', context)
+
+def getuserpolls(reqeust):
+    user_id = reqeust.user.id
+    return JsonResponse({
+        'userid': user_id
+    })
 
 
 
