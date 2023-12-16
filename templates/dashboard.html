@@ -191,47 +191,53 @@
                 </div>
             </div>
             <div class="bottom-content">
-                <div class="poll-entity-container">
+                <!-- <div class="poll-entity-container">
                     <div class="poll-entity">
                         <div class="top-representation">
-    
+                            <div class="top-table-container">
+                                
+                            </div>
                         </div>
                         <div class="bottom-representation">
                             <h3 class="p-n">Poll name that is fine and is very long</h3>
                             <p class="p-c">DG-UI94382</p>
                             <p class="c-a">Published Nov 30, 2:39 am</p>
 
-                            <!-- <div class="action-btns">
-                                <button class="btn-view"> <i class="fa-solid fa-up-right-from-square redirect" id="{{poll.poll_code}}"></i>View</button>
-                                <button class="btn-del"><i class="fa-regular fa-trash-can delete-poll" id="{{poll.poll_code}}" title="Delete poll"></i> Delete</button>
-                            </div> -->
-                            <!-- <div class="buttons-container">
-                                <button class="delete-button"><i class="fa-regular fa-trash-can delete-poll" id="{{poll.poll_code}}" title="Delete poll"></i>
-                                </button>
-                            </div> -->
+                            <div class="status-indicator-container">
+                                <div class="status-indicator">
+                                    <p>open</p>
+                                </div>
+                            </div>
+                           
                         </div>
                     </div>
-                </div>
+                </div> -->
                 
                 {% if polls|length >= 1 %}
-                <div class="all-polls">
+                <div class="poll-entity-container">
                     {% for poll in polls %}
-                    <div class="poll" id="{{poll.poll_code}}">
-                        <div class="poll-wrapper">
-                            
-                            <h3 class="poll-name">{{poll.poll_name}}</h3>
-                            <p class="poll-code"> {{poll.created_at}}</p>
+                    <div class="poll-entity">
+                        <div class="top-representation">
+                            <div class="top-table-container">
+                                
+                            </div>
                         </div>
+                        <div class="bottom-representation">
+                            <h3 class="p-n">{{poll.poll_name}}</h3>
+                            <p class="p-c">{{poll.poll_code}}</p>
+                            <p class="c-a">Published {{poll.created_at}}</p>
 
-                        <div class="right">
-                            <i class="fa-solid fa-up-right-from-square redirect" id="{{poll.poll_code}}"></i>
-                            <i class="fa-regular fa-trash-can delete-poll" id="{{poll.poll_code}}" title="Delete poll"></i>
+                            <div class="status-indicator-container">
+                                <div class="status-indicator">
+                                    <p>open</p>
+                                </div>
+                            </div>
+                           
                         </div>
-                       
                     </div>
                     {% endfor %}
-                                
                 </div>
+                
                 {% else %}
                 <div class="emptiness">
                     <div class="emp-content">

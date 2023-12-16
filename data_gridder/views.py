@@ -55,6 +55,7 @@ def dashboard(request):
     current_user = request.user.username
 
     polls = Poll.objects.filter(poll_author = current_user)
+    print(polls[0].fields)
     registered_polls = PollValue.objects.filter(user_name = current_user)
     contact_form = forms.ContactForm()
     try:

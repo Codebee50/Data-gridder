@@ -631,10 +631,17 @@ html::-webkit-scrollbar {
 }
 .container #my-polls .bottom-content {
   overflow-y: scroll;
+  display: flex;
 }
 .container #my-polls .bottom-content .poll-entity-container {
-  padding: 20px;
+  width: 100%;
+  margin: auto;
+  padding: auto;
   display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  row-gap: 10px;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity {
   width: 80%;
@@ -653,6 +660,11 @@ html::-webkit-scrollbar {
   width: 99.8%;
   padding: 0.8rem;
   height: 170px;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container {
+  background-color: white;
+  width: 100%;
+  height: 100px;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation {
   background-color: white;
@@ -680,44 +692,25 @@ html::-webkit-scrollbar {
   opacity: 0.7;
   margin-top: 5px;
 }
-.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns {
-  margin-top: 10px;
-}
-.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns i {
-  margin-right: 2px;
-}
-.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns button {
-  cursor: pointer;
-  outline: none;
-  border: none;
-  color: var(--complement_color);
-  padding: 0.4rem 0.7rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-}
-.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns .btn-del {
-  background-color: rgba(245, 6, 6, 0.404);
-}
-.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .action-btns .btn-view {
-  background-color: rgba(0, 128, 0, 0.404);
-}
-.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .buttons-container {
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .status-indicator-container {
+  width: 100%;
   display: flex;
-  align-items: flex-end;
   justify-content: flex-end;
-  margin-top: 20px;
 }
-.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .buttons-container button {
-  cursor: pointer;
-  outline: none;
-  border: none;
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .status-indicator-container .status-indicator {
+  margin-top: 5px;
+  border: var(--major-green) 0.5px solid;
+  background-color: white;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.2rem 0.3rem;
+  border-radius: 20px;
+  align-self: flex-end;
+  justify-self: flex-end;
 }
-.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .buttons-container button i {
-  font-size: 1.2rem;
-  color: var(--complement_color);
-}
-.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .buttons-container button i:hover {
-  color: red;
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation .status-indicator-container .status-indicator p {
+  color: var(--major-green);
+  font-size: 0.8rem;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity:hover {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
