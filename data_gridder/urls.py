@@ -19,5 +19,6 @@ urlpatterns =[
     path('sendemail', views.sendEmail, name='sendemail'),
     path('delentry/<str:entry_id>/', views.deleteEntry, name='deleteentry'),
     path('show-current-site', views.showCurrentSite, name='showcurrentsite'),
-    path('contact-datagridder', views.contactUs, name='contact-datagridder')
+    path('contact-datagridder', views.contactUs, name='contact-datagridder'),
+    path('getuserpolls/', views.getuserpolls, name='getuserpolls')
 ]

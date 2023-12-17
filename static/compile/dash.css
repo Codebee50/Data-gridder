@@ -641,9 +641,11 @@ html::-webkit-scrollbar {
   align-items: center;
   justify-items: center;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  row-gap: 10px;
+  row-gap: 30px;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity {
+  text-decoration: none;
+  color: var(--complement_color);
   width: 80%;
   max-width: 500px;
   background-color: #F8FAFB;
@@ -656,15 +658,29 @@ html::-webkit-scrollbar {
   cursor: pointer;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation {
-  background-color: #F8FAFB;
   width: 99.8%;
-  padding: 0.8rem;
   height: 100px;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container {
-  background-color: white;
   width: 100%;
   height: 90%;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container table {
+  margin: auto;
+  display: inline-block;
+  width: 99%;
+  border-collapse: collapse;
+  overflow: hidden;
+  font-size: 0.5rem;
+  color: black;
+  height: 100%;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container table th, .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container table td {
+  border: 0.5px solid var(--complement_color);
+  text-align: center;
+  padding: 0.4rem;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation {
   background-color: white;

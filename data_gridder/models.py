@@ -28,6 +28,7 @@ class Poll(models.Model):
     poll_name = models.TextField(blank=False, default='poll_name', max_length=65)
     poll_code = models.TextField(blank=False, default='poll_code')
     poll_author = models.TextField(blank=False, default='appended_document')
+    poll_creator = models.ForeignKey(cur_user, on_delete=models.SET_NULL, null=True, blank=True)
     appended_document = models.FileField(upload_to='documents', default='sampledoc.docx')
     original_doc_name = models.TextField(blank=True, default='document_name')
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)

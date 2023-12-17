@@ -78,24 +78,48 @@ chooseFileBtn.addEventListener('click', function(e){
 })
 
 
-
 sortFile.addEventListener('change', function(){
     let filename = this.files[0].name
     docTitle.textContent = filename
 })
 
-$('document').ready(function(e){
-    $.ajax({
-        'url': '/getuservalues',
-        'type': 'GET',
-        success: (response) =>{
-            orgarnizeAccordions(response.user_values)
-        },
-        error: (response) =>{
-            console.log(response)
-        }
+// $('document').ready(function(e){
+//     $.ajax({
+//         'url': '/getuservalues',
+//         'type': 'GET',
+//         success: (response) =>{
+//             orgarnizeAccordions(response.user_values)
+//         },
+//         error: (response) =>{
+//             console.log(response)
+//         }
+//     })
+// })
+
+document.addEventListener('DOMContentLoaded', function(){
+    fetch('/getuserpolls', {
+        method: 'GET'
+    })
+    .then(response=> response.json())
+    .then(data =>{
+        console.log(data)
+    })
+    .catch(error =>{
+        console.error(error)
+    })
+    
+    fetch('/getuservalues', {//getting the values for all the polls this person has registered for 
+        method: 'GET', 
+    }).then(response=>{
+        return response.json()
+    }).then(data=>{
+        orgarnizeAccordions(data.user_values)
+        console.log(data.user_values)
+    }).catch(error=>{
+        console.error(error)
     })
 })
+
 
 
 document.getElementById('cancel-del-entry').addEventListener('click', function(e){
@@ -777,6 +801,8 @@ function clear(){
     idValue = 0
     createNewField(false)
 }
+
+
 
 
 

@@ -74,10 +74,39 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 def getuserpolls(reqeust):
-    user_id = reqeust.user.id
-    return JsonResponse({
-        'userid': user_id
-    })
+    for poll in Poll.objects.filter(poll_creator__isnull = True):
+        try:
+            user = User.objects.get(username = poll.poll_author)
+            poll.poll_creator = user
+            poll.save()
+            print(f'Creator updated for {poll.poll_author}')
+        except User.DoesNotExist:
+            pass
+
+    print('All creators updated successfully')
+
+    user_id = reqeust.user.id#getting the id of the user 
+    try: 
+        user_object = User.objects.get(id = user_id)
+    except User.DoesNotExist:
+        return JsonResponse({
+            'status': 500,
+            'message': 'User does not exist'
+        }, status=500)
+    
+    polls = Poll.objects.filter(poll_creator = user_object)
+
+    try: 
+        poll_list = list(polls.values())
+    except Exception as e:
+        print(e)
+        poll_list = None
+
+    context = {
+        'status': 200, 
+        'polls': poll_list
+    }
+    return JsonResponse(context, status=200)
 
 
 

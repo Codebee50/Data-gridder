@@ -216,22 +216,37 @@
                 {% if polls|length >= 1 %}
                 <div class="poll-entity-container">
                     {% for poll in polls %}
-                    <div class="poll-entity">
+                    <a class="poll-entity" href="/viewpoll/{{poll.poll_code}}/">
                         <div class="top-representation">
                             <div class="top-table-container">
-                                
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Registration number</th>
+                                            <th>Firstname</th>
+                                            <th>lastname</th>
+                                            <th>email</th>
+                                            <th>phone number</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div class="bottom-representation">
                             <h3 class="p-n">{{poll.poll_name}}</h3>
                             <p class="p-c">{{poll.poll_code}}</p>
                             <p class="c-a">Published {{poll.created_at}}</p>
-                            <!-- {% for pollfield in poll.fields %}
-                            <p class="c-a">{{pollfield}}</p>
-                            {% endfor %} -->
-
-                            <!-- <p class="c-a">{{poll.fields}}</p> -->
-
 
                             <div class="status-indicator-container">
                                 <div class="status-indicator">
@@ -240,7 +255,7 @@
                             </div>
                            
                         </div>
-                    </div>
+                    </a>
                     {% endfor %}
                 </div>
                 
@@ -529,7 +544,7 @@
         </div>
     </div>    
 
-    
+
 
     <script src="{% static 'js/components.js' %}"></script>
     <script src="{% static 'js/poll.js' %}"></script>
