@@ -658,29 +658,36 @@ html::-webkit-scrollbar {
   cursor: pointer;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation {
+  background-image: url(/static/img/gridder_light_grey.svg);
+  background-repeat: no-repeat;
+  background-size: 80px;
+  background-position: center;
   width: 99.8%;
-  height: 100px;
+  height: 150px;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container {
   width: 100%;
-  height: 90%;
+  height: 95%;
+  overflow-y: auto;
+  display: flex;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container table {
   margin: auto;
   display: inline-block;
-  width: 99%;
   border-collapse: collapse;
-  overflow: hidden;
   font-size: 0.5rem;
-  color: black;
-  height: 100%;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container table th, .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container table td {
   border: 0.5px solid var(--complement_color);
+  color: var(--complement_color);
   text-align: center;
   padding: 0.4rem;
   overflow: hidden;
   white-space: nowrap;
+}
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container::-webkit-scrollbar {
+  width: 0;
+  background-color: transparent;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .bottom-representation {
   background-color: white;

@@ -484,18 +484,15 @@ html::-webkit-scrollbar{
                 width: 100%;
                 margin: auto;
                 padding: auto;
-                // padding: 20px;
                 display: grid;
                 align-items: center;
                 justify-items: center;
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                // grid-template-columns: repeat(3, 1fr);
                 row-gap: 30px;
 
                 .poll-entity{
                     text-decoration: none;
                     color: var(--complement_color);
-
                     width: 80%;
                     max-width: 500px;
                     background-color:#F8FAFB;
@@ -509,27 +506,30 @@ html::-webkit-scrollbar{
 
                     .top-representation{
                         // background-color: #F8FAFB;
+                        background-image: url(/static/img/gridder_light_grey.svg);
+                        background-repeat: no-repeat;
+                        background-size: 80px;
+                        background-position:center;
                         width: 99.8%;
                         // padding: 0.5rem;
-                        height: 100px;
+                        height: 150px;
 
                         .top-table-container{                        
-                            // background-color: white;
                             width: 100%;
-                            height: 90%;
+                            height: 95%;
+                            // overflow-x: auto;
+                            overflow-y: auto;
+                            display: flex;
+                          
 
                             table{
                                 margin:auto;
                                 display: inline-block;
-                                width: 99%;
                                 border-collapse: collapse;
-                                overflow: hidden;
                                 font-size: 0.5rem;
-                                color: black;
-                                height: 100%;
                                 th, td{
                                     border: 0.5px solid var(--complement_color);
-
+                                    color: var(--complement_color);
                                     text-align: center;
                                     padding: 0.4rem;
                                     overflow: hidden;
@@ -539,6 +539,12 @@ html::-webkit-scrollbar{
                                 }
                             }
                         } 
+
+                        
+                        .top-table-container::-webkit-scrollbar{
+                            width: 0;
+                            background-color: transparent;
+                        }
                     }
 
                     .bottom-representation{
