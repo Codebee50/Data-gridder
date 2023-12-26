@@ -246,29 +246,32 @@ $button_green: #45987e;
 
     .table-ops{
         margin-top: 20px;
-
-        .people-count{
-            opacity: 0.7;
+        width: 100%;
+        .poll-ops-info{
+            width: 100%;
+            .people-count{
+                opacity: 0.7;
+                
+            }
         }
+        
     }
+    
     .table-container{
-        margin-top: 5px;
-        // padding: 1.3rem 0;
+        margin-top: 15px;
         width: 100%;
         overflow-x: auto;  
         position: relative;
         
         table{
-        
+            
             padding: 1.7rem;
             width: 100%;
-            max-width: 750px;
+            max-width: 800px;
             border-collapse: collapse;
-            // min-width: 300px;
             font-size: 0.9rem;
-            // margin: auto;
-            // width: max-content;
             white-space: nowrap;
+            table-layout: fixed;
             
         }
         #empty-header{
@@ -276,8 +279,9 @@ $button_green: #45987e;
         }
     
         th, td {
+            width:100% ;
             border: 0.5px solid black;
-            text-align: center;
+            text-align: left;
             padding: 0.7rem;
             color: var(--complement_color);
             

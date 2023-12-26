@@ -80,11 +80,16 @@
         </div>
 
         <div class="table-ops">
-             {% if peoplecount == 1 %}
+            
+            <div class="poll-ops-info">
+                {% if peoplecount == 1 %}
                 <p id="people-count" class="people-count"><b>{{peoplecount}}</b> participant</p>
                 {% else %}
                 <p id="people-count" class="people-count"><b>{{peoplecount}}</b> participants</p>
-                {% endif %}            
+                {% endif %}    
+            </div>
+                   
+
             <div class="table-container">
                 <!-- this will hold the table, it will be populated from publish.js  -->
     

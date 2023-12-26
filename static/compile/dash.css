@@ -684,6 +684,7 @@ html::-webkit-scrollbar {
   padding: 0.4rem;
   overflow: hidden;
   white-space: nowrap;
+  min-width: 150px;
 }
 .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container::-webkit-scrollbar {
   width: 0;

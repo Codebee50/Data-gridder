@@ -493,12 +493,16 @@ footer .bottom .content .side {
 }
 .content-section .table-ops {
   margin-top: 20px;
+  width: 100%;
 }
-.content-section .table-ops .people-count {
+.content-section .table-ops .poll-ops-info {
+  width: 100%;
+}
+.content-section .table-ops .poll-ops-info .people-count {
   opacity: 0.7;
 }
 .content-section .table-container {
-  margin-top: 5px;
+  margin-top: 15px;
   width: 100%;
   overflow-x: auto;
   position: relative;
@@ -506,17 +510,19 @@ footer .bottom .content .side {
 .content-section .table-container table {
   padding: 1.7rem;
   width: 100%;
-  max-width: 750px;
+  max-width: 800px;
   border-collapse: collapse;
   font-size: 0.9rem;
   white-space: nowrap;
+  table-layout: fixed;
 }
 .content-section .table-container #empty-header {
   width: 3rem;
 }
 .content-section .table-container th, .content-section .table-container td {
+  width: 100%;
   border: 0.5px solid black;
-  text-align: center;
+  text-align: left;
   padding: 0.7rem;
   color: var(--complement_color);
 }
