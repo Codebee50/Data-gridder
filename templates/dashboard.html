@@ -216,29 +216,10 @@
                 {% if polls|length >= 1 %}
                 <div class="poll-entity-container">
                     {% for poll in polls %}
-                    <a class="poll-entity" href="/viewpoll/{{poll.poll_code}}/">
+                    <a class="poll-entity" href="/viewpoll/{{poll.poll_code}}/" id="poll-{{poll.id}}">
                         <div class="top-representation">
-                            <div class="top-table-container">
-                                <table>
-                                    
-                                    <tbody>
-                                        <tr>
-                                            <td>Registration number that is long</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Name</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Email</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Date of birth</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="top-table-container" id="table-con-{{poll.id}}">
+                            
                             </div>
                         </div>
                         <div class="bottom-representation">

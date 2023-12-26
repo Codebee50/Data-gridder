@@ -77,32 +77,37 @@ chooseFileBtn.addEventListener('click', function(e){
     sortFile.click()
 })
 
-
 sortFile.addEventListener('change', function(){
     let filename = this.files[0].name
     docTitle.textContent = filename
 })
 
-// $('document').ready(function(e){
-//     $.ajax({
-//         'url': '/getuservalues',
-//         'type': 'GET',
-//         success: (response) =>{
-//             orgarnizeAccordions(response.user_values)
-//         },
-//         error: (response) =>{
-//             console.log(response)
-//         }
-//     })
-// })
+function populateTablesUi(polls){
+    polls.forEach(function(poll){
+        tableContainer= document.getElementById(`table-con-${poll.id}`)//getting the corresponding table container for this poll 
+        tableContainer.innerHTML = ''
+        let table = `<table><tbody>`//opening the table tag
+       JSON.parse(poll.fields).forEach(function(field){
+            //populating the table with table rows
+            table += `<tr>
+                    <td>${field.name}</td>
+                </tr>`
+        })
+
+        table += `</tbody></table>`//closing the table tag
+        tableContainer.insertAdjacentHTML('afterbegin', table)
+    })
+
+}
 
 document.addEventListener('DOMContentLoaded', function(){
-    fetch('/getuserpolls', {
+    fetch('/getuserpolls', {//Getting all the polls this person has created 
         method: 'GET'
     })
     .then(response=> response.json())
     .then(data =>{
         console.log(data)
+        populateTablesUi(data.polls)
     })
     .catch(error =>{
         console.error(error)
@@ -114,13 +119,18 @@ document.addEventListener('DOMContentLoaded', function(){
         return response.json()
     }).then(data=>{
         orgarnizeAccordions(data.user_values)
-        console.log(data.user_values)
     }).catch(error=>{
         console.error(error)
     })
 })
 
 
+
+function parseJsonString(parseString){
+    parsed = JSON.parse(parseString)
+    console.log(parsed)
+    return parsed
+}
 
 document.getElementById('cancel-del-entry').addEventListener('click', function(e){
     deleteEntryModal.classList.remove('visible')
