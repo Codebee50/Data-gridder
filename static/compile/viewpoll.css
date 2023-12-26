@@ -14,6 +14,8 @@
   --generic-grey: #f4f4f3;
   --default-modal-padding: 50px;
   --disabled-button-color: #cfd9de;
+  --soft-grey: #8A9099;
+  --soft-red: #EC6249;
 }
 
 body {
@@ -497,9 +499,105 @@ footer .bottom .content .side {
 }
 .content-section .table-ops .poll-ops-info {
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 .content-section .table-ops .poll-ops-info .people-count {
   opacity: 0.7;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .delete-poll-button {
+  background-color: var(--soft-red);
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.6rem 0.7rem;
+  margin-left: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .delete-poll-button i {
+  color: white;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .delete-poll-button p {
+  color: white;
+  margin-left: 0.4rem;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container {
+  position: relative;
+  width: 160px;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container .btn-drop {
+  width: 100%;
+  background-color: white;
+  outline: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.9rem;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  border: 0.4px solid var(--soft-grey);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container .btn-drop p {
+  color: #757570;
+  font-weight: 600;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container .btn-drop i {
+  font-size: 0.85rem;
+  color: var(--soft-grey);
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container .drop-options {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  z-index: 999;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.1rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container .drop-options .line-hor {
+  width: 90%;
+  height: 0.5px;
+  background-color: var(--soft-grey);
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container .drop-options .drop-option {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.9rem 0.5rem;
+  cursor: pointer;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container .drop-options .drop-option i {
+  color: var(--soft-grey);
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container .drop-options .drop-option p {
+  margin-left: 0.5rem;
+  font-size: 0.85rem;
+  color: #62666F;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container .drop-options .drop-option.selected i {
+  color: var(--major-green);
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-container > .btn-drop:focus + .drop-options {
+  opacity: 1;
+  transform: translateY(0);
 }
 .content-section .table-container {
   margin-top: 15px;

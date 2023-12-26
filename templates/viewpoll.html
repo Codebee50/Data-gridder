@@ -13,7 +13,8 @@
     <title>{{poll.poll_name}} | View poll</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
-
+    <!--=============== REMIX ICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
     
@@ -87,6 +88,35 @@
                 {% else %}
                 <p id="people-count" class="people-count"><b>{{peoplecount}}</b> participants</p>
                 {% endif %}    
+
+                <div class="right-ops-container">
+                    <div class="change-status-container">
+                        <button class="btn-drop">
+                            <p>Change status</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </button>
+
+
+                        <div class="drop-options">
+                            <div class="drop-option selected">
+                                <i class="ri-lock-unlock-line"></i>
+                                <p>Open</p>
+                            </div>
+
+                            <div class="line-hor"></div>
+
+                            <div class="drop-option selected">
+                                <i class="ri-lock-line"></i>
+                                <p>Lock</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="delete-poll-button">
+                        <i class="ri-delete-bin-line"></i>
+                        <p>Delete</p>
+                    </button>
+                </div>
             </div>
                    
 
