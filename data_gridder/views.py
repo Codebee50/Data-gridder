@@ -539,7 +539,7 @@ def deletePoll(request, pollcode):
         poll.delete()
         context = {
             'status': 'success',
-             'message': 'Poll deleted'
+             'message': 'Poll deleted successfully'
         }
         return JsonResponse(context)
     else:

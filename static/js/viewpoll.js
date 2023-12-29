@@ -50,16 +50,18 @@ function deletePoll(pollcode){
     method: 'GET'
   }).then(response => response.json())
   .then(data => {
-    showAlertModalOneAction(data.message, function(){
-      window.location.href = '/dashboard'
-    })
+  
+    localStorage.setItem('just-deleted', data.message)
+    window.location.href = '/dashboard'
    
   })
   .catch(error => {
     console.error(error)
-    showAlertModalOneAction(data.message, function(){
-      window.location.href = '/dashboard'
-    })
+    // showAlertModalOneAction(data.message, function(){
+    //   window.location.href = '/dashboard'
+    // })
+    localStorage.setItem('just-deleted', 'An error occured while deleting poll')
+    window.location.href = '/dashboard'
   })
 }
 
