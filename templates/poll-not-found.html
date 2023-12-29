@@ -1,11 +1,89 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page not found | Datagridder</title>
+
+     <!-- My custom stylesheets -->
+     <link rel="stylesheet" href="{% static 'compile/notfound.css' %}" type="text/css">
+
 </head>
 <body>
-    
+    <section class="main-section">
+        <img src="{% static 'img/404-image.svg' %}" alt="">
+
+        <div class="bottom-content">
+            <h2>Oops!, couldnt find that page</h2>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <div class="head">
+            <div class="f-one">
+                <div class="content">
+                    <div class="gridder">
+                        <img src="{% static 'img/or_icon.svg' %}" alt="Gridder image">
+                        <h3 class="name-text">Data Gridder</h3>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="f-two a-list">
+                <div class="content">
+                    <p class="title">Discover</p>
+                
+                    <a href="/" class="active">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Contact us</a>
+                    <a href="#get-input">Find poll</a>
+                    <a href="#">Docs</a></li>
+                    <a href="/dashboard">Dashboard</a>
+                </div>
+            </div>
+
+            <div class="f-three a-list">
+                <div class="content">
+                    <p class="title">Activity</p>
+                
+                    <a href="/" class="active">My polls</a>
+                    <a href="#">Registered polls</a>
+                    <a href="#">New poll</a>
+                    <a href="#get-input">Contact us</a>
+                    
+                </div>
+            </div>
+
+            <div class="f-four">
+                <div class="content">
+                    <div class="follow-us">
+                        <p class="title">Folow us </p>
+                        <div class="icon-list">
+                            <i class="fa-brands fa-linkedin"></i>
+                            <a href="https://twitter.com/CodeBee50" target="_blank"> <i class="fa-brands fa-twitter end"></i></a>
+                           
+                        </div>
+                    </div>
+                    <div class="images-by">
+                       <p>Images by</p>
+                       <img src="{%static 'img/free-icon.svg' %}" alt="">
+                       <a href="https://www.freepik.com/" target="_blank">www.freepick.com</a>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom">
+            <div class="content">
+                <p>Copyright @2023 </p>
+                <img src="{% static 'img/codebee.svg'%}" alt="codebeeimg" class="side">
+                <p class="side">All rights reserved</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
