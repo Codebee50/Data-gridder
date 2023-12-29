@@ -300,14 +300,48 @@ footer .bottom .content .side {
 }
 
 .main-section {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding-top: 30px;
 }
 .main-section img {
   width: 85%;
   max-width: 600px;
+}
+.main-section .bottom-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  text-align: center;
+}
+.main-section .bottom-message h1 {
+  font-size: 1.7rem;
+  color: var(--complement_color);
+}
+.main-section .bottom-message p {
+  text-align: center;
+  color: var(--complement_color);
+  margin-top: 10px;
+  width: 85%;
+  max-width: 600px;
+}
+.main-section .bottom-message .button-links {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.main-section .bottom-message .button-links button {
+  background-color: #EE9730;
+}
+.main-section .bottom-message .button-links .link-dashboard {
+  margin-left: 0.9rem;
+  color: var(--soft-grey);
 }
 
 @media screen and (max-width: 900px) {

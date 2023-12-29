@@ -14,8 +14,17 @@
     <section class="main-section">
         <img src="{% static 'img/404-image.svg' %}" alt="">
 
-        <div class="bottom-content">
-            <h2>Oops!, couldnt find that page</h2>
+        <div class="bottom-message">
+            <h1>Oops!, couldnt find that page</h1>
+            <p>The page you're looking for seems to have taken a detour. Please check the URL or head back to the homepage.</p>
+
+            <div class="button-links">
+                <a href="/">
+                    <button class="button-one">Back to home</button>
+                </a>
+
+                <a href="/dashboard" class="link-dashboard">Dashboard</a>
+            </div>
         </div>
     </section>
 
