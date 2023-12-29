@@ -38,12 +38,14 @@
             <div class="top-right">
                 
                 <div class="generate-btn" id="generate-btn" title="Download document">
-                    <i class="fa-solid fa-download"></i>
+                    <i class="ri-download-2-line"></i>
+                    <!-- <i class="fa-solid fa-download"></i> -->
                     <!-- <p>Download</p> -->
                 </div>
     
                 <div class="settings-btn" id="edit-poll" title="Settings">
-                    <i class="fa-solid fa-gear"></i>
+                    <i class="ri-settings-2-line"></i>
+                    <!-- <i class="fa-solid fa-gear"></i> -->
                     <!-- <p>Settings</p> -->
                 </div>
 
@@ -90,7 +92,7 @@
                 {% endif %}    
 
                 <div class="right-ops-container">
-                    <div class="change-status-container">
+                    <!-- <div class="change-status-container">
                         <button class="btn-drop">
                             <p>Change status</p>
                             <i class="fa-solid fa-angle-down"></i>
@@ -110,9 +112,13 @@
                                 <p>Lock</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <button class="delete-poll-button">
+                    <button class="change-status-button op-btn">
+                        <i class="ri-lock-line"></i>
+                        <p>Locked</p>
+                    </button>
+                    <button class="delete-poll-button op-btn" onclick="transitionModal('v2-delete-poll-warning')">
                         <i class="ri-delete-bin-line"></i>
                         <p>Delete</p>
                     </button>
@@ -128,7 +134,34 @@
         
     </section>
     
+    <div class="modal-section" id="v2-delete-poll-warning">
+        <div class="modal-content delete-poll-content" >
+            <i class="ri-close-line cancel-delete-icon" onclick="transitionModal('none')"></i>
 
+            <h3>Delete poll?</h3>
+            <p class="delete-warning-msg">Are you sure to delete this poll from the datagridder platform?</p>
+
+            <div class="warning-container">
+                <div class="top-warning">
+                    <i><i class="ri-alert-fill"></i></i>
+                    <h4>Warning</h4>
+
+                </div>
+                <p>By deleting this poll, <b>{{peoplecount}}</b> participant records will also be permanently deleted. This action is irreversible!. </p>
+            </div>
+
+            <div class="buttons-container">
+                <button class="cancel-btn" onclick="transitionModal('none')">
+                    Cancel
+                </button>
+                <button class="delete-btn" id="btn-delete-poll" data-pollcode="{{poll.poll_code}}">
+                    <i class="ri-delete-bin-line" ></i>Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+   
   
     <div class="modal-container">
             <div class="modal-box">
@@ -341,6 +374,7 @@
     </div>
 </form>
 
+    <script src="{% static 'js/components.js' %}"></script>
 
     <script src="{% static 'js/viewpoll.js' %}"></script>
 </body>

@@ -105,7 +105,7 @@ $button_green: #45987e;
             }
 
             i{
-              
+                font-size: 1.1rem;
               display: block;
               color: rgb(77, 76, 76);
             }
@@ -124,6 +124,7 @@ $button_green: #45987e;
             }
 
             i{
+                font-size: 1.1rem;
               display: block;
               color: rgb(77, 76, 76);
 
@@ -263,8 +264,7 @@ $button_green: #45987e;
                 flex-direction: row;
                 align-items: center;
                 
-                .delete-poll-button{
-                    background-color: var(--soft-red);
+                .op-btn{
                     border: none;
                     display: flex;
                     flex-direction: row;
@@ -273,13 +273,30 @@ $button_green: #45987e;
                     margin-left: 0.9rem;
                     border-radius: 6px;
                     cursor: pointer;
-                    i{
-                        color: white;
-                    }
+
                     p{
-                        color: white;
                         margin-left: 0.4rem;
                     }
+                   
+                }
+
+                .change-status-button{
+                    background-color: white;
+                    border: 0.5px var(--soft-grey) solid;
+
+
+                    i, p{
+                        color: var(--complement_color);
+                    }
+                    
+                }
+
+                .delete-poll-button{
+                    background-color: var(--soft-red);
+                    i, p{
+                        color: white;
+                    }
+
                 }
                 .change-status-container{
                     position: relative;
@@ -380,16 +397,15 @@ $button_green: #45987e;
             border-collapse: collapse;
             font-size: 0.9rem;
             white-space: nowrap;
-            table-layout: fixed;
-            
+            // table-layout: fixed;            
         }
         #empty-header{
             width: 3rem;
         }
     
         th, td {
-            width:100% ;
-            border: 0.5px solid black;
+            width: max-content;
+            border: 0.5px solid var(--soft-grey);
             text-align: left;
             padding: 0.7rem;
             color: var(--complement_color);
@@ -662,6 +678,89 @@ $button_green: #45987e;
 }
 
 
+.delete-poll-content{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+   position: relative;
+
+   .cancel-delete-icon{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.9rem;
+    font-size: 1.2rem;
+    color: var(--soft-grey);
+    cursor: pointer;
+
+   }
+
+   
+   .delete-warning-msg{
+        font-size: 0.9rem;
+        margin-top: 10px;
+   }
+
+   .warning-container{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        background-color: #FBEEDF;
+        border-radius: 5px;
+        padding: .5rem;
+        .top-warning{
+            display: flex;
+            flex-direction: row;
+            h4{
+                font-size: 0.9rem;
+                color: var(--soft-red2);
+                margin-left: 5px;
+
+            }
+
+            i{
+                color: var(--soft-red2);
+            }
+        }
+
+        p{
+            text-align: start;
+            font-size: 0.85rem;
+            color: var(--soft-red2);
+            margin-top: 2px;
+        }
+   }
+
+   .buttons-container{
+    margin-top: 20px;
+    button{
+        cursor: pointer;
+    }
+    .cancel-btn{
+        background-color: white;
+        border: 0.5px solid var(--soft-grey);
+        outline: none;
+        border-radius: 5px;
+        padding: 0.4rem;
+        color: var(--complement_color);
+    }
+    .delete-btn{
+        margin-left: 7px;
+        background-color: #B83229;
+        color: white;
+        padding: 0.6rem;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        display: inline-flex;
+        i{
+            margin-right: 5px;
+        }
+    }
+   }
+}
 
 .modal-container{
     background-color: rgba(0,0,0,0.3);

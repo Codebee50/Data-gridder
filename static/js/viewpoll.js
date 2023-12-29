@@ -26,18 +26,45 @@ const viewDetails = document.getElementById("see-details");
 const displayDetailsModal = document.getElementById("display-details-modal");
 const removeDetails = document.getElementById("btn-done");
 const domainInput = document.getElementById("domain");
-const orderFactor = document.getElementById('order-factor')
-const alphabeticalOrderCheck = document.getElementById('alph-order')
-const copyButtons = document.querySelectorAll('.btn-copy')
+const orderFactor = document.getElementById("order-factor");
+const alphabeticalOrderCheck = document.getElementById("alph-order");
+const copyButtons = document.querySelectorAll(".btn-copy");
+const deletePollBtn = document.getElementById("btn-delete-poll");
 
-let factor = 'none'//this is holds if what we want to order the list by 
-let transverse = 'asc' //this indicates if the list should be ascending or descending
+let factor = "none"; //this is holds if what we want to order the list by
+let transverse = "asc"; //this indicates if the list should be ascending or descending
 removeDetails.addEventListener("click", removeDet);
 
 let poll;
 
-// const pollname = document.getElementById('')
 
+deletePollBtn.addEventListener("click", function () {
+  showDynamicLoadingModal('Deleting poll...')//show loading modal
+
+  //send request to delete poll 
+  deletePoll(this.dataset.pollcode)
+});
+
+
+function deletePoll(pollcode){
+  fetch(`/deletepoll/${pollcode}/`, {
+    method: 'GET'
+  }).then(response => response.json())
+  .then(data => {
+    showAlertModalOneAction(data.message, function(){
+      window.location.href = '/dashboard'
+    })
+   
+  })
+  .catch(error => {
+    console.error(error)
+    showAlertModalOneAction(data.message, function(){
+      window.location.href = '/dashboard'
+    })
+  })
+}
+
+//TODO: replace this with normal fecth request
 $("document").ready(function (e) {
   $.ajax({
     type: "GET",
@@ -50,6 +77,7 @@ $("document").ready(function (e) {
     },
   });
 });
+
 
 changeText.addEventListener("click", function () {
   fileInput.click();
@@ -64,32 +92,28 @@ editPoll.addEventListener("click", function () {
   content.classList.add("visible");
 });
 
-copyButtons.forEach(function(copyBtn){
-  copyBtn.addEventListener('click', function(){
-    const oldTextContent = this.textContent
-    txtId = `txt-${this.id}`
-    const textToCopy = document.getElementById(txtId).textContent//getting the id of the paragraph tag where the text to be copied is in
+copyButtons.forEach(function (copyBtn) {
+  copyBtn.addEventListener("click", function () {
+    const oldTextContent = this.textContent;
+    txtId = `txt-${this.id}`;
+    const textToCopy = document.getElementById(txtId).textContent; //getting the id of the paragraph tag where the text to be copied is in
 
     navigator.clipboard
-    .writeText(textToCopy)
-    .then(() => {
-      copyBtn.textContent = "Copied";
-      setTimeout(function () {
-        copyBtn.textContent = oldTextContent;
-      }, 1300);
-    })
-    .catch((error) => {
-      alert('An error occured while trying to copy item');
-      console.error(error)
-    });
-
-    
-  })
-})
+      .writeText(textToCopy)
+      .then(() => {
+        copyBtn.textContent = "Copied";
+        setTimeout(function () {
+          copyBtn.textContent = oldTextContent;
+        }, 1300);
+      })
+      .catch((error) => {
+        alert("An error occured while trying to copy item");
+        console.error(error);
+      });
+  });
+});
 
 // viewDetails.addEventListener("click", viewDet);
-
-
 
 removeModal.addEventListener("click", function () {
   modal.classList.remove("visible");
@@ -176,25 +200,22 @@ function makeTable(data) {
     fileName.textContent = originalDocumentName;
   }
   let fields = JSON.parse(poll[0].fields.fields);
-  
 
   fields.forEach(function (field) {
     table += "<th>" + field.name + "</th>";
-    if(field.datatype !== 'empty'){
+    if (field.datatype !== "empty") {
+      const optionElementAcending = document.createElement("option");
+      optionElementAcending.value = field.name;
+      optionElementAcending.text = field.name + " (Ascending)";
+      optionElementAcending.id = "asc";
+      orderFactor.appendChild(optionElementAcending);
 
-      const optionElementAcending = document.createElement('option')
-      optionElementAcending.value = field.name
-      optionElementAcending.text = field.name + ' (Ascending)'
-      optionElementAcending.id = 'asc'
-      orderFactor.appendChild(optionElementAcending)
-
-      const optionElementDescending = document.createElement('option')
-      optionElementDescending.value = field.name
-      optionElementDescending.text = field.name + ' (Descending)'
-      optionElementDescending.id = 'desc'
-      orderFactor.appendChild(optionElementDescending)
+      const optionElementDescending = document.createElement("option");
+      optionElementDescending.value = field.name;
+      optionElementDescending.text = field.name + " (Descending)";
+      optionElementDescending.id = "desc";
+      orderFactor.appendChild(optionElementDescending);
     }
- 
   });
 
   //close the tr for the table head, close the table head and open the table body
@@ -217,30 +238,24 @@ function makeTable(data) {
   table += "</table>";
   tableCon.innerHTML = table;
 
-  alphabeticalOrderCheck.addEventListener('change', function(){
-    if(alphabeticalOrderCheck.checked){
-      factor = orderFactor.value
-      transverse = orderFactor.id
+  alphabeticalOrderCheck.addEventListener("change", function () {
+    if (alphabeticalOrderCheck.checked) {
+      factor = orderFactor.value;
+      transverse = orderFactor.id;
+    } else {
+      factor = "none";
     }
-    else{
-      factor = 'none'
+  });
+
+  orderFactor.addEventListener("change", () => {
+    if (alphabeticalOrderCheck.checked) {
+      factor = orderFactor.value;
+      transverse = orderFactor.id;
     }
-  })
-
-
-  orderFactor.addEventListener('change', ()=>{
-    if(alphabeticalOrderCheck.checked){
-      factor = orderFactor.value
-      transverse = orderFactor.id
-    }
-  })
-
-   
+  });
 }
 
-
 generateBtn.addEventListener("click", function () {
-
   downloadAlert.classList.remove("visible");
   downloadContent.classList.add("visible");
   downloadModel.classList.add("visible");
@@ -252,7 +267,7 @@ generateBtn.addEventListener("click", function () {
   const txtFileName = document.getElementById("txt-file-name");
   const downloadBtn = document.getElementById("download-btn");
   const isNumberedCheck = document.getElementById("number-document");
-  
+
   let linkTag = document.getElementById("download-link-tag");
 
   let newName = poll[0].fields.original_doc_name;
@@ -280,14 +295,24 @@ generateBtn.addEventListener("click", function () {
     }
   });
 
-  
   downloadBtn.addEventListener("click", function () {
     isNumbered = isNumberedCheck.checked.toString();
-    isAlphabeticalOrdered = alphabeticalOrderCheck.checked.toString()
+    isAlphabeticalOrdered = alphabeticalOrderCheck.checked.toString();
     //linkTag.href = '/downloaddoc/' + pollcode + '/' + newName + '/'
-    let genDocumentName = newName.replace(/ /g, '_')
+    let genDocumentName = newName.replace(/ /g, "_");
     linkTag.href =
-      "/generatedoc/" + pollcode + "/" + genDocumentName + "/" + isNumbered + "/" + isAlphabeticalOrdered + "/" + factor + "/" + transverse;
+      "/generatedoc/" +
+      pollcode +
+      "/" +
+      genDocumentName +
+      "/" +
+      isNumbered +
+      "/" +
+      isAlphabeticalOrdered +
+      "/" +
+      factor +
+      "/" +
+      transverse;
     linkTag.click();
     downloadAlert.classList.add("visible");
     downloadContent.classList.remove("visible");
@@ -319,8 +344,6 @@ function viewDet() {
   const copyPollToolTip = document.getElementById("cpc-tool-tip");
   const cplToolTip = document.getElementById("cpl-tool-tip");
 
-
-
   copyPollCode.addEventListener("click", function () {
     //copy the poll code to clipboard
 
@@ -334,7 +357,7 @@ function viewDet() {
       })
       .catch((error) => {
         alert(error);
-        console.error(error)
+        console.error(error);
       });
   });
 
@@ -349,11 +372,10 @@ function viewDet() {
         }, 1300);
       })
       .catch((error) => {
-        console.error(error)
+        console.error(error);
       });
   });
 }
-
 
 function removeDet() {
   displayDetailsModal.classList.remove("visible");

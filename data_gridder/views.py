@@ -374,11 +374,13 @@ def viewPoll(request, pollcode):
             'pollvalues': list(pollValues.values()),
             'domain': current_site
         }
-
         return JsonResponse(context)
     else:
-        poll = Poll.objects.get(poll_code= pollcode)
-        
+        try:
+            poll = Poll.objects.get(poll_code= pollcode)
+        except ObjectDoesNotExist:
+            return render(request, 'poll-not-found.html')
+            
         pollValues = PollValue.objects.filter(poll_code=pollcode)
         peopleCount = len(pollValues)
         context = {
@@ -387,6 +389,7 @@ def viewPoll(request, pollcode):
             'peoplecount': peopleCount,
             'domain': current_site
         }
+
         return render(request, 'viewpoll.html', context)
     
 @login_required(login_url= 'login')

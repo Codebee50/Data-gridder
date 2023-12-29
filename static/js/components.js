@@ -77,11 +77,12 @@ function setupLoadingModal(modalId, messageTxtId, message){
 
 
 function showDynamicLoadingModal(message){
+    transitionModal('none')
     const loadingDiv = document.createElement('div')
     loadingDiv.classList.add('dynamic-d-div')
     const loadingElement = ` <div class="modal-section visible dynamic-modal-section" id="dynamic-loading-001" >
     <div class="modal-content v1-loading-modal-content uncan-modal-con visible">
-        <img src="/static/img/loading.gif" alt="loading-image">
+        <img src="/static/img/spinner.gif" alt="loading-image">
         <p class="loading-text" id="loading-text">${message}</p>
     </div>
     </div>`   

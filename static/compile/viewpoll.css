@@ -16,6 +16,7 @@
   --disabled-button-color: #cfd9de;
   --soft-grey: #8A9099;
   --soft-red: #EC6249;
+  --soft-red2: #9F3418;
 }
 
 body {
@@ -90,13 +91,12 @@ h1, h2, h3, h4 {
 
 .uncan-modal-con {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
 }
 .uncan-modal-con img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
 }
 .uncan-modal-con p {
   margin-top: 0.9rem;
@@ -390,6 +390,7 @@ footer .bottom .content .side {
   display: none;
 }
 .content-section .top-content .generate-btn i {
+  font-size: 1.1rem;
   display: block;
   color: rgb(77, 76, 76);
 }
@@ -401,6 +402,7 @@ footer .bottom .content .side {
   display: none;
 }
 .content-section .top-content .settings-btn i {
+  font-size: 1.1rem;
   display: block;
   color: rgb(77, 76, 76);
 }
@@ -512,8 +514,7 @@ footer .bottom .content .side {
   flex-direction: row;
   align-items: center;
 }
-.content-section .table-ops .poll-ops-info .right-ops-container .delete-poll-button {
-  background-color: var(--soft-red);
+.content-section .table-ops .poll-ops-info .right-ops-container .op-btn {
   border: none;
   display: flex;
   flex-direction: row;
@@ -523,12 +524,21 @@ footer .bottom .content .side {
   border-radius: 6px;
   cursor: pointer;
 }
-.content-section .table-ops .poll-ops-info .right-ops-container .delete-poll-button i {
-  color: white;
-}
-.content-section .table-ops .poll-ops-info .right-ops-container .delete-poll-button p {
-  color: white;
+.content-section .table-ops .poll-ops-info .right-ops-container .op-btn p {
   margin-left: 0.4rem;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-button {
+  background-color: white;
+  border: 0.5px var(--soft-grey) solid;
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .change-status-button i, .content-section .table-ops .poll-ops-info .right-ops-container .change-status-button p {
+  color: var(--complement_color);
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .delete-poll-button {
+  background-color: var(--soft-red);
+}
+.content-section .table-ops .poll-ops-info .right-ops-container .delete-poll-button i, .content-section .table-ops .poll-ops-info .right-ops-container .delete-poll-button p {
+  color: white;
 }
 .content-section .table-ops .poll-ops-info .right-ops-container .change-status-container {
   position: relative;
@@ -612,14 +622,14 @@ footer .bottom .content .side {
   border-collapse: collapse;
   font-size: 0.9rem;
   white-space: nowrap;
-  table-layout: fixed;
 }
 .content-section .table-container #empty-header {
   width: 3rem;
 }
 .content-section .table-container th, .content-section .table-container td {
-  width: 100%;
-  border: 0.5px solid black;
+  width: -moz-max-content;
+  width: max-content;
+  border: 0.5px solid var(--soft-grey);
   text-align: left;
   padding: 0.7rem;
   color: var(--complement_color);
@@ -822,6 +832,81 @@ footer .bottom .content .side {
   border: 1px solid black;
   text-align: center;
   padding: 0.7rem;
+}
+
+.delete-poll-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.delete-poll-content .cancel-delete-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.9rem;
+  font-size: 1.2rem;
+  color: var(--soft-grey);
+  cursor: pointer;
+}
+.delete-poll-content .delete-warning-msg {
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+.delete-poll-content .warning-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  background-color: #FBEEDF;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+.delete-poll-content .warning-container .top-warning {
+  display: flex;
+  flex-direction: row;
+}
+.delete-poll-content .warning-container .top-warning h4 {
+  font-size: 0.9rem;
+  color: var(--soft-red2);
+  margin-left: 5px;
+}
+.delete-poll-content .warning-container .top-warning i {
+  color: var(--soft-red2);
+}
+.delete-poll-content .warning-container p {
+  text-align: start;
+  font-size: 0.85rem;
+  color: var(--soft-red2);
+  margin-top: 2px;
+}
+.delete-poll-content .buttons-container {
+  margin-top: 20px;
+}
+.delete-poll-content .buttons-container button {
+  cursor: pointer;
+}
+.delete-poll-content .buttons-container .cancel-btn {
+  background-color: white;
+  border: 0.5px solid var(--soft-grey);
+  outline: none;
+  border-radius: 5px;
+  padding: 0.4rem;
+  color: var(--complement_color);
+}
+.delete-poll-content .buttons-container .delete-btn {
+  margin-left: 7px;
+  background-color: #B83229;
+  color: white;
+  padding: 0.6rem;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  display: inline-flex;
+}
+.delete-poll-content .buttons-container .delete-btn i {
+  margin-right: 5px;
 }
 
 .modal-container {
