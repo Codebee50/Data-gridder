@@ -132,13 +132,13 @@
 
    
   
-    <div class="modal-container">
-            <div class="modal-box">
-                <div class="content">
+    <div class="modal-container visible">
+            <div class="modal-box visible">
+                <div class="content visible">
                     <div class="header">
                         <div class="left">
                             <i class="ri-settings-2-line"></i>
-                            <p>Settings</p>
+                            <p>Edit poll</p>
                         </div>
 
                         <div class="right">
@@ -148,12 +148,44 @@
                        
 
                     </div>
-                  <div class="edt-name">
-                      <p>Poll name</p>
-                      <input type="text" id="poll-name-input">
+
+                  <div class="edt-name con">
+                      <h5 class="intro-txt">Poll name</h5>
+                      <input type="text" id="poll-name-input" class="text-input-101">
+                  </div>
+
+                  <div class="edt-desc con">
+                    <h5 class="intro-txt">Description</h5>
+                    {% if poll.description %}
+                    <textarea name="" id="" cols="30" rows="5" class="text-input-101">{{poll.description}}</textarea>
+                    {% else %}
+                    <textarea name="" id="" cols="30" rows="5" class="text-input-101" placeholder="Tell us something about your poll"></textarea>
+                    {% endif %}
+                  </div>
+                  <div class="status-container con">
+                    <h5 class="intro-txt">Poll status</h5>
+                    <div class="radio-selects-container">
+                        <div class="radio-select selected" data-radiovalue="locked">
+                            <input type="radio" name="poll-status" value="locked" class="radio" id="radio-locked" checked>
+                            <div class="right">
+                                <h4>Locked</h4>
+                                <p>Access to poll will be restricted, and users won't be able to participate or engage with it.</p>
+                            </div>
+                        </div>
+
+
+                        <div class="radio-select" data-radiovalue="open">
+                            <input type="radio" id="radio-open" name="poll-status" value="open" class="radio">
+                            <div class="right">
+                                <h4>Open</h4>
+                                <p>Poll will be publicly available to every user. </p>
+                            </div>
+                        </div>
+                    </div>
+
                   </div>
       
-                  <div class="document">
+                  <div class="document con">
                       <input type="file" name="document" placeholder="Browse" style="display: none;" id="file" accept=".doc, .docx">
                       <p class="t-p">Appended document</p>
                       <div class="file-det">

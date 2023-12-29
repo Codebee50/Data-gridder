@@ -784,6 +784,12 @@ $button_green: #45987e;
             display: none;
             flex-direction: column;
 
+            .con{
+                padding: 0 0.9rem;
+                margin-top: 10px;
+            }
+
+           
             .header{
                 display: flex;
                 padding: 0.9rem;
@@ -811,34 +817,39 @@ $button_green: #45987e;
 
                 .right{
                     svg{
+                        fill: var(--soft-grey);
                         cursor: pointer;
                     }
                 }
 
             }
+
+            .intro-txt{
+                color: var(--complement_color);
+
+            }
+
+            .edt-desc{
+                textarea{
+                    width: 100%
+                };
+            }
             
             .edt-name{
+                width: 100%;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
                 padding-top: 0.9rem;
-                p{
-                    font-size: 0.8rem;
-                    width: 90%;
-                    margin-left: 10px;
-                    opacity: 0.5;
-                }
+              
         
-                input[type=text]{
-                    padding: 0.7rem;
-                    //box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-                    margin-top: 4px;
-                    border-radius: 4px;
-                    width: 90%;
-                    border: 0.8px solid black;
-                  
-                 
-                }
+                // input[type=text]{
+                //     padding: 0.7rem;
+                //     margin-top: 4px;
+                //     border-radius: 4px;
+                //     width: 100%;
+                //     border: 0.8px solid var(--soft-grey);
+                //     outline: none;
+                // }
                }
         
             .document{
@@ -899,6 +910,42 @@ $button_green: #45987e;
             
             }
     
+            .status-container{
+                display: flex;
+                flex-direction: column;
+
+                .radio-selects-container{
+                    margin-top: 10px;
+                   
+                    .radio-select{
+                        display: flex;
+                        flex-direction: row;
+                        padding: 0.9rem;
+                        border: 0.5px solid var(--soft-grey);
+                        margin-bottom: 10px;
+                        cursor: pointer;
+
+                        input[type='radio']{
+                            background-color: red;
+                            color: red;
+                        }
+
+                        .right{
+                            margin-left: 10px;
+
+                            p{
+                                color: var(--soft-grey);
+                                font-size: 0.8rem;
+                                margin-top: 2px;
+                            }
+                        }
+                    }
+
+                    .radio-select.selected{
+                        background-color: #FDF6E9;
+                    }
+                }
+            }
             .m-buttons{
                 
                 width: 100%;

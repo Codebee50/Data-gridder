@@ -36,33 +36,45 @@ let transverse = "asc"; //this indicates if the list should be ascending or desc
 
 let poll;
 
-
 deletePollBtn.addEventListener("click", function () {
-  showDynamicLoadingModal('Deleting poll...')//show loading modal
+  showDynamicLoadingModal("Deleting poll..."); //show loading modal
 
-  //send request to delete poll 
-  deletePoll(this.dataset.pollcode)
+  //send request to delete poll
+  deletePoll(this.dataset.pollcode);
 });
 
+const radioSelects = document.querySelectorAll(".radio-select")
+radioSelects.forEach(function (radioSelect) {
+  radioSelect.addEventListener("click", function (e) {
+    radioValue = radioSelect.dataset.radiovalue;
+    const radioElement = document.getElementById(`radio-${radioValue}`);
+    if(radioElement) radioElement.checked = true;
 
-function deletePoll(pollcode){
+    radioSelects.forEach((select)=> select.classList.remove('selected'))
+    radioSelect.classList.add('selected')
+  });
+});
+
+function deletePoll(pollcode) {
   fetch(`/deletepoll/${pollcode}/`, {
-    method: 'GET'
-  }).then(response => response.json())
-  .then(data => {
-  
-    localStorage.setItem('just-deleted', data.message)
-    window.location.href = '/dashboard'
-   
+    method: "GET",
   })
-  .catch(error => {
-    console.error(error)
-    // showAlertModalOneAction(data.message, function(){
-    //   window.location.href = '/dashboard'
-    // })
-    localStorage.setItem('just-deleted', 'An error occured while deleting poll')
-    window.location.href = '/dashboard'
-  })
+    .then((response) => response.json())
+    .then((data) => {
+      localStorage.setItem("just-deleted", data.message);
+      window.location.href = "/dashboard";
+    })
+    .catch((error) => {
+      console.error(error);
+      // showAlertModalOneAction(data.message, function(){
+      //   window.location.href = '/dashboard'
+      // })
+      localStorage.setItem(
+        "just-deleted",
+        "An error occured while deleting poll"
+      );
+      window.location.href = "/dashboard";
+    });
 }
 
 //TODO: replace this with normal fecth request
@@ -78,7 +90,6 @@ $("document").ready(function (e) {
     },
   });
 });
-
 
 changeText.addEventListener("click", function () {
   fileInput.click();
@@ -377,5 +388,3 @@ function viewDet() {
       });
   });
 }
-
-
