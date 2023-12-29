@@ -33,7 +33,6 @@ const deletePollBtn = document.getElementById("btn-delete-poll");
 
 let factor = "none"; //this is holds if what we want to order the list by
 let transverse = "asc"; //this indicates if the list should be ascending or descending
-removeDetails.addEventListener("click", removeDet);
 
 let poll;
 
@@ -377,6 +376,4 @@ function viewDet() {
   });
 }
 
-function removeDet() {
-  displayDetailsModal.classList.remove("visible");
-}
+

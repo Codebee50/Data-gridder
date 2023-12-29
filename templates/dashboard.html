@@ -11,7 +11,8 @@
     <!-- My custom stylesheets -->
     <link rel="stylesheet" href="{% static 'compile/dash.css' %}" type="text/css">
 
-
+    <!--=============== REMIX ICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 
@@ -523,6 +524,27 @@
         </div>
     </div>    
 
+    <div class="toast" id="toast-1">
+        <div class="toast-content">
+            <div class="toast-con">
+                <div class="left">
+                    <div class="icon-con">
+                        <i class="ri-checkbox-circle-fill"></i>
+                    </div>
+                    <div class="message-con">
+                        <p>Poll deleted successfully</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+            <div class="progress-container">
+                <progress id="toast-duration" value="60" max="100"> 32% </progress>
+            </div>
+        </div>
+       
+    </div>
 
 
     <script src="{% static 'js/components.js' %}"></script>

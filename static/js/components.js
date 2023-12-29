@@ -1,27 +1,25 @@
-
-
 /**Used to show one modal at a time by removing all existing modals and
- * dispying the required one 
- * @param modalId the id of the modal to be displayed 
+ * dispying the required one
+ * @param modalId the id of the modal to be displayed
  * modalId should be none if no modal should be shown i.e remove all modals
  */
-function transitionModal(modalId){
-    const modalSections = document.querySelectorAll('.modal-section')
-    modalSections.forEach(function(modalSection){
-        modalSection.classList.remove('visible')
-    })
+function transitionModal(modalId) {
+  const modalSections = document.querySelectorAll(".modal-section");
+  modalSections.forEach(function (modalSection) {
+    modalSection.classList.remove("visible");
+  });
 
-    if(modalId == 'none'){
-        //this means we dont want to show any modal
+  if (modalId == "none") {
+    //this means we dont want to show any modal
+  } else {
+    const displayModal = document.getElementById(modalId);
+    if (displayModal !== null) {
+      displayModal.classList.contains("visible")
+        ? displayModal.classList.remove("visible")
+        : displayModal.classList.add("visible");
     }
-    else{
-        const displayModal = document.getElementById(modalId)
-        if(displayModal !== null){
-            displayModal.classList.contains('visible')? displayModal.classList.remove('visible'): displayModal.classList.add('visible')
-        }
-    }
+  }
 }
-
 
 /** Used to display the alert modal that has only one action
  * @param modalId the id of the modal to be displayed
@@ -29,22 +27,27 @@ function transitionModal(modalId){
  * @param message the message you want to diaplay
  * @param onCancel the function that should be executed on click of the button
  */
-function setUpAlertModalOneAction(modalId, prefix, message, onCancel, buttonText){
-    paragraph_id = `${prefix}-alert-modal-1a-p`
-    const modalParagraph = document.getElementById(paragraph_id)
-    if(modalParagraph !== null){
-        modalParagraph.textContent = message
-    }
+function setUpAlertModalOneAction(
+  modalId,
+  prefix,
+  message,
+  onCancel,
+  buttonText
+) {
+  paragraph_id = `${prefix}-alert-modal-1a-p`;
+  const modalParagraph = document.getElementById(paragraph_id);
+  if (modalParagraph !== null) {
+    modalParagraph.textContent = message;
+  }
 
-    buttonId = `${prefix}-alert-modal-1a-button`
-    const modalButton = document.getElementById(buttonId)
-    if(modalButton !== null){
-        modalButton.onclick = onCancel
-        modalButton.textContent = buttonText
+  buttonId = `${prefix}-alert-modal-1a-button`;
+  const modalButton = document.getElementById(buttonId);
+  if (modalButton !== null) {
+    modalButton.onclick = onCancel;
+    modalButton.textContent = buttonText;
+  }
 
-    }
-
-    transitionModal(modalId)
+  transitionModal(modalId);
 }
 
 /** Used to display an opaque message modal
@@ -52,13 +55,13 @@ function setUpAlertModalOneAction(modalId, prefix, message, onCancel, buttonText
  * @param messageTxtId the id of the message text in the modal
  * @param message The message to be displayed
  */
-function setupOpaqueModal(modalId, messageTxtId, message){
-    modalElement = document.getElementById(modalId)
-    messageElement = document.getElementById(messageTxtId)
+function setupOpaqueModal(modalId, messageTxtId, message) {
+  modalElement = document.getElementById(modalId);
+  messageElement = document.getElementById(messageTxtId);
 
-    messageElement.textContent = message
+  messageElement.textContent = message;
 
-    transitionModal(modalId)
+  transitionModal(modalId);
 }
 
 /** Used to display an loading message modal
@@ -66,55 +69,122 @@ function setupOpaqueModal(modalId, messageTxtId, message){
  * @param messageTxtId the id of the message text in the modal
  * @param message The message to be displayed
  */
-function setupLoadingModal(modalId, messageTxtId, message){
-    modalElement = document.getElementById(modalId)
-    messageElement = document.getElementById(messageTxtId)
+function setupLoadingModal(modalId, messageTxtId, message) {
+  modalElement = document.getElementById(modalId);
+  messageElement = document.getElementById(messageTxtId);
 
-    messageElement.textContent = message
+  messageElement.textContent = message;
 
-    transitionModal(modalId)
+  transitionModal(modalId);
 }
 
-
-function showDynamicLoadingModal(message){
-    transitionModal('none')
-    const loadingDiv = document.createElement('div')
-    loadingDiv.classList.add('dynamic-d-div')
-    const loadingElement = ` <div class="modal-section visible dynamic-modal-section" id="dynamic-loading-001" >
+function showDynamicLoadingModal(message) {
+  transitionModal("none");
+  const loadingDiv = document.createElement("div");
+  loadingDiv.classList.add("dynamic-d-div");
+  const loadingElement = ` <div class="modal-section visible dynamic-modal-section" id="dynamic-loading-001" >
     <div class="modal-content v1-loading-modal-content uncan-modal-con visible">
         <img src="/static/img/spinner.gif" alt="loading-image">
         <p class="loading-text" id="loading-text">${message}</p>
     </div>
-    </div>`   
-    loadingDiv.innerHTML = loadingElement
-    document.body.appendChild(loadingDiv)
-    return loadingDiv;
+    </div>`;
+  loadingDiv.innerHTML = loadingElement;
+  document.body.appendChild(loadingDiv);
+  return loadingDiv;
 }
 
-function showAlertModalOneAction(message, onCancelEvent){
-    const alertDiv = document.createElement('div')
-    alertDiv.classList.add('dynamic-d-div')
-    const alertElement = ` <div class="modal-section visible dynamic-modal-section" id="v2-alert-modal-1a">
+function showAlertModalOneAction(message, onCancelEvent) {
+  const alertDiv = document.createElement("div");
+  alertDiv.classList.add("dynamic-d-div");
+  const alertElement = ` <div class="modal-section visible dynamic-modal-section" id="v2-alert-modal-1a">
     <div class="modal-content v2-alert-modal-1a visible" >
         <p class="alert-message-1a" id="res-alert-modal-1a-p">${message}</p>
         <button class="button-one" id="res-alert-modal-1a-button">Ok</button>
-    </div>`
+    </div>`;
 
-    alertDiv.innerHTML= alertElement
-    const actionBtn = alertDiv.querySelector('#res-alert-modal-1a-button')
-    if(actionBtn !== null){
-        actionBtn.onclick = onCancelEvent
-    }
-    document.body.appendChild(alertDiv)
-    return alertDiv;
+  alertDiv.innerHTML = alertElement;
+  const actionBtn = alertDiv.querySelector("#res-alert-modal-1a-button");
+  if (actionBtn !== null) {
+    actionBtn.onclick = onCancelEvent;
+  }
+  document.body.appendChild(alertDiv);
+  return alertDiv;
 }
 
-function showAlertModalImageAction( mainMessage, subMessage, onActionEvent, imagePath){
-    const modalSection = document.createElement('div')
-    modalSection.classList.add('modal-section')
-    modalSection.classList.add('visible')
-    modalSection.classList.add('dynamic-d-div')
-    const modalContent = ` <div class="modal-content rocket-alert-modal-content">
+function showToast({ message, duration = 5000, style = "success" }) {
+  document.querySelectorAll(".toast").forEach(function (toast) {
+    toast.remove();
+  });
+  const toastDiv = document.createElement("div");
+  toastDiv.classList.add("toast");
+  toastDiv.classList.add(`${style}`);
+  toastDiv.id = "dynamic-toast-div";
+
+  const iTag =
+    style === "success"
+      ? '<i class="ri-checkbox-circle-fill"></i>'
+      : '<i class="ri-error-warning-line"></i>';
+
+  const toastContent = ` <div class="toast-content">
+    <div class="toast-con ${style}">
+        <div class="left">
+            <div class="icon-con">
+            ${iTag}
+            </div>
+            <div class="message-con">
+                <p>${message}</p>
+            </div>
+        </div>
+        <div class="right">
+            <i class="ri-close-line"></i>
+        </div>
+    </div>
+    <div class="progress-container">
+        <progress id="dynamic-toast-progress" value="0" max="100"> 32% </progress>
+    </div>
+    </div>`;
+
+  toastDiv.innerHTML = toastContent;
+  document.body.appendChild(toastDiv);
+
+  setTimeout(() => {
+    toastDiv.style.transform = "translateY(0)";
+    const toastProgess = document.getElementById("dynamic-toast-progress");
+    increamentTimePercent = duration / 100;
+    const valueIncreamenter = setInterval(() => {
+      toastProgess.value += 1;
+      if (toastProgess.value >= toastProgess.max) {
+        clearInterval(valueIncreamenter);
+        removeToast(toastDiv.id);
+      }
+    }, increamentTimePercent);
+  }, 10);
+  return toastDiv;
+}
+
+function removeToast(toastId) {
+  const toast = document.getElementById(toastId);
+  toast.style.transform = "translateY(-150%)";
+  console.log(toast, "removing toast");
+}
+
+function showToastById(id) {
+  const toast = document.getElementById(id);
+  toast.style.transform = "translateY(0)";
+  console.log(toast);
+}
+
+function showAlertModalImageAction(
+  mainMessage,
+  subMessage,
+  onActionEvent,
+  imagePath
+) {
+  const modalSection = document.createElement("div");
+  modalSection.classList.add("modal-section");
+  modalSection.classList.add("visible");
+  modalSection.classList.add("dynamic-d-div");
+  const modalContent = ` <div class="modal-content rocket-alert-modal-content">
     <img src="${imagePath}" alt="Response recorded successfully">
     <div class="messages-container">
         <h3>${mainMessage}</h3>
@@ -123,30 +193,28 @@ function showAlertModalImageAction( mainMessage, subMessage, onActionEvent, imag
     <div class="actions-container">
         <button class="button-two" id="dynamic-button">Done</button>
     </div>
-    </div>`
+    </div>`;
 
-    modalSection.innerHTML = modalContent
-    const dynamicButton = modalSection.querySelector('#dynamic-button')
-    dynamicButton.onclick = onActionEvent
-    document.body.appendChild(modalSection)
-    return modalSection
-
+  modalSection.innerHTML = modalContent;
+  const dynamicButton = modalSection.querySelector("#dynamic-button");
+  dynamicButton.onclick = onActionEvent;
+  document.body.appendChild(modalSection);
+  return modalSection;
 }
 
-function clearAllDynamicModals(){
-    let dynamicModals = document.querySelectorAll('.dynamic-d-div')
-    dynamicModals.forEach((dynamicModal) =>{
-       dynamicModal.remove()
-    })
+function clearAllDynamicModals() {
+  let dynamicModals = document.querySelectorAll(".dynamic-d-div");
+  dynamicModals.forEach((dynamicModal) => {
+    dynamicModal.remove();
+  });
 }
 
 // let modal = document.getElementById(dynamicModal.id)
 // document.body.removeChild(modal)
 
-
-function removeDynamicLoadingModal(){
-    const dynamicLoadingModal = document.getElementById('dynamic-loading-001')
-    if(dynamicLoadingModal){
-        document.removeChild(dynamicLoadingModal)
-    }
+function removeDynamicLoadingModal() {
+  const dynamicLoadingModal = document.getElementById("dynamic-loading-001");
+  if (dynamicLoadingModal) {
+    document.removeChild(dynamicLoadingModal);
+  }
 }

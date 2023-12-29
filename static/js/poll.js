@@ -49,6 +49,9 @@ const chooseFileBtn = document.getElementById('choose-file-btn')
 const sortFile = document.getElementById('sort-file')
 const docTitle = document.querySelector('.doc-title')
 
+document.addEventListener('click', function(){
+    showToast({style: 'faiure', message: 'Poll deleted succesfully'})
+})
 
 class Field{
     constructor(id, name, required, datatype){
