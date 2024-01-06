@@ -196,7 +196,7 @@ saveBtn.addEventListener("click", function () {
     'input[name="poll-status"]:checked'
   ).value;
   const description = document.getElementById("description").value;
-  // modifyPoll(pollNameInput.value, pollcode, fileInput, status, description);
+  modifyPoll(pollNameInput.value, pollcode, fileInput, status, description);
   const finalState = new PollEditable(
     pollNameInput.value,
     description,
