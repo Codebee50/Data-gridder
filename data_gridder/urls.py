@@ -13,6 +13,7 @@ urlpatterns =[
     path('viewpoll/<str:pollcode>/', views.viewPoll, name='viewpoll'),
     path('getpollandvalues/<str:pollcode>/', views.getPollAndValues, name='getpollandvalues'),
     path('editpoll', views.editPoll, name='editpoll'),
+    path('modifypoll', views.modifyPoll, name='modifypoll'),
     path('deletetemp/<str:pollcode>/', views.deleteTemp, name='deletetemp'),
     path('deletepoll/<str:pollcode>/', views.deletePoll, name='deletepoll'),
     path('generatedoc/<str:pollcode>/<str:docname>/<str:numbered>/<str:alph>/<str:factor>/<str:transverse>/', views.generateDoc, name='generetedoc'),

@@ -30,12 +30,13 @@ const orderFactor = document.getElementById("order-factor");
 const alphabeticalOrderCheck = document.getElementById("alph-order");
 const copyButtons = document.querySelectorAll(".btn-copy");
 const deletePollBtn = document.getElementById("btn-delete-poll");
+const btnRemoveFile = document.getElementById("btn-remove");
 
 let factor = "none"; //this is holds if what we want to order the list by
 let transverse = "asc"; //this indicates if the list should be ascending or descending
-
 let poll;
-
+let fileRemoved = false;
+let initialState;
 deletePollBtn.addEventListener("click", function () {
   showDynamicLoadingModal("Deleting poll..."); //show loading modal
 
@@ -43,15 +44,15 @@ deletePollBtn.addEventListener("click", function () {
   deletePoll(this.dataset.pollcode);
 });
 
-const radioSelects = document.querySelectorAll(".radio-select")
+const radioSelects = document.querySelectorAll(".radio-select");
 radioSelects.forEach(function (radioSelect) {
   radioSelect.addEventListener("click", function (e) {
-    radioValue = radioSelect.dataset.radiovalue;
+    const radioValue = radioSelect.dataset.radiovalue;
     const radioElement = document.getElementById(`radio-${radioValue}`);
-    if(radioElement) radioElement.checked = true;
+    if (radioElement) radioElement.checked = true;
 
-    radioSelects.forEach((select)=> select.classList.remove('selected'))
-    radioSelect.classList.add('selected')
+    radioSelects.forEach((select) => select.classList.remove("selected"));
+    radioSelect.classList.add("selected");
   });
 });
 
@@ -77,18 +78,55 @@ function deletePoll(pollcode) {
     });
 }
 
-//TODO: replace this with normal fecth request
-$("document").ready(function (e) {
-  $.ajax({
-    type: "GET",
-    url: "/getpollandvalues/" + pollcode + "/",
-    data: {
-      csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-    },
-    success: function (response) {
-      makeTable(response);
-    },
-  });
+class PollEditable {
+  //this class models the fields that can be editable in a poll, it is later used to compare changes in the poll after edit
+  constructor(pollname, description, status) {
+    this.pollname = pollname;
+    this.description = description;
+    this.status = status;
+  }
+
+  compare(state) {
+    const differences = [];
+    if (!(state instanceof PollEditable)) {
+      differences.push(-1);
+      return differences;
+    }
+
+    if (this.pollname !== state.pollname) {
+      differences.push("pollname");
+    }
+
+    if (this.description !== state.description) {
+      differences.push("description");
+    }
+
+    if (this.status !== state.status) {
+      differences.push("status");
+    }
+
+    return differences;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  // const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+  fetch(`/getpollandvalues/${pollcode}/`, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const fields = JSON.parse(data.poll)[0].fields
+      makeTable(data);
+      initialState = new PollEditable(
+        fields.poll_name,
+        fields.description,
+        fields.status
+      );
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 changeText.addEventListener("click", function () {
@@ -96,13 +134,32 @@ changeText.addEventListener("click", function () {
 });
 
 fileInput.addEventListener("change", function () {
-  fileName.textContent = this.files[0].name;
+  if (fileInput.value === "") {
+    fileName.textContent = "empty";
+    btnRemoveFile.style.display = "none";
+  } else {
+    fileName.textContent = this.files[0].name;
+    btnRemoveFile.style.display = "block";
+
+    fileRemoved = false; //indicate that a file was added
+  }
 });
 
-editPoll.addEventListener("click", function () {
+btnRemoveFile.addEventListener("click", function () {
+  fileInput.value = "";
+
+  //Trigger a change event for the file input
+  const event = new Event("change");
+  fileInput.dispatchEvent(event);
+  fileRemoved = true; //indicate that the file was removed
+});
+
+editPoll.addEventListener("click", displayEditModal);
+
+function displayEditModal() {
   modal.classList.add("visible");
   content.classList.add("visible");
-});
+}
 
 copyButtons.forEach(function (copyBtn) {
   copyBtn.addEventListener("click", function () {
@@ -126,7 +183,6 @@ copyButtons.forEach(function (copyBtn) {
 });
 
 // viewDetails.addEventListener("click", viewDet);
-
 removeModal.addEventListener("click", function () {
   modal.classList.remove("visible");
 });
@@ -136,64 +192,52 @@ $(document).on("submit", "#edit-form", function (e) {
 });
 
 saveBtn.addEventListener("click", function () {
-  newname = pollNameInput.value;
-  if (newname == "") {
-    alert("Name cannot be blank");
-  } else {
-    //make the save and cancel not clickable
-    saveBtn.disabled = true;
-    removeModal.disabled = true;
-    loadingDiv.classList.add("visible");
-
-    //send the ajax request
-    pollname = poll[0].fields.poll_name;
-
-    let mData = new FormData();
-    mData.append("pollname", newname);
-    if (fileInput.files[0] == undefined) {
-      //this means user did not select any file
-    } else {
-      mData.append("document", fileInput.files[0]);
-    }
-
-    mData.append("pollcode", pollcode);
-    mData.append(
-      "csrfmiddlewaretoken",
-      $("input[name=csrfmiddlewaretoken]").val()
-    );
-
-    $.ajax({
-      type: "POST",
-      url: "/editpoll",
-      data: mData,
-      contentType: false,
-      processData: false,
-      success: function (response) {
-        if (response.status == "success") {
-          saveBtn.disabled = false;
-          removeModal.disabled = false;
-          loadingDiv.classList.remove("visible");
-          content.classList.remove("visible");
-          successDiv.classList.add("visible");
-          setTimeout(function () {
-            location.reload();
-          }, 500);
-        } else {
-          saveBtn.disabled = false;
-          removeModal.disabled = false;
-          loadingDiv.classList.remove("visible");
-          alert(response.message);
-        }
-      },
-      error: function (response) {
-        saveBtn.disabled = false;
-        removeModal.disabled = false;
-        loadingDiv.classList.remove("visible");
-        alert(response);
-      },
-    });
-  }
+  const status = document.querySelector(
+    'input[name="poll-status"]:checked'
+  ).value;
+  const description = document.getElementById("description").value;
+  // modifyPoll(pollNameInput.value, pollcode, fileInput, status, description);
+  const finalState = new PollEditable(
+    pollNameInput.value,
+    description,
+    status
+  );
+  console.log(initialState.compare(finalState))
 });
+
+function modifyPoll(newname, pollcode, fileElement, status, description) {
+  if (newname === "") {
+    alert("Poll name cannot be blank");
+    return; //avoid executing the rest of the function
+  }
+
+  const formData = new FormData();
+
+  const file = fileElement.files[0];
+  let fileop = fileElement.files[0] == undefined ? "none" : "updated";
+  fileop = fileRemoved ? "removed" : fileop;
+
+  const csrfToken = document.querySelector(
+    "input[name=csrfmiddlewaretoken]"
+  ).value;
+
+  formData.append("pollname", newname);
+  formData.append("document", file);
+  formData.append("pollcode", pollcode);
+  formData.append("status", status);
+  formData.append("description", description);
+  formData.append("fileop", fileop);
+  formData.append("csrfmiddlewaretoken", csrfToken);
+
+  fetch("/modifypoll", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
 
 function makeTable(data) {
   //open the table tag, open the table head and open the tr for the table head
@@ -205,10 +249,13 @@ function makeTable(data) {
   pollNameInput.value = poll[0].fields.poll_name;
 
   let originalDocumentName = poll[0].fields.original_doc_name;
+  console.log(originalDocumentName);
 
-  if (originalDocumentName == "document_name") {
+  if (originalDocumentName === "document_name") {
     fileName.textContent = "empty";
+    btnRemoveFile.style.display = "none";
   } else {
+    btnRemoveFile.style.disabled = "block";
     fileName.textContent = originalDocumentName;
   }
   let fields = JSON.parse(poll[0].fields.fields);

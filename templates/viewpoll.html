@@ -41,7 +41,7 @@
                 </div>
     
                 <div class="settings-btn" id="edit-poll" title="Settings">
-                    <i class="ri-settings-2-line"></i>
+                    <i class="ri-settings-line"></i>
                 </div>
 
                
@@ -83,10 +83,17 @@
                 {% endif %}    
 
                 <div class="right-ops-container">
-                    <button class="change-status-button op-btn">
+                    {% if poll.status == 'LC' %}
+                    <button class="change-status-button op-btn" onclick="displayEditModal()">
                         <i class="ri-lock-line"></i>
                         <p>Locked</p>
                     </button>
+                    {% else %}
+                    <button class="change-status-button op-btn" onclick="displayEditModal()">
+                        <i class="ri-lock-unlock-line"></i>
+                        <p>Open</p>
+                    </button>
+                    {% endif %}
                     <button class="delete-poll-button op-btn" onclick="transitionModal('v2-delete-poll-warning')">
                         <i class="ri-delete-bin-line"></i>
                         <p>Delete</p>
@@ -137,7 +144,7 @@
                 <div class="content visible">
                     <div class="header">
                         <div class="left">
-                            <i class="ri-settings-2-line"></i>
+                            <i class="ri-settings-line"></i>
                             <p>Edit poll</p>
                         </div>
 
@@ -157,37 +164,53 @@
                   <div class="edt-desc con">
                     <h5 class="intro-txt">Description</h5>
                     {% if poll.description %}
-                    <textarea name="" id="" cols="30" rows="5" class="text-input-101">{{poll.description}}</textarea>
+                    <textarea name="" id="description" cols="30" rows="5" class="text-input-101">{{poll.description}}</textarea>
                     {% else %}
-                    <textarea name="" id="" cols="30" rows="5" class="text-input-101" placeholder="Tell us something about your poll"></textarea>
+                    <textarea name="" id="description" cols="30" rows="5" class="text-input-101" placeholder="Tell us something about your poll"></textarea>
                     {% endif %}
                   </div>
                   <div class="status-container con">
                     <h5 class="intro-txt">Poll status</h5>
                     <div class="radio-selects-container">
-                        <div class="radio-select selected" data-radiovalue="locked">
-                            <input type="radio" name="poll-status" value="locked" class="radio" id="radio-locked" checked>
+                      {% if poll.status == 'LC' %}
+                      <div class="radio-select selected" data-radiovalue="locked">
+                        <input type="radio" name="poll-status" value="LC" class="radio" id="radio-locked" checked>
+                        <div class="right">
+                            <h4>Locked</h4>
+                            <p>Access to poll will be restricted, and users won't be able to participate or engage with it.</p>
+                        </div>
+                    </div>
+                    <div class="radio-select" data-radiovalue="open">
+                        <input type="radio" id="radio-open" name="poll-status" value="OP" class="radio">
+                        <div class="right">
+                            <h4>Open</h4>
+                            <p>Poll will be publicly available to every user. </p>
+                        </div>
+                    </div>
+                        {% else %}
+                        <div class="radio-select" data-radiovalue="locked">
+                            <input type="radio" name="poll-status" value="LC" class="radio" id="radio-locked">
                             <div class="right">
                                 <h4>Locked</h4>
                                 <p>Access to poll will be restricted, and users won't be able to participate or engage with it.</p>
                             </div>
                         </div>
-
-
-                        <div class="radio-select" data-radiovalue="open">
-                            <input type="radio" id="radio-open" name="poll-status" value="open" class="radio">
+                        <div class="radio-select selected" data-radiovalue="open">
+                            <input type="radio" id="radio-open" name="poll-status" value="OP" class="radio" checked>
                             <div class="right">
                                 <h4>Open</h4>
                                 <p>Poll will be publicly available to every user. </p>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
 
                   </div>
       
                   <div class="document con">
                       <input type="file" name="document" placeholder="Browse" style="display: none;" id="file" accept=".doc, .docx">
-                      <p class="t-p">Appended document</p>
+                      <!-- <p class="t-p">Appended document</p> -->
+                      <h5 class="intro-txt">Appended document</h5>
                       <div class="file-det">
                           <div class="details">
                             <i class="ri-file-line"></i>                              
@@ -195,7 +218,10 @@
                           </div>
       
                           <div class="actions">
-                              <p id="txt-change-file">Update</p>
+                            <button class="file-action" id="txt-change-file">Update</button>
+                            <button class="file-action btn-remove" id="btn-remove">Remove</button>
+                              <!-- <p id="txt-change-file">Update</p>
+                              <p id="txt-remove-file">Remove</p> -->
                           </div>     
                       </div>
                   </div>

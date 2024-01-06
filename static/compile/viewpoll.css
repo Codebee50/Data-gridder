@@ -1073,7 +1073,7 @@ footer .bottom .content .side {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0.9rem;
+  padding: 0.5rem 0;
   position: relative;
 }
 .modal-container .modal-box .content .document .file-det .details {
@@ -1098,9 +1098,26 @@ footer .bottom .content .side {
   flex-direction: row;
 }
 .modal-container .modal-box .content .document .file-det .actions p {
-  color: rgb(77, 1, 255);
+  color: var(--soft-grey);
   text-decoration: underline;
+  margin-left: 10px;
   cursor: pointer;
+}
+.modal-container .modal-box .content .document .file-det .actions button {
+  background-color: #cececd;
+  font-size: 0.8rem;
+  border: none;
+  outline: none;
+  margin-left: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 7px;
+  cursor: pointer;
+  color: var(--complement_color);
+  font-weight: 500;
+}
+.modal-container .modal-box .content .document .file-det .actions .btn-remove {
+  background-color: var(--soft-red);
+  color: white;
 }
 .modal-container .modal-box .content .status-container {
   display: flex;
@@ -1133,6 +1150,7 @@ footer .bottom .content .side {
   background-color: #FDF6E9;
 }
 .modal-container .modal-box .content .m-buttons {
+  margin-top: 10px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -1146,7 +1164,7 @@ footer .bottom .content .side {
   margin: 0.9rem 0.7rem;
   border: none;
   color: white;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
 }
 .modal-container .modal-box .content .m-buttons button:disabled {

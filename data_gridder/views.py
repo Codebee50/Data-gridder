@@ -210,21 +210,22 @@ def registerPoll(request, pollcode, pk):
         }
         return render(request, 'regpoll.html', context)
     else:
-        context = {
-            'status': 'failed',
-            'statusCode': 401,
-            'message': 'Poll ' + pollcode + ' does not exist',
-            'pollcode': 'none',
-            'pollauthor': 'none',
-            'pollname': 'none',
-            'itemcount': 0,
-            'is_authenticated': request.user.is_authenticated,
-            'guest': guest,
-            'description': 'Please fill the form below' if poll.description == None else poll.description
+        return render(request, 'poll-not-found.html')
+        # context = {
+        #     'status': 'failed',
+        #     'statusCode': 401,
+        #     'message': 'Poll ' + pollcode + ' does not exist',
+        #     'pollcode': 'none',
+        #     'pollauthor': 'none',
+        #     'pollname': 'none',
+        #     'itemcount': 0,
+        #     'is_authenticated': request.user.is_authenticated,
+        #     'guest': guest,
+        #     'description': 'Please fill the form below' if poll.description == None else poll.description
 
 
-        }
-        return render(request, 'regpoll.html', context)
+        # }
+        # return render(request, 'regpoll.html', context)
 
 """ when a user registers for a poll, this function is used to save the values provided to the database
     also used to save the new values of a pollvalue when user edits the poll values""" 
@@ -365,7 +366,7 @@ def publish(request):
 @login_required(login_url='login')
 def viewPoll(request, pollcode):
     current_site = get_current_site(request)
-    if request.method == 'POST':
+    if request.method == 'POST':#handle post request
         poll = Poll.objects.get(poll_code= pollcode)
         pollValues = PollValue.objects.filter(poll_code=pollcode)
 
@@ -375,7 +376,7 @@ def viewPoll(request, pollcode):
             'domain': current_site
         }
         return JsonResponse(context)
-    else:
+    else:#handle get request
         try:
             poll = Poll.objects.get(poll_code= pollcode)
         except ObjectDoesNotExist:
@@ -407,6 +408,78 @@ def getPollAndValues(request, pollcode):
             
             return JsonResponse(context)
         
+def modifyPoll(request):
+    if request.method == 'POST':
+        new_name = request.POST.get('pollname')
+        new_document = request.FILES.get('document')
+        pollcode = request.POST.get('pollcode')
+        status = request.POST.get('status')
+        description = request.POST.get('description')
+        fileop = request.POST.get('fileop')
+
+        if Poll.objects.filter(poll_code = pollcode).exists():
+            poll = Poll.objects.get(poll_code = pollcode)
+
+            if fileop == 'none':#User did not make changes to the document
+                pass
+            elif fileop == 'removed':#user removed the document
+                #Delete the appended document
+                doc_path = poll.appended_document.path
+                if os.path.exists(doc_path):
+                    os.remove(doc_path)
+                    print('deleted the appended document')
+                
+                poll.appended_document = 'sampledoc.docx'
+                poll.original_doc_name = 'document_name'
+            else:#user selected a new document
+                dg_table = checkForDgTable(new_document)
+                if(dg_table):
+                    original_file_name = new_document.name
+                    new_document.name = poll.appended_document.name
+
+                    old_doucument_path = poll.appended_document.path
+
+                    #deleting the old document before saving the new one 
+                    if poll.appended_document.name != 'sampledoc.docx':
+                        if os.path.exists(old_doucument_path):
+                            os.remove(old_doucument_path)
+
+                    poll.appended_document = new_document
+                    poll.original_doc_name = original_file_name
+                        
+                else:
+                    return JsonResponse({
+                        'statuscode': 400,
+                        'message': 'Updated document does not contain a dg table'
+                    }, status = 400)
+
+            if poll.poll_name != new_name:#checking if poll name needs to be updated
+                poll.poll_name = new_name
+                poll_values= PollValue.objects.filter(poll_code = poll.poll_code)#changing all the names for the poll values
+                #TODO: make poll values a forien key
+                for poll_value in poll_values:
+                    poll_value.poll_name = new_name
+                    poll_value.save()
+            
+            #update the status and the description
+            poll.status = status
+            poll.description = description
+
+            poll.save()
+            print(poll)
+            return JsonResponse({
+                'statuscode': 200,
+                'message': 'Poll updated succesfully'
+            }, status=200)
+        else:
+            return JsonResponse({
+                'statuscode': 404,
+                'message': 'Poll not found'
+                }, status=400)
+    else:
+        return JsonResponse({
+            'statuscode': 400, 
+            'message': 'GET method not allowed'}, status=400)        
 def editPoll(request):
     if request.method == 'POST':
         new_name = request.POST.get('pollname')
@@ -441,6 +514,8 @@ def editPoll(request):
                     for poll_value in poll_values:
                         poll_value.poll_name = new_name
                         poll_value.save()
+                else:
+                    return JsonResponse({'status': 'failed', 'message': 'No dg table in appended document'})
             else:
                 #this means user did not select any doument
                 poll.poll_name = new_name

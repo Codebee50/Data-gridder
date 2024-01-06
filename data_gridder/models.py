@@ -25,6 +25,10 @@ class Profile(models.Model):
 
 
 class Poll(models.Model):
+    class Status(models.TextChoices):
+        LOCKED = 'LC', 'Locked', 
+        OPEN = 'OP', 'Open'
+
     poll_name = models.TextField(blank=False, default='poll_name', max_length=65)
     poll_code = models.TextField(blank=False, default='poll_code')
     poll_author = models.TextField(blank=False, default='appended_document')
@@ -34,6 +38,8 @@ class Poll(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     fields = models.JSONField()
     description = models.TextField(blank=True, null=True, default=None)
+    status = models.CharField(max_length=2, choices=Status.choices, default=Status.OPEN)
+
 
     def __str__(self):
         return self.poll_name
