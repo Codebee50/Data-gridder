@@ -62,11 +62,9 @@ def dashboard(request):
         registered_poll_list = list(registered_polls.values())
     except Exception as e:
         print(e)
-        poll_values_list = None
-        registered_poll_list = None
+        poll_values_list = []
+        registered_poll_list = []
 
-    print(type(poll_values_list[0]['fields']))
-    print(polls)
     context= {
         'user_profile' : user_profile,
         'polls': poll_values_list,
