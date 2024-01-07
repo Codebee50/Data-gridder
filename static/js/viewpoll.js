@@ -59,7 +59,6 @@ radioSelects.forEach(function (radioSelect) {
 });
 
 function selectStateUi(radioSelect){
-  console.log(radioSelect)
   if(radioSelect){
     const radioValue = radioSelect.dataset.radiovalue;
     const radioElement = document.getElementById(`radio-${radioValue}`);
@@ -135,7 +134,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((data) => {
       const fields = JSON.parse(data.poll)[0].fields;
       makeTable(data);
-      console.log(fields)
       initialState = new PollEditable(
         fields.poll_code,
         fields.poll_name,
@@ -267,7 +265,6 @@ function fileChanged(fileElement) {
 /** builds and displays a modal that shows the changes
  *  in the poll state from when it was loaded to when it was modified */
 function buildReviewChangesModal(pollState, differences) {
-  console.log('building')
   const [fileModified, message] = fileChanged(fileInput);
 
   if (!(differences.length > 0) && !fileModified) {
@@ -303,7 +300,6 @@ function buildReviewChangesModal(pollState, differences) {
     modifyPoll(pollState.pollname, pollState.pollcode, fileInput, pollState.status, pollState.description);
   }
 
-  console.log('got her')
   transitionModal("rev-changes-modal");
 }
 
