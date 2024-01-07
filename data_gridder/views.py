@@ -417,14 +417,16 @@ def modifyPoll(request):
         description = request.POST.get('description')
         fileop = request.POST.get('fileop')
 
-        if Poll.objects.filter(poll_name=new_name).exists():
-            return JsonResponse({
-                'statuscode': 400,
-                'message': 'A poll with that name already exits'
-            })
 
-        if Poll.objects.filter(poll_code = pollcode).exists():
+        if Poll.objects.filter(poll_code = pollcode).exists():            
             poll = Poll.objects.get(poll_code = pollcode)
+
+            
+            if Poll.objects.filter(poll_name=new_name).exists() and poll.poll_name != new_name:
+                return JsonResponse({
+                    'statuscode': 400,
+                    'message': 'A poll with that name already exits'
+                })
 
             if fileop == 'none':#User did not make changes to the document
                 pass
