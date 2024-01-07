@@ -1154,18 +1154,15 @@ footer .bottom .content .side {
   margin-top: 10px;
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-.modal-container .modal-box .content .m-buttons button {
-  width: 100%;
-  background-color: #45987e;
   padding: 0.9rem;
-  margin: 0.9rem 0.7rem;
-  border: none;
-  color: white;
-  border-radius: 10px;
+}
+.modal-container .modal-box .content .m-buttons #cancel-edit-btn {
+  background-color: white;
+  color: var(--soft-grey);
+  margin-top: 10px;
   cursor: pointer;
 }
 .modal-container .modal-box .content .m-buttons button:disabled {

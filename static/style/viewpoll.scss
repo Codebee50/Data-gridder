@@ -969,23 +969,18 @@ $button_green: #45987e;
                 margin-top: 10px;
                 width: 100%;
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                padding: 0.9rem;
                 //margin-top:0.8rem;
 
-                button{
-                    width: 100%;
-                    
-                    background-color: $button_green;
-                    padding: 0.9rem;
-                    margin: 0.9rem 0.7rem;
-                    border: none;
-                    color: white;
-                    border-radius: 10px;
+                #cancel-edit-btn{
+                    background-color: white;
+                    color: var(--soft-grey);
+                    margin-top: 10px;
                     cursor: pointer;
-                    
-                 }
+                }
 
                  button:disabled{
                     background-color: #8bb6cc;
