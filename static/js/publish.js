@@ -178,7 +178,7 @@ $(document).on("submit", "#publish-form", function (e) {
         const txtPollCode = document.getElementById("txt-poll-code");
         const txtPollLink = document.getElementById("txt-poll-link");
         const txtPollName = document.getElementById("txt-poll-name");
-        const txtPollAuthor = document.getElementById("txtcou
+        const txtPollAuthor = document.getElementById("txt-poll-owner");
         let serverLink = `http:${data.domain}/regpoll/`;
         let polLink = serverLink + data.pollcode + "/nb";
 

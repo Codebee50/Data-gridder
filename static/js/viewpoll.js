@@ -401,16 +401,19 @@ function makeTable(data) {
 
   data.pollvalues.forEach(function (pollvalue) {
     let fieldValues = JSON.parse(pollvalue.field_values);
-    table += "<tr>";
-    let index = 0;
-    fields.forEach(function (field) {
-      if (field.datatype == "empty") {
-        table += "<td>  </td>";
-      } else {
-        table += "<td>" + fieldValues[index].value + "</td>";
-        index += 1;
-      }
-    });
+    if (fieldValues.length >0){
+      table += "<tr>";
+      let index = 0;
+      fields.forEach(function (field) {
+        if (field.datatype == "empty") {
+          table += "<td>  </td>";
+        } else {
+          table += "<td>" + fieldValues[index].value + "</td>";
+          index += 1;
+        }
+      });
+    }
+   
   });
 
   table += "</table>";
