@@ -1159,7 +1159,14 @@ footer .bottom .content .side {
   justify-content: center;
 }
 .modal-container .modal-box .content .m-buttons button {
+  width: 100%;
+  background-color: #45987e;
+  padding: 0.9rem;
   margin: 0.9rem 0.7rem;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
 }
 .modal-container .modal-box .content .m-buttons button:disabled {
   background-color: #8bb6cc;

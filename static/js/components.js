@@ -18,6 +18,7 @@ function transitionModal(modalId) {
         ? displayModal.classList.remove("visible")
         : displayModal.classList.add("visible");
     }
+    
   }
 }
 

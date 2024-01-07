@@ -210,17 +210,20 @@ saveBtn.addEventListener("click", function () {
     'input[name="poll-status"]:checked'
   ).value;
   const description = document.getElementById("description").value;
-  // modifyPoll(pollNameInput.value, pollcode, fileInput, status, description);
   const finalState = new PollEditable(initialState.pollcode, pollNameInput.value, description, status);
   buildReviewChangesModal(finalState, initialState.compare(finalState));
 });
 
+function restAndRemoveEdit(){
+  resetEditModal()
+  transitionModal('none')
+}
 
+/**Resets the value of the edit modal to the initial state */
 function resetEditModal(){
   pollNameInput.value = initialState.pollname
   document.getElementById("description").value = initialState.description
   const radioSelect = document.querySelector(`.radio-select[data-radiovalue="${String(initialState.state).toLowerCase()}"]`);
-  console.log(String(initialState.state).toLowerCase())
   selectStateUi(radioSelect)
   setFileName(originalDocumentName)
   // const radioElement = document.getElementById(`radio-${String(initialState.state).toLowerCase()}`)
@@ -244,11 +247,12 @@ function fileChanged(fileElement) {
 /** builds and displays a modal that shows the changes
  *  in the poll state from when it was loaded to when it was modified */
 function buildReviewChangesModal(pollState, differences) {
+  console.log('building')
   const [fileModified, message] = fileChanged(fileInput);
 
   if (!(differences.length > 0) && !fileModified) {
     showAlertModalOneAction(
-      "You haven't made any changes to your poll settings; everything remains unchanged as per your initial configuration. If you have any further adjustments or updates, feel free to make them at your convenience.",
+      "You haven't made any changes to your poll settings; everything remains unchanged as per your initial configuration. If you have any further adjustments or updates, feel free to make them.",
       displayEditModal
     );
     return;
@@ -278,6 +282,8 @@ function buildReviewChangesModal(pollState, differences) {
     showDynamicLoadingModal('Applying changes..')
     modifyPoll(pollState.pollname, pollState.pollcode, fileInput, pollState.status, pollState.description);
   }
+
+  console.log('got her')
   transitionModal("rev-changes-modal");
 }
 

@@ -975,9 +975,15 @@ $button_green: #45987e;
                 //margin-top:0.8rem;
 
                 button{
-                   
-                    margin: 0.9rem 0.7rem;
+                    width: 100%;
                     
+                    background-color: $button_green;
+                    padding: 0.9rem;
+                    margin: 0.9rem 0.7rem;
+                    border: none;
+                    color: white;
+                    border-radius: 10px;
+                    cursor: pointer;
                     
                  }
 
