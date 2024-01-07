@@ -37,6 +37,7 @@ let transverse = "asc"; //this indicates if the list should be ascending or desc
 let poll;
 let fileRemoved = false;
 let initialState;
+let originalDocumentName;
 deletePollBtn.addEventListener("click", function () {
   showDynamicLoadingModal("Deleting poll..."); //show loading modal
 
@@ -47,14 +48,22 @@ deletePollBtn.addEventListener("click", function () {
 const radioSelects = document.querySelectorAll(".radio-select");
 radioSelects.forEach(function (radioSelect) {
   radioSelect.addEventListener("click", function (e) {
+    selectStateUi(radioSelect)
+  });
+});
+
+function selectStateUi(radioSelect){
+  console.log(radioSelect)
+  if(radioSelect){
     const radioValue = radioSelect.dataset.radiovalue;
     const radioElement = document.getElementById(`radio-${radioValue}`);
     if (radioElement) radioElement.checked = true;
-
+  
     radioSelects.forEach((select) => select.classList.remove("selected"));
     radioSelect.classList.add("selected");
-  });
-});
+  }
+ 
+}
 
 function deletePoll(pollcode) {
   fetch(`/deletepoll/${pollcode}/`, {
@@ -80,10 +89,12 @@ function deletePoll(pollcode) {
 
 class PollEditable {
   //this class models the fields that can be editable in a poll, it is later used to compare changes in the poll after edit
-  constructor(pollname, description, status) {
+  constructor(pollcode, pollname, description, status) {
+    this.pollcode = pollcode
     this.pollname = pollname;
     this.description = description;
     this.status = status;
+    this.state = status === "OP" ? "Open" : "Locked";
   }
 
   compare(state) {
@@ -102,7 +113,7 @@ class PollEditable {
     }
 
     if (this.status !== state.status) {
-      differences.push("status");
+      differences.push("state");
     }
 
     return differences;
@@ -116,9 +127,11 @@ document.addEventListener("DOMContentLoaded", function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      const fields = JSON.parse(data.poll)[0].fields
+      const fields = JSON.parse(data.poll)[0].fields;
       makeTable(data);
+      console.log(fields)
       initialState = new PollEditable(
+        fields.poll_code,
         fields.poll_name,
         fields.description,
         fields.status
@@ -157,10 +170,12 @@ btnRemoveFile.addEventListener("click", function () {
 editPoll.addEventListener("click", displayEditModal);
 
 function displayEditModal() {
+  transitionModal("none");
   modal.classList.add("visible");
   content.classList.add("visible");
 }
 
+/**Adding event listeners to the copy link and copy code buttons */
 copyButtons.forEach(function (copyBtn) {
   copyBtn.addEventListener("click", function () {
     const oldTextContent = this.textContent;
@@ -182,7 +197,6 @@ copyButtons.forEach(function (copyBtn) {
   });
 });
 
-// viewDetails.addEventListener("click", viewDet);
 removeModal.addEventListener("click", function () {
   modal.classList.remove("visible");
 });
@@ -196,15 +210,88 @@ saveBtn.addEventListener("click", function () {
     'input[name="poll-status"]:checked'
   ).value;
   const description = document.getElementById("description").value;
-  modifyPoll(pollNameInput.value, pollcode, fileInput, status, description);
-  const finalState = new PollEditable(
-    pollNameInput.value,
-    description,
-    status
-  );
-  console.log(initialState.compare(finalState))
+  // modifyPoll(pollNameInput.value, pollcode, fileInput, status, description);
+  const finalState = new PollEditable(initialState.pollcode, pollNameInput.value, description, status);
+  buildReviewChangesModal(finalState, initialState.compare(finalState));
 });
 
+
+function resetEditModal(){
+  pollNameInput.value = initialState.pollname
+  document.getElementById("description").value = initialState.description
+  const radioSelect = document.querySelector(`.radio-select[data-radiovalue="${String(initialState.state).toLowerCase()}"]`);
+  console.log(String(initialState.state).toLowerCase())
+  selectStateUi(radioSelect)
+  setFileName(originalDocumentName)
+  // const radioElement = document.getElementById(`radio-${String(initialState.state).toLowerCase()}`)
+}
+
+/**returns an array, with its first value s a boolean indicating if the
+ * appended document was modified or not and second element is a description of
+ * what happed to the document
+ */
+function fileChanged(fileElement) {
+  const operatiion = getFileOp(fileElement);
+  if (operatiion === "none") {
+    return [false, ""];
+  } else if (operatiion === "removed") {
+    return [true, "empty"];
+  } else {
+    return [true, fileElement.files[0].name];
+  }
+}
+
+/** builds and displays a modal that shows the changes
+ *  in the poll state from when it was loaded to when it was modified */
+function buildReviewChangesModal(pollState, differences) {
+  const [fileModified, message] = fileChanged(fileInput);
+
+  if (!(differences.length > 0) && !fileModified) {
+    showAlertModalOneAction(
+      "You haven't made any changes to your poll settings; everything remains unchanged as per your initial configuration. If you have any further adjustments or updates, feel free to make them at your convenience.",
+      displayEditModal
+    );
+    return;
+  }
+
+  const changesContainer = document.querySelector(".changes-container");
+  const btnSaveChanges = document.getElementById('btn-save-changes')
+  changesContainer.innerHTML = "";
+  differences.forEach(function (difference) {
+    const differenceValue = pollState[difference];
+    const changeHtml = `<div class="change">
+                            <h4>${difference}:</h4>
+                            <p>${differenceValue}</p>
+                        </div>`;
+    changesContainer.insertAdjacentHTML("afterbegin", changeHtml);
+  });
+
+  if (fileModified) {
+    const changeHtml = `<div class="change">
+                            <h4>appended document:</h4>
+                            <p>${message}</p>
+                        </div>`;
+    changesContainer.insertAdjacentHTML("afterbegin", changeHtml);
+  }
+
+  btnSaveChanges.onclick = function(){
+    showDynamicLoadingModal('Applying changes..')
+    modifyPoll(pollState.pollname, pollState.pollcode, fileInput, pollState.status, pollState.description);
+  }
+  transitionModal("rev-changes-modal");
+}
+
+/**returns the operatino that was performed on the appended document
+ * i.e if it was removed, updated or remained unchanged
+ */
+function getFileOp(fileElement) {
+  let fileop = fileElement.files[0] == undefined ? "none" : "updated";
+  fileop = fileRemoved ? "removed" : fileop;
+  return fileop;
+}
+
+/**Sends a request to the database to
+ * update the poll with the specified pollcode  */
 function modifyPoll(newname, pollcode, fileElement, status, description) {
   if (newname === "") {
     alert("Poll name cannot be blank");
@@ -214,8 +301,7 @@ function modifyPoll(newname, pollcode, fileElement, status, description) {
   const formData = new FormData();
 
   const file = fileElement.files[0];
-  let fileop = fileElement.files[0] == undefined ? "none" : "updated";
-  fileop = fileRemoved ? "removed" : fileop;
+  const fileop = getFileOp(fileElement);
 
   const csrfToken = document.querySelector(
     "input[name=csrfmiddlewaretoken]"
@@ -235,10 +321,28 @@ function modifyPoll(newname, pollcode, fileElement, status, description) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      const success = data.statuscode === 200?true : false
+      showToast({
+        message: data.message,
+        duration: success? 2000 : 6000, 
+        style: success? 'success': 'failed',
+        onfinshed: success ? ()=> {window.location.reload()}: ()=>{}
+      })
     });
 }
 
+/** sets the file name in the ui */
+function setFileName(name){
+  if (name === "document_name") {
+    fileName.textContent = "empty";
+    btnRemoveFile.style.display = "none";
+  } else {
+    btnRemoveFile.style.disabled = "block";
+    fileName.textContent = name;
+  }
+}
+
+/**Uses the poll values to populate the table in the ui*/
 function makeTable(data) {
   //open the table tag, open the table head and open the tr for the table head
   let table = "<table><thead><tr>";
@@ -248,16 +352,9 @@ function makeTable(data) {
 
   pollNameInput.value = poll[0].fields.poll_name;
 
-  let originalDocumentName = poll[0].fields.original_doc_name;
-  console.log(originalDocumentName);
-
-  if (originalDocumentName === "document_name") {
-    fileName.textContent = "empty";
-    btnRemoveFile.style.display = "none";
-  } else {
-    btnRemoveFile.style.disabled = "block";
-    fileName.textContent = originalDocumentName;
-  }
+  originalDocumentName = poll[0].fields.original_doc_name;
+  setFileName(originalDocumentName)
+ 
   let fields = JSON.parse(poll[0].fields.fields);
 
   fields.forEach(function (field) {
@@ -386,52 +483,3 @@ removeDownloadModal.addEventListener("click", function () {
 cancelDownload.addEventListener("click", function () {
   downloadModel.classList.remove("visible");
 });
-
-function viewDet() {
-  displayDetailsModal.classList.add("visible");
-  let pollcode = poll[0].fields.poll_code;
-  let domain = domainInput.value;
-  //let serverLink = 'http://127.0.0.1:8000/regpoll/'
-  let serverLink = `https:${domain}/regpoll/`;
-  let polLink = serverLink + pollcode + "/nb";
-  const txtPollLink = document.getElementById("txt-poll-link");
-
-  txtPollLink.textContent = polLink;
-
-  const copyPollCode = document.getElementById("copy-poll-code");
-  const copyPollLink = document.getElementById("copy-poll-link");
-  const copyPollToolTip = document.getElementById("cpc-tool-tip");
-  const cplToolTip = document.getElementById("cpl-tool-tip");
-
-  copyPollCode.addEventListener("click", function () {
-    //copy the poll code to clipboard
-
-    navigator.clipboard
-      .writeText(pollcode)
-      .then(() => {
-        copyPollToolTip.textContent = "Copied";
-        setTimeout(function () {
-          copyPollToolTip.textContent = "Copy poll code";
-        }, 1300);
-      })
-      .catch((error) => {
-        alert(error);
-        console.error(error);
-      });
-  });
-
-  copyPollLink.addEventListener("click", function () {
-    //copy the poll link
-    navigator.clipboard
-      .writeText(polLink)
-      .then(() => {
-        cplToolTip.textContent = "Copied";
-        setTimeout(function () {
-          cplToolTip.textContent = "Copy poll link";
-        }, 1300);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  });
-}

@@ -94,12 +94,13 @@ function showDynamicLoadingModal(message) {
 }
 
 function showAlertModalOneAction(message, onCancelEvent) {
+  transitionModal('none')
   const alertDiv = document.createElement("div");
   alertDiv.classList.add("dynamic-d-div");
   const alertElement = ` <div class="modal-section visible dynamic-modal-section" id="v2-alert-modal-1a">
     <div class="modal-content v2-alert-modal-1a visible" >
         <p class="alert-message-1a" id="res-alert-modal-1a-p">${message}</p>
-        <button class="button-one" id="res-alert-modal-1a-button">Ok</button>
+        <button class="button-two" id="res-alert-modal-1a-button">Ok</button>
     </div>`;
 
   alertDiv.innerHTML = alertElement;
@@ -111,7 +112,8 @@ function showAlertModalOneAction(message, onCancelEvent) {
   return alertDiv;
 }
 
-function showToast({ message, duration = 5000, style = "success" }) {
+function showToast({ message, duration = 5000, style = "success", onfinshed = function(){} }) {
+  transitionModal('none')//ensure that all modals are cleared before the toast shows
   document.querySelectorAll(".toast").forEach(function (toast) {
     toast.remove();
   });
@@ -136,7 +138,7 @@ function showToast({ message, duration = 5000, style = "success" }) {
             </div>
         </div>
         <div class="right">
-            <i class="ri-close-line"></i>
+            <i class="ri-close-line" id="remove-${toastDiv.id}"></i>
         </div>
     </div>
     <div class="progress-container">
@@ -147,15 +149,20 @@ function showToast({ message, duration = 5000, style = "success" }) {
   toastDiv.innerHTML = toastContent;
   document.body.appendChild(toastDiv);
 
+  document.getElementById(`remove-${toastDiv.id}`).onclick = function(){
+    removeToast(toastDiv.id)
+  }
+
   setTimeout(() => {
     toastDiv.style.transform = "translateY(0)";
     const toastProgess = document.getElementById("dynamic-toast-progress");
     increamentTimePercent = duration / 100;
     const valueIncreamenter = setInterval(() => {
       toastProgess.value += 1;
-      if (toastProgess.value >= toastProgess.max) {
+      if (toastProgess.value >= toastProgess.max) {//toast time has ellapsed
         clearInterval(valueIncreamenter);
         removeToast(toastDiv.id);
+        onfinshed();
       }
     }, increamentTimePercent);
   }, 10);
@@ -165,7 +172,6 @@ function showToast({ message, duration = 5000, style = "success" }) {
 function removeToast(toastId) {
   const toast = document.getElementById(toastId);
   toast.style.transform = "translateY(-150%)";
-  console.log(toast, "removing toast");
 }
 
 function showToastById(id) {

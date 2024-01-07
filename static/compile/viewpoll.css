@@ -38,6 +38,7 @@ h1, h2, h3, h4 {
 }
 
 .toast {
+  background-color: white;
   position: absolute;
   top: 0;
   right: 0;
@@ -1532,6 +1533,55 @@ footer .bottom .content .side {
 
 .display-details-moadal.visible {
   display: flex;
+}
+
+.rev-changes-modal-content {
+  position: relative;
+}
+.rev-changes-modal-content #close-modal {
+  margin: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.5rem;
+  color: var(--soft-grey);
+  cursor: pointer;
+}
+.rev-changes-modal-content .alert-msg {
+  color: var(--soft-grey);
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+.rev-changes-modal-content .changes-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.rev-changes-modal-content .changes-container .change {
+  margin-top: 10px;
+}
+.rev-changes-modal-content .changes-container .change h4 {
+  font-size: 0.9rem;
+}
+.rev-changes-modal-content .changes-container .change p {
+  color: var(--soft-grey);
+}
+.rev-changes-modal-content .actions-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.rev-changes-modal-content .actions-container button {
+  margin-top: 10px;
+  padding: 0.9rem;
+}
+.rev-changes-modal-content .actions-container .back-to-editing {
+  background-color: white;
+  color: var(--complement_color);
+  border: 0.5px solid var(--complement_color);
 }
 
 @media screen and (max-width: 400px) {
