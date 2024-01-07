@@ -28,9 +28,13 @@ const removeDetails = document.getElementById("btn-done");
 const domainInput = document.getElementById("domain");
 const orderFactor = document.getElementById("order-factor");
 const alphabeticalOrderCheck = document.getElementById("alph-order");
+
 const copyButtons = document.querySelectorAll(".btn-copy");
 const deletePollBtn = document.getElementById("btn-delete-poll");
 const btnRemoveFile = document.getElementById("btn-remove");
+const txtInputWordCount = document.getElementById('txt-input-word-count')
+
+
 
 let factor = "none"; //this is holds if what we want to order the list by
 let transverse = "asc"; //this indicates if the list should be ascending or descending
@@ -38,6 +42,8 @@ let poll;
 let fileRemoved = false;
 let initialState;
 let originalDocumentName;
+const inputMaxLength = 60
+
 deletePollBtn.addEventListener("click", function () {
   showDynamicLoadingModal("Deleting poll..."); //show loading modal
 
@@ -169,10 +175,24 @@ btnRemoveFile.addEventListener("click", function () {
 
 editPoll.addEventListener("click", displayEditModal);
 
+pollNameInput.addEventListener('input', function(){
+  const inputValueLength = setWordCount()
+  if (inputValueLength >= inputMaxLength){
+      pollNameInput.value = pollNameInput.value.slice(0, inputMaxLength);
+  }
+})
+
 function displayEditModal() {
+  setWordCount()
   transitionModal("none");
   modal.classList.add("visible");
   content.classList.add("visible");
+}
+
+function setWordCount(){
+  const inputValueLength = pollNameInput.value.length
+  txtInputWordCount.textContent = `${inputValueLength}/${inputMaxLength}`
+  return inputValueLength
 }
 
 /**Adding event listeners to the copy link and copy code buttons */
@@ -226,7 +246,7 @@ function resetEditModal(){
   const radioSelect = document.querySelector(`.radio-select[data-radiovalue="${String(initialState.state).toLowerCase()}"]`);
   selectStateUi(radioSelect)
   setFileName(originalDocumentName)
-  // const radioElement = document.getElementById(`radio-${String(initialState.state).toLowerCase()}`)
+  setWordCount()
 }
 
 /**returns an array, with its first value s a boolean indicating if the

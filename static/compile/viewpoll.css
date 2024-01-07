@@ -1060,6 +1060,22 @@ footer .bottom .content .side {
   flex-direction: column;
   padding-top: 0.9rem;
 }
+.modal-container .modal-box .content .edt-name .counter-input {
+  width: 100%;
+}
+.modal-container .modal-box .content .edt-name .counter-input input {
+  width: 100%;
+}
+.modal-container .modal-box .content .edt-name .counter-input .counter {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.modal-container .modal-box .content .edt-name .counter-input .counter p {
+  font-size: 0.85rem;
+  color: var(--complement_color);
+}
 .modal-container .modal-box .content .document {
   border-radius: 5px;
   margin-top: 0.9rem;

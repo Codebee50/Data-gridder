@@ -417,6 +417,12 @@ def modifyPoll(request):
         description = request.POST.get('description')
         fileop = request.POST.get('fileop')
 
+        if Poll.objects.filter(poll_name=new_name).exists():
+            return JsonResponse({
+                'statuscode': 400,
+                'message': 'A poll with that name already exits'
+            })
+
         if Poll.objects.filter(poll_code = pollcode).exists():
             poll = Poll.objects.get(poll_code = pollcode)
 

@@ -850,6 +850,26 @@ $button_green: #45987e;
                 //     border: 0.8px solid var(--soft-grey);
                 //     outline: none;
                 // }
+                .counter-input{
+                    width: 100%;
+
+                    input{
+                        width: 100%;
+                    }
+
+                    
+                .counter{
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    p{
+                        font-size: 0.85rem;
+                        color: var(--complement_color);
+
+                    }
+                }
+                }
                }
         
             .document{

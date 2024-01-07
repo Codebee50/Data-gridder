@@ -139,9 +139,9 @@
 
    
   
-    <div class="modal-container modal-section visible">
-            <div class="modal-box visible">
-                <div class="content visible">
+    <div class="modal-container modal-section">
+            <div class="modal-box">
+                <div class="content">
                     <div class="header">
                         <div class="left">
                             <i class="ri-settings-line"></i>
@@ -158,7 +158,13 @@
 
                   <div class="edt-name con">
                       <h5 class="intro-txt">Poll name</h5>
-                      <input type="text" id="poll-name-input" class="text-input-101">
+                      <div class="counter-input">
+                        <input type="text" id="poll-name-input" class="text-input-101">
+
+                        <div class="counter">
+                            <p id="txt-input-word-count">0/60</p>
+                        </div>
+                      </div>
                   </div>
 
                   <div class="edt-desc con">
