@@ -975,15 +975,9 @@ $button_green: #45987e;
                 //margin-top:0.8rem;
 
                 button{
-                    width: 100%;
-                    
-                    background-color: $button_green;
-                    padding: 0.9rem;
+                   
                     margin: 0.9rem 0.7rem;
-                    border: none;
-                    color: white;
-                    border-radius: 10px;
-                    cursor: pointer;
+                    
                     
                  }
 
@@ -991,6 +985,27 @@ $button_green: #45987e;
                     background-color: #8bb6cc;
                     cursor:progress;
                  }
+            }
+
+            .reset-div{
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                padding: 10px 0.9rem;
+
+                button{
+                    display: flex;
+                    flex-direction: row;
+                    background-color: white;
+                    outline: none;
+                    align-items: center;
+                    border: none;
+                    svg{
+                        width: 20px;
+                        margin-right: 5px;
+                    }
+                }
             }
            
             .loading{

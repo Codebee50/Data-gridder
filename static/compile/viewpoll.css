@@ -1159,18 +1159,30 @@ footer .bottom .content .side {
   justify-content: center;
 }
 .modal-container .modal-box .content .m-buttons button {
-  width: 100%;
-  background-color: #45987e;
-  padding: 0.9rem;
   margin: 0.9rem 0.7rem;
-  border: none;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
 }
 .modal-container .modal-box .content .m-buttons button:disabled {
   background-color: #8bb6cc;
   cursor: progress;
+}
+.modal-container .modal-box .content .reset-div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 10px 0.9rem;
+}
+.modal-container .modal-box .content .reset-div button {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  outline: none;
+  align-items: center;
+  border: none;
+}
+.modal-container .modal-box .content .reset-div button svg {
+  width: 20px;
+  margin-right: 5px;
 }
 .modal-container .modal-box .content .loading {
   width: 100%;
