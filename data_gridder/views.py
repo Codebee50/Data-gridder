@@ -64,7 +64,6 @@ def dashboard(request):
         print(e)
         poll_values_list = []
         registered_poll_list = []
-
     context= {
         'user_profile' : user_profile,
         'polls': poll_values_list,

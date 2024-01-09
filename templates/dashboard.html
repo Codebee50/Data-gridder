@@ -205,7 +205,7 @@
                         <div class="bottom-representation">
                             <h3 class="p-n">{{poll.poll_name}}</h3>
                             <p class="p-c">{{poll.poll_code}}</p>
-                            <p class="c-a">Published {{poll.created_at}}</p>
+                            <p class="c-a" id="pb-date-{{poll.id}}">Published {{poll.created_at}}</p>
 
                             <!-- <div class="status-indicator-container">
                                 <div class="status-indicator">
@@ -265,7 +265,7 @@
                         <div class="bottom-representation">
                             <h3 class="p-n">{{poll_value.poll_name}}</h3>
                             <p class="p-c">{{poll_value.poll_code}}</p>
-                            <p class="c-a">Registered {{poll_value.registered_date}}</p>
+                            <p class="c-a" id="reg-date-{{poll_value.id}}">Registered {{poll_value.registered_date}}</p>
 
                             <!-- <div class="status-indicator-container">
                                 <div class="status-indicator">

@@ -91,11 +91,12 @@ function populateTablesUi(polls) {
     tableContainer.innerHTML = "";
     const table = getCardTable(JSON.parse(poll.fields));
     tableContainer.insertAdjacentHTML("afterbegin", table);
+
+    document.getElementById(`pb-date-${poll.id}`).textContent = `Published ${getIntlDate(new Date(poll.created_at))}`
   });
 }
 
 function populateRegisteredValuesTables(userValues) {
-  console.dir(document.querySelectorAll(".testclass"));
   userValues.forEach(function (userValue) {
     const fieldValue = userValue.field_values;
     const regTableContainer = document.getElementById(
@@ -106,7 +107,25 @@ function populateRegisteredValuesTables(userValues) {
       const table = getCardTable(JSON.parse(fieldValue));
       regTableContainer.insertAdjacentHTML("afterbegin", table);
     }
+
+    document.getElementById(`reg-date-${userValue.id}`).textContent = `Registered ${getIntlDate(new Date(userValue.registered_date))}`
+
   });
+}
+
+function getIntlDate(date){
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+  };
+
+  const locale = navigator.language;
+
+  return new Intl.DateTimeFormat(locale, options).format(date)
+
 }
 
 function getCardTable(poll) {
