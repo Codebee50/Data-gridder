@@ -410,7 +410,7 @@ function deletePollValue(id){
   .then(data => {
     showToast({
       message: data.message,
-      duration: 4000,
+      duration: 3000,
       style: data.statuscode === 200? 'success': 'falied',
       onfinshed: function(){
         window.location.reload()

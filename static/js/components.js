@@ -78,6 +78,7 @@ function setupLoadingModal(modalId, messageTxtId, message) {
   transitionModal(modalId);
 }
 
+/**Displays a modal with two buttons */
 function showDynamicLoadingModal(message) {
   transitionModal("none");
   const loadingDiv = document.createElement("div");
