@@ -43,6 +43,46 @@ h1, h2, h3, h4{
     color: var(--complement_color);
 }
 
+.close-modal-icon{
+    color: var(--soft-grey);
+    position: absolute;
+    top:0;
+    right: 0;
+    font-size: 1.2rem;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.alert-two-actions-content{
+    position: relative;
+    p{
+        color: var(--soft-grey);
+        font-size: 0.9rem;
+    }
+
+    .action-buttons-con{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-top: 20px;
+        gap: 7px;
+
+        button{
+            padding: 0.5rem 0.9rem;
+            border-radius: 7px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .delete-button{
+            background-color: var(--soft-red2);
+            color: white;
+
+        }
+    }
+}
 
 .poll-en-con{
     width: 100%;

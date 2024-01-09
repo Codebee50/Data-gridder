@@ -150,7 +150,6 @@ function getCardTable(poll) {
 
 function displayReviewCard(valueId) {
   const userValue = userValueList.find((userValue) => userValue.id === Number(valueId));
-  console.log(userValue);
   if (userValue) {
     //this means the uservalue actually exists
     document.getElementById(
@@ -162,7 +161,6 @@ function displayReviewCard(valueId) {
     valuesContainer.innerHTML = "";
 
     JSON.parse(userValue.field_values).forEach(function (fieldValue) {
-      console.log(fieldValue);
 
       const html = ` <div class="value">
           <h4>${fieldValue.name}:</h4>
@@ -172,9 +170,21 @@ function displayReviewCard(valueId) {
     });
 
     document.getElementById('link-to-edit-a').href = `/regpoll/${userValue.poll_code}/${userValue.id}/`
+    document.getElementById('delete-value-btn').onclick = function(){
+      showAlertModalTwoAction({
+        maintext: 'Are you sure to delete this entry?',
+        subtext: 'All records you have provided for this poll will be deleted. This action is irreversible!.',
+        onAction: function(){
+          deletePollValue(userValue.id)
+        },
+        actiontext: 'Delete',
+        
+      })
+    }
     transitionModal('rev-values-modal')
   }
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
   fetch("/getuserpolls", {
@@ -390,6 +400,27 @@ function orgarnizeAccordions(values) {
       });
     }
   });
+}
+
+function deletePollValue(id){
+  fetch(`/delentry/${id}/`, {
+    method: 'GET',
+  })
+  .then(response=> response.json())
+  .then(data => {
+    showToast({
+      message: data.message,
+      duration: 4000,
+      style: data.statuscode === 200? 'success': 'falied',
+      onfinshed: function(){
+        window.location.reload()
+      }
+    })
+  })
+  .catch(error => {
+    console.error(error)
+  })
+  
 }
 
 /** this function is used to send a request to the server side which deletes a poll value with the id of entryId */

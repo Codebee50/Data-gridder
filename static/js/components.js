@@ -18,7 +18,6 @@ function transitionModal(modalId) {
         ? displayModal.classList.remove("visible")
         : displayModal.classList.add("visible");
     }
-    
   }
 }
 
@@ -95,7 +94,7 @@ function showDynamicLoadingModal(message) {
 }
 
 function showAlertModalOneAction(message, onCancelEvent) {
-  transitionModal('none')
+  transitionModal("none");
   const alertDiv = document.createElement("div");
   alertDiv.classList.add("dynamic-d-div");
   const alertElement = ` <div class="modal-section visible dynamic-modal-section" id="v2-alert-modal-1a">
@@ -113,8 +112,13 @@ function showAlertModalOneAction(message, onCancelEvent) {
   return alertDiv;
 }
 
-function showToast({ message, duration = 5000, style = "success", onfinshed = function(){} }) {
-  transitionModal('none')//ensure that all modals are cleared before the toast shows
+function showToast({
+  message,
+  duration = 5000,
+  style = "success",
+  onfinshed = function () {},
+}) {
+  transitionModal("none"); //ensure that all modals are cleared before the toast shows
   document.querySelectorAll(".toast").forEach(function (toast) {
     toast.remove();
   });
@@ -150,9 +154,9 @@ function showToast({ message, duration = 5000, style = "success", onfinshed = fu
   toastDiv.innerHTML = toastContent;
   document.body.appendChild(toastDiv);
 
-  document.getElementById(`remove-${toastDiv.id}`).onclick = function(){
-    removeToast(toastDiv.id)
-  }
+  document.getElementById(`remove-${toastDiv.id}`).onclick = function () {
+    removeToast(toastDiv.id);
+  };
 
   setTimeout(() => {
     toastDiv.style.transform = "translateY(0)";
@@ -160,7 +164,8 @@ function showToast({ message, duration = 5000, style = "success", onfinshed = fu
     increamentTimePercent = duration / 100;
     const valueIncreamenter = setInterval(() => {
       toastProgess.value += 1;
-      if (toastProgess.value >= toastProgess.max) {//toast time has ellapsed
+      if (toastProgess.value >= toastProgess.max) {
+        //toast time has ellapsed
         clearInterval(valueIncreamenter);
         removeToast(toastDiv.id);
         onfinshed();
@@ -169,6 +174,8 @@ function showToast({ message, duration = 5000, style = "success", onfinshed = fu
   }, 10);
   return toastDiv;
 }
+
+
 
 function removeToast(toastId) {
   const toast = document.getElementById(toastId);
@@ -179,6 +186,42 @@ function showToastById(id) {
   const toast = document.getElementById(id);
   toast.style.transform = "translateY(0)";
   console.log(toast);
+}
+
+function showAlertModalTwoAction({
+  maintext,
+  subtext,
+  actiontext = 'Ok',
+  onCancel = function () {
+    transitionModal("none");
+  },
+  onAction = function(){}
+}) {
+
+  transitionModal('none')
+  const modalSection = document.createElement('div')
+  modalSection.classList.add('modal-section')
+  modalSection.classList.add('visible')
+
+  const modalContent= `<div class="modal-content alert-two-actions-content">
+        <h4>${maintext}</h4>
+          <p>${subtext}</p>
+
+          <div class="action-buttons-con">
+              <button id="cancel-dynamic-alert">Cancel</button>
+              <button class="delete-button" id="d-alert-main-action">${actiontext}</button>
+          </div>
+
+          <i class="ri-close-line close-modal-icon"></i>
+    </div>`
+
+  modalSection.innerHTML = modalContent
+  
+  modalSection.querySelector('#cancel-dynamic-alert').onclick = onCancel
+  modalSection.querySelector('#d-alert-main-action').onclick = onAction
+  document.body.appendChild(modalSection)
+  console.log('galh')
+  return modalSection
 }
 
 function showAlertModalImageAction(

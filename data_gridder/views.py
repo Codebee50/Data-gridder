@@ -818,15 +818,17 @@ def deleteEntry(request, entry_id):
         entry.delete()
         context = {
             'status': 'success',
-            'message': 'Entry deleted successfully'
+            'message': 'Entry deleted successfully',
+            'statuscode': 200
         }
-        return JsonResponse(context)
+        return JsonResponse(context, status=200)
     else:
         context= {
             'status': 'failed',
-            'message': 'Entry does not exist'
+            'message': 'Entry does not exist',
+            'statuscode': 404
         }
-        return JsonResponse(context)
+        return JsonResponse(context, status=404)
 
 def documentation(request):
     if request.user.is_authenticated:
