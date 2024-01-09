@@ -49,10 +49,10 @@ const chooseFileBtn = document.getElementById("choose-file-btn");
 const sortFile = document.getElementById("sort-file");
 const docTitle = document.querySelector(".doc-title");
 
-const justDeleted = localStorage.getItem('just-deleted')
-if(justDeleted){
-    showToast({style: 'success', message: justDeleted, duration: 2000})
-    localStorage.removeItem('just-deleted')
+const justDeleted = localStorage.getItem("just-deleted");
+if (justDeleted) {
+  showToast({ style: "success", message: justDeleted, duration: 2000 });
+  localStorage.removeItem("just-deleted");
 }
 class Field {
   constructor(id, name, required, datatype) {
@@ -87,19 +87,39 @@ sortFile.addEventListener("change", function () {
 
 function populateTablesUi(polls) {
   polls.forEach(function (poll) {
-    tableContainer = document.getElementById(`table-con-${poll.id}`); //getting the corresponding table container for this poll
+    const tableContainer = document.getElementById(`table-con-${poll.id}`); //getting the corresponding table container for this poll
     tableContainer.innerHTML = "";
-    let table = `<table><tbody>`; //opening the table tag
-    JSON.parse(poll.fields).forEach(function (field) {
-      //populating the table with table rows
-      table += `<tr>
-                    <td>${field.name}</td>
-                </tr>`;
-    });
-
-    table += `</tbody></table>`; //closing the table tag
+    const table = getCardTable(JSON.parse(poll.fields));
     tableContainer.insertAdjacentHTML("afterbegin", table);
   });
+}
+
+function populateRegisteredValuesTables(userValues) {
+  console.dir(document.querySelectorAll(".testclass"));
+  userValues.forEach(function (userValue) {
+    const fieldValue = userValue.field_values;
+    const regTableContainer = document.getElementById(
+      `value-table-con-${userValue.id}`
+    );
+    if (regTableContainer) {
+      regTableContainer.innerHTML = "";
+      const table = getCardTable(JSON.parse(fieldValue));
+      regTableContainer.insertAdjacentHTML("afterbegin", table);
+    }
+  });
+}
+
+function getCardTable(poll) {
+  let table = `<table><tbody>`; //opening the table tag
+  poll.forEach(function (field) {
+    //populating the table with table rows
+    table += `<tr>
+                  <td>${field.name}</td>
+              </tr>`;
+  });
+
+  table += `</tbody></table>`; //closing the table tag
+  return table;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -123,7 +143,8 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then((data) => {
-      orgarnizeAccordions(data.user_values);
+      // orgarnizeAccordions(data.user_values);
+      populateRegisteredValuesTables(data.user_values);
     })
     .catch((error) => {
       console.error(error);
@@ -270,7 +291,7 @@ function orgarnizeAccordions(values) {
         valuesContainer.innerHTML += divEl;
       });
     } else {
-        //item not found
+      //item not found
     }
   });
 

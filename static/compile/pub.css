@@ -36,6 +36,113 @@ h1, h2, h3, h4 {
   color: var(--complement_color);
 }
 
+.poll-en-con {
+  width: 100%;
+  margin: auto;
+  padding: auto;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  row-gap: 30px;
+}
+.poll-en-con .poll-entity {
+  text-decoration: none;
+  color: var(--complement_color);
+  width: 80%;
+  max-width: 500px;
+  background-color: #F8FAFB;
+  border-radius: 5px;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.poll-en-con .poll-entity .top-representation {
+  background-image: url(/static/img/gridder_light_grey.svg);
+  background-repeat: no-repeat;
+  background-size: 50px;
+  background-position: center;
+  width: 99.8%;
+  height: 150px;
+}
+.poll-en-con .poll-entity .top-representation .top-table-container {
+  width: 100%;
+  height: 95%;
+  overflow-y: auto;
+  display: flex;
+}
+.poll-en-con .poll-entity .top-representation .top-table-container table {
+  margin: auto;
+  display: inline-block;
+  border-collapse: collapse;
+  font-size: 0.5rem;
+}
+.poll-en-con .poll-entity .top-representation .top-table-container table th, .poll-en-con .poll-entity .top-representation .top-table-container table td {
+  border: 0.5px solid var(--complement_color);
+  color: var(--complement_color);
+  text-align: center;
+  padding: 0.4rem;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 150px;
+}
+.poll-en-con .poll-entity .top-representation .top-table-container::-webkit-scrollbar {
+  width: 0;
+  background-color: transparent;
+}
+.poll-en-con .poll-entity .bottom-representation {
+  background-color: white;
+  width: 99.8%;
+  padding: 0.8rem;
+  height: -moz-max-content;
+  height: max-content;
+}
+.poll-en-con .poll-entity .bottom-representation .p-n {
+  font-size: 1.2rem;
+  color: var(--complement_color);
+  font-weight: 600;
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.poll-en-con .poll-entity .bottom-representation .p-c {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-top: 5px;
+}
+.poll-en-con .poll-entity .bottom-representation .c-a {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-top: 5px;
+}
+.poll-en-con .poll-entity .bottom-representation .status-indicator-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.poll-en-con .poll-entity .bottom-representation .status-indicator-container .status-indicator {
+  margin-top: 5px;
+  border: var(--major-green) 0.5px solid;
+  background-color: white;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.2rem 0.3rem;
+  border-radius: 20px;
+  align-self: flex-end;
+  justify-self: flex-end;
+}
+.poll-en-con .poll-entity .bottom-representation .status-indicator-container .status-indicator p {
+  color: var(--major-green);
+  font-size: 0.8rem;
+}
+.poll-en-con .poll-entity:hover {
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+}
+
 .toast {
   background-color: white;
   position: absolute;

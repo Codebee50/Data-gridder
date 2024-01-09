@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 
 # Create your models here.
@@ -48,6 +49,7 @@ class PollValue(models.Model):
     poll_code = models.TextField(blank=False)
     poll_name = models.TextField(blank=False, default='none' )
     user_name= models.TextField(blank=False, default='none')
+    registered_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     field_values = models.JSONField()
 
     def __str__(self):
