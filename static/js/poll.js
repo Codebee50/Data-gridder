@@ -71,6 +71,7 @@ let feildArray = [];
 let idValue = 0;
 let colorIndex = -1;
 let fieldObjet;
+const userValueList = [];
 
 saveBtn.addEventListener("click", validateFields);
 deleteBtn.addEventListener("click", deleteFieldobject);
@@ -92,7 +93,9 @@ function populateTablesUi(polls) {
     const table = getCardTable(JSON.parse(poll.fields));
     tableContainer.insertAdjacentHTML("afterbegin", table);
 
-    document.getElementById(`pb-date-${poll.id}`).textContent = `Published ${getIntlDate(new Date(poll.created_at))}`
+    document.getElementById(
+      `pb-date-${poll.id}`
+    ).textContent = `Published ${getIntlDate(new Date(poll.created_at))}`;
   });
 }
 
@@ -108,24 +111,28 @@ function populateRegisteredValuesTables(userValues) {
       regTableContainer.insertAdjacentHTML("afterbegin", table);
     }
 
-    document.getElementById(`reg-date-${userValue.id}`).textContent = `Registered ${getIntlDate(new Date(userValue.registered_date))}`
-
+    document.getElementById(
+      `reg-date-${userValue.id}`
+    ).textContent = `Registered ${getIntlDate(
+      new Date(userValue.registered_date)
+    )}`;
+    userValueList.push(userValue);
   });
+
 }
 
-function getIntlDate(date){
+function getIntlDate(date) {
   const options = {
-    hour: 'numeric',
-    minute: 'numeric',
-    day: 'numeric',
-    month: 'numeric',
-    year: 'numeric',
+    hour: "numeric",
+    minute: "numeric",
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
   };
 
   const locale = navigator.language;
 
-  return new Intl.DateTimeFormat(locale, options).format(date)
-
+  return new Intl.DateTimeFormat(locale, options).format(date);
 }
 
 function getCardTable(poll) {
@@ -139,6 +146,34 @@ function getCardTable(poll) {
 
   table += `</tbody></table>`; //closing the table tag
   return table;
+}
+
+function displayReviewCard(valueId) {
+  const userValue = userValueList.find((userValue) => userValue.id === Number(valueId));
+  console.log(userValue);
+  if (userValue) {
+    //this means the uservalue actually exists
+    document.getElementById(
+      "rev-values-message"
+    ).innerHTML = `Your responses for <b> ${
+      userValue.poll_name
+    } </b> on ${getIntlDate(new Date(userValue.registered_date))}`;
+    const valuesContainer = document.getElementById("values-container");
+    valuesContainer.innerHTML = "";
+
+    JSON.parse(userValue.field_values).forEach(function (fieldValue) {
+      console.log(fieldValue);
+
+      const html = ` <div class="value">
+          <h4>${fieldValue.name}:</h4>
+          <p>${fieldValue.value === ''? "No response": fieldValue.value}</p>
+      </div>`;
+      valuesContainer.innerHTML += html
+    });
+
+    document.getElementById('link-to-edit-a').href = `/regpoll/${userValue.poll_code}/${userValue.id}/`
+    transitionModal('rev-values-modal')
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {

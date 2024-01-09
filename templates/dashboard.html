@@ -256,7 +256,7 @@
                 {% if registered_polls|length >= 1 %}
                 <div class="all-polls poll-en-con">
                     {% for poll_value in registered_polls %}
-                    <a class="poll-entity" href="/viewpoll/{{poll.poll_code}}/" id="poll-{{poll.id}}">
+                    <span class="poll-entity" onclick="displayReviewCard('{{poll_value.id}}')">
                         <div class="top-representation">
                             <div class="top-table-container testclass" id="value-table-con-{{poll_value.id}}">
                             
@@ -274,7 +274,7 @@
                             </div> -->
                            
                         </div>
-                    </a>
+                    </span>
                     {% endfor %}
                     
                 </div>
@@ -343,6 +343,30 @@
     </div>
 
     <!-- Modal section v2 components-->
+    <div class="modal-section" id="rev-values-modal">
+        <div class="modal-content rev-changes-modal-content" >
+            <i class="ri-close-line" id="close-modal" onclick="transitionModal('none')"></i>
+            <div class="top-content">
+                <h2>Your responses.</h2>
+                <p class="alert-msg" id="rev-values-message"></p>
+            </div>
+
+            <div class="values-container" id="values-container">
+                <div class="value">
+                    <h4>Description:</h4>
+                    <p>This is the description for your poll</p>
+                </div>
+
+            </div>
+
+            <div class="actions-container">
+                <a href="" id="link-to-edit-a"><button class="button-two" id="btn-save-changes">Edit Responses</button></a>
+                <button class="button-two back-to-editing" onclick="transitionModal('none')">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+
     <div class="modal-section" id="choose-create-option-modal">
         <form action="">
             {% csrf_token %}

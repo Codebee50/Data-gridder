@@ -1529,6 +1529,59 @@ html::-webkit-scrollbar {
   color: red;
 }
 
+.rev-changes-modal-content {
+  position: relative;
+}
+.rev-changes-modal-content #close-modal {
+  margin: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.5rem;
+  color: var(--soft-grey);
+  cursor: pointer;
+}
+.rev-changes-modal-content .alert-msg {
+  color: var(--soft-grey);
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+.rev-changes-modal-content .values-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.rev-changes-modal-content .values-container .value {
+  margin-top: 10px;
+}
+.rev-changes-modal-content .values-container .value h4 {
+  font-size: 0.9rem;
+}
+.rev-changes-modal-content .values-container .value p {
+  color: var(--soft-grey);
+}
+.rev-changes-modal-content .actions-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.rev-changes-modal-content .actions-container a {
+  width: 100%;
+  display: block;
+}
+.rev-changes-modal-content .actions-container button {
+  margin-top: 10px;
+  padding: 0.9rem;
+}
+.rev-changes-modal-content .actions-container .back-to-editing {
+  background-color: white;
+  color: var(--complement_color);
+  border: 0.5px solid var(--complement_color);
+}
+
 .log-out-modal.visible {
   display: flex;
 }
