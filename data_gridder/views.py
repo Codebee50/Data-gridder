@@ -55,7 +55,7 @@ def dashboard(request):
     current_user = request.user.username
 
     polls = Poll.objects.filter(poll_author = current_user)
-    registered_polls = PollValue.objects.filter(user_name = current_user)
+    registered_polls = PollValue.objects.filter(user_name = current_user).order_by('-registered_date')
     contact_form = forms.ContactForm()
     try:
         poll_values_list = list(polls.values())
