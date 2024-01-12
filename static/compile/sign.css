@@ -68,7 +68,7 @@ h1, h2, h3, h4 {
   cursor: pointer;
 }
 .alert-two-actions-content .action-buttons-con .delete-button {
-  background-color: var(--soft-red2);
+  background-color: var(--soft-red);
   color: white;
 }
 

@@ -78,6 +78,9 @@ function setupLoadingModal(modalId, messageTxtId, message) {
   transitionModal(modalId);
 }
 
+
+/**========================= V2 COMPONENTS ======================================= */
+
 /**Displays a modal with two buttons */
 function showDynamicLoadingModal(message) {
   transitionModal("none");
@@ -186,7 +189,6 @@ function removeToast(toastId) {
 function showToastById(id) {
   const toast = document.getElementById(id);
   toast.style.transform = "translateY(0)";
-  console.log(toast);
 }
 
 function showAlertModalTwoAction({
@@ -213,7 +215,7 @@ function showAlertModalTwoAction({
               <button class="delete-button" id="d-alert-main-action">${actiontext}</button>
           </div>
 
-          <i class="ri-close-line close-modal-icon"></i>
+          <i class="ri-close-line close-modal-icon" onclick="transitionModal('none')"></i>
     </div>`
 
   modalSection.innerHTML = modalContent
@@ -221,7 +223,6 @@ function showAlertModalTwoAction({
   modalSection.querySelector('#cancel-dynamic-alert').onclick = onCancel
   modalSection.querySelector('#d-alert-main-action').onclick = onAction
   document.body.appendChild(modalSection)
-  console.log('galh')
   return modalSection
 }
 
@@ -259,9 +260,6 @@ function clearAllDynamicModals() {
     dynamicModal.remove();
   });
 }
-
-// let modal = document.getElementById(dynamicModal.id)
-// document.body.removeChild(modal)
 
 function removeDynamicLoadingModal() {
   const dynamicLoadingModal = document.getElementById("dynamic-loading-001");
