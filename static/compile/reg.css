@@ -910,7 +910,9 @@ main .bottom-content {
   margin: 0.45rem;
 }
 .not-authenticated .right-content .actions .reg-a {
-  background-color: red;
+  background-color: white;
+  color: var(--complement_color);
+  border: 0.5px solid var(--complement_color);
 }
 
 .modal-container {
