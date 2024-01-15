@@ -182,9 +182,12 @@ pollNameInput.addEventListener('input', function(){
 
 function displayEditModal() {
   setWordCount()
-  transitionModal("none");
-  modal.classList.add("visible");
-  content.classList.add("visible");
+  transitionModal("edit-poll-modal-section", function(){
+    resetEditModal()
+    transitionModal('none')
+  });
+  // modal.classList.add("visible");
+  // content.classList.add("visible");
 }
 
 function setWordCount(){

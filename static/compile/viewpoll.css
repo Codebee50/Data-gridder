@@ -1158,7 +1158,6 @@ footer .bottom .content .side {
   flex-direction: column;
 }
 .modal-container .modal-box .content {
-  display: none;
   flex-direction: column;
 }
 .modal-container .modal-box .content .con {

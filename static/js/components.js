@@ -3,7 +3,7 @@
  * @param modalId the id of the modal to be displayed
  * modalId should be none if no modal should be shown i.e remove all modals
  */
-function transitionModal(modalId) {
+function transitionModal(modalId, onCancel = function(){transitionModal('none')}) {
   const modalSections = document.querySelectorAll(".modal-section");
   modalSections.forEach(function (modalSection) {
     modalSection.classList.remove("visible");
@@ -14,9 +14,17 @@ function transitionModal(modalId) {
   } else {
     const displayModal = document.getElementById(modalId);
     if (displayModal !== null) {
-      displayModal.classList.contains("visible")
-        ? displayModal.classList.remove("visible")
-        : displayModal.classList.add("visible");
+      if(displayModal.classList.contains('visible')){
+        displayModal.classList.remove('visible')
+      }
+      else{
+        displayModal.classList.add('visible')
+        displayModal.onclick = (e) =>{
+          if(e.target.classList.contains('modal-section')){
+              onCancel()
+          }
+        }
+      }
     }
   }
 }
