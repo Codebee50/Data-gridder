@@ -185,9 +185,10 @@ def getpoll(request, pollcode, pk):
 def registerPoll(request, pollcode, pk):
     #checking if poll exists
     guest = request.GET.get('guest')
-    print(guest)
     if Poll.objects.filter(poll_code= pollcode).exists():
         poll = Poll.objects.get(poll_code = pollcode)
+        if poll.status == Poll.Status.LOCKED:
+            return render(request, 'poll-locked.html')
         pollname = poll.poll_name
         pollauthor = poll.poll_author
         pollvalues = PollValue.objects.filter(poll_code = pollcode)
