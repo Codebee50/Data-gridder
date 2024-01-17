@@ -570,4 +570,7 @@ footer .bottom .content .side {
 }
 .locked-explanation-container .locked-explanation-content .buttons {
   margin-top: 20px;
+}
+.locked-explanation-container .locked-explanation-content .buttons button {
+  padding: 0.9rem;
 }/*# sourceMappingURL=polllocked.css.map */
