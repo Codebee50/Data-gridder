@@ -2,35 +2,54 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Locked poll | datagridder</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/locked-icon.svg' %}">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'img/locked-icon.svg' %}"
+    />
 
-    <link rel="stylesheet" href="{% static 'compile/polllocked.css' %}" type="text/css">
+    <link
+      rel="stylesheet"
+      href="{% static 'compile/polllocked.css' %}"
+      type="text/css"
+    />
 
-</head>
-<body>
-    <div class="locked-explanation-container">
-        <div class="locked-explanation-content">
-            <div class="top-content">
-                <img src="{% static 'img/icon.svg' %}" alt="Data grider, home of forms">
-                <h3>Datagridder</h3>
-            </div>
+    <!--=============== REMIX ICONS ===============-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- <div class="header">
+      <img src="{% static 'img/icon.svg' %}" alt="" />
+      <h4>Datagridder</h4>
+    </div> -->
 
-            <div class="line">
+    <div class="content">
+      <!-- <div class="item-top">
+        <img src="{% static 'img/panda-lie.svg' %}" alt="" />
+      </div> -->
+      <div class="content-body">
+        <h1>Poll is locked!</h1>
+        <p class="explanation">
+          This poll is currently locked by it’s author If you think this is a
+          mistake or if you have any questions, kindly contact the poll author
+          for additional clarification or assistance. Thank's for your
+          understanding.
+        </p>
 
-            </div>
-            <div class="bottom-content">
-                <h1>Poll is Locked!</h1>
-                <p>The poll is presently locked by the poll author. If you believe this is an error or have any concerns, 
-                    please reach out to the poll author for further clarification or assistance. Thank you for your understanding.</p>
-            </div>
-            <div class="buttons">
-               <a href="/"> <button class="button-two">Back to home</button></a>
-            </div>
-        </div>
+        <a href="/">
+          <button>
+            <i class="ri-external-link-line"></i>
+            <p>Explore Datagridder</p>
+          </button>
+        </a>
+      </div>
     </div>
-</body>
+  </body>
 </html>

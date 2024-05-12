@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 if DEBUG:
-    ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '192.168.0.105', '192.168.0.100', '*']
+    ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = ['datagridder.com', 'www.datagridder.com']
 

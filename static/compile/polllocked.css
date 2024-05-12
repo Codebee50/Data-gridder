@@ -529,48 +529,63 @@ footer .bottom .content .side {
   margin-left: 0.5rem;
 }
 
-.locked-explanation-container {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-items: center;
-}
-.locked-explanation-container .locked-explanation-content {
-  width: 90%;
-  max-width: 400px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-}
-.locked-explanation-container .locked-explanation-content .top-content {
+.header {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
+  width: 80%;
+  margin: 30px auto;
 }
-.locked-explanation-container .locked-explanation-content .top-content img {
-  width: 20px;
+.header img {
+  width: 24px;
+  height: 24px;
 }
-.locked-explanation-container .locked-explanation-content .line {
+
+.content {
+  height: 100vh;
   width: 100%;
-  height: 0.7px;
-  background-color: var(--soft-grey);
-  margin-top: 10px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.locked-explanation-container .locked-explanation-content .bottom-content {
+.content .item-top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.content .item-top img {
+  width: 80%;
+  max-width: 310px;
+}
+.content .content-body {
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
 }
-.locked-explanation-container .locked-explanation-content .bottom-content p {
-  margin-top: 6px;
-  color: var(--soft-grey);
-  font-size: 0.86rem;
-  line-height: 1.5;
+.content .content-body h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  font-family: "Lato", sans-serif;
 }
-.locked-explanation-container .locked-explanation-content .buttons {
+.content .content-body .explanation {
+  max-width: 600px;
+  line-height: 2rem;
+  opacity: 0.6;
+}
+.content .content-body a {
+  text-decoration: none;
   margin-top: 20px;
 }
-.locked-explanation-container .locked-explanation-content .buttons button {
-  padding: 0.9rem;
+.content .content-body a button {
+  max-width: 400px;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  border: 0.5px solid var(--complement_color);
+  border-radius: 6px;
 }/*# sourceMappingURL=polllocked.css.map */

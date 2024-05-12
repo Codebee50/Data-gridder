@@ -107,7 +107,6 @@ def googleLogIn(request):
                     'status': 500
                 }, status=500)
     except ValueError as e:#this means token could not be verified hence an invalid login attempt
-        print(e)
         context = {
             "message": "Error signing in with google please try again.",
             "status": 400
@@ -118,16 +117,16 @@ def createUserAccount(request, username, email, signup_method):
     #creating a new user 
     user = User.objects.create_user(username=username, email=email)
     generated_password = User.objects.make_random_password()#generating a password for the user 
-    print('The generated password is ', generated_password)
+    # print('The generated password is ', generated_password)
     user.set_password(generated_password)
     user.save()
 
-    print('user has been saved')
+    # print('user has been saved')
     new_profile = Profile.objects.create(user=user, id_user=user.id)
     new_profile.signup_method = signup_method
     new_profile.is_email_verified = True
     new_profile.save()
-    print('profile created and saved')
+    # print('profile created and saved')
     #Login in the user just created
     auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 

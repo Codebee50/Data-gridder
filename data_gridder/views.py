@@ -164,7 +164,6 @@ def getpoll(request, pollcode, pk):
                 poll = Poll.objects.get(poll_code=pollcode)
                 json_fields = json.dumps(poll.fields)
                 serialized_values = serialize('json', [values])
-                print(serialized_values)
                 context = {
                     'fields': json_fields,
                     'values': serialized_values

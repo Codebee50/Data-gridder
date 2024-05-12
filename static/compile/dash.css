@@ -550,6 +550,13 @@ footer .bottom .content .side {
 .emptiness .emp-content .txt-ooh {
   font-family: "Inter", sans-serif;
   margin-top: 0.5rem;
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.panda-img {
+  width: 90%;
+  max-width: 120px;
 }
 
 html::-webkit-scrollbar {
@@ -776,7 +783,6 @@ html::-webkit-scrollbar {
   bottom: 0;
   align-self: center;
   background-color: black;
-  color: white;
   font-size: 0.8rem;
   display: flex;
   align-items: center;
@@ -784,7 +790,10 @@ html::-webkit-scrollbar {
   padding: 9px 7px;
   width: 100px;
   cursor: pointer;
-  border: 1px solid black;
+  border: none;
+}
+.container #new-poll .bottom-content .bottom-left .create-container .btn-new-field p {
+  color: white;
 }
 .container #new-poll .bottom-content .bottom-right {
   width: 20%;
@@ -863,7 +872,7 @@ html::-webkit-scrollbar {
 }
 .container #my-polls .bottom-content {
   overflow-y: scroll;
-  display: flex;
+  background-color: white;
 }
 .container #my-polls .bottom-content .poll-entity-container {
   width: 100%;
@@ -880,7 +889,7 @@ html::-webkit-scrollbar {
   color: var(--complement_color);
   width: 80%;
   max-width: 500px;
-  background-color: #F8FAFB;
+  background-color: #f8fafb;
   border-radius: 5px;
   padding: 2px;
   display: flex;
@@ -909,7 +918,8 @@ html::-webkit-scrollbar {
   border-collapse: collapse;
   font-size: 0.5rem;
 }
-.container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container table th, .container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container table td {
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container table th,
+.container #my-polls .bottom-content .poll-entity-container .poll-entity .top-representation .top-table-container table td {
   border: 0.5px solid var(--complement_color);
   color: var(--complement_color);
   text-align: center;
