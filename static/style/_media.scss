@@ -120,7 +120,7 @@ $min-head-footer-height: 35vh;
         }
     }
 
-    .input-poll-code{
+    .input-form-code{
         flex-direction: column;
         padding: 0;
         .left-content{
@@ -220,7 +220,7 @@ $min-head-footer-height: 35vh;
 }
 
 @media screen and (max-width: 950px){
-    .input-poll-code{
+    .input-form-code{
         .right-content{
             .des{
                 width: 80%;
@@ -230,7 +230,7 @@ $min-head-footer-height: 35vh;
 }
 
 @media screen and (max-width: 750px){
-    .input-poll-code{
+    .input-form-code{
         .right-content{
             .des{
                 width: 90%;

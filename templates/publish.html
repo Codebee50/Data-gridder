@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'compile/pub.css' %}" type="text/css">
 
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
-    <title>Publish poll | datagridder</title>
+    <title>Publish form | datagridder</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
@@ -22,7 +22,7 @@
     <input type="hidden" name="domain" id="domain" value="{{domain}}">
 
     <section class="publish-section section">
-        <h1 class="header-message">Publish your poll</h1>
+        <h1 class="header-message">Publish your form</h1>
         <div class="hor-line"></div>
 
         <div class="form-holder">
@@ -32,7 +32,7 @@
                     <h4 class="txt-input-name">Name</h4>
 
                     <div class="counter-input">
-                        <input type="text" name="poll-name" id="poll-name" placeholder="Enter a name for your poll" required class="text-input-101">
+                        <input type="text" name="form-name" id="form-name" placeholder="Enter a name for your form" required class="text-input-101">
                         <div class="counter">
                             <p id="txt-input-word-count">0/60</p>
                         </div>
@@ -42,7 +42,7 @@
 
                 <div class="input-container">
                     <h4 class="txt-input-name">Description</h4>
-                    <textarea name="description" id="poll-description" cols="30" rows="5" placeholder="Describe your poll" class="text-input-101"></textarea>
+                    <textarea name="description" id="form-description" cols="30" rows="5" placeholder="Describe your form" class="text-input-101"></textarea>
                 </div>
 
                 <div class="input-container">
@@ -106,15 +106,15 @@
 
                     <span class="breaker">Integrate Your Custom Designs:</span> <br>
 
-                    Easily incorporate headers, titles, and more into your documents. Craft your designs in any preferred document editor, then simply upload the file. Datagridder seamlessly integrates your poll data as a table precisely where you specify. <br>
+                    Easily incorporate headers, titles, and more into your documents. Craft your designs in any preferred document editor, then simply upload the file. Datagridder seamlessly integrates your form data as a table precisely where you specify. <br>
                     
                     <span class="breaker">Designating the Insertion Point: </span><br>
                     
-                    To guide Datagridder on where to place your poll data, insert a 'dg' table which is a one-row, one-column table with 'dg' as its content. This defines the position where your poll data will be appended. A sample dg table is shown below <br>
+                    To guide Datagridder on where to place your form data, insert a 'dg' table which is a one-row, one-column table with 'dg' as its content. This defines the position where your form data will be appended. A sample dg table is shown below <br>
                     
                     <span class="breaker">No Document Provided? No Problem:</span> <br>
                     
-                    If no document is uploaded, your poll data will be seamlessly integrated into a newly generated document.
+                    If no document is uploaded, your form data will be seamlessly integrated into a newly generated document.
                 </p>
                
             </div>
@@ -123,7 +123,7 @@
 
     <section class="sample-items-section section">
         <h2>A sample dg table</h2>
-        <p>This is called a dg table, it tells datagridder where to append your poll data</p>
+        <p>This is called a dg table, it tells datagridder where to append your form data</p>
         <img src="{% static 'img/sample-dg.png' %}" alt="">
 
 
@@ -141,39 +141,39 @@
                 <img src="{% static 'img/loading.gif' %}" alt="" width="30px" height="30px">
 
                 <div class="progress-details">
-                    <p>creating poll...</p>
+                    <p>creating form...</p>
                 </div>
             </div>
 
             <div class="display-result" id="result-container">
                 <i class="fa-solid fa-circle-check"></i>
-                <h3 class="txt-created">Poll Created</h3>
+                <h3 class="txt-created">Form Created</h3>
                 <div class="details">
                    <div class="detail">
                         <div class="left">
-                            <p>Poll code: </p>
-                            <h5 class="value" id="txt-poll-code"></h5>
+                            <p>Form code: </p>
+                            <h5 class="value" id="txt-form-code"></h5>
                         </div>
                         <div class="tooltip">
-                        <i class="fa-solid fa-copy" id="copy-poll-code"></i>
+                        <i class="fa-solid fa-copy" id="copy-form-code"></i>
                         </div>
                    </div>
 
                    <div class="detail">
                     <div class="left">
                         <p>Link: </p>
-                        <h5 class="value poll-link" id="txt-poll-link"></h5>
+                        <h5 class="value form-link" id="txt-form-link"></h5>
                     </div>
                     <div class="tooltip">
-                    <i class="fa-solid fa-copy" id="copy-poll-link"></i>
+                    <i class="fa-solid fa-copy" id="copy-form-link"></i>
                     </div>
                </div>
 
 
                    <div class="detail">
                     <div class="left">
-                        <p>Poll name:</p>
-                        <h5 class="value" id="txt-poll-name"> </h5>
+                        <p>Form name:</p>
+                        <h5 class="value" id="txt-form-name"> </h5>
                     </div>
                         
                     </div>
@@ -181,7 +181,7 @@
                     <div class="detail">
                         <div class="left">
                             <p>Owner: </p>
-                            <h5 class="value" id="txt-poll-owner">-</h5>
+                            <h5 class="value" id="txt-form-owner">-</h5>
                         </div>
                         
                     </div>
@@ -190,7 +190,7 @@
                 </div>
         
                 <div class="bottom">
-                    <p>share this poll code with your target audience</p>
+                    <p>share this form code with your target audience</p>
                     <button class="done" id="btn-done">Done</button>
                 </div>
                

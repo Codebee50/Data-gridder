@@ -1,8 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-    // setupOpaqueModal('op-one', 'op-message-one', 'Fetching poll..') 
+    // setupOpaqueModal('op-one', 'op-message-one', 'Fetching form..') 
 
-    const mInput = document.getElementById('in-poll-code');
+    const mInput = document.getElementById('in-form-code');
     const inputContainer = document.querySelector('.input-container');
     const submitBtn = document.getElementById('submit');
     const valueIdInput = document.getElementById('value_id');
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
     let valueId = valueIdInput.value;
-    let pollvalues;
+    let formvalues;
 
     let editMode = false;
 
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    let pollcode = mInput.value;
+    let formcode = mInput.value;
     let inputArray = [];
 
     if(responseModalCloseBtn !== null){
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
 
-    fetch('/getpoll/' + pollcode + '/' + valueId + '/')
+    fetch('/getform/' + formcode + '/' + valueId + '/')
         .then(response => response.json())
         .then(data => {
             transitionModal('none')
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (data.values !== 'empty') {
                 editMode = true;
-                pollvalues = JSON.parse(JSON.parse(data.values)[0].fields.field_values)
+                formvalues = JSON.parse(JSON.parse(data.values)[0].fields.field_values)
 
                 populateUi(fieldArray);
                 promptTxt.textContent = 'Modify your entries';
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
         let formData = new FormData();
-        formData.append('pollcode', pollcode)
+        formData.append('formcode', formcode)
         formData.append('values', inputString)
         formData.append('editmode', editMode.toString())
         formData.append('valueid', valueId)
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     inputElement.classList.add('enter-input')
     
                     if (editMode) {
-                        let matchingValue = pollvalues.find(value => value.name === item.name);
+                        let matchingValue = formvalues.find(value => value.name === item.name);
                         if (matchingValue) {
                             inputElement.value = matchingValue.value;
                         }

@@ -3,9 +3,9 @@ const nav = document.querySelector('.nav-bar')
 const header = document.querySelector('.header')
 const bar = document.getElementById('bar')
 let modalContainer = document.getElementById('modal-container')
-const btnNewPoll = document.querySelector('.btn-new-poll')
+const btnNewForm = document.querySelector('.btn-new-form')
 let submitBtn = document.getElementById('submit-btn')
-let loadingPoll = document.querySelector('.loading-poll-div')
+let loadingForm = document.querySelector('.loading-form-div')
 const notFoundModal = document.querySelector('.not-found-modal')
 const removeNotFoundModal = document.getElementById('remove-not-found-modal')
 
@@ -53,8 +53,8 @@ if ('scrollBehavior' in document.documentElement.style) {
   }
   
 
-btnNewPoll.addEventListener('click', function(e){
-    localStorage.setItem('screen-id', 'new-poll')
+btnNewForm.addEventListener('click', function(e){
+    localStorage.setItem('screen-id', 'new-form')
     window.location.href = '/dashboard'
 })
 mobile.addEventListener('click', ()=>{
@@ -77,20 +77,20 @@ removeNotFoundModal.addEventListener('click', ()=>{
 
 })
 
-$(document).on('submit', '#find-poll-form', function(e){
+$(document).on('submit', '#find-form-form', function(e){
     e.preventDefault()
     submitBtn.disabled = true
-    loadingPoll.classList.add('visible')
+    loadingForm.classList.add('visible')
     $.ajax({
         type: 'POST',
-        url: '/findpoll',
+        url: '/findform',
         data: {
-            'pollcode': $('#poll-code').val(),
+            'formcode': $('#form-code').val(),
             'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()
         },
         success: function(data){
             submitBtn.disabled= false
-            loadingPoll.classList.remove('visible')
+            loadingForm.classList.remove('visible')
             if(data.status== 'success'){
                     modalContainer.classList.add('visible')
                     let content = `<div class="result-container">
@@ -126,21 +126,21 @@ $(document).on('submit', '#find-poll-form', function(e){
                 let pAuthor = document.getElementById('p-author')
                 let pCode = document.getElementById('p-code')
         
-                pName.textContent = data.pollname
-                pAuthor.textContent = data.pollauthor
-                pCode.textContent = data.pollcode
+                pName.textContent = data.formname
+                pAuthor.textContent = data.formauthor
+                pCode.textContent = data.formcode
 
                 let btnGo = document.getElementById('btn-go')
                 btnGo.addEventListener('click', function(){
-                    window.location.href ='/regpoll/' + data.pollcode + '/nb/' 
+                    window.location.href ='/regform/' + data.formcode + '/nb/' 
                 })
             }
             else{
                 if(data.message == 'n_f'){
-                    //this means that the poll is not found
+                    //this means that the form is not found
                     modalContainer.classList.add('visible')
                     const content = `   <div class="warning-div">
-                    <p id="warning-message">Poll does not exist, check your poll code and try again</p>
+                    <p id="warning-message">Form does not exist, check your form code and try again</p>
                     <button id="btn-ok">Ok</button>
                 </div>`
     
@@ -160,7 +160,7 @@ $(document).on('submit', '#find-poll-form', function(e){
            
         },
         error: function(data){
-            loadingPoll.classList.remove('visible')
+            loadingForm.classList.remove('visible')
             submitBtn.disabled = false
             alert(data)
         }

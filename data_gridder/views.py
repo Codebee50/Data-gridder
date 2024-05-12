@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Profile, Poll, PollValue,Contact
+from .models import Profile, Form, FormValue,Contact
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, FileResponse
@@ -10,7 +10,7 @@ from docx import Document
 import shutil
 from django.core.mail import send_mail
 from django.conf import settings
-from . import forms
+from . import forms as mForms
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from functools import partial
@@ -26,7 +26,7 @@ def home(request):
         user_profile = Profile.objects.get(user=user_object)
 
         # current_user = request.user.username
-        contact_form = forms.ContactForm()
+        contact_form = mForms.ContactForm()
         context= {
             'user_exists': 'true',
             'user_profile' : user_profile,
@@ -35,7 +35,7 @@ def home(request):
         return render(request, 'index.html', context)
     else:
         #this means that the user is not logged in 
-        contact_form = forms.ContactForm()
+        contact_form = mForms.ContactForm()
         context = {
             'user_exists': 'false',
             'contact_form': contact_form,
@@ -54,35 +54,35 @@ def dashboard(request):
     
     current_user = request.user.username
 
-    polls = Poll.objects.filter(poll_author = current_user)
-    registered_polls = PollValue.objects.filter(user_name = current_user).order_by('-registered_date')
-    contact_form = forms.ContactForm()
+    forms = Form.objects.filter(form_author = current_user)
+    registered_forms = FormValue.objects.filter(user_name = current_user).order_by('-registered_date')
+    contact_form = mForms.ContactForm()
     try:
-        poll_values_list = list(polls.values())
-        registered_poll_list = list(registered_polls.values())
+        form_values_list = list(forms.values())
+        registered_form_list = list(registered_forms.values())
     except Exception as e:
         print(e)
-        poll_values_list = []
-        registered_poll_list = []
+        form_values_list = []
+        registered_form_list = []
     context= {
         'user_profile' : user_profile,
-        'polls': poll_values_list,
-        'registered_polls': registered_poll_list,
+        'forms': form_values_list,
+        'registered_forms': registered_form_list,
         'contact_form': contact_form
     }
     return render(request, 'dashboard.html', context)
 
-def getuserpolls(reqeust):
-    for poll in Poll.objects.filter(poll_creator__isnull = True):
-        try:
-            user = User.objects.get(username = poll.poll_author)
-            poll.poll_creator = user
-            poll.save()
-            print(f'Creator updated for {poll.poll_author}')
-        except User.DoesNotExist:
-            pass
+def getuserforms(reqeust):
+    # for form in Form.objects.filter(form_creator__isnull = True):
+    #     try:
+    #         user = User.objects.get(username = form.form_author)
+    #         form.form_creator = user
+    #         form.save()
+    #         print(f'Creator updated for {form.form_author}')
+    #     except User.DoesNotExist:
+    #         pass
 
-    print('All creators updated successfully')
+    # print('All creators updated successfully')
 
     user_id = reqeust.user.id#getting the id of the user 
     try: 
@@ -93,36 +93,36 @@ def getuserpolls(reqeust):
             'message': 'User does not exist'
         }, status=500)
     
-    polls = Poll.objects.filter(poll_creator = user_object)
+    forms = Form.objects.filter(form_creator = user_object)
 
     try: 
-        poll_list = list(polls.values())
+        form_list = list(forms.values())
     except Exception as e:
         print(e)
-        poll_list = None
+        form_list = None
 
     context = {
         'status': 200, 
-        'polls': poll_list
+        'forms': form_list
     }
     return JsonResponse(context, status=200)
 
 
 
-"""this function checks if the poll exists and if the current user is authenticated 
+"""this function checks if the form exists and if the current user is authenticated 
     and returns json responses with messages matching the corresponding cases"""
-def findpoll(request):
+def findform(request):
     if request.method == 'POST':
-        pollcode = request.POST['pollcode']
-        if Poll.objects.filter(poll_code=pollcode).exists():
+        formcode = request.POST['formcode']
+        if Form.objects.filter(form_code=formcode).exists():
             if request.user.is_authenticated:      
-                poll = Poll.objects.get(poll_code=pollcode)
+                form = Form.objects.get(form_code=formcode)
                 context = {
                     'status': 'success',
-                    'message': 'Poll exists',
-                    'pollname': poll.poll_name,
-                    'pollauthor': poll.poll_author,
-                    'pollcode': poll.poll_code
+                    'message': 'Form exists',
+                    'formname': form.form_name,
+                    'formauthor': form.form_author,
+                    'formcode': form.form_code
 
                 }
                 return JsonResponse(context)
@@ -143,14 +143,14 @@ def findpoll(request):
         return render(request, '/')
 
 
-""" gets the fields of the poll with the provided poll code
-     also gets the poll value withe the provided variable pk if user wants to edit his entry
+""" gets the fields of the form with the provided form code
+     also gets the form value withe the provided variable pk if user wants to edit his entry
      returns a json response"""
-def getpoll(request, pollcode, pk):
+def getform(request, formcode, pk):
     if request.method == 'GET':
         if pk == 'nb':
-            poll = Poll.objects.get(poll_code=pollcode)
-            json_fields = json.dumps(poll.fields)
+            form = Form.objects.get(form_code=formcode)
+            json_fields = json.dumps(form.fields)
             context = {
                 'fields': json_fields,
                 'values': 'empty'
@@ -159,10 +159,10 @@ def getpoll(request, pollcode, pk):
             return JsonResponse(context)
 
         else:
-            if PollValue.objects.filter(id = pk).exists():
-                values = PollValue.objects.get(id = pk)
-                poll = Poll.objects.get(poll_code=pollcode)
-                json_fields = json.dumps(poll.fields)
+            if FormValue.objects.filter(id = pk).exists():
+                values = FormValue.objects.get(id = pk)
+                form = Form.objects.get(form_code=formcode)
+                json_fields = json.dumps(form.fields)
                 serialized_values = serialize('json', [values])
                 context = {
                     'fields': json_fields,
@@ -174,71 +174,71 @@ def getpoll(request, pollcode, pk):
                 context = {
                     'fields': 'empty',
                     'values':  'empty',
-                    'message': 'Poll does not exist'
+                    'message': 'Form does not exist'
                 }
                 return JsonResponse(context)
     else: 
         pass
     
 # @login_required(login_url='login')
-def registerPoll(request, pollcode, pk):
-    #checking if poll exists
+def registerForm(request, formcode, pk):
+    #checking if form exists
     guest = request.GET.get('guest')
-    if Poll.objects.filter(poll_code= pollcode).exists():
-        poll = Poll.objects.get(poll_code = pollcode)
-        if poll.status == Poll.Status.LOCKED:
-            return render(request, 'poll-locked.html')
-        pollname = poll.poll_name
-        pollauthor = poll.poll_author
-        pollvalues = PollValue.objects.filter(poll_code = pollcode)
-        itemcount = pollvalues.count()
+    if Form.objects.filter(form_code= formcode).exists():
+        form = Form.objects.get(form_code = formcode)
+        if form.status == Form.Status.LOCKED:
+            return render(request, 'form-locked.html')
+        formname = form.form_name
+        formauthor = form.form_author
+        formvalues = FormValue.objects.filter(form_code = formcode)
+        itemcount = formvalues.count()
         
         context = {
             'stautus' : 'success',
             'statusCode': 200,
-            'pollcode': pollcode,
-            'pollname': pollname,
-            'pollauthor': pollauthor,
+            'formcode': formcode,
+            'formname': formname,
+            'formauthor': formauthor,
             'itemcount': itemcount,
             'value_id': pk,
             'is_authenticated': request.user.is_authenticated,
             'guest': guest, 
-            'description': 'Please fill the form below' if poll.description == None else poll.description
+            'description': 'Please fill the form below' if form.description == None else form.description
         }
-        return render(request, 'regpoll.html', context)
+        return render(request, 'regform.html', context)
     else:
-        return render(request, 'poll-not-found.html')
+        return render(request, 'form-not-found.html')
         # context = {
         #     'status': 'failed',
         #     'statusCode': 401,
-        #     'message': 'Poll ' + pollcode + ' does not exist',
-        #     'pollcode': 'none',
-        #     'pollauthor': 'none',
-        #     'pollname': 'none',
+        #     'message': 'Form ' + formcode + ' does not exist',
+        #     'formcode': 'none',
+        #     'formauthor': 'none',
+        #     'formname': 'none',
         #     'itemcount': 0,
         #     'is_authenticated': request.user.is_authenticated,
         #     'guest': guest,
-        #     'description': 'Please fill the form below' if poll.description == None else poll.description
+        #     'description': 'Please fill the form below' if form.description == None else form.description
 
 
         # }
-        # return render(request, 'regpoll.html', context)
+        # return render(request, 'regform.html', context)
 
-""" when a user registers for a poll, this function is used to save the values provided to the database
-    also used to save the new values of a pollvalue when user edits the poll values""" 
+""" when a user registers for a form, this function is used to save the values provided to the database
+    also used to save the new values of a formvalue when user edits the form values""" 
 def saveValue(request):
     if request.method == 'POST':
-        pollcode = request.POST.get('pollcode')
+        formcode = request.POST.get('formcode')
         values = request.POST.get('values')
         user = request.user.username
         edit_mode = request.POST.get('editmode')
 
         if edit_mode== 'true':
             value_id = request.POST['valueid']
-            if PollValue.objects.filter(id = value_id).exists():
-                poll_value = PollValue.objects.get(id =value_id)
-                poll_value.field_values = values
-                poll_value.save()
+            if FormValue.objects.filter(id = value_id).exists():
+                form_value = FormValue.objects.get(id =value_id)
+                form_value.field_values = values
+                form_value.save()
                 context= {
                     'status' : 'success',
                     'message': 'Entries modified successfully'
@@ -251,10 +251,10 @@ def saveValue(request):
                 }
                 return JsonResponse(context)
         else:
-            if Poll.objects.filter(poll_code = pollcode).exists():
-                poll = Poll.objects.get(poll_code=pollcode)
-                poll_value = PollValue.objects.create(poll_code=pollcode, poll_name= poll.poll_name, user_name= user, field_values=values)
-                poll_value.save()
+            if Form.objects.filter(form_code = formcode).exists():
+                form = Form.objects.get(form_code=formcode)
+                form_value = FormValue.objects.create(form_code=formcode, form_name= form.form_name, user_name= user, field_values=values)
+                form_value.save()
                 context= {
                     'status' : 'success',
                     'message': 'Registeration successfull'
@@ -263,7 +263,7 @@ def saveValue(request):
             else:
                 context= {
                     'status' : 'failed',
-                    'message': 'Poll code does not exist'
+                    'message': 'Form code does not exist'
                 }
                 return JsonResponse(context)
 
@@ -271,13 +271,13 @@ def saveValue(request):
 def publish(request):
     current_site = get_current_site(request)
     if request.method == 'POST':
-        pollname = request.POST.get('poll-name')
+        formname = request.POST.get('form-name')
         document = request.FILES.get('document')
-        pollcode = request.POST.get('poll_code')
-        polldata = request.POST.get('poll_data')
+        formcode = request.POST.get('form_code')
+        formdata = request.POST.get('form_data')
         description = request.POST.get('description')
         description= None if description== '' else description
-        pollauthor = request.user.username
+        formauthor = request.user.username
 
         if document is not None:#checking for the correct fie format
             _, fileextension =os.path.splitext(document.name)
@@ -289,15 +289,15 @@ def publish(request):
                 }
                 return JsonResponse(context)
             
-        #checking if the poll name already exits
-        if Poll.objects.filter(poll_name=pollname).exists():
+        #checking if the form name already exits
+        if Form.objects.filter(form_name=formname).exists():
             context = {
                 'status': 'failed',
-                'message': 'Poll name already exists'
+                'message': 'Form name already exists'
             }
             return JsonResponse(context)
         else:
-            if Poll.objects.filter(poll_code = pollcode).exists():
+            if Form.objects.filter(form_code = formcode).exists():
                 context = {
                     'status': 'failed',
                     'message': 'Oops an error occurred, please try again'
@@ -315,16 +315,16 @@ def publish(request):
                         _, ext = os.path.splitext(old_file_name)
                         # unique_file_name = f"{unique_id}{ext}"
                 
-                        document.name = 'doc-' + pollcode + ext
-                        new_poll = Poll.objects.create(poll_name=pollname, poll_code=pollcode, poll_author=pollauthor, appended_document=document, fields=polldata, original_doc_name = old_file_name, description = description)
-                        new_poll.save()
+                        document.name = 'doc-' + formcode + ext
+                        new_form = Form.objects.create(form_name=formname, form_code=formcode, form_author=formauthor, appended_document=document, fields=formdata, original_doc_name = old_file_name, description = description)
+                        new_form.save()
                         
                         
                         context = {
                             'status' : 'success',
-                            'pollname': pollname,
-                            'pollcode': pollcode,
-                            'pollauthor': pollauthor,
+                            'formname': formname,
+                            'formcode': formcode,
+                            'formauthor': formauthor,
                             'domain': current_site.domain
                         }
                         return JsonResponse(context)
@@ -335,14 +335,14 @@ def publish(request):
                         }
                     
                 else: 
-                    new_poll = Poll.objects.create(poll_name=pollname, poll_code=pollcode, poll_author=pollauthor, fields=polldata, description=description)
-                    new_poll.save()
+                    new_form = Form.objects.create(form_name=formname, form_code=formcode, form_author=formauthor, fields=formdata, description=description)
+                    new_form.save()
                     
                     context = {
                         'status' : 'success',
-                        'pollname': pollname,
-                        'pollcode': pollcode,
-                        'pollauthor': pollauthor,
+                        'formname': formname,
+                        'formcode': formcode,
+                        'formauthor': formauthor,
                         'domain': current_site.domain
                     }
             
@@ -359,98 +359,98 @@ def publish(request):
         }
         return render(request, 'publish.html', context)
 
-#navigates to the viewpoll.html file 
+#navigates to the viewform.html file 
 @login_required(login_url='login')
-def viewPoll(request, pollcode):
+def viewForm(request, formcode):
     current_site = get_current_site(request)
     if request.method == 'POST':#handle post request
-        poll = Poll.objects.get(poll_code= pollcode)
-        pollValues = PollValue.objects.filter(poll_code=pollcode)
+        form = Form.objects.get(form_code= formcode)
+        formValues = FormValue.objects.filter(form_code=formcode)
 
         context = {
-            'poll': poll,
-            'pollvalues': list(pollValues.values()),
+            'form': form,
+            'formvalues': list(formValues.values()),
             'domain': current_site
         }
         return JsonResponse(context)
     else:#handle get request
         try:
-            poll = Poll.objects.get(poll_code= pollcode)
+            form = Form.objects.get(form_code= formcode)
         except ObjectDoesNotExist:
-            return render(request, 'poll-not-found.html')
+            return render(request, 'form-not-found.html')
             
-        pollValues = PollValue.objects.filter(poll_code=pollcode)
-        peopleCount = len(pollValues)
+        formValues = FormValue.objects.filter(form_code=formcode)
+        peopleCount = len(formValues)
         context = {
-            'poll': poll,
-            'pollvalues': list(pollValues.values()),
+            'form': form,
+            'formvalues': list(formValues.values()),
             'peoplecount': peopleCount,
             'domain': current_site
         }
 
-        return render(request, 'viewpoll.html', context)
+        return render(request, 'viewform.html', context)
     
 @login_required(login_url= 'login')
-def getPollAndValues(request, pollcode):
+def getFormAndValues(request, formcode):
         if request.method == 'GET': 
-            poll = Poll.objects.get(poll_code=pollcode)
+            form = Form.objects.get(form_code=formcode)
             
-            pollValues = PollValue.objects.filter(poll_code=pollcode)
-            serialized_poll = serialize('json', [poll])
+            formValues = FormValue.objects.filter(form_code=formcode)
+            serialized_form = serialize('json', [form])
            
             context = {
-                'poll': serialized_poll,
-                'pollvalues': list(pollValues.values())
+                'form': serialized_form,
+                'formvalues': list(formValues.values())
             }
             
             return JsonResponse(context)
         
-def modifyPoll(request):
+def modifyForm(request):
     if request.method == 'POST':
-        new_name = request.POST.get('pollname')
+        new_name = request.POST.get('formname')
         new_document = request.FILES.get('document')
-        pollcode = request.POST.get('pollcode')
+        formcode = request.POST.get('formcode')
         status = request.POST.get('status')
         description = request.POST.get('description')
         fileop = request.POST.get('fileop')
 
 
-        if Poll.objects.filter(poll_code = pollcode).exists():            
-            poll = Poll.objects.get(poll_code = pollcode)
+        if Form.objects.filter(form_code = formcode).exists():            
+            form = Form.objects.get(form_code = formcode)
 
             
-            if Poll.objects.filter(poll_name=new_name).exists() and poll.poll_name != new_name:
+            if Form.objects.filter(form_name=new_name).exists() and form.form_name != new_name:
                 return JsonResponse({
                     'statuscode': 400,
-                    'message': 'A poll with that name already exits'
+                    'message': 'A form with that name already exits'
                 })
 
             if fileop == 'none':#User did not make changes to the document
                 pass
             elif fileop == 'removed':#user removed the document
                 #Delete the appended document
-                doc_path = poll.appended_document.path
+                doc_path = form.appended_document.path
                 if os.path.exists(doc_path):
                     os.remove(doc_path)
                     print('deleted the appended document')
                 
-                poll.appended_document = 'sampledoc.docx'
-                poll.original_doc_name = 'document_name'
+                form.appended_document = 'sampledoc.docx'
+                form.original_doc_name = 'document_name'
             else:#user selected a new document
                 dg_table = checkForDgTable(new_document)
                 if(dg_table):
                     original_file_name = new_document.name
-                    new_document.name = poll.appended_document.name
+                    new_document.name = form.appended_document.name
 
-                    old_doucument_path = poll.appended_document.path
+                    old_doucument_path = form.appended_document.path
 
                     #deleting the old document before saving the new one 
-                    if poll.appended_document.name != 'sampledoc.docx':
+                    if form.appended_document.name != 'sampledoc.docx':
                         if os.path.exists(old_doucument_path):
                             os.remove(old_doucument_path)
 
-                    poll.appended_document = new_document
-                    poll.original_doc_name = original_file_name
+                    form.appended_document = new_document
+                    form.original_doc_name = original_file_name
                         
                 else:
                     return JsonResponse({
@@ -458,42 +458,42 @@ def modifyPoll(request):
                         'message': 'Updated document does not contain a dg table'
                     }, status = 400)
 
-            if poll.poll_name != new_name:#checking if poll name needs to be updated
-                poll.poll_name = new_name
-                poll_values= PollValue.objects.filter(poll_code = poll.poll_code)#changing all the names for the poll values
-                #TODO: make poll values a forien key
-                for poll_value in poll_values:
-                    poll_value.poll_name = new_name
-                    poll_value.save()
+            if form.form_name != new_name:#checking if form name needs to be updated
+                form.form_name = new_name
+                form_values= FormValue.objects.filter(form_code = form.form_code)#changing all the names for the form values
+                #TODO: make form values a forien key
+                for form_value in form_values:
+                    form_value.form_name = new_name
+                    form_value.save()
             
             #update the status and the description
-            poll.status = status
-            poll.description = description
+            form.status = status
+            form.description = description
 
-            poll.save()
-            print(poll)
+            form.save()
+            print(form)
             return JsonResponse({
                 'statuscode': 200,
-                'message': 'Poll updated succesfully'
+                'message': 'Form updated succesfully'
             }, status=200)
         else:
             return JsonResponse({
                 'statuscode': 404,
-                'message': 'Poll not found'
+                'message': 'Form not found'
                 }, status=400)
     else:
         return JsonResponse({
             'statuscode': 400, 
             'message': 'GET method not allowed'}, status=400)        
-def editPoll(request):
+def editForm(request):
     if request.method == 'POST':
-        new_name = request.POST.get('pollname')
+        new_name = request.POST.get('formname')
         new_document = request.FILES.get('document')
-        pollcode = request.POST.get('pollcode')
+        formcode = request.POST.get('formcode')
 
-        #checking if the poll with the provided poll code exists
-        if Poll.objects.filter(poll_code= pollcode).exists():
-            poll = Poll.objects.get(poll_code= pollcode)
+        #checking if the form with the provided form code exists
+        if Form.objects.filter(form_code= formcode).exists():
+            form = Form.objects.get(form_code= formcode)
        
             if new_document is not None:
                 #this means the user selected a document
@@ -501,46 +501,46 @@ def editPoll(request):
                 dgTable = checkForDgTable(new_document)
                 if dgTable == True:
                     original_file_name = new_document.name
-                    new_document.name = poll.appended_document.name
+                    new_document.name = form.appended_document.name
                     
-                    old_doucument_path = poll.appended_document.path
+                    old_doucument_path = form.appended_document.path
 
                     #deleting the old document before saving the new one 
-                    if poll.appended_document.name == 'sampledoc.docx':
+                    if form.appended_document.name == 'sampledoc.docx':
                         pass
                     else:
                         if os.path.exists(old_doucument_path):
                             os.remove(old_doucument_path)
-                    poll.appended_document = new_document
-                    poll.original_doc_name = original_file_name
-                    poll.poll_name = new_name
-                    #changing the poll names for every pollvalue object
-                    poll_values= PollValue.objects.filter(poll_code = poll.poll_code)
-                    for poll_value in poll_values:
-                        poll_value.poll_name = new_name
-                        poll_value.save()
+                    form.appended_document = new_document
+                    form.original_doc_name = original_file_name
+                    form.form_name = new_name
+                    #changing the form names for every formvalue object
+                    form_values= FormValue.objects.filter(form_code = form.form_code)
+                    for form_value in form_values:
+                        form_value.form_name = new_name
+                        form_value.save()
                 else:
                     return JsonResponse({'status': 'failed', 'message': 'No dg table in appended document'})
             else:
                 #this means user did not select any doument
-                poll.poll_name = new_name
+                form.form_name = new_name
 
-                #changing the poll names for every pollvalue object
-                poll_values= PollValue.objects.filter(poll_code = poll.poll_code)
-                for poll_value in poll_values:
-                    poll_value.poll_name = new_name
-                    poll_value.save()
+                #changing the form names for every formvalue object
+                form_values= FormValue.objects.filter(form_code = form.form_code)
+                for form_value in form_values:
+                    form_value.form_name = new_name
+                    form_value.save()
               
-            poll.save()
+            form.save()
             context = {
                 'status': 'success',
-                'message': 'Poll successfully modified'
+                'message': 'Form successfully modified'
             }
             return JsonResponse(context)
         else:
             context= {
                 'status': 'failed',
-                'message': str(pollcode) + ' not found'
+                'message': str(formcode) + ' not found'
             }
 
             return JsonResponse(context)
@@ -569,12 +569,12 @@ def checkForDgTable(document):
     return dgTable
 
 #deletes temporary files 
-def deleteTemp(request, pollcode):
-    if Poll.objects.filter(poll_code= pollcode).exists():
-        poll = Poll.objects.get(poll_code =pollcode)
+def deleteTemp(request, formcode):
+    if Form.objects.filter(form_code= formcode).exists():
+        form = Form.objects.get(form_code =formcode)
         
 
-        file_name = 'temp-doc-' + poll.poll_code + '.docx'
+        file_name = 'temp-doc-' + form.form_code + '.docx'
         if os.path.exists(file_name):
             os.remove(file_name)
             context = {
@@ -591,71 +591,71 @@ def deleteTemp(request, pollcode):
     else:
         context = {
             'status': 'failed',
-             'message': 'Poll not found'
+             'message': 'Form not found'
         }
 
         return JsonResponse(context)
     
-#delets poll with provided poll code 
-def deletePoll(request, pollcode):
+#delets form with provided form code 
+def deleteForm(request, formcode):
 
-    if Poll.objects.filter(poll_code = pollcode).exists():
-        poll = Poll.objects.get(poll_code = pollcode)
+    if Form.objects.filter(form_code = formcode).exists():
+        form = Form.objects.get(form_code = formcode)
 
-        #deleting all the pollvalues associated with this pollcode 
-        pollvalues = PollValue.objects.filter(poll_code= pollcode)
-        if len(pollvalues) > 0:
-            for value in pollvalues:
+        #deleting all the formvalues associated with this formcode 
+        formvalues = FormValue.objects.filter(form_code= formcode)
+        if len(formvalues) > 0:
+            for value in formvalues:
                 value.delete()
 
-        temp_doc = settings.TEMP_DIR + 'temp-doc-' + poll.poll_code + '.docx'
+        temp_doc = settings.TEMP_DIR + 'temp-doc-' + form.form_code + '.docx'
         if os.path.exists(temp_doc):
             os.remove(temp_doc)
 
-        document_path = settings.MEDIA_ROOT +'/documents/doc-' + poll.poll_code + '.docx'
+        document_path = settings.MEDIA_ROOT +'/documents/doc-' + form.form_code + '.docx'
         if os.path.exists(document_path):
             os.remove(document_path)
 
-        poll.delete()
+        form.delete()
         context = {
             'status': 'success',
-             'message': 'Poll deleted successfully'
+             'message': 'Form deleted successfully'
         }
         return JsonResponse(context)
     else:
         context = {
             'status': 'failed',
-             'message': 'Poll not found'
+             'message': 'Form not found'
         }
         return JsonResponse(context)
     
 #generates a temporary document and downloads it 
-def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
+def generateDoc(request, formcode, docname, numbered, alph, factor, transverse):
    temp_dir = settings.TEMP_DIR
    if request.method == 'GET': 
-        #checking if poll exists 
-        if Poll.objects.filter(poll_code=pollcode).exists:
-            poll = Poll.objects.get(poll_code= pollcode)
-            pollValues = PollValue.objects.filter(poll_code=pollcode)
+        #checking if form exists 
+        if Form.objects.filter(form_code=formcode).exists:
+            form = Form.objects.get(form_code= formcode)
+            formValues = FormValue.objects.filter(form_code=formcode)
             
             is_numbered = {'true': True, 'false': False}.get(numbered.lower())   
             is_alphabetical_ordered = {'true': True, 'false': False}.get(alph.lower())
             
             #----------GENERATING A TEMPORARY DOCUMENT---------------
-            temp_doc = temp_dir + 'temp-doc-' + poll.poll_code + '.docx'
+            temp_doc = temp_dir + 'temp-doc-' + form.form_code + '.docx'
 
             with open(temp_doc, 'wb+') as destination:
-                with poll.appended_document.open('rb') as source: 
+                with form.appended_document.open('rb') as source: 
                     shutil.copyfileobj(source, destination)
                 
-            #getting the number of rows and number of columns required to make a table out of the poll values
-            #adding 1 to the length of my poll values for the table to account for the headers
-            num_rows = len(list(pollValues.values())) +1
+            #getting the number of rows and number of columns required to make a table out of the form values
+            #adding 1 to the length of my form values for the table to account for the headers
+            num_rows = len(list(formValues.values())) +1
             if is_numbered:
                 #adding 1 column to account for the number colomn if list is supposed to be numbered
-                num_cols =  len(json.loads(poll.fields)) +1
+                num_cols =  len(json.loads(form.fields)) +1
             else:
-                num_cols =  len(json.loads(poll.fields))
+                num_cols =  len(json.loads(form.fields))
            
             doc = Document(temp_doc)
             tables = doc.tables
@@ -688,7 +688,7 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
                 hIndex = 1
             else:
                  hIndex =0
-            for header in json.loads(poll.fields):
+            for header in json.loads(form.fields):
                 cell = header_cells[hIndex]
                 if header.get('name') == '-':
                 
@@ -700,28 +700,28 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
                     cell.paragraphs[0].runs[0].bold = True
                 hIndex +=1
 
-            poll_value_list = list(pollValues.values())
+            form_value_list = list(formValues.values())
             
             if is_alphabetical_ordered:
                 if transverse == 'asc':
-                    poll_value_list.sort(key= partial(sort_by_field_values, factor=factor), reverse=False)
+                    form_value_list.sort(key= partial(sort_by_field_values, factor=factor), reverse=False)
                 else:
-                    poll_value_list.sort(key= partial(sort_by_field_values, factor=factor), reverse=True)
+                    form_value_list.sort(key= partial(sort_by_field_values, factor=factor), reverse=True)
 
 
             #setting the other rows of the table 
             #iterate starting from row index 1 to row index num_rows, this is done to exclude the headers
             for i in range(1, num_rows):
                 row_cells = new_table.rows[i].cells
-                poll_fields = json.loads(poll.fields)
-                val = poll_value_list[i-1]
+                form_fields = json.loads(form.fields)
+                val = form_value_list[i-1]
                 pIndex = 0
                 for index, cell in enumerate(row_cells):
                     if is_numbered:
                         if index == 0:
                             cell.text = str(i)
                         else:
-                            field = poll_fields[pIndex]
+                            field = form_fields[pIndex]
                             if field.get('datatype') == 'empty':
                                 cell.text = ''
                             else:
@@ -731,7 +731,7 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
                                         cell.text = item.get('value')
                             pIndex +=1
                     else:
-                        field = poll_fields[pIndex]
+                        field = form_fields[pIndex]
                         if field.get('datatype') == 'empty':
                             cell.text = ''
                         else:
@@ -746,7 +746,7 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
             doc.save(temp_doc)
 
             #-----DOWNLOADING THE GENERATED TEMPORARY DOCUMENT----------
-            file_name = temp_dir+ 'temp-doc-' + poll.poll_code + '.docx'
+            file_name = temp_dir+ 'temp-doc-' + form.form_code + '.docx'
        
             if os.path.exists(file_name):
                 file = open(file_name, 'rb')
@@ -763,7 +763,7 @@ def generateDoc(request, pollcode, docname, numbered, alph, factor, transverse):
         else:
             context = {
                 'status': 'failed',
-                'message': 'Poll not found'
+                'message': 'Form not found'
             }
             return JsonResponse(context, status= 500)
         
@@ -775,7 +775,7 @@ def sort_by_field_values(item, factor):
 def sendEmail(request):
     if request.method == 'POST':
         
-        form = forms.ContactForm(request.POST)
+        form = mForms.ContactForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             name = form.cleaned_data['name']
@@ -810,11 +810,11 @@ def sendEmail(request):
         # return redirect(request.META['HTTP_REFERER']+ '?modal=sent_mail')
 
 
-"""this deletes a poll value with the id provided in the url"""
+"""this deletes a form value with the id provided in the url"""
 def deleteEntry(request, entry_id):
     entry_id = int(entry_id)
-    if PollValue.objects.filter(id= entry_id).exists():
-        entry = PollValue.objects.get(id= entry_id)
+    if FormValue.objects.filter(id= entry_id).exists():
+        entry = FormValue.objects.get(id= entry_id)
         entry.delete()
         context = {
             'status': 'success',
@@ -850,7 +850,7 @@ def showCurrentSite(request):
     return redirect('/')
 
 def contactUs(request):
-    contact_form = forms.ContactForm()
+    contact_form = mForms.ContactForm()
     context = {
         'contact_form': contact_form
     }

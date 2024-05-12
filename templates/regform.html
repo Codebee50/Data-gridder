@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{pollname}} | datagridder</title>
+    <title>{{formname}} | datagridder</title>
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
 
     <link rel="stylesheet" href="{% static 'compile/reg.css' %}" type="text/css">
@@ -18,7 +18,7 @@
 <body>
 
     <form action="">
-        <input type="hidden" name="pollcode" value="{{pollcode}}" id="in-poll-code">
+        <input type="hidden" name="formcode" value="{{formcode}}" id="in-form-code">
         <input type="hidden" name="value_id" value="{{value_id}}" id="value_id">
     </form>
 
@@ -39,17 +39,17 @@
         </div>
 
         <div class="content-center">
-            <h1>{{pollname}}</h1>
+            <h1>{{formname}}</h1>
 
             <div class="center-details">
                 <div class="det">
                     <i class="fa-solid fa-key"></i>
-                    <p>{{pollcode}}</p>
+                    <p>{{formcode}}</p>
                 </div>
 
                 <div class="det">
                     <i class="fa-regular fa-user"></i>
-                    <p id="poll-author-text">{{pollauthor}}</p>
+                    <p id="form-author-text">{{formauthor}}</p>
                 </div>
 
                 <div class="det">
@@ -65,17 +65,17 @@
 
    <section class="banner-section">
         <div class="banner-content">
-            <h1> {{pollname}}</h1>
+            <h1> {{formname}}</h1>
 
             <div class="center-details">
                 <div class="det">
                     <i class="fa-solid fa-key"></i>
-                    <p>{{pollcode}}</p>
+                    <p>{{formcode}}</p>
                 </div>
 
                 <div class="det">
                     <i class="fa-regular fa-user"></i>
-                    <p id="poll-author-text">{{pollauthor}}</p>
+                    <p id="form-author-text">{{formauthor}}</p>
                 </div>
 
                 <div class="det">
@@ -131,13 +131,13 @@
 
         <div class="right-content">
             <h1>Good to have you here!</h1>
-            <!-- <p>You have successfully accessed datagridder and we are glad to have you here. Meanwhile, For a better user experience and community security, we strongly advice that you login or sign up before accessing a poll. please <a href="/login" target="_blank">Login</a> or <a href="/register" target="_blank">signup</a> for an account then try accessing the poll again</p> -->
-            <p>You have successfully accessed datagridder and we are glad to have you here. Meanwhile, For a better user experience and community security, we strongly advice that you login or sign up before accessing a poll.</p>
+            <!-- <p>You have successfully accessed datagridder and we are glad to have you here. Meanwhile, For a better user experience and community security, we strongly advice that you login or sign up before accessing a form. please <a href="/login" target="_blank">Login</a> or <a href="/register" target="_blank">signup</a> for an account then try accessing the form again</p> -->
+            <p>You have successfully accessed datagridder and we are glad to have you here. Meanwhile, For a better user experience and community security, we strongly advice that you login or sign up before accessing a form.</p>
 
             <div class="actions">
-                <a href="/login?load_next=/regpoll/{{pollcode}}/nb/" target="_blank" class="button-one">Login/Register</a>
+                <a href="/login?load_next=/regform/{{formcode}}/nb/" target="_blank" class="button-one">Login/Register</a>
 
-                <a href="/regpoll/{{pollcode}}/nb?guest=true" class="reg-a button-one" >Continue as guest</a>
+                <a href="/regform/{{formcode}}/nb?guest=true" class="reg-a button-one" >Continue as guest</a>
             </div>
         </div>
 
@@ -157,8 +157,8 @@
                
                 <p class="page-not">Page not found</p>
                 <p class="explanation">
-                    We couldn't find the poll located at that link. This might be due to an incorrect link or a deleted poll, please check your link or contact
-                    your poll creator for assistance
+                    We couldn't find the form located at that link. This might be due to an incorrect link or a deleted form, please check your link or contact
+                    your form creator for assistance
                 </p>
                 <a href="/">
                     <button class="button-one">Back to home</button>
@@ -174,8 +174,8 @@
     {% endif %}
 
     <div class="modal-section opaque-modal-section visible" id="op-one">
-        <img src="{% static 'img/spinner.gif' %}" alt="loading-datagridder-poll" style="width: 70px; height: 70px;">
-        <p class="message-txt" id="op-message-one">Fetching poll..</p>
+        <img src="{% static 'img/spinner.gif' %}" alt="loading-datagridder-form" style="width: 70px; height: 70px;">
+        <p class="message-txt" id="op-message-one">Fetching form..</p>
     </div>
 
     <div class="modal-section" id="response-review-modal">
@@ -248,7 +248,7 @@
                 <a href="/" class="active">Home</a>
                 <a href="#">About</a>
                 <a href="#">Contact us</a>
-                <a href="#get-input">Find poll</a>
+                <a href="#get-input">Find form</a>
                 <a href="#">Docs</a></li>
                 <a href="/dashboard">Dashboard</a>
             </div>
@@ -258,9 +258,9 @@
             <div class="content">
                 <p class="title">Activity</p>
             
-                <a href="/" class="active">My polls</a>
-                <a href="#">Registered polls</a>
-                <a href="#">New poll</a>
+                <a href="/" class="active">My forms</a>
+                <a href="#">Registered forms</a>
+                <a href="#">New form</a>
                 <a href="#get-input">Contact us</a>
                 
             </div>

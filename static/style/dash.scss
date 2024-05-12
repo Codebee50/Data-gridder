@@ -241,7 +241,7 @@ html::-webkit-scrollbar {
   }
 
   //-----------------------------NEW POLL --------------------------
-  #new-poll {
+  #new-form {
     .bottom-content {
       height: 85vh;
       display: flex;
@@ -354,7 +354,7 @@ html::-webkit-scrollbar {
         height: 100%;
         background-color: #f8f8f8;
 
-        .poll-header {
+        .form-header {
           padding: 10px 20px;
           font-family: "Inter", sans-serif;
         }
@@ -433,7 +433,7 @@ html::-webkit-scrollbar {
   }
 
   //--------------------MY POLLS ---------------------------
-  #my-polls {
+  #my-forms {
     .bottom-content::-webkit-scrollbar {
       width: 0.5rem;
       background-color: #fafbfc;
@@ -447,7 +447,7 @@ html::-webkit-scrollbar {
       overflow-y: scroll;
       background-color: white;
 
-      .poll-entity-container {
+      .form-entity-container {
         width: 100%;
         margin: auto;
         padding: auto;
@@ -457,7 +457,7 @@ html::-webkit-scrollbar {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         row-gap: 30px;
 
-        .poll-entity {
+        .form-entity {
           text-decoration: none;
           color: var(--complement_color);
           width: 80%;
@@ -563,20 +563,20 @@ html::-webkit-scrollbar {
           }
         }
 
-        .poll-entity:hover {
+        .form-entity:hover {
           box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
         }
       }
 
       // background-color: #fafbfc;
 
-      .all-polls {
+      .all-forms {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         margin: 20px;
-        .poll {
+        .form {
           width: 70%;
           margin: 10px 0;
           padding: 20px 20px;
@@ -588,16 +588,16 @@ html::-webkit-scrollbar {
           justify-content: space-between;
           align-items: center;
 
-          .poll-wrapper {
+          .form-wrapper {
             display: flex;
             flex-direction: column;
             gap: 0.3rem;
             align-self: center;
-            .poll-name {
+            .form-name {
               font-size: 0.95rem;
             }
 
-            .poll-code {
+            .form-code {
               font-size: 0.8rem;
               color: #595857;
             }
@@ -607,7 +607,7 @@ html::-webkit-scrollbar {
             display: flex;
             flex-direction: row;
 
-            .delete-poll {
+            .delete-form {
               color: red;
               margin: 0 10px;
               cursor: pointer;
@@ -749,8 +749,8 @@ html::-webkit-scrollbar {
     }
   }
 
-  // ------------------------Registerd polls ---------------------------
-  #rpolls {
+  // ------------------------Registerd forms ---------------------------
+  #rforms {
     .top-content {
       .left-right {
         p {
@@ -773,13 +773,13 @@ html::-webkit-scrollbar {
       overflow-y: scroll;
       background-color: white;
 
-      // .all-polls{
+      // .all-forms{
       //     display: flex;
       //     flex-direction: column;
       //     align-items: center;
       //     justify-content: center;
       //     margin: 20px;
-      //     .reg-poll{
+      //     .reg-form{
       //         width: 70%;
       //         margin: 10px 0;
       //         background-color: #ffffff;
@@ -796,16 +796,16 @@ html::-webkit-scrollbar {
       //         flex-direction: row;
       //         justify-content: space-between;
       //         align-items: center;
-      //         .poll-wrapper{
+      //         .form-wrapper{
       //             display: flex;
       //             flex-direction: column;
       //             gap: 0.3rem;
       //             align-self: center;
-      //             .poll-name{
+      //             .form-name{
       //                 font-size: 0.95rem;
       //             }
 
-      //             .poll-code{
+      //             .form-code{
       //                 font-size: 0.8rem;
       //                 margin-top: 0.1rem;
       //                 color: #595857;
@@ -1449,4 +1449,4 @@ html::-webkit-scrollbar {
 .log-out-modal.visible {
   display: flex;
 }
-@import "./mpoll";
+@import "./mform";

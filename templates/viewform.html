@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     
-    <link rel="stylesheet" href="{% static 'compile/viewpoll.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'compile/viewform.css' %}" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/or_icon.svg' %}">
-    <title>{{poll.poll_name}} | View poll</title>
+    <title>{{form.form_name}} | View form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
     <!--=============== REMIX ICONS ===============-->
@@ -20,7 +20,7 @@
     
     <form action="" method="POST" id="edit-form">
         {% csrf_token %}
-    <input type="hidden" name="pollcode" id="hd-code" value="{{poll.poll_code}}">
+    <input type="hidden" name="formcode" id="hd-code" value="{{form.form_code}}">
     <input type="hidden" name="domain" id="domain" value="{{domain}}">
    
         
@@ -40,7 +40,7 @@
                   
                 </div>
     
-                <div class="settings-btn" id="edit-poll" title="Settings">
+                <div class="settings-btn" id="edit-form" title="Settings">
                     <i class="ri-settings-line"></i>
                 </div>
 
@@ -49,11 +49,11 @@
 
         </div>
 
-        <div class="poll-inf-set">
-            <div class="poll-name-desc">
-                <h1>{{poll.poll_name}}</h1>
-                {% if poll.description %}
-                <p class="poll-description">{{poll.description}}</p>
+        <div class="form-inf-set">
+            <div class="form-name-desc">
+                <h1>{{form.form_name}}</h1>
+                {% if form.description %}
+                <p class="form-description">{{form.description}}</p>
                 {% endif %}
 
             
@@ -62,20 +62,20 @@
 
         <div class="copyables">
             <div class="copyable">
-                <p class="copy-item" id="txt-copy-poll-link">http://{{domain}}/regpoll/{{poll.poll_code}}/nb/</p>
-                <button class="btn-copy" id="copy-poll-link">Copy link</button>
+                <p class="copy-item" id="txt-copy-form-link">http://{{domain}}/regform/{{form.form_code}}/nb/</p>
+                <button class="btn-copy" id="copy-form-link">Copy link</button>
             </div>
 
             <div class="copyable">
-                <p class="copy-item" id="txt-copy-poll-code">{{poll.poll_code}}</p>
+                <p class="copy-item" id="txt-copy-form-code">{{form.form_code}}</p>
 
-                <button class="btn-copy" id="copy-poll-code">Copy code</button>
+                <button class="btn-copy" id="copy-form-code">Copy code</button>
             </div>
         </div>
 
         <div class="table-ops">
             
-            <div class="poll-ops-info">
+            <div class="form-ops-info">
                 {% if peoplecount == 1 %}
                 <p id="people-count" class="people-count"><b>{{peoplecount}}</b> participant</p>
                 {% else %}
@@ -83,7 +83,7 @@
                 {% endif %}    
 
                 <div class="right-ops-container">
-                    {% if poll.status == 'LC' %}
+                    {% if form.status == 'LC' %}
                     <button class="change-status-button op-btn" onclick="displayEditModal()">
                         <i class="ri-lock-line"></i>
                         <p>Locked</p>
@@ -94,7 +94,7 @@
                         <p>Open</p>
                     </button>
                     {% endif %}
-                    <button class="delete-poll-button op-btn" onclick="transitionModal('v2-delete-poll-warning')">
+                    <button class="delete-form-button op-btn" onclick="transitionModal('v2-delete-form-warning')">
                         <i class="ri-delete-bin-line"></i>
                         <p>Delete</p>
                     </button>
@@ -110,12 +110,12 @@
         
     </section>
     
-    <div class="modal-section" id="v2-delete-poll-warning">
-        <div class="modal-content delete-poll-content" >
+    <div class="modal-section" id="v2-delete-form-warning">
+        <div class="modal-content delete-form-content" >
             <i class="ri-close-line cancel-delete-icon" onclick="transitionModal('none')"></i>
 
-            <h3>Delete poll?</h3>
-            <p class="delete-warning-msg">Are you sure to delete this poll from the datagridder platform?</p>
+            <h3>Delete form?</h3>
+            <p class="delete-warning-msg">Are you sure to delete this form from the datagridder platform?</p>
 
             <div class="warning-container">
                 <div class="top-warning">
@@ -123,27 +123,27 @@
                     <h4>Warning</h4>
 
                 </div>
-                <p>By deleting this poll, <b>{{peoplecount}}</b> participant records will also be permanently deleted. This action is irreversible!. </p>
+                <p>By deleting this form, <b>{{peoplecount}}</b> participant records will also be permanently deleted. This action is irreversible!. </p>
             </div>
 
             <div class="buttons-container">
                 <button class="cancel-btn" onclick="transitionModal('none')">
                     Cancel
                 </button>
-                <button class="delete-btn" id="btn-delete-poll" data-pollcode="{{poll.poll_code}}">
+                <button class="delete-btn" id="btn-delete-form" data-formcode="{{form.form_code}}">
                     <i class="ri-delete-bin-line" ></i>Delete
                 </button>
             </div>
         </div>
     </div>
 
-    <div class="modal-container modal-section" id="edit-poll-modal-section">
+    <div class="modal-container modal-section" id="edit-form-modal-section">
             <div class="modal-box">
                 <div class="content">
                     <div class="header">
                         <div class="left">
                             <i class="ri-settings-line"></i>
-                            <p>Edit poll</p>
+                            <p>Edit form</p>
                         </div>
 
                         <div class="right">
@@ -155,9 +155,9 @@
                     </div>
 
                   <div class="edt-name con">
-                      <h5 class="intro-txt">Poll name</h5>
+                      <h5 class="intro-txt">Form name</h5>
                       <div class="counter-input">
-                        <input type="text" id="poll-name-input" class="text-input-101">
+                        <input type="text" id="form-name-input" class="text-input-101">
 
                         <div class="counter">
                             <p id="txt-input-word-count">0/60</p>
@@ -167,43 +167,43 @@
 
                   <div class="edt-desc con">
                     <h5 class="intro-txt">Description</h5>
-                    {% if poll.description %}
-                    <textarea name="" id="description" cols="30" rows="5" class="text-input-101">{{poll.description}}</textarea>
+                    {% if form.description %}
+                    <textarea name="" id="description" cols="30" rows="5" class="text-input-101">{{form.description}}</textarea>
                     {% else %}
-                    <textarea name="" id="description" cols="30" rows="5" class="text-input-101" placeholder="Tell us something about your poll"></textarea>
+                    <textarea name="" id="description" cols="30" rows="5" class="text-input-101" placeholder="Tell us something about your form"></textarea>
                     {% endif %}
                   </div>
                   <div class="status-container con">
-                    <h5 class="intro-txt">Poll status</h5>
+                    <h5 class="intro-txt">Form status</h5>
                     <div class="radio-selects-container">
-                      {% if poll.status == 'LC' %}
+                      {% if form.status == 'LC' %}
                       <div class="radio-select selected" data-radiovalue="locked">
-                        <input type="radio" name="poll-status" value="LC" class="radio" id="radio-locked" checked>
+                        <input type="radio" name="form-status" value="LC" class="radio" id="radio-locked" checked>
                         <div class="right">
                             <h4>Locked</h4>
-                            <p>Access to poll will be restricted, and users won't be able to participate or engage with it.</p>
+                            <p>Access to form will be restricted, and users won't be able to participate or engage with it.</p>
                         </div>
                     </div>
                     <div class="radio-select" data-radiovalue="open">
-                        <input type="radio" id="radio-open" name="poll-status" value="OP" class="radio">
+                        <input type="radio" id="radio-open" name="form-status" value="OP" class="radio">
                         <div class="right">
                             <h4>Open</h4>
-                            <p>Poll will be publicly available to every user. </p>
+                            <p>Form will be publicly available to every user. </p>
                         </div>
                     </div>
                         {% else %}
                         <div class="radio-select" data-radiovalue="locked">
-                            <input type="radio" name="poll-status" value="LC" class="radio" id="radio-locked">
+                            <input type="radio" name="form-status" value="LC" class="radio" id="radio-locked">
                             <div class="right">
                                 <h4>Locked</h4>
-                                <p>Access to poll will be restricted, and users won't be able to participate or engage with it.</p>
+                                <p>Access to form will be restricted, and users won't be able to participate or engage with it.</p>
                             </div>
                         </div>
                         <div class="radio-select selected" data-radiovalue="open">
-                            <input type="radio" id="radio-open" name="poll-status" value="OP" class="radio" checked>
+                            <input type="radio" id="radio-open" name="form-status" value="OP" class="radio" checked>
                             <div class="right">
                                 <h4>Open</h4>
-                                <p>Poll will be publicly available to every user. </p>
+                                <p>Form will be publicly available to every user. </p>
                             </div>
                         </div>
                         {% endif %}
@@ -231,7 +231,7 @@
                   </div>
       
                   <div class="m-buttons">
-                      <button id="save-btn"  class="button-two">Save</button>
+                      <button id="save-btn" class="button-two">Save</button>
                         <!-- <button id="cancel-edit-btn" class="button-two">Cancel</button> -->
                   </div>
 
@@ -336,23 +336,23 @@
             <i class="ri-close-line" id="close-modal" onclick="restAndRemoveEdit('none')"></i>
             <div class="top-content">
                 <h2>Review your changes</h2>
-                <p class="alert-msg">You are about to modify the following properties of this poll, lets not make any mistakes.</p>
+                <p class="alert-msg">You are about to modify the following properties of this form, lets not make any mistakes.</p>
             </div>
 
             <div class="changes-container">
                 <div class="change">
                     <h4>Description:</h4>
-                    <p>This is the description for your poll</p>
+                    <p>This is the description for your form</p>
                 </div>
 
                 <div class="change">
-                    <h4>Pollname:</h4>
-                    <p>This is the pollname for your poll</p>
+                    <h4>Formname:</h4>
+                    <p>This is the formname for your form</p>
                 </div>
 
                 <div class="change">
                     <h4>Appended document:</h4>
-                    <p>This is the description for your poll</p>
+                    <p>This is the description for your form</p>
                 </div>
             </div>
 
@@ -370,6 +370,6 @@
 
     <script src="{% static 'js/components.js' %}"></script>
 
-    <script src="{% static 'js/viewpoll.js' %}"></script>
+    <script src="{% static 'js/viewform.js' %}"></script>
 </body>
 </html>

@@ -188,8 +188,8 @@ $button_green: #45987e;
        
     }
 
-    .poll-inf-set{
-        .poll-name-desc{
+    .form-inf-set{
+        .form-name-desc{
             margin-top: 20px;
             display: flex;
             flex-direction: column;
@@ -198,7 +198,7 @@ $button_green: #45987e;
                 color: var(--complement_color);
             }
 
-            .poll-description{
+            .form-description{
                 opacity: 0.7;
                 margin-top: 15px;
                 max-width: 700px;
@@ -248,7 +248,7 @@ $button_green: #45987e;
     .table-ops{
         margin-top: 20px;
         width: 100%;
-        .poll-ops-info{
+        .form-ops-info{
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -291,7 +291,7 @@ $button_green: #45987e;
                     
                 }
 
-                .delete-poll-button{
+                .delete-form-button{
                     background-color: var(--soft-red);
                     i, p{
                         color: white;
@@ -541,7 +541,7 @@ $button_green: #45987e;
               
             }
 
-            .poll-details{
+            .form-details{
                 // background-color: red;
                 max-width: 500px;
                 display: flex;
@@ -549,7 +549,7 @@ $button_green: #45987e;
                 align-items: flex-start;
                 margin-top: 0.8rem;
 
-                .poll-description{
+                .form-description{
                     font-size: 0.9rem;
                     line-height: 1.5;
                 }
@@ -580,7 +580,7 @@ $button_green: #45987e;
                     }
                 }
 
-                .poll-detail{
+                .form-detail{
                     display: flex;
                     flex-direction: row;
                 }
@@ -678,7 +678,7 @@ $button_green: #45987e;
 }
 
 
-.delete-poll-content{
+.delete-form-content{
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -1409,7 +1409,7 @@ $button_green: #45987e;
                         margin-left: 5px;
                     }
 
-                    .poll-link{
+                    .form-link{
                         max-width: 150px;
                         text-overflow: ellipsis;
                         overflow: hidden;

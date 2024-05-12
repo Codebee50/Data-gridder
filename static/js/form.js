@@ -14,8 +14,8 @@ const leftParent = document.querySelector(".leftparent");
 const navigations = document.querySelector(".navigations");
 const controls = document.querySelectorAll(".navigation");
 const sections = document.querySelectorAll(".rightparent");
-const pollsUi = document.querySelectorAll(".redirect");
-const deletePoll = document.querySelectorAll(".delete-poll");
+const formsUi = document.querySelectorAll(".redirect");
+const deleteForm = document.querySelectorAll(".delete-form");
 const btnClear = document.getElementById("btn-clear");
 
 const alertMessage = document.getElementById("cus-alert-message");
@@ -37,7 +37,7 @@ const logOutModal = document.querySelector(".log-out-modal");
 const cancelLogOut = document.getElementById("t-cancel-log-out");
 const logOut = document.getElementById("t-log-out");
 const accordions = document.querySelectorAll(".accordion-body");
-const registerdPolls = document.querySelectorAll(".reg-poll");
+const registerdForms = document.querySelectorAll(".reg-form");
 
 const deleteEntryModal = document.querySelector(".delete-entry-modal");
 const deleteEntryMsg = document.querySelector(".delete-entry-message");
@@ -86,16 +86,16 @@ sortFile.addEventListener("change", function () {
   docTitle.textContent = filename;
 });
 
-function populateTablesUi(polls) {
-  polls.forEach(function (poll) {
-    const tableContainer = document.getElementById(`table-con-${poll.id}`); //getting the corresponding table container for this poll
+function populateTablesUi(forms) {
+  forms.forEach(function (form) {
+    const tableContainer = document.getElementById(`table-con-${form.id}`); //getting the corresponding table container for this form
     tableContainer.innerHTML = "";
-    const table = getCardTable(JSON.parse(poll.fields));
+    const table = getCardTable(JSON.parse(form.fields));
     tableContainer.insertAdjacentHTML("afterbegin", table);
 
     document.getElementById(
-      `pb-date-${poll.id}`
-    ).textContent = `Published ${getIntlDate(new Date(poll.created_at))}`;
+      `pb-date-${form.id}`
+    ).textContent = `Published ${getIntlDate(new Date(form.created_at))}`;
   });
 }
 
@@ -135,9 +135,9 @@ function getIntlDate(date) {
   return new Intl.DateTimeFormat(locale, options).format(date);
 }
 
-function getCardTable(poll) {
+function getCardTable(form) {
   let table = `<table><tbody>`; //opening the table tag
-  poll.forEach(function (field) {
+  form.forEach(function (field) {
     //populating the table with table rows
     table += `<tr>
                   <td>${field.name}</td>
@@ -155,7 +155,7 @@ function displayReviewCard(valueId) {
     document.getElementById(
       "rev-values-message"
     ).innerHTML = `Your responses for <b> ${
-      userValue.poll_name
+      userValue.form_name
     } </b> on ${getIntlDate(new Date(userValue.registered_date))}`;
     const valuesContainer = document.getElementById("values-container");
     valuesContainer.innerHTML = "";
@@ -169,13 +169,13 @@ function displayReviewCard(valueId) {
       valuesContainer.innerHTML += html
     });
 
-    document.getElementById('link-to-edit-a').href = `/regpoll/${userValue.poll_code}/${userValue.id}/`
+    document.getElementById('link-to-edit-a').href = `/regform/${userValue.form_code}/${userValue.id}/`
     document.getElementById('delete-value-btn').onclick = function(){
       showAlertModalTwoAction({
         maintext: 'Are you sure to delete this entry?',
-        subtext: 'All records you have provided for this poll will be deleted. This action is irreversible!.',
+        subtext: 'All records you have provided for this form will be deleted. This action is irreversible!.',
         onAction: function(){
-          deletePollValue(userValue.id)
+          deleteFormValue(userValue.id)
         },
         actiontext: 'Delete',
         
@@ -187,20 +187,20 @@ function displayReviewCard(valueId) {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("/getuserpolls", {
-    //Getting all the polls this person has created
+  fetch("/getuserforms", {
+    //Getting all the forms this person has created
     method: "GET",
   })
     .then((response) => response.json())
     .then((data) => {
-      populateTablesUi(data.polls);
+      populateTablesUi(data.forms);
     })
     .catch((error) => {
       console.error(error);
     });
 
   fetch("/getuservalues", {
-    //getting the values for all the polls this person has registered for
+    //getting the values for all the forms this person has registered for
     method: "GET",
   })
     .then((response) => {
@@ -226,30 +226,30 @@ document
     deleteEntryModal.classList.remove("visible");
   });
 
-const newPollDmark = document.getElementById("scratch-poll");
+const newFormDmark = document.getElementById("scratch-form");
 const fromDocDmark = document.getElementById("from-document");
 
-let pollFromScratch = true;
-selectPollCreateOption(pollFromScratch);
-newPollDmark.addEventListener("click", function () {
-  //this means user wants to crate a poll from scratch
-  pollFromScratch = true;
-  selectPollCreateOption(pollFromScratch);
+let formFromScratch = true;
+selectFormCreateOption(formFromScratch);
+newFormDmark.addEventListener("click", function () {
+  //this means user wants to crate a form from scratch
+  formFromScratch = true;
+  selectFormCreateOption(formFromScratch);
 });
 
 fromDocDmark.addEventListener("click", function () {
-  //this means user wants to create a poll from a document
-  pollFromScratch = false;
-  selectPollCreateOption(pollFromScratch);
+  //this means user wants to create a form from a document
+  formFromScratch = false;
+  selectFormCreateOption(formFromScratch);
 });
 
-const btnCreatePoll = document.getElementById("btn-create-poll");
+const btnCreateForm = document.getElementById("btn-create-form");
 const chooseExistingFlleInput = document.getElementById("choose-ex-file");
 
-btnCreatePoll.addEventListener("click", function () {
-  if (pollFromScratch) {
-    const conNewPoll = document.getElementById("con-new-poll");
-    conNewPoll.click();
+btnCreateForm.addEventListener("click", function () {
+  if (formFromScratch) {
+    const conNewForm = document.getElementById("con-new-form");
+    conNewForm.click();
     transitionModal("none");
   } else {
     chooseExistingFlleInput.click();
@@ -311,13 +311,13 @@ chooseExistingFlleInput.addEventListener("change", function () {
   }
 });
 
-function selectPollCreateOption(pollFromScratch) {
+function selectFormCreateOption(formFromScratch) {
   dmark = document.querySelectorAll(".dmark-content");
   dmark.forEach(function (dmarkContent) {
     dmarkContent.classList.remove("selected");
   });
-  pollFromScratch
-    ? newPollDmark.classList.add("selected")
+  formFromScratch
+    ? newFormDmark.classList.add("selected")
     : fromDocDmark.classList.add("selected");
 }
 
@@ -359,8 +359,8 @@ function orgarnizeAccordions(values) {
     }
   });
 
-  registerdPolls.forEach((poll, index) => {
-    header = poll.querySelector("header");
+  registerdForms.forEach((form, index) => {
+    header = form.querySelector("header");
     const paras = header.querySelectorAll("p");
     paras.forEach((para) => {
       para.addEventListener("click", function (e) {
@@ -384,9 +384,9 @@ function orgarnizeAccordions(values) {
 
     if (header !== null) {
       header.addEventListener("click", function (e) {
-        let accBody = poll.querySelector(".accordion-body");
-        poll.classList.toggle("open");
-        if (poll.classList.contains("open")) {
+        let accBody = form.querySelector(".accordion-body");
+        form.classList.toggle("open");
+        if (form.classList.contains("open")) {
           accBody.style.height = `${accBody.scrollHeight}px`;
           e.target
             .querySelector(".indicator")
@@ -402,7 +402,7 @@ function orgarnizeAccordions(values) {
   });
 }
 
-function deletePollValue(id){
+function deleteFormValue(id){
   fetch(`/delentry/${id}/`, {
     method: 'GET',
   })
@@ -423,7 +423,7 @@ function deletePollValue(id){
   
 }
 
-/** this function is used to send a request to the server side which deletes a poll value with the id of entryId */
+/** this function is used to send a request to the server side which deletes a form value with the id of entryId */
 function deleteAnEntry(entryId) {
   deleteEntryContent.classList.remove("visible");
   deleteEntryProgress.classList.add("visible");
@@ -474,10 +474,10 @@ publishBtn.addEventListener("click", (event) => {
   });
 
   if (emptycount == feildArray.length) {
-    alert("Cannot publish an empty poll");
+    alert("Cannot publish an empty form");
   } else {
     fieldJson = JSON.stringify(feildArray);
-    localStorage.setItem("pollData", fieldJson);
+    localStorage.setItem("formData", fieldJson);
     window.location.href = "/publish";
   }
 });
@@ -507,23 +507,23 @@ function closeLeftParent() {
   leftParent.classList.remove("active");
 }
 
-pollsUi.forEach(function (poll) {
-  poll.addEventListener("click", function (e) {
-    let pollcode = e.target.id;
-    window.location.href = "/viewpoll/" + pollcode + "/";
+formsUi.forEach(function (form) {
+  form.addEventListener("click", function (e) {
+    let formcode = e.target.id;
+    window.location.href = "/viewform/" + formcode + "/";
   });
 });
 
-deletePoll.forEach(function (deleteItem) {
+deleteForm.forEach(function (deleteItem) {
   deleteItem.addEventListener("click", function (e) {
-    let pollcode = e.target.id;
+    let formcode = e.target.id;
 
     deleteModal.classList.add("visible");
     deleteContent.classList.add("visible");
     const delteBtn = document.getElementById("ok-del");
     const cancelBtn = document.getElementById("cancel-del");
 
-    delAlert.textContent = "Sure to delete " + pollcode + "?";
+    delAlert.textContent = "Sure to delete " + formcode + "?";
 
     delteBtn.addEventListener("click", function () {
       deleteContent.classList.remove("visible");
@@ -532,7 +532,7 @@ deletePoll.forEach(function (deleteItem) {
       spinner.style.display = "block";
       finishBtn.style.display = "none";
 
-      removePoll(pollcode);
+      removeForm(formcode);
     });
 
     cancelBtn.addEventListener("click", function () {
@@ -542,16 +542,16 @@ deletePoll.forEach(function (deleteItem) {
   });
 });
 
-//this function is used to delete the poll from the serverside
-function removePoll(pollcode) {
+//this function is used to delete the form from the serverside
+function removeForm(formcode) {
   $.ajax({
-    url: "/deletepoll/" + pollcode + "/",
+    url: "/deleteform/" + formcode + "/",
     type: "GET",
     success: function (response) {
       statusText.textContent = response.message;
       finishBtn.style.display = "block";
       if (response.status == "success") {
-        //poll has been deleted
+        //form has been deleted
         spinner.style.display = "none";
         checkImage.style.display = "block";
       } else {
@@ -579,15 +579,6 @@ function pageTransitions() {
           ""
         );
 
-        //----v2 properties----
-        // if(this.id == 'con-new-poll'){
-        //     const newPoll = document.getElementById('con-scratch-poll')
-        //     newPoll.className += ' active-btn'
-        // }
-        // else{
-        //     this.className += ' active-btn'
-        // }
-
         this.className += " active-btn";
       }
     });
@@ -600,7 +591,7 @@ function pageTransitions() {
         logOutModal.classList.add("visible");
       } else if (id == "contact-us") {
         window.location.href = "/#contact-us-section";
-      } else if (id == "scratch-poll") {
+      } else if (id == "scratch-form") {
         transitionModal("choose-create-option-modal");
       } else {
         sections.forEach((section) => {
@@ -634,7 +625,7 @@ function localTransitions() {
 
   if (screen !== null) {
   } else {
-    screen = "new-poll";
+    screen = "new-form";
   }
 
   let id = "con-" + screen;
@@ -660,7 +651,7 @@ function localTransitions() {
 pageTransitions();
 localTransitions();
 
-let isValidJsonArray = /^\[\{.*\}\]$/.test(localStorage.getItem("pollData"));
+let isValidJsonArray = /^\[\{.*\}\]$/.test(localStorage.getItem("formData"));
 
 if (isValidJsonArray) {
   loadLocalDataIntoView();
@@ -670,7 +661,7 @@ if (isValidJsonArray) {
 
 initListeners();
 function loadLocalDataIntoView() {
-  feildArray = JSON.parse(localStorage.getItem("pollData"));
+  feildArray = JSON.parse(localStorage.getItem("formData"));
   lastId = 0;
   index = 1;
 
