@@ -86,7 +86,7 @@
             }
         }
 
-        #new-poll{
+        #new-form{
             .bottom-content{
                 height: 90vh;
             }
@@ -132,7 +132,7 @@
 
 @media screen and (max-width: 1260px){
     .container{
-        #new-poll{
+        #new-form{
             .bottom-content{
                 .bottom-left{
                     width: 75%;
@@ -147,7 +147,7 @@
 
 @media screen and (max-width: 600px){
     .container{
-        #new-poll{
+        #new-form{
             .bottom-content{
                 .bottom-left{
                     width: 70%;
@@ -162,7 +162,7 @@
 
 @media screen and (max-width: 450px){
     .container{
-        #new-poll{
+        #new-form{
             .bottom-content{
                 .bottom-left{
                     width: 65%;
@@ -177,7 +177,7 @@
 
 @media screen and (max-width: 360px){
     .container{
-        #new-poll{
+        #new-form{
             .bottom-content{
                 .bottom-left{
                     width: 60%;

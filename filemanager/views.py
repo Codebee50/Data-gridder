@@ -15,7 +15,7 @@ class validateExistingDocument(View):
         _, file_extension = os.path.splitext(request_document.name)
         allowed_extensions = ['.docx', '.doc']
         context = {}
-        success_message = 'Hurray! a dg column was found in your document, you can now proceed to publishing your poll'
+        success_message = 'Hurray! a dg column was found in your document, you can now proceed to publishing your form'
         if file_extension.lower() in allowed_extensions:
             document = Document(request_document)
             tables = document.tables

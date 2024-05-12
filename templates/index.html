@@ -60,7 +60,7 @@
                 <li><a href="/" class="active">Home</a></li>
                 <li><a href="#about-section">About</a></li>
                 <li><a href="#contact-us-section">Contact us</a></li>
-                <li><a href="#get-input">Find poll</a></li>
+                <li><a href="#get-input">Find form</a></li>
                 <li><a href="/documentation" target="_blank">Learn</a></li>
                 <li><a href="/dashboard" >Dashboard</a></li>
                 </ul>
@@ -90,30 +90,30 @@
 
                     </div>
                     <p class="remark">Data gridder allows you to design forms, collect data and retrieve your data as a table placed in any document of your choice</p>
-                    <button class="btn-new-poll">Create a poll</button>
+                    <button class="btn-new-form">Create a form</button>
                 </div>
                 
             </div>
         </div>
     </section>
 
-   <section class="input-poll-code">
+   <section class="input-form-code">
     <div class="left-content" id="get-input">
         <div class="content">
-            <h1>Find a poll</h1>
+            <h1>Find a form</h1>
             <div class="line"></div>
-            <p class="remark">Want to register for a poll?, enter the poll code and we'll load it right up for you</p>
+            <p class="remark">Want to register for a form?, enter the form code and we'll load it right up for you</p>
             <div class="form-div">
-                <form id="find-poll-form">
+                <form id="find-form-form">
                     {% csrf_token %}
-                    <input type="text" name="poll-code" id="poll-code" class="poll-code-input" placeholder="Enter a poll code">
+                    <input type="text" name="form-code" id="form-code" class="form-code-input" placeholder="Enter a form code">
 
-                    <button type="submit" name="" id="submit-btn" class="poll-submit"><i class="fa-solid fa-arrow-right"></i></button>
+                    <button type="submit" name="" id="submit-btn" class="form-submit"><i class="fa-solid fa-arrow-right"></i></button>
                 </form>
             </div>
-            <div class="loading-poll-div">
+            <div class="loading-form-div">
                 <img src="{% static 'img/loading.gif' %}" alt="Hero image" width="15px" height="15px">
-                <p>fetching poll..</p>
+                <p>fetching form..</p>
             </div>
         </div>
       
@@ -122,8 +122,8 @@
     <div class="right-content">
     
         <div class="des">
-            <h2 class="question">What are polls?</h2>
-            <p>Polls are a representation of the data your administrator would like you to provide, after retrieving a poll using its poll code, fill the form to complete your registration. Please note that the data you provide will be completely visible to the poll author  </p>
+            <h2 class="question">What are forms?</h2>
+            <p>Forms are a representation of the data your administrator would like you to provide, after retrieving a form using its form code, fill the form to complete your registration. Please note that the data you provide will be completely visible to the form author  </p>
             <div class="img-con">
                 <img src="{% static 'img/clip-board.png' %}" alt="Hero image" loading="lazy">
             </div>
@@ -135,7 +135,7 @@
    </section>
 
     <section class="about" id="about-section">
-        <!-- <p class="prompt">Create a poll</p> -->
+        <!-- <p class="prompt">Create a form</p> -->
         <div class="top-container">
             <!-- <h3 class="topic-text">About</h3>
             <div class="topic-underline">
@@ -178,27 +178,27 @@
         <div class="container">
             <div class="content">
                 <h4>1</h4>
-                <h3>Create a new poll</h3>
-                <p>A poll is a design of the data you would want to collect from your audience, select the new poll option in your dashboard to create a new poll. </p>
+                <h3>Create a new form</h3>
+                <p>A form is a design of the data you would want to collect from your audience, select the new form option in your dashboard to create a new form. </p>
             </div>
 
             <div class="content">
                 <h4>2</h4>
                 <h3>Collect data</h3>
-                <p>After creating your poll, distribute the poll code or poll link to your audience. The poll code is used in the "Find a Poll" section of this page, while the poll link allows direct access to the poll by pasting it into any preferred browser.
+                <p>After creating your form, distribute the form code or form link to your audience. The form code is used in the "Find a Form" section of this page, while the form link allows direct access to the form by pasting it into any preferred browser.
                 </p>
             </div>
 
             <div class="content">
                 <h4>3</h4>
                 <h3>View data</h3>
-                <p>Once users have registered for your poll, you can view the data in your poll through the "My Polls" option on your dashboard. Please note that this is only a preview of your data and does not reflect the actual appearance of your document.</p>
+                <p>Once users have registered for your form, you can view the data in your form through the "My Forms" option on your dashboard. Please note that this is only a preview of your data and does not reflect the actual appearance of your document.</p>
             </div>
 
             <div class="content">
                 <h4>4</h4>
                 <h3>Retrieve data</h3>
-                <p>To retrieve your poll in document format, simply click the download button. You have the option to choose a custom name for the downloaded document. Once you click download, the file will begin downloading automatically.</p>
+                <p>To retrieve your form in document format, simply click the download button. You have the option to choose a custom name for the downloaded document. Once you click download, the file will begin downloading automatically.</p>
             </div>
         </div>
         
@@ -244,7 +244,7 @@
             <!-- <div class="result-container">
                 <div class="left-content">
                     <div class="det">
-                        <p class="p-name" id="p-name" title="This is the very fucking long poll">This is a very fukcing long poll name</p>
+                        <p class="p-name" id="p-name" title="This is the very fucking long form">This is a very fukcing long form name</p>
                     </div>
                     <div class="det">
                         <i class="fa-regular fa-user"></i>
@@ -307,7 +307,7 @@
                         Login required.. 
                     </h4>
                     <p class="message">
-                        Dear user, For a better user experience and community security, we require that you login or sign up before accessing a poll
+                        Dear user, For a better user experience and community security, we require that you login or sign up before accessing a form
                     </p>
 
                     <div class="actions">
@@ -342,7 +342,7 @@
                     <a href="/" class="active">Home</a>
                     <a href="#">About</a>
                     <a href="#">Contact us</a>
-                    <a href="#get-input">Find poll</a>
+                    <a href="#get-input">Find form</a>
                     <a href="#">Docs</a></li>
                     <a href="/dashboard">Dashboard</a>
                 </div>
@@ -352,9 +352,9 @@
                 <div class="content">
                     <p class="title">Activity</p>
                 
-                    <a href="/" class="active">My polls</a>
-                    <a href="#">Registered polls</a>
-                    <a href="#">New poll</a>
+                    <a href="/" class="active">My forms</a>
+                    <a href="#">Registered forms</a>
+                    <a href="#">New form</a>
                     <a href="#get-input">Contact us</a>
                     
                 </div>

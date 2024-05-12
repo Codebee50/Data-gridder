@@ -2,7 +2,7 @@ const browseFile = document.getElementById("browse-file");
 const fileName = document.getElementById("file-name");
 const cancelFile = document.getElementById("cancel-file");
 const fileInput = document.getElementById("file");
-const publishPoll = document.getElementById("publish-poll");
+const publishForm = document.getElementById("publish-form");
 
 // const tableContainer = document.querySelector('.table-container')
 const modalContainer = document.getElementById("modal-container");
@@ -11,23 +11,23 @@ const resultContainer = document.getElementById("result-container");
 const warningContainer = document.getElementById("warning-div");
 
 const showSample = document.getElementById("example-dg-text");
-const copyPollToolText = document.getElementById("copy-poll-tooltip-text");
+const copyFormToolText = document.getElementById("copy-form-tooltip-text");
 const domainInput = document.getElementById("domain");
 
 const fileContainer = document.getElementById("file-container");
 const txtFileName = document.getElementById('txt-file-name')
 const btnRemoveFile = document.querySelector('.remove-file-container')
 const txtInputWordCount = document.getElementById('txt-input-word-count')
-const pollNameInput = document.querySelector('#poll-name')
+const formNameInput = document.querySelector('#form-name')
 const inputMaxLength = 60
-let pollData = JSON.parse(localStorage.getItem("pollData"));
-let pollDataStr = localStorage.getItem("pollData");
+let formData = JSON.parse(localStorage.getItem("formData"));
+let formDataStr = localStorage.getItem("formData");
 
 let prevTable = "<table><thead><tr>";
 
-let headers = Object.values(pollData[0]);
+let headers = Object.values(formData[0]);
 
-pollData.forEach(function (data) {
+formData.forEach(function (data) {
   if (data.datatype == "empty") {
     prevTable += `<th id="empty-header"> </th>`;
   } else {
@@ -37,7 +37,7 @@ pollData.forEach(function (data) {
 
 prevTable += "</tr></thead><tbody>";
 
-for (let i = 0; i < pollData.length; i++) {
+for (let i = 0; i < formData.length; i++) {
   prevTable += "<td> - </td>";
 }
 
@@ -50,12 +50,12 @@ fileContainer.addEventListener("click", function () {
   fileInput.click();
 });
 
-pollNameInput.addEventListener('input', function(){
-    let inputValueLength = pollNameInput.value.length
+formNameInput.addEventListener('input', function(){
+    let inputValueLength = formNameInput.value.length
     
     txtInputWordCount.textContent = `${inputValueLength}/${inputMaxLength}`
     if (inputValueLength >= inputMaxLength){
-        pollNameInput.value = pollNameInput.value.slice(0, inputMaxLength);
+        formNameInput.value = formNameInput.value.slice(0, inputMaxLength);
     }
 
 
@@ -110,15 +110,15 @@ $(document).on("submit", "#publish-form", function (e) {
   //showing the progress bar
   modalContainer.classList.add("visible");
   progressContainer.classList.add("visible");
-  let pollcode = genereatePollCode();
+  let formcode = genereateFormCode();
 
   //preparing the data to be sent
   let mData = new FormData();
-  mData.append("poll-name", $("#poll-name").val());
-  mData.append("poll_data", pollDataStr);
-  mData.append("poll_code", pollcode);
+  mData.append("form-name", $("#form-name").val());
+  mData.append("form_data", formDataStr);
+  mData.append("form_code", formcode);
   mData.append("document", fileInput.files[0]);
-  mData.append('description', document.getElementById('poll-description').value)
+  mData.append('description', document.getElementById('form-description').value)
   mData.append(
     "csrfmiddlewaretoken",
     $("input[name=csrfmiddlewaretoken]").val()
@@ -134,7 +134,7 @@ $(document).on("submit", "#publish-form", function (e) {
 
     success: function (data) {
       if (data.status == "success") {
-        localStorage.setItem("pollData", "none");
+        localStorage.setItem("formData", "none");
         warningContainer.classList.remove("visible");
         progressContainer.classList.remove("visible");
         resultContainer.classList.add("visible");
@@ -146,10 +146,10 @@ $(document).on("submit", "#publish-form", function (e) {
           window.location.href = "/dashboard";
         });
 
-        const copyCode = document.getElementById("copy-poll-code");
+        const copyCode = document.getElementById("copy-form-code");
         copyCode.addEventListener("click", function () {
           navigator.clipboard
-            .writeText(data.pollcode)
+            .writeText(data.formcode)
             .then(() => {
 
               setTimeout(function () {
@@ -160,14 +160,14 @@ $(document).on("submit", "#publish-form", function (e) {
             });
         });
 
-        const copyLink = document.getElementById('copy-poll-link')
+        const copyLink = document.getElementById('copy-form-link')
         copyLink.addEventListener("click", function () {
           navigator.clipboard
             .writeText(polLink)
             .then(() => {
               //copyLinkTool.textContent = "Copied";
               setTimeout(function () {
-                //copyLinkTool.textContent = "Copy poll link";
+                //copyLinkTool.textContent = "Copy form link";
               }, 1300);
             })
             .catch((error) => {
@@ -175,17 +175,17 @@ $(document).on("submit", "#publish-form", function (e) {
             });
         });
 
-        const txtPollCode = document.getElementById("txt-poll-code");
-        const txtPollLink = document.getElementById("txt-poll-link");
-        const txtPollName = document.getElementById("txt-poll-name");
-        const txtPollAuthor = document.getElementById("txt-poll-owner");
-        let serverLink = `http:${data.domain}/regpoll/`;
-        let polLink = serverLink + data.pollcode + "/nb";
+        const txtFormCode = document.getElementById("txt-form-code");
+        const txtFormLink = document.getElementById("txt-form-link");
+        const txtFormName = document.getElementById("txt-form-name");
+        const txtFormAuthor = document.getElementById("txt-form-owner");
+        let serverLink = `http:${data.domain}/regform/`;
+        let polLink = serverLink + data.formcode + "/nb";
 
-        txtPollCode.textContent = data.pollcode;
-        txtPollName.textContent = data.pollname;
-        txtPollAuthor.textContent = data.pollauthor;
-        txtPollLink.textContent = polLink;
+        txtFormCode.textContent = data.formcode;
+        txtFormName.textContent = data.formname;
+        txtFormAuthor.textContent = data.formauthor;
+        txtFormLink.textContent = polLink;
       } else {
         resultContainer.classList.remove("visible");
         progressContainer.classList.remove("visible");
@@ -209,12 +209,12 @@ $(document).on("submit", "#publish-form", function (e) {
   });
 });
 
-/** this function generates a poll code which will resemble DG-IU9085 */
-function genereatePollCode() {
+/** this function generates a form code which will resemble DG-IU9085 */
+function genereateFormCode() {
   let randomNumbers = generateRandomNumbers();
   let randomLetters = generateRandomLetters();
-  let pollCode = `DG-${randomLetters}${randomNumbers}`;
-  return pollCode;
+  let formCode = `DG-${randomLetters}${randomNumbers}`;
+  return formCode;
 }
 
 function generateRandomNumbers() {

@@ -1,13 +1,13 @@
-let hiddenPollcode = document.getElementById("hd-code");
-let pollcode = hiddenPollcode.value;
+let hiddenFormcode = document.getElementById("hd-code");
+let formcode = hiddenFormcode.value;
 
 let tableCon = document.querySelector(".table-container");
 const changeText = document.getElementById("txt-change-file");
 const fileInput = document.getElementById("file");
-const editPoll = document.getElementById("edit-poll");
+const editForm = document.getElementById("edit-form");
 const modal = document.querySelector(".modal-container");
 const removeModal = document.getElementById("discard-btn");
-const pollNameInput = document.getElementById("poll-name-input");
+const formNameInput = document.getElementById("form-name-input");
 const saveBtn = document.getElementById("save-btn");
 const loadingDiv = document.querySelector(".loading");
 const fileName = document.getElementById("file-name");
@@ -30,7 +30,7 @@ const orderFactor = document.getElementById("order-factor");
 const alphabeticalOrderCheck = document.getElementById("alph-order");
 
 const copyButtons = document.querySelectorAll(".btn-copy");
-const deletePollBtn = document.getElementById("btn-delete-poll");
+const deleteFormBtn = document.getElementById("btn-delete-form");
 const btnRemoveFile = document.getElementById("btn-remove");
 const txtInputWordCount = document.getElementById('txt-input-word-count')
 
@@ -38,17 +38,17 @@ const txtInputWordCount = document.getElementById('txt-input-word-count')
 
 let factor = "none"; //this is holds if what we want to order the list by
 let transverse = "asc"; //this indicates if the list should be ascending or descending
-let poll;
+let form;
 let fileRemoved = false;
 let initialState;
 let originalDocumentName;
 const inputMaxLength = 60
 
-deletePollBtn.addEventListener("click", function () {
-  showDynamicLoadingModal("Deleting poll..."); //show loading modal
+deleteFormBtn.addEventListener("click", function () {
+  showDynamicLoadingModal("Deleting form..."); //show loading modal
 
-  //send request to delete poll
-  deletePoll(this.dataset.pollcode);
+  //send request to delete form
+  deleteForm(this.dataset.formcode);
 });
 
 const radioSelects = document.querySelectorAll(".radio-select");
@@ -70,8 +70,8 @@ function selectStateUi(radioSelect){
  
 }
 
-function deletePoll(pollcode) {
-  fetch(`/deletepoll/${pollcode}/`, {
+function deleteForm(formcode) {
+  fetch(`/deleteform/${formcode}/`, {
     method: "GET",
   })
     .then((response) => response.json())
@@ -86,17 +86,17 @@ function deletePoll(pollcode) {
       // })
       localStorage.setItem(
         "just-deleted",
-        "An error occured while deleting poll"
+        "An error occured while deleting form"
       );
       window.location.href = "/dashboard";
     });
 }
 
-class PollEditable {
-  //this class models the fields that can be editable in a poll, it is later used to compare changes in the poll after edit
-  constructor(pollcode, pollname, description, status) {
-    this.pollcode = pollcode
-    this.pollname = pollname;
+class FormEditable {
+  //this class models the fields that can be editable in a form, it is later used to compare changes in the form after edit
+  constructor(formcode, formname, description, status) {
+    this.formcode = formcode
+    this.formname = formname;
     this.description = description;
     this.status = status;
     this.state = status === "OP" ? "Open" : "Locked";
@@ -104,13 +104,13 @@ class PollEditable {
 
   compare(state) {
     const differences = [];
-    if (!(state instanceof PollEditable)) {
+    if (!(state instanceof FormEditable)) {
       differences.push(-1);
       return differences;
     }
 
-    if (this.pollname !== state.pollname) {
-      differences.push("pollname");
+    if (this.formname !== state.formname) {
+      differences.push("formname");
     }
 
     if (this.description !== state.description) {
@@ -127,16 +127,16 @@ class PollEditable {
 
 document.addEventListener("DOMContentLoaded", function () {
   // const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
-  fetch(`/getpollandvalues/${pollcode}/`, {
+  fetch(`/getformandvalues/${formcode}/`, {
     method: "GET",
   })
     .then((response) => response.json())
     .then((data) => {
-      const fields = JSON.parse(data.poll)[0].fields;
+      const fields = JSON.parse(data.form)[0].fields;
       makeTable(data);
-      initialState = new PollEditable(
-        fields.poll_code,
-        fields.poll_name,
+      initialState = new FormEditable(
+        fields.form_code,
+        fields.form_name,
         fields.description,
         fields.status
       );
@@ -171,18 +171,18 @@ btnRemoveFile.addEventListener("click", function () {
   fileRemoved = true; //indicate that the file was removed
 });
 
-editPoll.addEventListener("click", displayEditModal);
+// editForm.addEventListener("click", displayEditModal);
 
-pollNameInput.addEventListener('input', function(){
+formNameInput.addEventListener('input', function(){
   const inputValueLength = setWordCount()
   if (inputValueLength >= inputMaxLength){
-      pollNameInput.value = pollNameInput.value.slice(0, inputMaxLength);
+      formNameInput.value = formNameInput.value.slice(0, inputMaxLength);
   }
 })
 
 function displayEditModal() {
   setWordCount()
-  transitionModal("edit-poll-modal-section", function(){
+  transitionModal("edit-form-modal-section", function(){
     resetEditModal()
     transitionModal('none')
   });
@@ -191,7 +191,7 @@ function displayEditModal() {
 }
 
 function setWordCount(){
-  const inputValueLength = pollNameInput.value.length
+  const inputValueLength = formNameInput.value.length
   txtInputWordCount.textContent = `${inputValueLength}/${inputMaxLength}`
   return inputValueLength
 }
@@ -228,10 +228,10 @@ $(document).on("submit", "#edit-form", function (e) {
 
 saveBtn.addEventListener("click", function () {
   const status = document.querySelector(
-    'input[name="poll-status"]:checked'
+    'input[name="form-status"]:checked'
   ).value;
   const description = document.getElementById("description").value;
-  const finalState = new PollEditable(initialState.pollcode, pollNameInput.value, description, status);
+  const finalState = new FormEditable(initialState.formcode, formNameInput.value, description, status);
   buildReviewChangesModal(finalState, initialState.compare(finalState));
 });
 
@@ -242,7 +242,7 @@ function restAndRemoveEdit(){
 
 /**Resets the value of the edit modal to the initial state */
 function resetEditModal(){
-  pollNameInput.value = initialState.pollname
+  formNameInput.value = initialState.formname
   document.getElementById("description").value = initialState.description
   const radioSelect = document.querySelector(`.radio-select[data-radiovalue="${String(initialState.state).toLowerCase()}"]`);
   selectStateUi(radioSelect)
@@ -266,13 +266,13 @@ function fileChanged(fileElement) {
 }
 
 /** builds and displays a modal that shows the changes
- *  in the poll state from when it was loaded to when it was modified */
-function buildReviewChangesModal(pollState, differences) {
+ *  in the form state from when it was loaded to when it was modified */
+function buildReviewChangesModal(formState, differences) {
   const [fileModified, message] = fileChanged(fileInput);
 
   if (!(differences.length > 0) && !fileModified) {
     showAlertModalOneAction(
-      "You haven't made any changes to your poll settings; everything remains unchanged as per your initial configuration. If you have any further adjustments or updates, feel free to make them.",
+      "You haven't made any changes to your form settings; everything remains unchanged as per your initial configuration. If you have any further adjustments or updates, feel free to make them.",
       displayEditModal
     );
     return;
@@ -282,7 +282,7 @@ function buildReviewChangesModal(pollState, differences) {
   const btnSaveChanges = document.getElementById('btn-save-changes')
   changesContainer.innerHTML = "";
   differences.forEach(function (difference) {
-    const differenceValue = pollState[difference];
+    const differenceValue = formState[difference];
     const changeHtml = `<div class="change">
                             <h4>${difference}:</h4>
                             <p>${differenceValue}</p>
@@ -300,10 +300,11 @@ function buildReviewChangesModal(pollState, differences) {
 
   btnSaveChanges.onclick = function(){
     showDynamicLoadingModal('Applying changes..')
-    modifyPoll(pollState.pollname, pollState.pollcode, fileInput, pollState.status, pollState.description);
+    modifyForm(formState.formname, formState.formcode, fileInput, formState.status, formState.description);
   }
 
   transitionModal("rev-changes-modal");
+  console.log('aghaha')
 }
 
 /**returns the operatino that was performed on the appended document
@@ -316,10 +317,10 @@ function getFileOp(fileElement) {
 }
 
 /**Sends a request to the database to
- * update the poll with the specified pollcode  */
-function modifyPoll(newname, pollcode, fileElement, status, description) {
+ * update the form with the specified formcode  */
+function modifyForm(newname, formcode, fileElement, status, description) {
   if (newname === "") {
-    alert("Poll name cannot be blank");
+    alert("Form name cannot be blank");
     return; //avoid executing the rest of the function
   }
 
@@ -332,15 +333,15 @@ function modifyPoll(newname, pollcode, fileElement, status, description) {
     "input[name=csrfmiddlewaretoken]"
   ).value;
 
-  formData.append("pollname", newname);
+  formData.append("formname", newname);
   formData.append("document", file);
-  formData.append("pollcode", pollcode);
+  formData.append("formcode", formcode);
   formData.append("status", status);
   formData.append("description", description);
   formData.append("fileop", fileop);
   formData.append("csrfmiddlewaretoken", csrfToken);
 
-  fetch("/modifypoll", {
+  fetch("/modifyform", {
     method: "POST",
     body: formData,
   })
@@ -367,20 +368,20 @@ function setFileName(name){
   }
 }
 
-/**Uses the poll values to populate the table in the ui*/
+/**Uses the form values to populate the table in the ui*/
 function makeTable(data) {
   //open the table tag, open the table head and open the tr for the table head
   let table = "<table><thead><tr>";
 
-  //getting the serialized poll
-  poll = JSON.parse(data.poll);
+  //getting the serialized form
+  form = JSON.parse(data.form);
 
-  pollNameInput.value = poll[0].fields.poll_name;
+  formNameInput.value = form[0].fields.form_name;
 
-  originalDocumentName = poll[0].fields.original_doc_name;
+  originalDocumentName = form[0].fields.original_doc_name;
   setFileName(originalDocumentName)
  
-  let fields = JSON.parse(poll[0].fields.fields);
+  let fields = JSON.parse(form[0].fields.fields);
 
   fields.forEach(function (field) {
     table += "<th>" + field.name + "</th>";
@@ -402,8 +403,8 @@ function makeTable(data) {
   //close the tr for the table head, close the table head and open the table body
   table += "</tr></thead><tbody>";
 
-  data.pollvalues.forEach(function (pollvalue) {
-    let fieldValues = JSON.parse(pollvalue.field_values);
+  data.formvalues.forEach(function (formvalue) {
+    let fieldValues = JSON.parse(formvalue.field_values);
     if (fieldValues.length >0){
       table += "<tr>";
       let index = 0;
@@ -454,9 +455,9 @@ generateBtn.addEventListener("click", function () {
 
   let linkTag = document.getElementById("download-link-tag");
 
-  let newName = poll[0].fields.original_doc_name;
+  let newName = form[0].fields.original_doc_name;
   if (newName == "document_name") {
-    newName = poll[0].fields.poll_name + ".docx";
+    newName = form[0].fields.form_name + ".docx";
   }
 
   txtFileName.textContent = newName;
@@ -482,11 +483,11 @@ generateBtn.addEventListener("click", function () {
   downloadBtn.addEventListener("click", function () {
     isNumbered = isNumberedCheck.checked.toString();
     isAlphabeticalOrdered = alphabeticalOrderCheck.checked.toString();
-    //linkTag.href = '/downloaddoc/' + pollcode + '/' + newName + '/'
+    //linkTag.href = '/downloaddoc/' + formcode + '/' + newName + '/'
     let genDocumentName = newName.replace(/ /g, "_");
     linkTag.href =
       "/generatedoc/" +
-      pollcode +
+      formcode +
       "/" +
       genDocumentName +
       "/" +

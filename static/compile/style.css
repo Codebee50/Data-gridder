@@ -73,7 +73,7 @@ h1, h2, h3, h4 {
   color: white;
 }
 
-.poll-en-con {
+.form-en-con {
   width: 100%;
   margin: auto;
   padding: auto;
@@ -83,7 +83,7 @@ h1, h2, h3, h4 {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   row-gap: 30px;
 }
-.poll-en-con .poll-entity {
+.form-en-con .form-entity {
   text-decoration: none;
   color: var(--complement_color);
   width: 80%;
@@ -97,7 +97,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   cursor: pointer;
 }
-.poll-en-con .poll-entity .top-representation {
+.form-en-con .form-entity .top-representation {
   background-image: url(/static/img/gridder_light_grey.svg);
   background-repeat: no-repeat;
   background-size: 50px;
@@ -105,19 +105,19 @@ h1, h2, h3, h4 {
   width: 99.8%;
   height: 150px;
 }
-.poll-en-con .poll-entity .top-representation .top-table-container {
+.form-en-con .form-entity .top-representation .top-table-container {
   width: 100%;
   height: 95%;
   overflow-y: auto;
   display: flex;
 }
-.poll-en-con .poll-entity .top-representation .top-table-container table {
+.form-en-con .form-entity .top-representation .top-table-container table {
   margin: auto;
   display: inline-block;
   border-collapse: collapse;
   font-size: 0.5rem;
 }
-.poll-en-con .poll-entity .top-representation .top-table-container table th, .poll-en-con .poll-entity .top-representation .top-table-container table td {
+.form-en-con .form-entity .top-representation .top-table-container table th, .form-en-con .form-entity .top-representation .top-table-container table td {
   border: 0.5px solid var(--complement_color);
   color: var(--complement_color);
   text-align: center;
@@ -126,18 +126,18 @@ h1, h2, h3, h4 {
   white-space: nowrap;
   min-width: 150px;
 }
-.poll-en-con .poll-entity .top-representation .top-table-container::-webkit-scrollbar {
+.form-en-con .form-entity .top-representation .top-table-container::-webkit-scrollbar {
   width: 0;
   background-color: transparent;
 }
-.poll-en-con .poll-entity .bottom-representation {
+.form-en-con .form-entity .bottom-representation {
   background-color: white;
   width: 99.8%;
   padding: 0.8rem;
   height: -moz-max-content;
   height: max-content;
 }
-.poll-en-con .poll-entity .bottom-representation .p-n {
+.form-en-con .form-entity .bottom-representation .p-n {
   font-size: 1.2rem;
   color: var(--complement_color);
   font-weight: 600;
@@ -146,22 +146,22 @@ h1, h2, h3, h4 {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.poll-en-con .poll-entity .bottom-representation .p-c {
+.form-en-con .form-entity .bottom-representation .p-c {
   font-size: 0.8rem;
   opacity: 0.7;
   margin-top: 5px;
 }
-.poll-en-con .poll-entity .bottom-representation .c-a {
+.form-en-con .form-entity .bottom-representation .c-a {
   font-size: 0.8rem;
   opacity: 0.7;
   margin-top: 5px;
 }
-.poll-en-con .poll-entity .bottom-representation .status-indicator-container {
+.form-en-con .form-entity .bottom-representation .status-indicator-container {
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
-.poll-en-con .poll-entity .bottom-representation .status-indicator-container .status-indicator {
+.form-en-con .form-entity .bottom-representation .status-indicator-container .status-indicator {
   margin-top: 5px;
   border: var(--major-green) 0.5px solid;
   background-color: white;
@@ -172,11 +172,11 @@ h1, h2, h3, h4 {
   align-self: flex-end;
   justify-self: flex-end;
 }
-.poll-en-con .poll-entity .bottom-representation .status-indicator-container .status-indicator p {
+.form-en-con .form-entity .bottom-representation .status-indicator-container .status-indicator p {
   color: var(--major-green);
   font-size: 0.8rem;
 }
-.poll-en-con .poll-entity:hover {
+.form-en-con .form-entity:hover {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
 }
 
@@ -700,7 +700,7 @@ html::-webkit-scrollbar-thumb {
   width: 60%;
   line-height: 1.3;
 }
-.landing .bottom .right-content .content .btn-new-poll {
+.landing .bottom .right-content .content .btn-new-form {
   margin-top: 0.8rem;
   border: none;
   padding: 0.5rem 1.5rem;
@@ -711,7 +711,7 @@ html::-webkit-scrollbar-thumb {
   cursor: pointer;
 }
 
-.input-poll-code {
+.input-form-code {
   width: 100%;
   min-height: 60vh;
   padding: 4rem;
@@ -719,23 +719,23 @@ html::-webkit-scrollbar-thumb {
   flex-direction: row;
   background-color: white;
 }
-.input-poll-code .right-content {
+.input-form-code .right-content {
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.input-poll-code .right-content img {
+.input-form-code .right-content img {
   width: 60%;
 }
-.input-poll-code .right-content .image-container {
+.input-form-code .right-content .image-container {
   width: 70%;
   height: 60vh;
   position: relative;
   display: inline-block;
 }
-.input-poll-code .right-content .image-container img {
+.input-form-code .right-content .image-container img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -743,7 +743,7 @@ html::-webkit-scrollbar-thumb {
   -o-object-position: center;
      object-position: center;
 }
-.input-poll-code .right-content .image-container .overlay {
+.input-form-code .right-content .image-container .overlay {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -754,7 +754,7 @@ html::-webkit-scrollbar-thumb {
   align-items: flex-start;
   justify-content: flex-end;
 }
-.input-poll-code .right-content .des {
+.input-form-code .right-content .des {
   width: 60%;
   min-height: -moz-max-content;
   min-height: max-content;
@@ -764,20 +764,20 @@ html::-webkit-scrollbar-thumb {
   align-items: start;
   padding: 2.5rem;
 }
-.input-poll-code .right-content .des .question {
+.input-form-code .right-content .des .question {
   color: white;
   font-size: 2rem;
   font-weight: 600;
   font-family: "Inter", sans-serif;
 }
-.input-poll-code .right-content .des p {
+.input-form-code .right-content .des p {
   margin-top: 0.9rem;
   color: rgb(219, 216, 216);
   line-height: 1.7;
   font-size: 0.9rem;
   font-family: "Inter", sans-serif;
 }
-.input-poll-code .right-content .des .img-con {
+.input-form-code .right-content .des .img-con {
   margin-top: 2.5rem;
   width: 100%;
   display: flex;
@@ -785,38 +785,38 @@ html::-webkit-scrollbar-thumb {
   align-items: center;
   justify-content: flex-end;
 }
-.input-poll-code .right-content .des .img-con img {
+.input-form-code .right-content .des .img-con img {
   width: 80px;
 }
-.input-poll-code .left-content {
+.input-form-code .left-content {
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.input-poll-code .left-content .content h1 {
+.input-form-code .left-content .content h1 {
   width: 60%;
   font-size: var(--big_text_size);
   color: var(--complement_color);
 }
-.input-poll-code .left-content .content .line {
+.input-form-code .left-content .content .line {
   width: 150px;
   height: 1px;
   margin-top: 0.7rem;
   background-color: var(--cus_orange);
 }
-.input-poll-code .left-content .content .remark {
+.input-form-code .left-content .content .remark {
   color: #838796;
   font-size: 0.9rem;
   margin-top: 0.8rem;
   width: 60%;
   line-height: 1.3;
 }
-.input-poll-code .left-content .content .form-div {
+.input-form-code .left-content .content .form-div {
   margin-top: 0.8rem;
 }
-.input-poll-code .left-content .content .form-div #find-poll-form {
+.input-form-code .left-content .content .form-div #find-form-form {
   display: flex;
   align-items: center;
   width: 200px;
@@ -825,7 +825,7 @@ html::-webkit-scrollbar-thumb {
   position: relative;
   border-radius: 30px;
 }
-.input-poll-code .left-content .content .form-div #find-poll-form input[type=text] {
+.input-form-code .left-content .content .form-div #find-form-form input[type=text] {
   padding: 1rem;
   width: 200px;
   position: relative;
@@ -834,7 +834,7 @@ html::-webkit-scrollbar-thumb {
   outline: none;
   border: 0.7px solid var(--complement_color);
 }
-.input-poll-code .left-content .content .form-div #find-poll-form #submit-btn {
+.input-form-code .left-content .content .form-div #find-form-form #submit-btn {
   position: absolute;
   width: 30px;
   height: 30px;
@@ -851,25 +851,25 @@ html::-webkit-scrollbar-thumb {
   justify-content: center;
   margin: 0 0.4rem;
 }
-.input-poll-code .left-content .content .form-div #find-poll-form #submit-btn i {
+.input-form-code .left-content .content .form-div #find-form-form #submit-btn i {
   color: white;
   margin: auto;
 }
-.input-poll-code .left-content .content .form-div #find-poll-form #submit-btn:disabled {
+.input-form-code .left-content .content .form-div #find-form-form #submit-btn:disabled {
   background-color: rgb(145, 185, 174);
   cursor: not-allowed;
 }
-.input-poll-code .left-content .content .loading-poll-div {
+.input-form-code .left-content .content .loading-form-div {
   display: none;
 }
-.input-poll-code .left-content .content .loading-poll-div.visible {
+.input-form-code .left-content .content .loading-form-div.visible {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-top: 0.6rem;
   gap: 0.4rem;
 }
-.input-poll-code .left-content .content .loading-poll-div.visible p {
+.input-form-code .left-content .content .loading-form-div.visible p {
   font-size: 0.8rem;
   opacity: 0.7;
 }
@@ -1477,29 +1477,29 @@ html::-webkit-scrollbar-thumb {
     text-align: center;
     width: 80%;
   }
-  .input-poll-code {
+  .input-form-code {
     flex-direction: column;
     padding: 0;
   }
-  .input-poll-code .left-content {
+  .input-form-code .left-content {
     padding: 4rem;
     width: 100%;
   }
-  .input-poll-code .left-content .content {
+  .input-form-code .left-content .content {
     align-items: center;
     display: flex;
     flex-direction: column;
   }
-  .input-poll-code .left-content .content h1 {
+  .input-form-code .left-content .content h1 {
     width: 70%;
     text-align: center;
   }
-  .input-poll-code .left-content .content .remark {
+  .input-form-code .left-content .content .remark {
     width: 90%;
     text-align: center;
     margin-top: 1rem;
   }
-  .input-poll-code .right-content {
+  .input-form-code .right-content {
     margin-top: 0.9rem;
     width: 100%;
   }
@@ -1558,12 +1558,12 @@ html::-webkit-scrollbar-thumb {
   }
 }
 @media screen and (max-width: 950px) {
-  .input-poll-code .right-content .des {
+  .input-form-code .right-content .des {
     width: 80%;
   }
 }
 @media screen and (max-width: 750px) {
-  .input-poll-code .right-content .des {
+  .input-form-code .right-content .des {
     width: 90%;
   }
 }

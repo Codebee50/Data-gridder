@@ -26,24 +26,24 @@
             <!-- <i class="fa-solid fa-xmark" onclick="closeLeftParent()" style="font-size: 1.3rem;"></i> -->
 
             <div class="navigations"> 
-                <div class="navigation" data-id="my-polls" id="con-my-polls">
-                    <i class="fa-solid fa-crown" data-id="my-polls"></i>
-                    <p data-id="my-polls">My polls</p>
+                <div class="navigation" data-id="my-forms" id="con-my-forms">
+                    <i class="fa-solid fa-crown" data-id="my-forms"></i>
+                    <p data-id="my-forms">My forms</p>
                 </div>
                  
-                <div class="navigation" data-id="rpolls" id="con-rpolls">
-                    <i class="fa-regular fa-star" data-id="rpolls"></i>
-                   <p data-id="rpolls">Registered polls</p>
+                <div class="navigation" data-id="rforms" id="con-rforms">
+                    <i class="fa-regular fa-star" data-id="rforms"></i>
+                   <p data-id="rforms">Registered forms</p>
                 </div>
                  
-                <!-- <div class="navigation" data-id="scratch-poll" id="con-scratch-poll">
-                    <i class="fa-solid fa-plus" data-id="scratch-poll"></i>
-                    <p data-id="scratch-poll">New poll</p>
+                <!-- <div class="navigation" data-id="scratch-form" id="con-scratch-form">
+                    <i class="fa-solid fa-plus" data-id="scratch-form"></i>
+                    <p data-id="scratch-form">New form</p>
                 </div> -->
 
-                <div class="navigation" data-id="new-poll" id="con-new-poll">
-                    <i class="fa-solid fa-plus" data-id="new-poll"></i>
-                    <p data-id="new-poll">New poll</p>
+                <div class="navigation" data-id="new-form" id="con-new-form">
+                    <i class="fa-solid fa-plus" data-id="new-form"></i>
+                    <p data-id="new-form">New form</p>
                 </div>
                  
                 <!-- <div class="navigation" data-id="sort-doc" id="con-sort-doc">
@@ -71,8 +71,8 @@
             </div>
         </div>
 
-        <!-- new poll section -->
-        <div class="rightparent" id="new-poll">
+        <!-- new form section -->
+        <div class="rightparent" id="new-form">
             <div class="top-content">
                 <div class="top-container">
                     <div class="top-left">
@@ -82,7 +82,7 @@
                             </div>
                             <img src="{% static 'img/icon.svg' %}" alt="iconimage" id="icon-display">
                             <div class="left-right">
-                                <h2>New poll</h2>
+                                <h2>New form</h2>
     
                                 <!-- <ul>
                                     <li>File</li
@@ -121,7 +121,7 @@
                    
                 </div>
                 <div class="bottom-right">
-                    <h4 class="poll-header">Poll field </h4>
+                    <h4 class="form-header">Form field </h4>
                     <hr>
 
                     <div class="f-prop">
@@ -170,8 +170,8 @@
             </div>
         </div>
 
-        <!-- My polls-->
-        <div class="rightparent" id="my-polls">
+        <!-- My forms-->
+        <div class="rightparent" id="my-forms">
             <div class="top-content">
                 <div class="top-container">
                     <div class="top-left">
@@ -181,7 +181,7 @@
                             </div>
                             <img src="{% static 'img/icon.svg' %}" alt="iconimage" id="icon-display">
                             <div class="left-right">
-                                <h2>My polls</h2>
+                                <h2>My forms</h2>
 
                             </div>
                         </div>
@@ -193,19 +193,19 @@
             </div>
             <div class="bottom-content">
                 
-                {% if polls|length >= 1 %}
-                <div class="poll-entity-container poll-en-con">
-                    {% for poll in polls %}
-                    <a class="poll-entity" href="/viewpoll/{{poll.poll_code}}/" id="poll-{{poll.id}}">
+                {% if forms|length >= 1 %}
+                <div class="form-entity-container form-en-con">
+                    {% for form in forms %}
+                    <a class="form-entity" href="/viewform/{{form.form_code}}/" id="form-{{form.id}}">
                         <div class="top-representation">
-                            <div class="top-table-container" id="table-con-{{poll.id}}">
+                            <div class="top-table-container" id="table-con-{{form.id}}">
                             
                             </div>
                         </div>
                         <div class="bottom-representation">
-                            <h3 class="p-n">{{poll.poll_name}}</h3>
-                            <p class="p-c">{{poll.poll_code}}</p>
-                            <p class="c-a" id="pb-date-{{poll.id}}">Published {{poll.created_at}}</p>
+                            <h3 class="p-n">{{form.form_name}}</h3>
+                            <p class="p-c">{{form.form_code}}</p>
+                            <p class="c-a" id="pb-date-{{form.id}}">Published {{form.created_at}}</p>
 
                             <!-- <div class="status-indicator-container">
                                 <div class="status-indicator">
@@ -223,7 +223,7 @@
                     <div class="emp-content">
                         <!-- <i class="fa-solid fa-cat"></i> -->
                         <img src="{% static 'img/panda-wave.svg' %}" alt="" class="panda-img">
-                        <p class="txt-ooh">Ooh such emptiness, try creating some polls</p>
+                        <p class="txt-ooh">Ooh such emptiness, try creating some forms</p>
                     </div>
                     
                 </div>
@@ -235,8 +235,8 @@
             </div>
         </div>
 
-        <!-- Registered polls  -->
-        <div class="rightparent" id="rpolls">
+        <!-- Registered forms  -->
+        <div class="rightparent" id="rforms">
             <div class="top-content">
                 <div class="top-container">
                     <div class="top-left">
@@ -246,7 +246,7 @@
                             </div>
                             <img src="{% static 'img/icon.svg' %}" alt="iconimage" id="icon-display">
                             <div class="left-right">
-                                <h2>Registered polls</h2>
+                                <h2>Registered forms</h2>
                             </div>
                         </div>
                     </div>
@@ -254,19 +254,19 @@
                 </div>
             </div>
             <div class="bottom-content">
-                {% if registered_polls|length >= 1 %}
-                <div class="all-polls poll-en-con">
-                    {% for poll_value in registered_polls %}
-                    <span class="poll-entity" onclick="displayReviewCard('{{poll_value.id}}')">
+                {% if registered_forms|length >= 1 %}
+                <div class="all-forms form-en-con">
+                    {% for form_value in registered_forms %}
+                    <span class="form-entity" onclick="displayReviewCard('{{form_value.id}}')">
                         <div class="top-representation">
-                            <div class="top-table-container testclass" id="value-table-con-{{poll_value.id}}">
+                            <div class="top-table-container testclass" id="value-table-con-{{form_value.id}}">
                             
                             </div>
                         </div>
                         <div class="bottom-representation">
-                            <h3 class="p-n">{{poll_value.poll_name}}</h3>
-                            <p class="p-c">{{poll_value.poll_code}}</p>
-                            <p class="c-a" id="reg-date-{{poll_value.id}}">Registered {{poll_value.registered_date}}</p>
+                            <h3 class="p-n">{{form_value.form_name}}</h3>
+                            <p class="p-c">{{form_value.form_code}}</p>
+                            <p class="c-a" id="reg-date-{{form_value.id}}">Registered {{form_value.registered_date}}</p>
 
                             <!-- <div class="status-indicator-container">
                                 <div class="status-indicator">
@@ -285,7 +285,7 @@
                         <!-- <i class="fa-solid fa-cat"></i> -->
                         <img src="{% static 'img/panda-lie.svg' %}" alt="" class="panda-img">
 
-                        <p class="txt-ooh">Polls you have registered in will appear here</p>
+                        <p class="txt-ooh">Forms you have registered in will appear here</p>
                     </div>
                     
                 </div>
@@ -356,7 +356,7 @@
             <div class="values-container" id="values-container">
                 <div class="value">
                     <h4>Description:</h4>
-                    <p>This is the description for your poll</p>
+                    <p>This is the description for your form</p>
                 </div>
 
             </div>
@@ -377,13 +377,13 @@
         </form>
         <div class="modal-content choose-create-option-content">
             <div class="showcase-modal">
-                <h3 class="modal-title-txt">Create a new poll</h3>
+                <h3 class="modal-title-txt">Create a new form</h3>
 
                 <i class="fa-solid fa-xmark" onclick="transitionModal('none')"></i>
             </div>
 
             <div class="actions">
-                <div class="left-content dmark-content" id="scratch-poll">
+                <div class="left-content dmark-content" id="scratch-form">
                     <div class="generic">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs></defs><title>Asset 23gridder-icon-white</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><rect class="cls-1" x="8.79" y="14.65" width="13.72" height="2.63" transform="translate(-6.69 16.64) rotate(-47.29)"/><rect class="cls-1" x="9.58" width="13.02" height="2.67"/><rect class="cls-1" x="9.58" y="29.33" width="13.02" height="2.67"/><rect class="cls-1" x="-5.25" y="14.63" width="31.89" height="2.63" transform="translate(-5.25 26.64) rotate(-90)"/><rect class="cls-1" x="5.36" y="14.74" width="31.89" height="2.63" transform="translate(5.25 37.36) rotate(-90)"/><rect class="cls-1" x="0.11" y="9.38" width="31.89" height="2.63"/><rect class="cls-1" y="19.99" width="31.89" height="2.63"/></g></g></svg>
     
@@ -391,11 +391,11 @@
 
                     <div class="explanation-container">
                         <h2 class="explanation-header">
-                            New datagridder poll
+                            New datagridder form
                         </h2>
 
                         <p class="explanation">
-                            Create a poll from scratch using datagridder
+                            Create a form from scratch using datagridder
                         </p>
                     </div>
                 </div>
@@ -412,7 +412,7 @@
                         </h2>
 
                         <p class="explanation">
-                            Create a poll from a document containing a populated table
+                            Create a form from a document containing a populated table
                         </p>
                     </div>
 
@@ -423,7 +423,7 @@
             </div>
 
             <div class="action-btns">
-                <button class="button-one" id="btn-create-poll">Create poll</button>
+                <button class="button-one" id="btn-create-form">Create form</button>
             </div>
            
         </div>
@@ -474,7 +474,7 @@
                     <img src="{% static 'img/loading.gif' %}" alt="" width="30px" height="30px" id="spinner">
                     <i class="fa-solid fa-circle-check" id="check"></i>
                 </div>
-                <p class="status-text">Deleting poll..</p>
+                <p class="status-text">Deleting form..</p>
                 <button id="finish-btn">Ok</button>
            </div>
         </div>
@@ -484,7 +484,7 @@
     <div class="delete-entry-modal">
         <div class="delete-entry-box">
            <div class="delete-entry-content">
-            <p id="delete-entry-message">Delete your entry for this poll?</p>
+            <p id="delete-entry-message">Delete your entry for this form?</p>
             <div class="button-container">
                 <button id="ok-del-entry">Delete</button>
                 <button id="cancel-del-entry">Cancel</button>
@@ -524,7 +524,7 @@
                         <i class="ri-checkbox-circle-fill"></i>
                     </div>
                     <div class="message-con">
-                        <p>Poll deleted successfully</p>
+                        <p>Form deleted successfully</p>
                     </div>
                 </div>
                 <div class="right">
@@ -540,6 +540,6 @@
 
 
     <script src="{% static 'js/components.js' %}"></script>
-    <script src="{% static 'js/poll.js' %}"></script>
+    <script src="{% static 'js/form.js' %}"></script>
 </body>
 </html>

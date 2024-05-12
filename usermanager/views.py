@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from data_gridder.models import Profile, PollValue
+from data_gridder.models import Profile, FormValue
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
@@ -377,7 +377,7 @@ def login(request):
 @login_required(login_url='login')
 def getUesrValues(request):
     username = request.user.username
-    values = PollValue.objects.filter(user_name= username)
+    values = FormValue.objects.filter(user_name= username)
     
     context = {
         'status': 'success',

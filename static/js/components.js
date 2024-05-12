@@ -9,10 +9,13 @@ function transitionModal(modalId, onCancel = function(){transitionModal('none')}
     modalSection.classList.remove("visible");
   });
 
+  console.log(modalId)
+
   if (modalId == "none") {
     //this means we dont want to show any modal
   } else {
     const displayModal = document.getElementById(modalId);
+
     if (displayModal !== null) {
       if(displayModal.classList.contains('visible')){
         displayModal.classList.remove('visible')
@@ -27,6 +30,8 @@ function transitionModal(modalId, onCancel = function(){transitionModal('none')}
       }
     }
   }
+
+
 }
 
 /** Used to display the alert modal that has only one action
