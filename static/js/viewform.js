@@ -402,13 +402,13 @@ function makeTable(data) {
     table += "<th>" + field.name + "</th>";
     if (field.datatype !== "empty") {
       const optionElementAcending = document.createElement("option");
-      optionElementAcending.value = `${field.name}/asc`;
+      optionElementAcending.value = field.name;
       optionElementAcending.text = field.name + " (Ascending)";
       optionElementAcending.id = "asc";
       orderFactor.appendChild(optionElementAcending);
 
       const optionElementDescending = document.createElement("option");
-      optionElementDescending.value = `${field.name}/desc`;
+      optionElementDescending.value = field.name;
       optionElementDescending.text = field.name + " (Descending)";
       optionElementDescending.id = "desc";
       orderFactor.appendChild(optionElementDescending);
@@ -437,19 +437,21 @@ function makeTable(data) {
   table += "</table>";
   tableCon.innerHTML = table;
 
-  alphabeticalOrderCheck.addEventListener("change", function () {
+  alphabeticalOrderCheck.addEventListener("change", function (event) {
     if (alphabeticalOrderCheck.checked) {
       factor = orderFactor.value;
-      transverse = orderFactor.id;
+      // transverse = orderFactor.id;
+      transverse = orderFactor.options[orderFactor.selectedIndex].id
+
     } else {
       factor = "none";
     }
   });
 
-  orderFactor.addEventListener("change", () => {
+  orderFactor.addEventListener("change", function(){
     if (alphabeticalOrderCheck.checked) {
       factor = orderFactor.value;
-      transverse = orderFactor.id;
+      transverse = this.options[this.selectedIndex].id
     }
   });
 }
@@ -466,8 +468,6 @@ generateBtn.addEventListener("click", function () {
   const txtFileName = document.getElementById("txt-file-name");
   const downloadBtn = document.getElementById("download-btn");
   const isNumberedCheck = document.getElementById("number-document");
-
-  let linkTag = document.getElementById("download-link-tag");
 
   let newName = form[0].fields.original_doc_name;
   if (newName == "document_name") {
@@ -495,26 +495,71 @@ generateBtn.addEventListener("click", function () {
   });
 
   downloadBtn.addEventListener("click", function () {
-    isNumbered = isNumberedCheck.checked.toString();
-    isAlphabeticalOrdered = alphabeticalOrderCheck.checked.toString();
-    //linkTag.href = '/downloaddoc/' + formcode + '/' + newName + '/'
-    let genDocumentName = newName.replace(/ /g, "_");
-    linkTag.href =
-      "/generatedoc/" +
-      formcode +
-      "/" +
-      genDocumentName +
-      "/" +
-      isNumbered +
-      "/" +
-      isAlphabeticalOrdered +
-      "/" +
-      factor;
-    linkTag.click();
-    downloadAlert.classList.add("visible");
+    const genDocumentName = newName.replace(/ /g, "_");
+
+    const isNumbered = isNumberedCheck.checked.toString();
+    const isAlphabeticalOrdered = alphabeticalOrderCheck.checked.toString();
+    // //linkTag.href = '/downloaddoc/' + formcode + '/' + newName + '/'
+    // linkTag.href =
+    //   "/generatedoc/" +
+    //   formcode +
+    //   "/" +
+    //   genDocumentName +
+    //   "/" +
+    //   isNumbered +
+    //   "/" +
+    //   isAlphabeticalOrdered +
+    //   "/" +
+    //   factor;
+    // linkTag.click();
+
     downloadContent.classList.remove("visible");
+    generateDocument(formcode, genDocumentName, isNumbered, isAlphabeticalOrdered, factor, transverse)
   });
 });
+
+function generateDocument(formcode, docname, numbered, alph, factor, transverse){
+  showDynamicLoadingModal('Compiling your document..')
+
+  const formData = new FormData()
+  formData.append('formcode', formcode)
+  formData.append('docname', docname)
+  formData.append('numbered', numbered)
+  formData.append('alph', alph)
+  formData.append('factor', factor)
+  formData.append('transverse', transverse)
+  fetch('/generatedocument/', {
+    method: 'POST',
+    headers:{
+      'X-CSRFToken': getcsrfToken()
+    },
+    body:formData
+  })
+  .then(response=>{
+    if(!response.ok){
+      downloadModel.classList.remove("visible");
+      showToast({
+        message: 'Error generating document',
+        style:'error',
+        onfinshed: transitionModal.bind(null, 'none')
+      })
+    }
+    else{
+      downloadAlert.classList.add("visible");
+    }
+    return response.json()
+  })
+  .then(data=>{
+    if(data.statuscode == 200){
+      const linkTag = document.getElementById("download-link-tag");
+      linkTag.href = data.docurl
+      linkTag.click()
+    }
+  }).finally(()=>{
+    clearAllDynamicModals()
+  })
+  
+}
 
 removeDownloadModal.addEventListener("click", function () {
   downloadAlert.classList.remove("visible");

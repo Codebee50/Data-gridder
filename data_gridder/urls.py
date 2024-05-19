@@ -21,5 +21,8 @@ urlpatterns =[
     path('delentry/<str:entry_id>/', views.deleteEntry, name='deleteentry'),
     path('show-current-site', views.showCurrentSite, name='showcurrentsite'),
     path('contact-datagridder', views.contactUs, name='contact-datagridder'),
-    path('getuserforms/', views.getuserforms, name='getuserforms')
+    path('getuserforms/', views.getuserforms, name='getuserforms'),
+    
+    path('generatedocument/', views.generateDocument, name='generatedocument'),
+    path('downloaddocument/<str:formcode>/<str:docname>/', views.downloadTemporaryDocument, name='downloaddocument')
 ]

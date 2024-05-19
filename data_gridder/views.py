@@ -15,8 +15,7 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from functools import partial
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.files import File
-
+from django.views.decorators.http import require_POST
 # Create your views here.
 # @login_required(login_url='register')
 def home(request):
@@ -427,7 +426,6 @@ def modifyForm(request):
                 doc_path = form.appended_document.path
                 if os.path.exists(doc_path):
                     os.remove(doc_path)
-                    print('deleted the appended document')
                 
                 form.appended_document = 'documents/sampledoc.docx'
                 form.original_doc_name = 'document_name'
@@ -478,7 +476,6 @@ def modifyForm(request):
             form.description = description
 
             form.save()
-            print(form)
             return JsonResponse({
                 'statuscode': 200,
                 'message': 'Form updated succesfully'
@@ -647,7 +644,165 @@ def deleteForm(request, formcode):
         }
         return JsonResponse(context)
     
-#generates a temporary document and downloads it 
+
+#generates a temporary document
+@require_POST
+def generateDocument(request):
+    temp_dir = settings.TEMP_DIR
+    formcode = request.POST.get('formcode')
+    numbered = request.POST.get('numbered')
+    alph =request.POST.get('alph')
+    transverse = request.POST.get('transverse')
+    factor = request.POST.get('factor')
+    docname= request.POST.get('docname')
+
+   
+    #checking if form exists 
+    if Form.objects.filter(form_code=formcode).exists:
+        form = Form.objects.get(form_code= formcode)
+        formValues = FormValue.objects.filter(form_code=formcode)
+        
+        is_numbered = {'true': True, 'false': False}.get(numbered.lower())   
+        is_alphabetical_ordered = {'true': True, 'false': False}.get(alph.lower())
+        
+        #----------GENERATING A TEMPORARY DOCUMENT---------------
+        temp_doc = temp_dir + 'temp-doc-' + form.form_code + '.docx'
+
+        if(os.path.exists(temp_doc)):
+            os.remove(temp_doc)
+
+        with open(temp_doc, 'wb+') as destination:
+            with form.appended_document.open('rb') as source: 
+                shutil.copyfileobj(source, destination)
+            
+        #getting the number of rows and number of columns required to make a table out of the form values
+        #adding 1 to the length of my form values for the table to account for the headers
+        num_rows = len(list(formValues.values())) +1
+        if is_numbered:
+            #adding 1 column to account for the number colomn if list is supposed to be numbered
+            num_cols =  len(json.loads(form.fields)) +1
+        else:
+            num_cols =  len(json.loads(form.fields))
+        
+        doc = Document(temp_doc)
+        tables = doc.tables
+        for table in tables:
+            rowcount = len(table.rows)
+            if rowcount> 1:
+                pass
+            else:
+                row = table.rows[0].cells
+                if len(row) >1:
+                    pass
+                else:
+                    cellValue = row[0].text
+                    if cellValue.lower() == 'dg':
+                        #we found a dg table!
+                        parent_table = table._element.getparent()
+                        new_table = doc.add_table(rows=num_rows, cols=num_cols)
+                        new_table.style = 'Table Grid'
+                        #inserting our table right below the dg table 
+                        parent_table.insert(parent_table.index(table._element) +1, new_table._element)
+                        #removing the dg table leavinig only the new one 
+                        parent_table.remove(table._element)
+                    else:
+                        pass
+            
+        #setting the content of the header cells
+        header_cells = new_table.rows[0].cells
+        if is_numbered:
+            header_cells[0].text = ''
+            hIndex = 1
+        else:
+                hIndex =0
+        for header in json.loads(form.fields):
+            cell = header_cells[hIndex]
+            if header.get('name') == '-':
+            
+                cell.text = ''
+            else:
+                cell.text = header.get('name')
+
+            if cell.text != '':
+                cell.paragraphs[0].runs[0].bold = True
+            hIndex +=1
+
+        form_value_list = list(formValues.values())
+        
+        if is_alphabetical_ordered:
+            if transverse == 'asc':
+                form_value_list.sort(key= partial(sort_by_field_values, factor=factor), reverse=True)
+            else:
+                form_value_list.sort(key= partial(sort_by_field_values, factor=factor), reverse=False)
+
+
+        #setting the other rows of the table 
+        #iterate starting from row index 1 to row index num_rows, this is done to exclude the headers
+        for i in range(1, num_rows):
+            row_cells = new_table.rows[i].cells
+            form_fields = json.loads(form.fields)
+            val = form_value_list[i-1]
+            pIndex = 0
+            for index, cell in enumerate(row_cells):
+                if is_numbered:
+                    if index == 0:
+                        cell.text = str(i)
+                    else:
+                        field = form_fields[pIndex]
+                        if field.get('datatype') == 'empty':
+                            cell.text = ''
+                        else:
+                            cell.text = field.get('name')
+                            for item in json.loads(val.get('field_values')):
+                                if item.get('name') == field.get('name'):
+                                    cell.text = item.get('value')
+                        pIndex +=1
+                else:
+                    field = form_fields[pIndex]
+                    if field.get('datatype') == 'empty':
+                        cell.text = ''
+                    else:
+                        cell.text = field.get('name')
+                        for item in json.loads(val.get('field_values')):
+                            if item.get('name') == field.get('name'):
+                                cell.text = item.get('value')
+                    
+                    pIndex +=1
+
+        doc.save(temp_doc)
+        context = {
+                'status': 'success',
+                'statuscode': 200,
+                'message': 'document generated successfully',
+                'docurl': f'/downloaddocument/{formcode}/{docname}'
+        }
+        return JsonResponse(context, status=200)
+    else:
+        context = {
+            'status': 'failed',
+            'message': 'Form not found'
+        }
+        return JsonResponse(context, status= 500)   
+
+def downloadTemporaryDocument(request,formcode, docname):
+    #-----DOWNLOADING THE GENERATED TEMPORARY DOCUMENT----------
+    file_name = settings.TEMP_DIR + 'temp-doc-' + formcode + '.docx'
+
+    if os.path.exists(file_name):
+        file = open(file_name, 'rb')
+        
+        response = FileResponse(file)
+        response['Content-disposition'] ='attachment; filename= "' + docname + '"'
+        return response
+    else:
+        context = {
+            'status': 'failed',
+            'message': 'Document does not exist'
+        }
+        return JsonResponse(context, status=500)
+
+
+#generates a temporary document and downloads it [DEPRECIATED]
 def generateDoc(request, formcode, docname, numbered, alph, factor, transverse):
    temp_dir = settings.TEMP_DIR
    if request.method == 'GET': 
@@ -661,7 +816,6 @@ def generateDoc(request, formcode, docname, numbered, alph, factor, transverse):
             
             #----------GENERATING A TEMPORARY DOCUMENT---------------
             temp_doc = temp_dir + 'temp-doc-' + form.form_code + '.docx'
-            print('appended', form.appended_document)
 
             with open(temp_doc, 'wb+') as destination:
                 with form.appended_document.open('rb') as source: 
@@ -761,9 +915,7 @@ def generateDoc(request, formcode, docname, numbered, alph, factor, transverse):
                         
                         pIndex +=1
 
-            
             doc.save(temp_doc)
-
             #-----DOWNLOADING THE GENERATED TEMPORARY DOCUMENT----------
             file_name = temp_dir+ 'temp-doc-' + form.form_code + '.docx'
        
