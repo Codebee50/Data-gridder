@@ -32,9 +32,7 @@ const alphabeticalOrderCheck = document.getElementById("alph-order");
 const copyButtons = document.querySelectorAll(".btn-copy");
 const deleteFormBtn = document.getElementById("btn-delete-form");
 const btnRemoveFile = document.getElementById("btn-remove");
-const txtInputWordCount = document.getElementById('txt-input-word-count')
-
-
+const txtInputWordCount = document.getElementById("txt-input-word-count");
 
 let factor = "none"; //this is holds if what we want to order the list by
 let transverse = "asc"; //this indicates if the list should be ascending or descending
@@ -42,7 +40,7 @@ let form;
 let fileRemoved = false;
 let initialState;
 let originalDocumentName;
-const inputMaxLength = 60
+const inputMaxLength = 60;
 
 deleteFormBtn.addEventListener("click", function () {
   showDynamicLoadingModal("Deleting form..."); //show loading modal
@@ -54,20 +52,19 @@ deleteFormBtn.addEventListener("click", function () {
 const radioSelects = document.querySelectorAll(".radio-select");
 radioSelects.forEach(function (radioSelect) {
   radioSelect.addEventListener("click", function (e) {
-    selectStateUi(radioSelect)
+    selectStateUi(radioSelect);
   });
 });
 
-function selectStateUi(radioSelect){
-  if(radioSelect){
+function selectStateUi(radioSelect) {
+  if (radioSelect) {
     const radioValue = radioSelect.dataset.radiovalue;
     const radioElement = document.getElementById(`radio-${radioValue}`);
     if (radioElement) radioElement.checked = true;
-  
+
     radioSelects.forEach((select) => select.classList.remove("selected"));
     radioSelect.classList.add("selected");
   }
- 
 }
 
 function deleteForm(formcode) {
@@ -95,7 +92,7 @@ function deleteForm(formcode) {
 class FormEditable {
   //this class models the fields that can be editable in a form, it is later used to compare changes in the form after edit
   constructor(formcode, formname, description, status) {
-    this.formcode = formcode
+    this.formcode = formcode;
     this.formname = formname;
     this.description = description;
     this.status = status;
@@ -171,30 +168,29 @@ btnRemoveFile.addEventListener("click", function () {
   fileRemoved = true; //indicate that the file was removed
 });
 
-
 editFormButton.addEventListener("click", displayEditModal);
 
-formNameInput.addEventListener('input', function(){
-  const inputValueLength = setWordCount()
-  if (inputValueLength >= inputMaxLength){
-      formNameInput.value = formNameInput.value.slice(0, inputMaxLength);
+formNameInput.addEventListener("input", function () {
+  const inputValueLength = setWordCount();
+  if (inputValueLength >= inputMaxLength) {
+    formNameInput.value = formNameInput.value.slice(0, inputMaxLength);
   }
-})
+});
 
 function displayEditModal() {
-  setWordCount()
-  transitionModal("edit-form-modal-section", function(){
-    resetEditModal()
-    transitionModal('none')
+  setWordCount();
+  transitionModal("edit-form-modal-section", function () {
+    resetEditModal();
+    transitionModal("none");
   });
   // modal.classList.add("visible");
   // content.classList.add("visible");
 }
 
-function setWordCount(){
-  const inputValueLength = formNameInput.value.length
-  txtInputWordCount.textContent = `${inputValueLength}/${inputMaxLength}`
-  return inputValueLength
+function setWordCount() {
+  const inputValueLength = formNameInput.value.length;
+  txtInputWordCount.textContent = `${inputValueLength}/${inputMaxLength}`;
+  return inputValueLength;
 }
 
 /**Adding event listeners to the copy link and copy code buttons */
@@ -232,23 +228,32 @@ saveBtn.addEventListener("click", function () {
     'input[name="form-status"]:checked'
   ).value;
   const description = document.getElementById("description").value;
-  const finalState = new FormEditable(initialState.formcode, formNameInput.value, description, status);
+  const finalState = new FormEditable(
+    initialState.formcode,
+    formNameInput.value,
+    description,
+    status
+  );
   buildReviewChangesModal(finalState, initialState.compare(finalState));
 });
 
-function restAndRemoveEdit(){
-  resetEditModal()
-  transitionModal('none')
+function restAndRemoveEdit() {
+  resetEditModal();
+  transitionModal("none");
 }
 
 /**Resets the value of the edit modal to the initial state */
-function resetEditModal(){
-  formNameInput.value = initialState.formname
-  document.getElementById("description").value = initialState.description
-  const radioSelect = document.querySelector(`.radio-select[data-radiovalue="${String(initialState.state).toLowerCase()}"]`);
-  selectStateUi(radioSelect)
-  setFileName(originalDocumentName)
-  setWordCount()
+function resetEditModal() {
+  formNameInput.value = initialState.formname;
+  document.getElementById("description").value = initialState.description;
+  const radioSelect = document.querySelector(
+    `.radio-select[data-radiovalue="${String(
+      initialState.state
+    ).toLowerCase()}"]`
+  );
+  selectStateUi(radioSelect);
+  setFileName(originalDocumentName);
+  setWordCount();
 }
 
 /**returns an array, with its first value s a boolean indicating if the
@@ -280,7 +285,7 @@ function buildReviewChangesModal(formState, differences) {
   }
 
   const changesContainer = document.querySelector(".changes-container");
-  const btnSaveChanges = document.getElementById('btn-save-changes')
+  const btnSaveChanges = document.getElementById("btn-save-changes");
   changesContainer.innerHTML = "";
   differences.forEach(function (difference) {
     const differenceValue = formState[difference];
@@ -299,10 +304,16 @@ function buildReviewChangesModal(formState, differences) {
     changesContainer.insertAdjacentHTML("afterbegin", changeHtml);
   }
 
-  btnSaveChanges.onclick = function(){
-    showDynamicLoadingModal('Applying changes..')
-    modifyForm(formState.formname, formState.formcode, fileInput, formState.status, formState.description);
-  }
+  btnSaveChanges.onclick = function () {
+    showDynamicLoadingModal("Applying changes..");
+    modifyForm(
+      formState.formname,
+      formState.formcode,
+      fileInput,
+      formState.status,
+      formState.description
+    );
+  };
 
   transitionModal("rev-changes-modal");
 }
@@ -347,18 +358,22 @@ function modifyForm(newname, formcode, fileElement, status, description) {
   })
     .then((response) => response.json())
     .then((data) => {
-      const success = data.statuscode === 200?true : false
+      const success = data.statuscode === 200 ? true : false;
       showToast({
         message: data.message,
-        duration: success? 2000 : 6000, 
-        style: success? 'success': 'failed',
-        onfinshed: success ? ()=> {window.location.reload()}: ()=>{}
-      })
+        duration: success ? 2000 : 6000,
+        style: success ? "success" : "failed",
+        onfinshed: success
+          ? () => {
+              window.location.reload();
+            }
+          : () => {},
+      });
     });
 }
 
 /** sets the file name in the ui */
-function setFileName(name){
+function setFileName(name) {
   if (name === "document_name") {
     fileName.textContent = "empty";
     btnRemoveFile.style.display = "none";
@@ -379,21 +394,21 @@ function makeTable(data) {
   formNameInput.value = form[0].fields.form_name;
 
   originalDocumentName = form[0].fields.original_doc_name;
-  setFileName(originalDocumentName)
- 
+  setFileName(originalDocumentName);
+
   let fields = JSON.parse(form[0].fields.fields);
 
   fields.forEach(function (field) {
     table += "<th>" + field.name + "</th>";
     if (field.datatype !== "empty") {
       const optionElementAcending = document.createElement("option");
-      optionElementAcending.value = field.name;
+      optionElementAcending.value = `${field.name}/asc`;
       optionElementAcending.text = field.name + " (Ascending)";
       optionElementAcending.id = "asc";
       orderFactor.appendChild(optionElementAcending);
 
       const optionElementDescending = document.createElement("option");
-      optionElementDescending.value = field.name;
+      optionElementDescending.value = `${field.name}/desc`;
       optionElementDescending.text = field.name + " (Descending)";
       optionElementDescending.id = "desc";
       orderFactor.appendChild(optionElementDescending);
@@ -405,7 +420,7 @@ function makeTable(data) {
 
   data.formvalues.forEach(function (formvalue) {
     let fieldValues = JSON.parse(formvalue.field_values);
-    if (fieldValues.length >0){
+    if (fieldValues.length > 0) {
       table += "<tr>";
       let index = 0;
       fields.forEach(function (field) {
@@ -417,7 +432,6 @@ function makeTable(data) {
         }
       });
     }
-   
   });
 
   table += "</table>";
@@ -495,9 +509,7 @@ generateBtn.addEventListener("click", function () {
       "/" +
       isAlphabeticalOrdered +
       "/" +
-      factor +
-      "/" +
-      transverse;
+      factor;
     linkTag.click();
     downloadAlert.classList.add("visible");
     downloadContent.classList.remove("visible");
