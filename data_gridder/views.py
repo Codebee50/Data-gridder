@@ -429,7 +429,7 @@ def modifyForm(request):
                     os.remove(doc_path)
                     print('deleted the appended document')
                 
-                form.appended_document = 'sampledoc.docx'
+                form.appended_document = 'documents/sampledoc.docx'
                 form.original_doc_name = 'document_name'
             else:#user selected a new document
                 dg_table = checkForDgTable(new_document)
@@ -438,10 +438,9 @@ def modifyForm(request):
                     new_document.name = form.appended_document.name
 
                     old_doucument_path = form.appended_document.path
-                    print('the name of appended', form.appended_document.name)
 
                     #deleting the old document before saving the new one 
-                    if form.appended_document.name == 'sampledoc.docx':
+                    if form.appended_document.name == 'sampledoc.docx' or form.appended_document.name == 'documents/sampledoc.docx':
                          #----------GENERATING A NEW DOCUMENT---------------
                         new_doc_path = settings.DOC_DIR + 'doc-' + form.form_code + '.docx'
                         with open(new_doc_path, 'wb+') as destination:
@@ -662,6 +661,7 @@ def generateDoc(request, formcode, docname, numbered, alph, factor, transverse):
             
             #----------GENERATING A TEMPORARY DOCUMENT---------------
             temp_doc = temp_dir + 'temp-doc-' + form.form_code + '.docx'
+            print('appended', form.appended_document)
 
             with open(temp_doc, 'wb+') as destination:
                 with form.appended_document.open('rb') as source: 
