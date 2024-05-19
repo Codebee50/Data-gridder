@@ -4,7 +4,7 @@ let formcode = hiddenFormcode.value;
 let tableCon = document.querySelector(".table-container");
 const changeText = document.getElementById("txt-change-file");
 const fileInput = document.getElementById("file");
-const editForm = document.getElementById("edit-form");
+const editFormButton = document.getElementById("edit-form-button");
 const modal = document.querySelector(".modal-container");
 const removeModal = document.getElementById("discard-btn");
 const formNameInput = document.getElementById("form-name-input");
@@ -171,7 +171,8 @@ btnRemoveFile.addEventListener("click", function () {
   fileRemoved = true; //indicate that the file was removed
 });
 
-// editForm.addEventListener("click", displayEditModal);
+
+editFormButton.addEventListener("click", displayEditModal);
 
 formNameInput.addEventListener('input', function(){
   const inputValueLength = setWordCount()
@@ -304,7 +305,6 @@ function buildReviewChangesModal(formState, differences) {
   }
 
   transitionModal("rev-changes-modal");
-  console.log('aghaha')
 }
 
 /**returns the operatino that was performed on the appended document

@@ -34,7 +34,7 @@ class Form(models.Model):
     form_code = models.TextField(blank=False, default='form_code')
     form_author = models.TextField(blank=False, default='appended_document')
     form_creator = models.ForeignKey(cur_user, on_delete=models.SET_NULL, null=True, blank=True)
-    appended_document = models.FileField(upload_to='documents', default='sampledoc.docx')
+    appended_document = models.FileField(upload_to='documents', default='documents/sampledoc.docx')
     original_doc_name = models.TextField(blank=True, default='document_name')
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     fields = models.JSONField()

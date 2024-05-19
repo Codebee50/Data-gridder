@@ -15,7 +15,7 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from functools import partial
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.core.files import File
 
 # Create your views here.
 # @login_required(login_url='register')
@@ -309,12 +309,7 @@ def publish(request):
                     
                     if dgTable == True:
                         old_file_name = document.name
-
-                        # unique_id = str(uuid.uuid4())
-
-                        _, ext = os.path.splitext(old_file_name)
-                        # unique_file_name = f"{unique_id}{ext}"
-                
+                        _, ext = os.path.splitext(old_file_name)                
                         document.name = 'doc-' + formcode + ext
                         new_form = Form.objects.create(form_name=formname, form_code=formcode, form_author=formauthor, appended_document=document, fields=formdata, original_doc_name = old_file_name, description = description)
                         new_form.save()
@@ -443,13 +438,26 @@ def modifyForm(request):
                     new_document.name = form.appended_document.name
 
                     old_doucument_path = form.appended_document.path
+                    print('the name of appended', form.appended_document.name)
 
                     #deleting the old document before saving the new one 
-                    if form.appended_document.name != 'sampledoc.docx':
+                    if form.appended_document.name == 'sampledoc.docx':
+                         #----------GENERATING A NEW DOCUMENT---------------
+                        new_doc_path = settings.DOC_DIR + 'doc-' + form.form_code + '.docx'
+                        with open(new_doc_path, 'wb+') as destination:
+                            for chunk in new_document.chunks():
+                                destination.write(chunk)
+
+                        # with open(new_doc_path, 'rb') as new_file:
+                        #     form.appended_document.save(f'doc-{form.form_code}.docx', File(new_file), save=True)
+
+                        form.appended_document = new_doc_path
+                    else:
                         if os.path.exists(old_doucument_path):
                             os.remove(old_doucument_path)
+                        
+                        form.appended_document = new_document
 
-                    form.appended_document = new_document
                     form.original_doc_name = original_file_name
                         
                 else:
@@ -485,6 +493,7 @@ def modifyForm(request):
         return JsonResponse({
             'statuscode': 400, 
             'message': 'GET method not allowed'}, status=400)        
+
 def editForm(request):
     if request.method == 'POST':
         new_name = request.POST.get('formname')
@@ -507,13 +516,23 @@ def editForm(request):
 
                     #deleting the old document before saving the new one 
                     if form.appended_document.name == 'sampledoc.docx':
-                        pass
+                        #----------GENERATING A NEW DOCUMENT---------------
+                        new_doc = settings.DOC_DIR + 'doc-' + form.form_code + '.docx'
+                        with open(new_doc, 'wb+') as destination:
+                            shutil.copyfileobj(new_document, destination)
+                        
+                        document = Document(new_doc).save()
+                        form.appended_document = document
+
                     else:
                         if os.path.exists(old_doucument_path):
                             os.remove(old_doucument_path)
-                    form.appended_document = new_document
+                            form.appended_document = new_document
+
                     form.original_doc_name = original_file_name
-                    form.form_name = new_name
+
+
+                    form.form_name = new_name #changing the name of the form
                     #changing the form names for every formvalue object
                     form_values= FormValue.objects.filter(form_code = form.form_code)
                     for form_value in form_values:

@@ -9,8 +9,6 @@ function transitionModal(modalId, onCancel = function(){transitionModal('none')}
     modalSection.classList.remove("visible");
   });
 
-  console.log(modalId)
-
   if (modalId == "none") {
     //this means we dont want to show any modal
   } else {

@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
@@ -215,6 +215,11 @@ else:
     MEDIA_URL = '../media/'
     MEDIA_ROOT = '../media/'
     TEMP_DIR = '../media/temps/'
+
+
+DOC_DIR = os.path.join(BASE_DIR, "media/documents/")
+
+
 
 AUTHENTICATION_BACKENDS = [
     'data_gridder.mauth.EmailBackend',
