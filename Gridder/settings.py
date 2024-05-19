@@ -211,13 +211,14 @@ if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
     TEMP_DIR = 'media/temps/'
+    DOC_DIR = os.path.join(BASE_DIR, "media/documents/")
 else:
     MEDIA_URL = '../media/'
     MEDIA_ROOT = '../media/'
+    DOC_DIR = '../media/documents/'
     TEMP_DIR = '../media/temps/'
 
 
-DOC_DIR = os.path.join(BASE_DIR, "media/documents/")
 
 
 
