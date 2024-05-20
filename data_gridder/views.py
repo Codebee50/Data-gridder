@@ -363,7 +363,7 @@ def viewForm(request, formcode):
     except ObjectDoesNotExist:
         return render(request, 'form-not-found.html')
     
-    if request.user != form.form_creator:
+    if request.user.username != form.form_author:
         return render(request, 'oops.html', {
             'heading_message': '401: Unauthorized',
             'submessage': 'You are not the creator of this form and do not have access. If you believe this form is yours, please log in with the account used to create it to regain access.'
