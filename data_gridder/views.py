@@ -310,7 +310,7 @@ def publish(request):
                         old_file_name = document.name
                         _, ext = os.path.splitext(old_file_name)                
                         document.name = 'doc-' + formcode + ext
-                        new_form = Form.objects.create(form_name=formname, form_code=formcode, form_author=formauthor, appended_document=document, fields=formdata, original_doc_name = old_file_name, description = description)
+                        new_form = Form.objects.create(form_name=formname, form_code=formcode, form_author=formauthor, form_creator=request.user, appended_document=document, fields=formdata, original_doc_name = old_file_name, description = description)
                         new_form.save()
                         
                         
@@ -329,7 +329,7 @@ def publish(request):
                         }
                     
                 else: 
-                    new_form = Form.objects.create(form_name=formname, form_code=formcode, form_author=formauthor, fields=formdata, description=description)
+                    new_form = Form.objects.create(form_name=formname, form_code=formcode, form_author=formauthor, form_creator=request.user, fields=formdata, description=description)
                     new_form.save()
                     
                     context = {
