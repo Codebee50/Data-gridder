@@ -357,8 +357,20 @@ def publish(request):
 @login_required(login_url='login')
 def viewForm(request, formcode):
     current_site = get_current_site(request)
-    if request.method == 'POST':#handle post request
+
+    try:
         form = Form.objects.get(form_code= formcode)
+    except ObjectDoesNotExist:
+        return render(request, 'form-not-found.html')
+    
+    if request.user != form.form_creator:
+        return render(request, 'oops.html', {
+            'heading_message': '401: Unauthorized',
+            'submessage': 'You are not the creator of this form and do not have access. If you believe this form is yours, please log in with the account used to create it to regain access.'
+        })
+
+
+    if request.method == 'POST':#handle post request
         formValues = FormValue.objects.filter(form_code=formcode)
 
         context = {
@@ -367,12 +379,7 @@ def viewForm(request, formcode):
             'domain': current_site
         }
         return JsonResponse(context)
-    else:#handle get request
-        try:
-            form = Form.objects.get(form_code= formcode)
-        except ObjectDoesNotExist:
-            return render(request, 'form-not-found.html')
-            
+    else:#handle get request            
         formValues = FormValue.objects.filter(form_code=formcode)
         peopleCount = len(formValues)
         context = {
