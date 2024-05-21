@@ -232,14 +232,6 @@ AUTHENTICATION_BACKENDS = [
 
 
 if DEBUG:
-    EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
-    EMAIL_HOST = 'smtp.zoho.com'
-    EMAIL_PORT = 465
-    EMAIL_USE_TLS= True
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
@@ -248,6 +240,14 @@ else:
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD_DEBUG')
     EMAIL_FROM_USER = os.environ.get('EMAIL_HOST_USER_DEBUG')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER_DEBUG')
+else:
+    EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+    EMAIL_HOST = 'datagridder.com'
+    EMAIL_PORT = 465
+    EMAIL_USE_TLS= True
+    EMAIL_HOST_USER = os.environ.get('NOREPLY_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('NOREPLY_HOST_PASSWORD')
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 
