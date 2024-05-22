@@ -163,7 +163,7 @@ def resend_activation_email(request, userId):
         user_profile = Profile.objects.get(id_user = user.id)
         if user_profile.is_email_verified:
             return render(request, 'emails/activate-account.html', {
-            'user':user
+            'user':user_profile
             })
             
         else:
