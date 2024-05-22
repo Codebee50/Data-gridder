@@ -183,6 +183,7 @@ def resend_activation_email(request, userId):
                 email_subject,
                 text_content,
                 sender,
+                [user_profile.user.email]
             )
             email.attach_alternative(email_body, 'text/html')
             email.content_subtype = 'html'
