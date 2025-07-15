@@ -1,0 +1,10 @@
+Below is all the contents of our docs: 
+
+
+
+ This is the content for the doc READme.md 
+
+ # DATA GRIDDER
+
+### Powered by codebee
+### Onuh Kyrian Udochukwu 
